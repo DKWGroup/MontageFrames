@@ -5,25 +5,27 @@
 Każdą nową poprawkę od użytkowniczki najpierw dopisz do `PREFERENCJE.md` (z datą), potem zmień kod/rolkę.
 
 **Klienci:** rolka dla klienta → przed montażem przeczytaj `klienci/<klient>/PREFERENCJE.md`. Ma pierwszeństwo przed ogólnymi `PREFERENCJE.md`/`frame.md` tam, gdzie się różnią; poprawki dla klienta dopisuj tam. Logo i assety klienta: `public/Brandings/<Klient>/`.
-- `skyclass` — SkyClass (skyclass.pl, tanie podróże): Poppins 500/900, granat `#124F81` + róż `#FF395C`, motywy bilet/lotnisko, kwoty w zielonym neonie, przebitki znanych miejsc.
+- `magdalena-herod` — `klienci/magdalena-herod/PREFERENCJE.md`: spokojniejsze kinetic subtitles; Montserrat 400 w treści, Libre Baskerville 400/400 italic w ważnych słowach. Krem, śliwka i złoto; schludne karty i ikony jak na stronie, tematyczne przebitki z ludźmi. Wysokość napisów jak aktualny SkyClass (0,73 / 0,63), animacje bezpośrednio pod napisami. Subtelne SFX 10 dB poniżej oryginalnego filmu lub ciszej. Wiedza o ebooku w pliku klientki. To profil montażowy; przy wdrażaniu stylu w silniku korzystaj z tego pliku.
+- `skyclass` — zachowuj ciszę i pełną wypowiedź (napisy 1:1), napisy 6% kadru wyżej niż w Alicante v2, grafiki na pozycji v2, przejścia między kierunkami bez przebłysków prowadzącego. SkyClass (skyclass.pl, tanie podróże): Poppins 500/900, granat `#124F81` + róż `#FF395C`, motywy bilet/lotnisko, kwoty w zielonym neonie, przebitki znanych miejsc.
 
 Użytkowniczka wrzuca surowe nagranie rolki (9:16, mówiona do kamery, po polsku), a Claude ją montuje: wycina ciszę i dubli, dodaje animowane napisy w zdefiniowanym stylu, zoomy. Silnik: Remotion (React). Komunikacja po polsku.
 
 ## Workflow jednej rolki
 
-1. Nagranie leży w `inbox/` (albo pod ścieżką, którą poda użytkowniczka). Może być surowe albo wstępnie pocięte — cięcie ciszy i tak zadziała. Kilka klipów → najpierw skleić ffmpeg-iem (concat) w jeden plik.
+1. Nagranie leży w `inbox/` (albo pod ścieżką, którą poda użytkowniczka). Może być surowe albo wstępnie pocięte — cięcie ciszy działa dla innych stylów; dla SkyClass jest wyłączone. Kilka klipów → najpierw skleić ffmpeg-iem (concat) w jeden plik.
 2. `npm run reel -- inbox/<plik> <nazwa>` → `public/reels/<nazwa>/`:
    - `source.*` (kopia), `transcript.json` (Parakeet, słowa z czasami w s),
-   - `reel.json` — szkic montażu: cięcie ciszy (ffmpeg silencedetect), grupy 2–6 słów (cięte na końcu zdania, przecinku i pauzie; sieroty doklejane), słowo-klucz, układ (`stack`/`inline`), kierunki wjazdu, zoom co drugie ujęcie, puste `overlays`.
+   - `reel.json` — szkic montażu: cięcie ciszy (ffmpeg silencedetect; wyłączone dla SkyClass), grupy 2–6 słów (cięte na końcu zdania, przecinku i pauzie; sieroty doklejane), słowo-klucz, układ (`stack`/`inline`), kierunki wjazdu, zoom co drugie ujęcie, puste `overlays`.
    - Istniejący `reel.json` nie zostanie nadpisany bez `--force` (może mieć ręczne poprawki).
 3. **Redakcja `reel.json` (praca Claude'a):**
    - popraw błędy ASR w `captions[].words[].text`, NIE ruszaj `start`/`end`;
    - wybierz sensowne `key` (słowo niosące sens, liczby, puenta);
-   - wytnij dubli, przejęzyczenia i powtórzone zdania, skracając/dzieląc `segments` (napisy z wyciętych fragmentów znikają same);
+   - dla innych stylów wytnij dubli, przejęzyczenia i powtórzone zdania, skracając/dzieląc `segments` (napisy z wyciętych fragmentów znikają same);
    - przegrupuj napisy, gdy automat podzielił myśl źle (spłaszcz słowa i zbuduj grupy na nowo — liczy się sens, 2–6 słów);
    - opcjonalnie: `layout`, `hl` (słowa w akcencie), `color` (akcent klucza), `align`, `from`; per ujęcie `zoom` / `zoomTo` (najazd);
    - dodaj `overlays` tam, gdzie treść o to prosi: liczby → `counter`/`bars`/`ring`/`line`, wyliczanki → `list`, „zamiast X — Y” → `compare`, hak → `title`, emocja → `emoji`, ilustracja → `media`;
-   - **bez dublowania** (PREFERENCJE.md): usuń z napisów słowa, które pokazuje grafika (liczby, punkty listy, porównania, tytuł); nad liczbą-bohaterem napis bez klucza (`key: -1`).
+   - **SkyClass: pełne napisy 1:1 również przy cenach/listach/CTA; żadnego wycinania ciszy, zawahań ani urwanych słów.**
+   - **bez dublowania** (PREFERENCJE.md, inne style): usuń z napisów słowa, które pokazuje grafika (liczby, punkty listy, porównania, tytuł); nad liczbą-bohaterem napis bez klucza (`key: -1`).
 4. Kontrola: `npx remotion still <nazwa> $TMPDIR/f.png --frame=<N> --scale=0.4`, potem obejrzyj PNG (Read). Sprawdź kilka klatek przed renderem.
 5. Render: `npx remotion render <nazwa> out/<nazwa>.mp4`, wynik wyślij użytkowniczce (SendUserFile).
 6. Podgląd na żywo: `npm run dev` (Remotion Studio, każda rolka = osobna kompozycja; po edycji JSON odśwież stronę).
@@ -72,6 +74,7 @@ Wzorcowy przykład: `public/reels/pokazowka/reel.json`. Wygląd grafik: tokeny `
 
 ## Style napisów
 
+- `skyclass` — `src/styles/skyclass.tsx`: Poppins 500/900, różowe pieczątki, start/odlot po skosie. Grafiki w `src/skyclass-overlays.tsx`: `money` (kwota `to`, opcjonalnie `upper`, `oldPrice`, `prefix`, banknoty wystrzeliwujące z cyfr), `ticket` (kierunek, `country`, opcjonalny `code`, kwota `to`, czas odliczania `priceAt`), `travel` (plik `src`, metka `text`/`country`, przejście okna), `list`, `counter` i `cta`. Przykład: rolka `alicante`. Napisy mogą mieć `effect: "stamp"` i jawny `end` w czasie źródła, aby kontrolować ich czas; w SkyClass grafika nie zastępuje wypowiadanych słów w napisach.
 - Styl = jeden plik w `src/styles/` + wpis w `STYLES` w `src/Reel.tsx`; w `reel.json` wybiera się go przez `"style"`.
 - Nowy styl od użytkowniczki: skopiuj `src/styles/persona.tsx`, zmień tokeny `T` (font, rozmiary, kolory, pozycja `y`, `travel`, `drift`, `stairWidth`) i/lub ruch.
 - `persona` — wzorowany na rolkach Krzysztofa Persony / Toma Pietrzyka (kurs „Lepsze Rolki", presety „Persona Presets 2.0" do Premiere: Slide Bounce, Wobble, Scribble, Camera Shake, Glitch). Font marki to **MADE Tommy Soft** (Bold/ExtraBold/Black); dopóki plików nie ma w `public/fonts/`, styl używa Nunito (zbliżony, zaokrąglony, pełne polskie znaki).

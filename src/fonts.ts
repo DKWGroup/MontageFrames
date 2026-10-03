@@ -8,6 +8,11 @@ const FONTS: {
   weight: string;
   style?: string;
 }[] = [
+  { family: "Montserrat", file: "fonts/Montserrat.ttf", weight: "100 900" },
+  { family: "Libre Baskerville", file: "fonts/LibreBaskerville.ttf", weight: "400 700" },
+  { family: "Libre Baskerville", file: "fonts/LibreBaskerville-Italic.ttf", weight: "400 700", style: "italic" },
+  { family: "Poppins", file: "fonts/Poppins-Medium.ttf", weight: "500" },
+  { family: "Poppins", file: "fonts/Poppins-Black.ttf", weight: "900" },
   { family: "Nunito", file: "fonts/Nunito.ttf", weight: "200 1000" },
   { family: "Fustat", file: "fonts/Fustat.ttf", weight: "200 800" },
   // Font marki Persony — wrzuć pliki z madetype.com pod tymi nazwami, a styl "persona" sam go użyje.

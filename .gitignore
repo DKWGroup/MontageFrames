@@ -4,9 +4,10 @@ dist
 .env
 
 # Ignore the output video from Git but not videos you import into src/.
-out
+out/
 
 # Surowe nagrania i projekty rolek (duże pliki wideo)
 inbox/
 public/reels/
-
+**/surowe pliki/
+*.mp4

@@ -1,5 +1,5 @@
 // Surowe nagranie -> public/reels/<nazwa>/{source.*, transcript.json, reel.json}
-// Użycie: node scripts/prep.mjs <plik-wideo> [nazwa] [--force]
+// Użycie: node scripts/prep.mjs <plik-wideo> [nazwa] [--force] [--style=skyclass]
 import { execFileSync, spawnSync } from "node:child_process";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -67,8 +67,9 @@ export function keepRanges(silences, duration, pad = PAD) {
   return keep.map((k) => ({ start: +k.start.toFixed(3), end: +k.end.toFixed(3) }));
 }
 
-export function buildReel({ source, words, silences, duration }) {
-  const segments = keepRanges(silences, duration).map((s, i) => ({ ...s, zoom: i % 2 ? 1.1 : 1 }));
+export function buildReel({ source, words, silences, duration, style = "persona" }) {
+  const ranges = style === "skyclass" ? [{ start: 0, end: duration }] : keepRanges(silences, duration);
+  const segments = ranges.map((s, i) => ({ ...s, zoom: i % 2 ? 1.1 : 1 }));
   let dir = 0;
   const pauses = silences.map((s) => s.start);
   const captions = groupWords(words, { pauses }).map((g, i) => {
@@ -81,7 +82,7 @@ export function buildReel({ source, words, silences, duration }) {
     if (/[.!?]$/.test(g.at(-1).text)) dir++; // nowe zdanie = nowy kierunek wjazdu
     return group;
   });
-  return { source, style: "persona", fps: 30, segments, captions, overlays: [] };
+  return { source, style, fps: 30, segments, captions, overlays: [] };
 }
 
 function detectSilences(file) {
@@ -101,11 +102,12 @@ function detectSilences(file) {
 function main() {
   const args = process.argv.slice(2);
   const force = args.includes("--force");
-  const [input, rawName] = args.filter((a) => a !== "--force");
+  const [input, rawName] = args.filter((a) => !a.startsWith("--"));
   if (!input || !existsSync(input)) {
-    console.error("Użycie: node scripts/prep.mjs <plik-wideo> [nazwa] [--force]");
+    console.error("Użycie: node scripts/prep.mjs <plik-wideo> [nazwa] [--force] [--style=skyclass]");
     process.exit(1);
   }
+  const style = args.find((a) => a.startsWith("--style="))?.slice(8) ?? (/(^|[\/])skyclass([\/]|$)/i.test(input) ? "skyclass" : "persona");
   const name = (rawName ?? path.parse(input).name)
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
@@ -131,11 +133,11 @@ function main() {
   execFileSync("npx", ["hyperframes", "transcribe", src, "-d", dir, "-l", "pl", "--json"], { stdio: "inherit" });
   const words = JSON.parse(readFileSync(path.join(dir, "transcript.json"), "utf8"));
 
-  const reel = buildReel({ source, words, silences: detectSilences(src), duration });
+  const reel = buildReel({ source, words, silences: style === "skyclass" ? [] : detectSilences(src), duration, style });
   writeFileSync(path.join(dir, "reel.json"), JSON.stringify(reel, null, 2));
   const kept = reel.segments.reduce((n, s) => n + s.end - s.start, 0);
   console.log(
-    `\n${name}: ${duration.toFixed(1)}s -> ${kept.toFixed(1)}s po cięciu ciszy, ${reel.segments.length} ujęć, ${reel.captions.length} grup napisów`,
+    `\n${name}: ${duration.toFixed(1)}s -> ${kept.toFixed(1)}s (${style === "skyclass" ? "bez cięcia ciszy" : "po cięciu ciszy"}), ${reel.segments.length} ujęć, ${reel.captions.length} grup napisów`,
   );
   console.log(`Podgląd: npm run dev  |  Render: npx remotion render ${name} out/${name}.mp4`);
 }

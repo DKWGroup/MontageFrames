@@ -17,6 +17,10 @@ type Item = string | { text: string; at?: number };
 type Col = { title: string; items: Item[] };
 export type Overlay = {
   type:
+    | "money"
+    | "ticket"
+    | "cta"
+    | "travel"
     | "title"
     | "counter"
     | "bars"
@@ -26,6 +30,13 @@ export type Overlay = {
     | "compare"
     | "emoji"
     | "media";
+  transitionFrom?: string; // Pełne tło poprzedniego miejsca pod oknem kolejnej przebitki
+  transitionTrim?: number;
+  country?: string;
+  code?: string;
+  priceAt?: number;
+  upper?: number;
+  oldPrice?: number;
   start: number;
   end: number;
   y?: number; // środek grafiki jako część wysokości kadru; bez y wykresy siedzą na dole pod napisami
@@ -108,6 +119,7 @@ const DEFAULT_Y: Partial<Record<Overlay["type"], number>> = {
 
 // Grafika na dole kadru -> napisy w tym czasie podnoszą się nad nią (src/Reel.tsx)
 export const atBottom = (o: Overlay) =>
+  o.type !== "travel" &&
   o.y == null &&
   DEFAULT_Y[o.type] == null &&
   !(o.type === "media" && o.fit !== "card");
@@ -838,7 +850,7 @@ const MediaFull: React.FC<P> = (p) => {
   );
 };
 
-const BODIES: Record<Overlay["type"], React.FC<B>> = {
+const BODIES: Partial<Record<Overlay["type"], React.FC<B>>> = {
   title: TitleBody,
   counter: CounterBody,
   bars: BarsBody,

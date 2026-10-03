@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { groupWords, keepRanges, pickKey } from "./prep.mjs";
+import { buildReel, groupWords, keepRanges, pickKey } from "./prep.mjs";
 
 const w = (s) => s.split(" ").map((text, i) => ({ text, start: i, end: i + 0.5 }));
 
@@ -33,4 +33,13 @@ test("cięcie ciszy: wycina pauzy z zapasem, gubi ciszę na początku i końcu",
     { start: 0.42, end: 3.08 },
     { start: 4.22, end: 9.08 },
   ]);
+});
+
+
+test("SkyClass: zachowuje całość nagrania i wszystkie słowa mimo wykrytych pauz", () => {
+  const words = w("Takie loty dostajesz każd… w SkyClass");
+  const data = buildReel({ source: "source.mp4", words, silences: [{ start: 0, end: 0.5 }, { start: 3, end: 4.3 }, { start: 9 }], duration: 10, style: "skyclass" });
+  assert.equal(data.style, "skyclass");
+  assert.deepEqual(data.segments, [{ start: 0, end: 10, zoom: 1 }]);
+  assert.deepEqual(data.captions.flatMap((g) => g.words), words);
 });

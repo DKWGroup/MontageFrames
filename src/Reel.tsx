@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   AbsoluteFill,
+  Audio,
   CalculateMetadataFunction,
   interpolate,
   OffthreadVideo,
@@ -11,12 +12,18 @@ import {
 } from "remotion";
 import { loadFonts } from "./fonts";
 import { atBottom, Overlay, OverlayView } from "./overlays";
+import { SkyClass } from "./styles/skyclass";
+import { SkyClassOverlay } from "./skyclass-overlays";
 import { Persona } from "./styles/persona";
+import { Herod, HerodOverlay } from "./styles/herod";
 
 // Czasy w reel.json są w sekundach ŹRÓDŁA (surowego nagrania).
 export type Word = { text: string; start: number; end: number };
 export type Dir = "left" | "right" | "top" | "bottom";
 export type CaptionGroup = {
+  lineBreak?: number; // Liczba słów pierwszej linii w stylu Herod.
+  end?: number;
+  effect?: "stamp";
   words: Word[];
   key?: number; // indeks słowa-klucza (duże); -1 = bez klucza, same małe słowa
   from?: Dir; // skąd wjeżdża grupa
@@ -49,7 +56,11 @@ export type StyleProps = {
   raised: boolean; // na dole jest grafika -> napis wyżej, nad nią
 };
 
-const STYLES: Record<string, React.FC<StyleProps>> = { persona: Persona };
+const STYLES: Record<string, React.FC<StyleProps>> = {
+  persona: Persona,
+  skyclass: SkyClass,
+  herod: Herod,
+};
 
 type Props = { reel: string; data?: ReelData };
 
@@ -101,6 +112,8 @@ export const Reel: React.FC<Props> = ({ reel, data }) => {
   const frame = (t: number) => Math.round(toOut(t, segments) * fps);
   const Style = STYLES[data.style] ?? Persona;
 
+  const OverlayComponent =
+    data.style === "skyclass" ? SkyClassOverlay : data.style === "herod" ? HerodOverlay : OverlayView;
   const bottom = (data.overlays ?? []).filter(atBottom);
 
   // Słowo zostaje, jeśli zaczyna się w zachowanym fragmencie (ASR startuje słowa do ~0.2 s za wcześnie) — wycięty dubel znika razem z napisem.
@@ -115,6 +128,9 @@ export const Reel: React.FC<Props> = ({ reel, data }) => {
 
   return (
     <AbsoluteFill style={{ backgroundColor: "black" }}>
+      {data.style === "skyclass" && (
+        <Audio src={staticFile(`reels/${reel}/${data.source}`)} />
+      )}
       {segments.map((s, i) => {
         const from = frame(s.start);
         const dur =
@@ -128,11 +144,14 @@ export const Reel: React.FC<Props> = ({ reel, data }) => {
               src={staticFile(`reels/${reel}/${data.source}`)}
               trimBefore={Math.round(s.start * fps)}
               // 1 klatka wyciszenia na krawędziach cięcia = brak trzasków
-              volume={(f) =>
-                interpolate(f, [0, 1, dur - 1, dur], [0, 1, 1, 0], {
-                  extrapolateLeft: "clamp",
-                  extrapolateRight: "clamp",
-                })
+              volume={
+                data.style === "skyclass"
+                  ? 0
+                  : (f) =>
+                      interpolate(f, [0, 1, dur - 1, dur], [0, 1, 1, 0], {
+                        extrapolateLeft: "clamp",
+                        extrapolateRight: "clamp",
+                      })
               }
               style={{
                 width: "100%",
@@ -156,7 +175,7 @@ export const Reel: React.FC<Props> = ({ reel, data }) => {
               durationInFrames={dur}
               layout="none"
             >
-              <OverlayView
+              <OverlayComponent
                 o={o}
                 dur={dur}
                 src={(file) => staticFile(`reels/${reel}/${file}`)}
@@ -170,6 +189,7 @@ export const Reel: React.FC<Props> = ({ reel, data }) => {
           const start = toOut(words[0].start, segments);
           const next = visible[i + 1];
           const end = Math.min(
+            g.end == null ? Infinity : toOut(g.end, segments),
             next ? toOut(next.words[0].start, segments) : Infinity,
             Math.max(
               toOut(words[words.length - 1].end, segments) + 1,
