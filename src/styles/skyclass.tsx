@@ -24,8 +24,8 @@ const T = {
   smallColor: "#F7FAFC",
   accent: "#FF395C", // Akcent klienta SkyClass
   shadow: "0 8px 24px rgba(12,58,96,0.9), 0 3px 5px rgba(12,58,96,0.95)",
-  maxWidth: 0.84, // szerokość bloku względem kadru
-  lineChars: 18, // powyżej tylu liter małe słowa idą w 2 równe linie
+  maxWidth: 0.76, // szerokość bloku względem kadru (820 px w 1080 px — safe zone)
+  lineChars: 16, // powyżej tylu liter małe słowa idą w 2 równe linie
   y: 0.73, // środek bloku względem wysokości kadru (nad UI Instagrama, pod twarzą)
   yRaised: 0.63, // DOLNA krawędź bloku, gdy na dole jest grafika — napis stoi tuż nad nią
   travel: 160, // px przesunięcia przy wjeździe i wyjeździe

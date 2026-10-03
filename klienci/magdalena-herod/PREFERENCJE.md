@@ -6,7 +6,7 @@ Zapisano: **2026-10-03**. Strona: [magdalenaherod.pl](https://magdalenaherod.pl/
 
 **Zaakceptowane także: rolka nr 2.** Potwierdzenie użytkowniczki: „Aktualna rolka jest super”. Kontynuuj ten sam styl w rolce nr 3 i kolejnych. *(2026-10-03)*
 
-**Rolki nr 3, 4 i 5:** kontynuacja spójnego stylu `herod`: Montserrat 400 + Libre Baskerville 400, krem/śliwka/złoto, podwójne linie bez samosiek, autentyczne tematyczne przebitki, liniowe ikony oraz duża prezentacja ebooka „Zobacz siebie” z kafelkami i linkiem nad głową. *(2026-10-03)*
+**Rolki nr 3, 4, 5, 6, 7 i 8:** kontynuacja spójnego stylu `herod`: Montserrat 400 + Libre Baskerville 400, krem/śliwka/złoto, podwójne linie bez samosiek, autentyczne tematyczne przebitki z ludźmi, liniowe ikony oraz duża prezentacja ebooka „Zobacz siebie” z kafelkami i linkiem nad głową. *(2026-10-03)*
 
 Przed każdą rolką czytaj także główne `PREFERENCJE.md` i `frame.md`. Ten plik ma pierwszeństwo w kwestiach palety, fontów, tempa, wyglądu kart i położenia grafik. Pozostałe globalne zasady obowiązują: zwarte grupy 2–6 słów, bez wiszących spójników i przyimków również podczas animacji, odsłonięta twarz, czytelność na telefonie, grafiki dobrane do sensu wypowiedzi i bez zbędnego dublowania tekstu. Poprawki klientki dopisuj tutaj z datą. Jest to trwały profil do przyszłych montaży. Napisy i karty wdrożono w `src/styles/herod.tsx`.
 

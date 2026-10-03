@@ -30,8 +30,8 @@ const T = {
   smallColor: "rgba(255,255,255,0.92)",
   accent: "#FF6B1A", // słowa z group.hl — pomarańcz (frame.md)
   shadow: "0 8px 32px rgba(0,0,0,0.45), 0 2px 6px rgba(0,0,0,0.35)",
-  maxWidth: 0.84, // szerokość bloku względem kadru
-  lineChars: 18, // powyżej tylu liter małe słowa idą w 2 równe linie
+  maxWidth: 0.76, // szerokość bloku względem kadru (820 px w 1080 px — safe zone)
+  lineChars: 16, // powyżej tylu liter małe słowa idą w 2 równe linie
   y: 0.64, // środek bloku względem wysokości kadru (nad UI Instagrama, pod twarzą)
   yRaised: 0.59, // DOLNA krawędź bloku, gdy na dole jest grafika — napis stoi tuż nad nią
   travel: 160, // px przesunięcia przy wjeździe i wyjeździe
