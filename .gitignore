@@ -5,4 +5,8 @@ dist
 
 # Ignore the output video from Git but not videos you import into src/.
 out
-whisper.cpp
+
+# Surowe nagrania i projekty rolek (duże pliki wideo)
+inbox/
+public/reels/
+

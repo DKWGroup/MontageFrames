@@ -1,27 +1,25 @@
 {
   "name": "MontageFrames",
   "version": "1.0.0",
-  "description": "A Remotion template for TikTok-style captions",
+  "description": "Montaż rolek: cięcie ciszy + animowane napisy (Remotion)",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@remotion/cli": "4.0.532",
-    "@remotion/zod-types": "4.0.532",
     "@remotion/animation-utils": "4.0.532",
+    "@remotion/cli": "4.0.532",
     "@remotion/layout-utils": "4.0.532",
     "@remotion/media-utils": "4.0.532",
+    "@remotion/tailwind-v4": "4.0.532",
+    "@remotion/zod-types": "4.0.532",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.532",
-    "zod": "4.5.4",
-    "@remotion/tailwind-v4": "4.0.532",
-    "tailwindcss": "4.0.0"
+    "tailwindcss": "4.0.0",
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.532",
-    "@remotion/install-whisper-cpp": "4.0.532",
-    "@remotion/captions": "4.0.532",
     "@types/react": "19.2.7",
     "@types/web": "0.0.166",
     "eslint": "9.39.5",
@@ -33,7 +31,8 @@
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
-    "create-subtitles": "node sub.mjs"
+    "reel": "node scripts/prep.mjs",
+    "test": "node --test scripts/*.test.mjs"
   },
   "sideEffects": [
     "*.css"
