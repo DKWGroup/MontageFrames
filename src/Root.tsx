@@ -1,25 +1,37 @@
+// Rejestr synchronizowany automatycznie; defaultProps zapisuje także Studio.
 import "./index.css";
-import { Composition, getStaticFiles } from "remotion";
-import { calculateReelMetadata, Reel } from "./Reel";
+import { Composition } from "remotion";
+import { calculateReelMetadata } from "./Reel";
+import { StudioReel as Reel0 } from "./studio/alicante";
+import { StudioReel as Reel1 } from "./studio/bisanz-ksiazulo";
+import { StudioReel as Reel2 } from "./studio/demo";
+import { StudioReel as Reel3 } from "./studio/lot-na-cypr";
+import { StudioReel as Reel4 } from "./studio/magdalena-herod-1";
+import { StudioReel as Reel5 } from "./studio/magdalena-herod-2";
+import { StudioReel as Reel6 } from "./studio/magdalena-herod-3";
+import { StudioReel as Reel7 } from "./studio/magdalena-herod-4";
+import { StudioReel as Reel8 } from "./studio/magdalena-herod-5";
+import { StudioReel as Reel9 } from "./studio/magdalena-herod-6";
+import { StudioReel as Reel10 } from "./studio/magdalena-herod-7";
+import { StudioReel as Reel11 } from "./studio/magdalena-herod-8";
+import { StudioReel as Reel12 } from "./studio/pokazowka";
 
-// Każdy folder public/reels/<nazwa>/ z reel.json = osobna kompozycja w panelu bocznym Studio.
 export const RemotionRoot: React.FC = () => (
   <>
-    {getStaticFiles()
-      .map((f) => f.name.match(/^reels\/([a-z0-9-]+)\/reel\.json$/)?.[1])
-      .filter((name): name is string => Boolean(name))
-      .map((name) => (
-        <Composition
-          key={name}
-          id={name}
-          component={Reel}
-          calculateMetadata={calculateReelMetadata}
-          width={1080}
-          height={1920}
-          fps={30}
-          durationInFrames={1}
-          defaultProps={{ reel: name }}
-        />
-      ))}
+    <Composition id="alicante" component={Reel0} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{
+      reel: "alicante",
+    }} />
+    <Composition id="bisanz-ksiazulo" component={Reel1} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"bisanz-ksiazulo"}} />
+    <Composition id="demo" component={Reel2} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"demo"}} />
+    <Composition id="lot-na-cypr" component={Reel3} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"lot-na-cypr"}} />
+    <Composition id="magdalena-herod-1" component={Reel4} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"magdalena-herod-1"}} />
+    <Composition id="magdalena-herod-2" component={Reel5} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"magdalena-herod-2"}} />
+    <Composition id="magdalena-herod-3" component={Reel6} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"magdalena-herod-3"}} />
+    <Composition id="magdalena-herod-4" component={Reel7} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"magdalena-herod-4"}} />
+    <Composition id="magdalena-herod-5" component={Reel8} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"magdalena-herod-5"}} />
+    <Composition id="magdalena-herod-6" component={Reel9} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"magdalena-herod-6"}} />
+    <Composition id="magdalena-herod-7" component={Reel10} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"magdalena-herod-7"}} />
+    <Composition id="magdalena-herod-8" component={Reel11} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"magdalena-herod-8"}} />
+    <Composition id="pokazowka" component={Reel12} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={{"reel":"pokazowka"}} />
   </>
 );

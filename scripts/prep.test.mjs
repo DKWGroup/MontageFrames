@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildReel, groupWords, keepRanges, pickKey } from "./prep.mjs";
+import { buildReel, clientOf, groupWords, keepRanges, pickKey, renderPath, slug, styleOf } from "./prep.mjs";
 
 const w = (s) => s.split(" ").map((text, i) => ({ text, start: i, end: i + 0.5 }));
 
@@ -42,4 +42,32 @@ test("SkyClass: zachowuje całość nagrania i wszystkie słowa mimo wykrytych p
   assert.equal(data.style, "skyclass");
   assert.deepEqual(data.segments, [{ start: 0, end: 10, zoom: 1 }]);
   assert.deepEqual(data.captions.flatMap((g) => g.words), words);
+});
+
+test("klient z ścieżki nagrania; jego rolki renderują się do klienci/<klient>/Render, reszta do out/", () => {
+  assert.equal(clientOf("klienci/skyclass/surowe pliki/lot na cypr.mp4"), "skyclass");
+  assert.equal(clientOf("/Users/x/MontageFrames/Klienci/kacper-bisanz/surowe pliki/a.mp4"), "kacper-bisanz");
+  assert.equal(clientOf("inbox/demo.mp4"), null);
+  assert.equal(renderPath("skyclass", "lot-na-cypr"), "klienci/skyclass/Render/lot-na-cypr.mp4");
+  assert.equal(renderPath(null, "demo"), "out/demo.mp4");
+});
+
+test("slug: polskie znaki (też wielkie), spacje i podkreślenia", () => {
+  assert.equal(slug("Lot na Cypr_1"), "lot-na-cypr-1");
+  assert.equal(slug("Łódź Żabka!"), "lodz-zabka");
+});
+
+test("buildReel zapisuje klienta, gdy jest znany", () => {
+  const base = { source: "source.mp4", words: w("raz dwa."), silences: [], duration: 2, style: "skyclass" };
+  assert.equal(buildReel({ ...base, client: "skyclass" }).client, "skyclass");
+  assert.equal("client" in buildReel(base), false);
+});
+
+test("styl napisów z folderu klienta w ścieżce nagrania", () => {
+  assert.equal(styleOf("klienci/skyclass/surowe pliki/lot.mp4"), "skyclass");
+  assert.equal(styleOf("klienci/kacper-bisanz/surowe pliki/a.mp4"), "bisanz");
+  assert.equal(styleOf("klienci/magdalena-herod/surowe pliki/a.mp4"), "herod");
+  assert.equal(styleOf("klienci/swieza-bryka-ameryka/surowe pliki/mustang.mp4"), "ameryka");
+  assert.equal(styleOf("/Users/x/Klienci/swiezabryka-ameryka/a.mp4"), "ameryka");
+  assert.equal(styleOf("inbox/lot do ameryki.mp4"), "persona");
 });

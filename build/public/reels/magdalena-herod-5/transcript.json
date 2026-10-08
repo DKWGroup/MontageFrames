@@ -1,0 +1,1040 @@
+[
+  {
+    "id": "w0",
+    "text": "Bardzo",
+    "start": 0,
+    "end": 0.4
+  },
+  {
+    "id": "w1",
+    "text": "często",
+    "start": 0.4,
+    "end": 0.72
+  },
+  {
+    "id": "w2",
+    "text": "pragniemy",
+    "start": 0.72,
+    "end": 1.44
+  },
+  {
+    "id": "w3",
+    "text": "odżycia",
+    "start": 1.44,
+    "end": 2.08
+  },
+  {
+    "id": "w4",
+    "text": "więcej.",
+    "start": 2.08,
+    "end": 2.64
+  },
+  {
+    "id": "w5",
+    "text": "W",
+    "start": 2.64,
+    "end": 2.72
+  },
+  {
+    "id": "w6",
+    "text": "więcej",
+    "start": 2.72,
+    "end": 2.96
+  },
+  {
+    "id": "w7",
+    "text": "pieniędzy,",
+    "start": 2.96,
+    "end": 3.52
+  },
+  {
+    "id": "w8",
+    "text": "więcej",
+    "start": 3.52,
+    "end": 3.84
+  },
+  {
+    "id": "w9",
+    "text": "możliwości,",
+    "start": 3.84,
+    "end": 4.48
+  },
+  {
+    "id": "w10",
+    "text": "więcej",
+    "start": 4.48,
+    "end": 4.8
+  },
+  {
+    "id": "w11",
+    "text": "rozwoju,",
+    "start": 4.8,
+    "end": 5.2
+  },
+  {
+    "id": "w12",
+    "text": "lepszych",
+    "start": 5.2,
+    "end": 5.6
+  },
+  {
+    "id": "w13",
+    "text": "relacji,",
+    "start": 5.6,
+    "end": 5.92
+  },
+  {
+    "id": "w14",
+    "text": "większej",
+    "start": 6,
+    "end": 6.4
+  },
+  {
+    "id": "w15",
+    "text": "widoczności.",
+    "start": 6.4,
+    "end": 7.2
+  },
+  {
+    "id": "w16",
+    "text": "Chcemy",
+    "start": 7.2,
+    "end": 7.6
+  },
+  {
+    "id": "w17",
+    "text": "wejść",
+    "start": 7.6,
+    "end": 8
+  },
+  {
+    "id": "w18",
+    "text": "na",
+    "start": 8,
+    "end": 8.08
+  },
+  {
+    "id": "w19",
+    "text": "kolejny",
+    "start": 8.08,
+    "end": 8.48
+  },
+  {
+    "id": "w20",
+    "text": "poziom",
+    "start": 8.48,
+    "end": 8.88
+  },
+  {
+    "id": "w21",
+    "text": "naszego",
+    "start": 8.88,
+    "end": 9.2
+  },
+  {
+    "id": "w22",
+    "text": "życia.",
+    "start": 9.2,
+    "end": 9.6
+  },
+  {
+    "id": "w23",
+    "text": "Tylko",
+    "start": 9.6,
+    "end": 9.92
+  },
+  {
+    "id": "w24",
+    "text": "rzadko",
+    "start": 9.92,
+    "end": 10.48
+  },
+  {
+    "id": "w25",
+    "text": "zadajemy",
+    "start": 10.48,
+    "end": 11.12
+  },
+  {
+    "id": "w26",
+    "text": "sobie",
+    "start": 11.12,
+    "end": 11.28
+  },
+  {
+    "id": "w27",
+    "text": "pytanie,",
+    "start": 11.28,
+    "end": 11.6
+  },
+  {
+    "id": "w28",
+    "text": "czy",
+    "start": 11.6,
+    "end": 11.76
+  },
+  {
+    "id": "w29",
+    "text": "ja",
+    "start": 11.76,
+    "end": 11.92
+  },
+  {
+    "id": "w30",
+    "text": "naprawdę",
+    "start": 11.92,
+    "end": 12.24
+  },
+  {
+    "id": "w31",
+    "text": "jestem",
+    "start": 12.32,
+    "end": 12.56
+  },
+  {
+    "id": "w32",
+    "text": "gotowa",
+    "start": 12.56,
+    "end": 12.8
+  },
+  {
+    "id": "w33",
+    "text": "to",
+    "start": 12.96,
+    "end": 13.12
+  },
+  {
+    "id": "w34",
+    "text": "wszystko",
+    "start": 13.12,
+    "end": 13.44
+  },
+  {
+    "id": "w35",
+    "text": "przyjąć,",
+    "start": 13.44,
+    "end": 14.16
+  },
+  {
+    "id": "w36",
+    "text": "bo",
+    "start": 14.16,
+    "end": 14.48
+  },
+  {
+    "id": "w37",
+    "text": "bardzo",
+    "start": 14.72,
+    "end": 15.04
+  },
+  {
+    "id": "w38",
+    "text": "często",
+    "start": 15.12,
+    "end": 15.52
+  },
+  {
+    "id": "w39",
+    "text": "świadomie,",
+    "start": 15.52,
+    "end": 16.4
+  },
+  {
+    "id": "w40",
+    "text": "chcemy",
+    "start": 16.4,
+    "end": 16.88
+  },
+  {
+    "id": "w41",
+    "text": "czegoś,",
+    "start": 16.88,
+    "end": 17.28
+  },
+  {
+    "id": "w42",
+    "text": "a",
+    "start": 17.28,
+    "end": 17.44
+  },
+  {
+    "id": "w43",
+    "text": "jednocześnie",
+    "start": 17.44,
+    "end": 18
+  },
+  {
+    "id": "w44",
+    "text": "czujemy",
+    "start": 18,
+    "end": 18.48
+  },
+  {
+    "id": "w45",
+    "text": "napięcie.",
+    "start": 18.48,
+    "end": 19.04
+  },
+  {
+    "id": "w46",
+    "text": "Kiedy",
+    "start": 19.04,
+    "end": 19.28
+  },
+  {
+    "id": "w47",
+    "text": "to",
+    "start": 19.28,
+    "end": 19.44
+  },
+  {
+    "id": "w48",
+    "text": "więcej,",
+    "start": 19.44,
+    "end": 19.84
+  },
+  {
+    "id": "w49",
+    "text": "rzeczywiście",
+    "start": 19.84,
+    "end": 20.4
+  },
+  {
+    "id": "w50",
+    "text": "zaczyna",
+    "start": 20.4,
+    "end": 20.8
+  },
+  {
+    "id": "w51",
+    "text": "się",
+    "start": 20.8,
+    "end": 20.96
+  },
+  {
+    "id": "w52",
+    "text": "w",
+    "start": 20.96,
+    "end": 21.04
+  },
+  {
+    "id": "w53",
+    "text": "naszym",
+    "start": 21.04,
+    "end": 21.28
+  },
+  {
+    "id": "w54",
+    "text": "życiu",
+    "start": 21.28,
+    "end": 21.44
+  },
+  {
+    "id": "w55",
+    "text": "pojawiać.",
+    "start": 21.52,
+    "end": 22.08
+  },
+  {
+    "id": "w56",
+    "text": "Większe",
+    "start": 22.08,
+    "end": 22.48
+  },
+  {
+    "id": "w57",
+    "text": "pieniądze",
+    "start": 22.48,
+    "end": 22.96
+  },
+  {
+    "id": "w58",
+    "text": "mogą",
+    "start": 22.96,
+    "end": 23.28
+  },
+  {
+    "id": "w59",
+    "text": "uruchamiać",
+    "start": 23.28,
+    "end": 23.92
+  },
+  {
+    "id": "w60",
+    "text": "większą",
+    "start": 24,
+    "end": 24.32
+  },
+  {
+    "id": "w61",
+    "text": "odpowiedzialność,",
+    "start": 24.32,
+    "end": 24.96
+  },
+  {
+    "id": "w62",
+    "text": "większa",
+    "start": 25.04,
+    "end": 25.44
+  },
+  {
+    "id": "w63",
+    "text": "widoczność,",
+    "start": 25.44,
+    "end": 26
+  },
+  {
+    "id": "w64",
+    "text": "no",
+    "start": 26,
+    "end": 26.08
+  },
+  {
+    "id": "w65",
+    "text": "to",
+    "start": 26.08,
+    "end": 26.24
+  },
+  {
+    "id": "w66",
+    "text": "lększe",
+    "start": 26.24,
+    "end": 26.56
+  },
+  {
+    "id": "w67",
+    "text": "doceną,",
+    "start": 26.72,
+    "end": 27.28
+  },
+  {
+    "id": "w68",
+    "text": "bliskość,",
+    "start": 27.28,
+    "end": 27.84
+  },
+  {
+    "id": "w69",
+    "text": "lększe",
+    "start": 28,
+    "end": 28.32
+  },
+  {
+    "id": "w70",
+    "text": "zranieniem,",
+    "start": 28.48,
+    "end": 29.2
+  },
+  {
+    "id": "w71",
+    "text": "rozwój,",
+    "start": 29.2,
+    "end": 29.92
+  },
+  {
+    "id": "w72",
+    "text": "to",
+    "start": 30.08,
+    "end": 30.24
+  },
+  {
+    "id": "w73",
+    "text": "konieczność",
+    "start": 30.24,
+    "end": 30.8
+  },
+  {
+    "id": "w74",
+    "text": "wyjścia,",
+    "start": 30.8,
+    "end": 31.28
+  },
+  {
+    "id": "w75",
+    "text": "poza",
+    "start": 31.28,
+    "end": 31.6
+  },
+  {
+    "id": "w76",
+    "text": "to,",
+    "start": 31.6,
+    "end": 31.76
+  },
+  {
+    "id": "w77",
+    "text": "co",
+    "start": 31.76,
+    "end": 32
+  },
+  {
+    "id": "w78",
+    "text": "znane",
+    "start": 32,
+    "end": 32.4
+  },
+  {
+    "id": "w79",
+    "text": "i",
+    "start": 32.4,
+    "end": 32.56
+  },
+  {
+    "id": "w80",
+    "text": "bezpieczne.",
+    "start": 32.56,
+    "end": 33.12
+  },
+  {
+    "id": "w81",
+    "text": "I",
+    "start": 33.12,
+    "end": 33.28
+  },
+  {
+    "id": "w82",
+    "text": "wtedy",
+    "start": 33.28,
+    "end": 33.68
+  },
+  {
+    "id": "w83",
+    "text": "jedna",
+    "start": 33.68,
+    "end": 33.92
+  },
+  {
+    "id": "w84",
+    "text": "część",
+    "start": 33.92,
+    "end": 34.48
+  },
+  {
+    "id": "w85",
+    "text": "ciebie",
+    "start": 34.56,
+    "end": 35.04
+  },
+  {
+    "id": "w86",
+    "text": "mówi",
+    "start": 35.04,
+    "end": 35.28
+  },
+  {
+    "id": "w87",
+    "text": "chce",
+    "start": 35.52,
+    "end": 35.84
+  },
+  {
+    "id": "w88",
+    "text": "więcej,",
+    "start": 35.92,
+    "end": 36.48
+  },
+  {
+    "id": "w89",
+    "text": "a",
+    "start": 36.48,
+    "end": 36.64
+  },
+  {
+    "id": "w90",
+    "text": "druga,",
+    "start": 36.64,
+    "end": 37.2
+  },
+  {
+    "id": "w91",
+    "text": "lepiej",
+    "start": 37.36,
+    "end": 37.84
+  },
+  {
+    "id": "w92",
+    "text": "tego",
+    "start": 37.84,
+    "end": 38.08
+  },
+  {
+    "id": "w93",
+    "text": "nie",
+    "start": 38.08,
+    "end": 38.24
+  },
+  {
+    "id": "w94",
+    "text": "robić.",
+    "start": 38.24,
+    "end": 38.72
+  },
+  {
+    "id": "w95",
+    "text": "Dlatego",
+    "start": 38.72,
+    "end": 39.2
+  },
+  {
+    "id": "w96",
+    "text": "rozwój",
+    "start": 39.2,
+    "end": 39.68
+  },
+  {
+    "id": "w97",
+    "text": "to",
+    "start": 39.76,
+    "end": 39.92
+  },
+  {
+    "id": "w98",
+    "text": "nie",
+    "start": 39.92,
+    "end": 40
+  },
+  {
+    "id": "w99",
+    "text": "tylko",
+    "start": 40,
+    "end": 40.24
+  },
+  {
+    "id": "w100",
+    "text": "zdobywanie",
+    "start": 40.24,
+    "end": 40.96
+  },
+  {
+    "id": "w101",
+    "text": "kolejnej",
+    "start": 40.96,
+    "end": 41.36
+  },
+  {
+    "id": "w102",
+    "text": "wiedzy,",
+    "start": 41.36,
+    "end": 41.76
+  },
+  {
+    "id": "w103",
+    "text": "ale",
+    "start": 41.76,
+    "end": 41.92
+  },
+  {
+    "id": "w104",
+    "text": "to",
+    "start": 41.92,
+    "end": 42.08
+  },
+  {
+    "id": "w105",
+    "text": "przede",
+    "start": 42.08,
+    "end": 42.48
+  },
+  {
+    "id": "w106",
+    "text": "wszystkim.",
+    "start": 42.48,
+    "end": 42.96
+  },
+  {
+    "id": "w107",
+    "text": "Poszerzanie",
+    "start": 42.96,
+    "end": 43.68
+  },
+  {
+    "id": "w108",
+    "text": "swoje",
+    "start": 43.68,
+    "end": 44
+  },
+  {
+    "id": "w109",
+    "text": "wewnętrznej",
+    "start": 44,
+    "end": 44.72
+  },
+  {
+    "id": "w110",
+    "text": "pojemności",
+    "start": 44.8,
+    "end": 45.6
+  },
+  {
+    "id": "w111",
+    "text": "na",
+    "start": 45.6,
+    "end": 45.76
+  },
+  {
+    "id": "w112",
+    "text": "więcej,",
+    "start": 45.76,
+    "end": 46.48
+  },
+  {
+    "id": "w113",
+    "text": "oswajanie",
+    "start": 46.48,
+    "end": 47.28
+  },
+  {
+    "id": "w114",
+    "text": "się",
+    "start": 47.28,
+    "end": 47.44
+  },
+  {
+    "id": "w115",
+    "text": "z",
+    "start": 47.44,
+    "end": 47.52
+  },
+  {
+    "id": "w116",
+    "text": "tym,",
+    "start": 47.52,
+    "end": 47.76
+  },
+  {
+    "id": "w117",
+    "text": "że",
+    "start": 47.76,
+    "end": 47.92
+  },
+  {
+    "id": "w118",
+    "text": "możesz",
+    "start": 47.92,
+    "end": 48.24
+  },
+  {
+    "id": "w119",
+    "text": "mieć",
+    "start": 48.24,
+    "end": 48.56
+  },
+  {
+    "id": "w120",
+    "text": "więcej,",
+    "start": 48.56,
+    "end": 49.04
+  },
+  {
+    "id": "w121",
+    "text": "być",
+    "start": 49.04,
+    "end": 49.36
+  },
+  {
+    "id": "w122",
+    "text": "bardziej",
+    "start": 49.36,
+    "end": 49.68
+  },
+  {
+    "id": "w123",
+    "text": "widoczna,",
+    "start": 49.68,
+    "end": 50.24
+  },
+  {
+    "id": "w124",
+    "text": "podejmować",
+    "start": 50.24,
+    "end": 50.88
+  },
+  {
+    "id": "w125",
+    "text": "odważniejs",
+    "start": 50.88,
+    "end": 51.6
+  },
+  {
+    "id": "w126",
+    "text": "decyzje",
+    "start": 51.6,
+    "end": 52.08
+  },
+  {
+    "id": "w127",
+    "text": "i",
+    "start": 52.08,
+    "end": 52.32
+  },
+  {
+    "id": "w128",
+    "text": "nadal",
+    "start": 52.32,
+    "end": 52.64
+  },
+  {
+    "id": "w129",
+    "text": "czuć",
+    "start": 52.72,
+    "end": 53.04
+  },
+  {
+    "id": "w130",
+    "text": "się",
+    "start": 53.04,
+    "end": 53.2
+  },
+  {
+    "id": "w131",
+    "text": "ze",
+    "start": 53.2,
+    "end": 53.36
+  },
+  {
+    "id": "w132",
+    "text": "sobą",
+    "start": 53.36,
+    "end": 53.68
+  },
+  {
+    "id": "w133",
+    "text": "bezpiecznie,",
+    "start": 53.68,
+    "end": 54.32
+  },
+  {
+    "id": "w134",
+    "text": "bo",
+    "start": 54.32,
+    "end": 54.48
+  },
+  {
+    "id": "w135",
+    "text": "tutaj",
+    "start": 54.48,
+    "end": 54.8
+  },
+  {
+    "id": "w136",
+    "text": "nie",
+    "start": 54.8,
+    "end": 54.88
+  },
+  {
+    "id": "w137",
+    "text": "chodzi",
+    "start": 54.88,
+    "end": 55.12
+  },
+  {
+    "id": "w138",
+    "text": "tylko",
+    "start": 55.12,
+    "end": 55.36
+  },
+  {
+    "id": "w139",
+    "text": "o",
+    "start": 55.36,
+    "end": 55.52
+  },
+  {
+    "id": "w140",
+    "text": "to,",
+    "start": 55.52,
+    "end": 55.68
+  },
+  {
+    "id": "w141",
+    "text": "czego",
+    "start": 55.68,
+    "end": 55.92
+  },
+  {
+    "id": "w142",
+    "text": "pragniesz,",
+    "start": 55.92,
+    "end": 56.48
+  },
+  {
+    "id": "w143",
+    "text": "tylko",
+    "start": 56.48,
+    "end": 56.72
+  },
+  {
+    "id": "w144",
+    "text": "przede",
+    "start": 56.72,
+    "end": 57.04
+  },
+  {
+    "id": "w145",
+    "text": "wszystkim",
+    "start": 57.04,
+    "end": 57.44
+  },
+  {
+    "id": "w146",
+    "text": "o",
+    "start": 57.44,
+    "end": 57.68
+  },
+  {
+    "id": "w147",
+    "text": "to,",
+    "start": 57.68,
+    "end": 57.84
+  },
+  {
+    "id": "w148",
+    "text": "na",
+    "start": 57.84,
+    "end": 58
+  },
+  {
+    "id": "w149",
+    "text": "co",
+    "start": 58,
+    "end": 58.16
+  },
+  {
+    "id": "w150",
+    "text": "jesteś",
+    "start": 58.16,
+    "end": 58.56
+  },
+  {
+    "id": "w151",
+    "text": "wewnętrznie",
+    "start": 58.56,
+    "end": 59.04
+  },
+  {
+    "id": "w152",
+    "text": "gotowa.",
+    "start": 59.12,
+    "end": 59.52
+  },
+  {
+    "id": "w153",
+    "text": "I",
+    "start": 59.52,
+    "end": 59.68
+  },
+  {
+    "id": "w154",
+    "text": "to",
+    "start": 59.68,
+    "end": 59.84
+  },
+  {
+    "id": "w155",
+    "text": "jest",
+    "start": 59.84,
+    "end": 60
+  },
+  {
+    "id": "w156",
+    "text": "jeden",
+    "start": 60,
+    "end": 60.32
+  },
+  {
+    "id": "w157",
+    "text": "z",
+    "start": 60.32,
+    "end": 60.48
+  },
+  {
+    "id": "w158",
+    "text": "tematów,",
+    "start": 60.48,
+    "end": 61.28
+  },
+  {
+    "id": "w159",
+    "text": "które",
+    "start": 61.28,
+    "end": 61.52
+  },
+  {
+    "id": "w160",
+    "text": "rozwijam",
+    "start": 61.52,
+    "end": 62.16
+  },
+  {
+    "id": "w161",
+    "text": "w",
+    "start": 62.16,
+    "end": 62.24
+  },
+  {
+    "id": "w162",
+    "text": "moim",
+    "start": 62.24,
+    "end": 62.48
+  },
+  {
+    "id": "w163",
+    "text": "eboku",
+    "start": 62.48,
+    "end": 62.96
+  },
+  {
+    "id": "w164",
+    "text": "zobacz.",
+    "start": 63.2,
+    "end": 63.84
+  },
+  {
+    "id": "w165",
+    "text": "Siebie.",
+    "start": 64.03,
+    "end": 64.43
+  },
+  {
+    "id": "w166",
+    "text": "Link",
+    "start": 64.51,
+    "end": 64.83
+  },
+  {
+    "id": "w167",
+    "text": "do",
+    "start": 64.83,
+    "end": 64.99
+  },
+  {
+    "id": "w168",
+    "text": "strony",
+    "start": 64.99,
+    "end": 65.39
+  },
+  {
+    "id": "w169",
+    "text": "znajdziesz",
+    "start": 65.39,
+    "end": 65.95
+  },
+  {
+    "id": "w170",
+    "text": "w",
+    "start": 65.95,
+    "end": 66.03
+  },
+  {
+    "id": "w171",
+    "text": "moim",
+    "start": 66.03,
+    "end": 66.35
+  },
+  {
+    "id": "w172",
+    "text": "bio.",
+    "start": 66.35,
+    "end": 66.75
+  }
+]

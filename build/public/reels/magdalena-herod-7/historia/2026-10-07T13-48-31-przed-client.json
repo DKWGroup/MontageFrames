@@ -1,0 +1,992 @@
+{
+  "source": "source.mp4",
+  "style": "herod",
+  "fps": 30,
+  "segments": [
+    {
+      "start": 0,
+      "end": 4.24,
+      "zoom": 1
+    },
+    {
+      "start": 4.24,
+      "end": 9.68,
+      "zoom": 1.025
+    },
+    {
+      "start": 9.68,
+      "end": 18,
+      "zoom": 1
+    },
+    {
+      "start": 18,
+      "end": 23.52,
+      "zoom": 1.025
+    },
+    {
+      "start": 23.52,
+      "end": 32.56,
+      "zoom": 1
+    },
+    {
+      "start": 32.56,
+      "end": 37.76,
+      "zoom": 1.025
+    },
+    {
+      "start": 37.76,
+      "end": 50.7,
+      "zoom": 1
+    }
+  ],
+  "captions": [
+    {
+      "words": [
+        {
+          "text": "Kiedy",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "zaczynasz",
+          "start": 0.24,
+          "end": 0.72
+        },
+        {
+          "text": "pracować",
+          "start": 0.72,
+          "end": 1.2
+        },
+        {
+          "text": "nad",
+          "start": 1.2,
+          "end": 1.36
+        },
+        {
+          "text": "sobą,",
+          "start": 1.36,
+          "end": 1.84
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "bardzo",
+          "start": 1.84,
+          "end": 2.16
+        },
+        {
+          "text": "łatwo",
+          "start": 2.16,
+          "end": 2.64
+        },
+        {
+          "text": "jest",
+          "start": 2.64,
+          "end": 2.8
+        },
+        {
+          "text": "wpaść",
+          "start": 2.8,
+          "end": 3.28
+        },
+        {
+          "text": "w",
+          "start": 3.28,
+          "end": 3.36
+        },
+        {
+          "text": "kolejną",
+          "start": 3.36,
+          "end": 3.76
+        },
+        {
+          "text": "presję.",
+          "start": 3.76,
+          "end": 4.24
+        }
+      ],
+      "key": 6,
+      "lineBreak": 4,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "Muszę",
+          "start": 4.24,
+          "end": 4.56
+        },
+        {
+          "text": "się",
+          "start": 4.56,
+          "end": 4.72
+        },
+        {
+          "text": "zmienić,",
+          "start": 4.72,
+          "end": 5.2
+        },
+        {
+          "text": "muszę",
+          "start": 5.2,
+          "end": 5.52
+        },
+        {
+          "text": "przestać",
+          "start": 5.52,
+          "end": 5.92
+        },
+        {
+          "text": "reagować,",
+          "start": 5.92,
+          "end": 6.64
+        }
+      ],
+      "key": 2,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "muszę",
+          "start": 6.64,
+          "end": 6.88
+        },
+        {
+          "text": "naprawić",
+          "start": 6.88,
+          "end": 7.36
+        },
+        {
+          "text": "swoje",
+          "start": 7.36,
+          "end": 7.6
+        },
+        {
+          "text": "przekonania.",
+          "start": 7.6,
+          "end": 8.16
+        }
+      ],
+      "key": 3,
+      "lineBreak": 2,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "Muszę",
+          "start": 8.16,
+          "end": 8.4
+        },
+        {
+          "text": "stać",
+          "start": 8.4,
+          "end": 8.64
+        },
+        {
+          "text": "się",
+          "start": 8.64,
+          "end": 8.8
+        },
+        {
+          "text": "nową",
+          "start": 8.8,
+          "end": 8.96
+        },
+        {
+          "text": "wersją",
+          "start": 9.04,
+          "end": 9.44
+        },
+        {
+          "text": "siebie.",
+          "start": 9.44,
+          "end": 9.68
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "A",
+          "start": 9.68,
+          "end": 9.84
+        },
+        {
+          "text": "ja",
+          "start": 9.84,
+          "end": 10
+        },
+        {
+          "text": "coraz",
+          "start": 10,
+          "end": 10.24
+        },
+        {
+          "text": "bardziej",
+          "start": 10.24,
+          "end": 10.56
+        },
+        {
+          "text": "widzę",
+          "start": 10.56,
+          "end": 10.88
+        },
+        {
+          "text": "to",
+          "start": 10.88,
+          "end": 11.04
+        },
+        {
+          "text": "inaczej.",
+          "start": 11.04,
+          "end": 11.6
+        }
+      ],
+      "key": 6,
+      "lineBreak": 4,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "Najpierw",
+          "start": 11.6,
+          "end": 12.24
+        },
+        {
+          "text": "zobacz.",
+          "start": 12.24,
+          "end": 12.8
+        }
+      ],
+      "key": 1,
+      "lineBreak": 1,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "Zauważ",
+          "start": 12.8,
+          "end": 13.28
+        },
+        {
+          "text": "myśl,",
+          "start": 13.36,
+          "end": 13.76
+        },
+        {
+          "text": "która",
+          "start": 13.76,
+          "end": 14
+        },
+        {
+          "text": "pojawia",
+          "start": 14,
+          "end": 14.4
+        },
+        {
+          "text": "się",
+          "start": 14.4,
+          "end": 14.56
+        },
+        {
+          "text": "automatycznie,",
+          "start": 14.56,
+          "end": 15.28
+        }
+      ],
+      "key": 5,
+      "lineBreak": 2,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "reakcję,",
+          "start": 15.28,
+          "end": 15.92
+        },
+        {
+          "text": "która",
+          "start": 15.92,
+          "end": 16.16
+        },
+        {
+          "text": "włącza",
+          "start": 16.16,
+          "end": 16.56
+        },
+        {
+          "text": "się",
+          "start": 16.56,
+          "end": 16.72
+        },
+        {
+          "text": "zawsze",
+          "start": 16.72,
+          "end": 16.96
+        },
+        {
+          "text": "w",
+          "start": 16.96,
+          "end": 17.04
+        },
+        {
+          "text": "podobnej",
+          "start": 17.04,
+          "end": 17.52
+        },
+        {
+          "text": "sytuacji.",
+          "start": 17.52,
+          "end": 18
+        }
+      ],
+      "key": 7,
+      "lineBreak": 4,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "Przekonanie,",
+          "start": 18,
+          "end": 18.64
+        },
+        {
+          "text": "przez",
+          "start": 18.64,
+          "end": 18.96
+        },
+        {
+          "text": "które",
+          "start": 18.96,
+          "end": 19.28
+        },
+        {
+          "text": "po",
+          "start": 19.28,
+          "end": 19.52
+        },
+        {
+          "text": "raz",
+          "start": 19.52,
+          "end": 19.68
+        },
+        {
+          "text": "kolejny",
+          "start": 19.68,
+          "end": 20.08
+        },
+        {
+          "text": "wycofujesz",
+          "start": 20.08,
+          "end": 20.64
+        },
+        {
+          "text": "się",
+          "start": 20.64,
+          "end": 20.8
+        }
+      ],
+      "key": 0,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "z",
+          "start": 20.8,
+          "end": 20.88
+        },
+        {
+          "text": "czegoś,",
+          "start": 20.88,
+          "end": 21.12
+        },
+        {
+          "text": "czego",
+          "start": 21.12,
+          "end": 21.36
+        },
+        {
+          "text": "naprawdę",
+          "start": 21.36,
+          "end": 21.68
+        },
+        {
+          "text": "chcesz.",
+          "start": 21.76,
+          "end": 22.16
+        }
+      ],
+      "key": 4,
+      "lineBreak": 2,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "Czegoś,",
+          "start": 22.16,
+          "end": 22.48
+        },
+        {
+          "text": "co",
+          "start": 22.48,
+          "end": 22.64
+        },
+        {
+          "text": "jest",
+          "start": 22.64,
+          "end": 22.8
+        },
+        {
+          "text": "naprawdę",
+          "start": 22.8,
+          "end": 23.12
+        },
+        {
+          "text": "twoje.",
+          "start": 23.12,
+          "end": 23.52
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "Nie",
+          "start": 23.52,
+          "end": 23.68
+        },
+        {
+          "text": "oceniaj",
+          "start": 23.68,
+          "end": 24.32
+        },
+        {
+          "text": "tego",
+          "start": 24.32,
+          "end": 24.56
+        },
+        {
+          "text": "od",
+          "start": 24.56,
+          "end": 24.72
+        },
+        {
+          "text": "razu.",
+          "start": 24.72,
+          "end": 25.12
+        }
+      ],
+      "key": 1,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "Obserwuj,",
+          "start": 25.12,
+          "end": 25.84
+        },
+        {
+          "text": "pytaj,",
+          "start": 25.84,
+          "end": 26.48
+        },
+        {
+          "text": "sprawdzaj,",
+          "start": 26.48,
+          "end": 27.2
+        }
+      ],
+      "key": 2,
+      "lineBreak": 1,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "bo",
+          "start": 27.2,
+          "end": 27.36
+        },
+        {
+          "text": "kiedy",
+          "start": 27.36,
+          "end": 27.52
+        },
+        {
+          "text": "zaczynasz",
+          "start": 27.52,
+          "end": 27.92
+        },
+        {
+          "text": "widzieć",
+          "start": 27.92,
+          "end": 28.32
+        },
+        {
+          "text": "swoje",
+          "start": 28.32,
+          "end": 28.56
+        },
+        {
+          "text": "automaty,",
+          "start": 28.56,
+          "end": 29.28
+        }
+      ],
+      "key": 5,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "przestajesz",
+          "start": 29.28,
+          "end": 30
+        },
+        {
+          "text": "być",
+          "start": 30,
+          "end": 30.32
+        },
+        {
+          "text": "przez",
+          "start": 30.32,
+          "end": 30.56
+        },
+        {
+          "text": "nie",
+          "start": 30.56,
+          "end": 30.8
+        },
+        {
+          "text": "prowadzona,",
+          "start": 30.8,
+          "end": 31.44
+        }
+      ],
+      "key": 4,
+      "lineBreak": 2,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "zupełnie",
+          "start": 31.44,
+          "end": 31.92
+        },
+        {
+          "text": "nieświadomie.",
+          "start": 31.92,
+          "end": 32.56
+        }
+      ],
+      "key": 1,
+      "lineBreak": 1,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "I",
+          "start": 32.56,
+          "end": 32.72
+        },
+        {
+          "text": "właśnie",
+          "start": 32.72,
+          "end": 33.04
+        },
+        {
+          "text": "temu",
+          "start": 33.04,
+          "end": 33.52
+        },
+        {
+          "text": "chciałam",
+          "start": 33.52,
+          "end": 34.16
+        },
+        {
+          "text": "stworzyć",
+          "start": 34.16,
+          "end": 34.88
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "przestrzeń",
+          "start": 34.88,
+          "end": 35.36
+        },
+        {
+          "text": "w",
+          "start": 35.44,
+          "end": 35.52
+        },
+        {
+          "text": "najnowszym",
+          "start": 35.52,
+          "end": 36.08
+        },
+        {
+          "text": "ebooku",
+          "start": 36.08,
+          "end": 36.56
+        },
+        {
+          "text": "„Zobacz",
+          "start": 36.72,
+          "end": 37.28
+        },
+        {
+          "text": "siebie”.",
+          "start": 37.28,
+          "end": 37.76
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "I",
+          "start": 37.76,
+          "end": 37.92
+        },
+        {
+          "text": "nie",
+          "start": 37.92,
+          "end": 38.08
+        },
+        {
+          "text": "po",
+          "start": 38.08,
+          "end": 38.24
+        },
+        {
+          "text": "to,",
+          "start": 38.24,
+          "end": 38.48
+        },
+        {
+          "text": "żeby",
+          "start": 38.48,
+          "end": 38.72
+        },
+        {
+          "text": "powiedzieć,",
+          "start": 38.72,
+          "end": 39.28
+        },
+        {
+          "text": "kim",
+          "start": 39.28,
+          "end": 39.44
+        },
+        {
+          "text": "masz",
+          "start": 39.44,
+          "end": 39.68
+        },
+        {
+          "text": "się",
+          "start": 39.68,
+          "end": 39.84
+        },
+        {
+          "text": "stać,",
+          "start": 39.84,
+          "end": 40.16
+        }
+      ],
+      "key": -1,
+      "lineBreak": 6,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "ale",
+          "start": 40.16,
+          "end": 40.4
+        },
+        {
+          "text": "żebyś",
+          "start": 40.4,
+          "end": 40.8
+        },
+        {
+          "text": "mogła",
+          "start": 40.8,
+          "end": 41.2
+        },
+        {
+          "text": "coraz",
+          "start": 41.2,
+          "end": 41.6
+        },
+        {
+          "text": "lepiej",
+          "start": 41.6,
+          "end": 42.24
+        }
+      ],
+      "key": -1,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "zobaczyć",
+          "start": 42.24,
+          "end": 42.88
+        },
+        {
+          "text": "to,",
+          "start": 42.88,
+          "end": 43.2
+        },
+        {
+          "text": "co",
+          "start": 43.2,
+          "end": 43.44
+        },
+        {
+          "text": "do",
+          "start": 43.44,
+          "end": 43.6
+        },
+        {
+          "text": "tej",
+          "start": 43.6,
+          "end": 43.76
+        },
+        {
+          "text": "pory",
+          "start": 43.76,
+          "end": 44.16
+        }
+      ],
+      "key": 0,
+      "lineBreak": 2,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "nie",
+          "start": 44.16,
+          "end": 44.32
+        },
+        {
+          "text": "pozwalało",
+          "start": 44.32,
+          "end": 45.2
+        },
+        {
+          "text": "ci",
+          "start": 45.2,
+          "end": 45.52
+        },
+        {
+          "text": "być",
+          "start": 45.52,
+          "end": 45.76
+        },
+        {
+          "text": "w",
+          "start": 45.76,
+          "end": 45.84
+        },
+        {
+          "text": "pełni",
+          "start": 45.84,
+          "end": 46.32
+        },
+        {
+          "text": "sobą",
+          "start": 46.32,
+          "end": 46.64
+        }
+      ],
+      "key": 6,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 46.72,
+          "end": 46.88
+        },
+        {
+          "text": "tworzyć",
+          "start": 46.88,
+          "end": 47.6
+        },
+        {
+          "text": "życia,",
+          "start": 47.6,
+          "end": 48.32
+        }
+      ],
+      "key": 2,
+      "lineBreak": 1,
+      "from": "bottom",
+      "layout": "stack"
+    },
+    {
+      "words": [
+        {
+          "text": "którego",
+          "start": 48.32,
+          "end": 48.8
+        },
+        {
+          "text": "tak",
+          "start": 48.8,
+          "end": 48.96
+        },
+        {
+          "text": "naprawdę",
+          "start": 48.96,
+          "end": 49.28
+        },
+        {
+          "text": "mocno",
+          "start": 49.6,
+          "end": 50.08
+        },
+        {
+          "text": "pragniesz.",
+          "start": 50.08,
+          "end": 50.64
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "from": "bottom",
+      "layout": "stack"
+    }
+  ],
+  "overlays": [
+    {
+      "type": "media",
+      "src": "przebitka-presja.mp4",
+      "fit": "full",
+      "start": 1.84,
+      "end": 4.24,
+      "trim": 2
+    },
+    {
+      "type": "emoji",
+      "emoji": "eye",
+      "start": 10,
+      "end": 11.6,
+      "y": 0.82
+    },
+    {
+      "type": "media",
+      "src": "przebitka-refleksja.mp4",
+      "fit": "full",
+      "start": 13.5,
+      "end": 17.5,
+      "trim": 1
+    },
+    {
+      "type": "media",
+      "src": "przebitka-spokoj.mp4",
+      "fit": "full",
+      "start": 19.5,
+      "end": 23.4,
+      "trim": 4
+    },
+    {
+      "type": "emoji",
+      "emoji": "brain",
+      "start": 25.4,
+      "end": 27.2,
+      "y": 0.82
+    },
+    {
+      "type": "media",
+      "src": "przebitka-dziennik.mp4",
+      "fit": "full",
+      "start": 27.6,
+      "end": 32.2,
+      "trim": 2
+    },
+    {
+      "type": "media",
+      "fit": "card",
+      "src": "okladka1.png",
+      "start": 34.5,
+      "end": 43.5
+    },
+    {
+      "type": "media",
+      "src": "przebitka-oddech.mp4",
+      "fit": "full",
+      "start": 44.5,
+      "end": 48.3,
+      "trim": 1
+    }
+  ]
+}

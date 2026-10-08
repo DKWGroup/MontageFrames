@@ -1,0 +1,27 @@
+// Każdy blok ma własny plik: edycja nie przesuwa lokalizacji innych bloków.
+import { Reel, type ReelProps } from "../Reel";
+import s0 from "./pokazowka/s0";
+import s1 from "./pokazowka/s1";
+import s2 from "./pokazowka/s2";
+import s3 from "./pokazowka/s3";
+import s4 from "./pokazowka/s4";
+import s5 from "./pokazowka/s5";
+import s6 from "./pokazowka/s6";
+import s7 from "./pokazowka/s7";
+import o0 from "./pokazowka/o0";
+import o1 from "./pokazowka/o1";
+import o2 from "./pokazowka/o2";
+import o3 from "./pokazowka/o3";
+import o4 from "./pokazowka/o4";
+import o5 from "./pokazowka/o5";
+import o6 from "./pokazowka/o6";
+import o7 from "./pokazowka/o7";
+import c0 from "./pokazowka/c0";
+import c1 from "./pokazowka/c1";
+import c2 from "./pokazowka/c2";
+import c3 from "./pokazowka/c3";
+import c4 from "./pokazowka/c4";
+import c5 from "./pokazowka/c5";
+import c6 from "./pokazowka/c6";
+const timeline = { s0, s1, s2, s3, s4, s5, s6, s7, o0, o1, o2, o3, o4, o5, o6, o7, c0, c1, c2, c3, c4, c5, c6 };
+export const StudioReel: React.FC<ReelProps> = (props) => <Reel {...props} timeline={props.reel === "pokazowka" ? timeline : undefined} />;

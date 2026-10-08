@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: każdy blok ma osobny edytowalny węzeł JSX z rzeczywistym czasem
+ok 1 - każdy blok ma osobny edytowalny węzeł JSX z rzeczywistym czasem
+  ---
+  duration_ms: 11.43175
+  type: 'test'
+  ...
+# Subtest: zmiana pojedynczego bloku w inspektorze zapisuje się w JSON i przetrwa synchronizację
+ok 2 - zmiana pojedynczego bloku w inspektorze zapisuje się w JSON i przetrwa synchronizację
+  ---
+  duration_ms: 11.065375
+  type: 'test'
+  ...
+# Subtest: nowa rolka dostaje deklarację kompozycji z literalnym id i zapisywalnym defaultProps
+ok 3 - nowa rolka dostaje deklarację kompozycji z literalnym id i zapisywalnym defaultProps
+  ---
+  duration_ms: 6.827875
+  type: 'test'
+  ...
+# Subtest: nie interpretuje wykonywalnego kodu jako ustawień montażu
+ok 4 - nie interpretuje wykonywalnego kodu jako ustawień montażu
+  ---
+  duration_ms: 0.471291
+  type: 'test'
+  ...
+# Subtest: pola bloków są statyczne i edytowalne dla rzeczywistego parsera Studio
+ok 5 - pola bloków są statyczne i edytowalne dla rzeczywistego parsera Studio
+  ---
+  duration_ms: 149.688208
+  type: 'test'
+  ...
+# Subtest: zmiana JSON nie zamienia starych czasów JSX w ręczne nadpisania
+ok 6 - zmiana JSON nie zamienia starych czasów JSX w ręczne nadpisania
+  ---
+  duration_ms: 7.473625
+  type: 'test'
+  ...
+# Subtest: reset pola do wartości domyślnej usuwa nadpisanie, również gdy Studio pomija from=0
+ok 7 - reset pola do wartości domyślnej usuwa nadpisanie, również gdy Studio pomija from=0
+  ---
+  duration_ms: 14.578375
+  type: 'test'
+  ...
+# Subtest: synchronizacja zachowuje ustawienia kompozycji zmienione w inspektorze
+ok 8 - synchronizacja zachowuje ustawienia kompozycji zmienione w inspektorze
+  ---
+  duration_ms: 8.132542
+  type: 'test'
+  ...
+# Subtest: synchronizacja nazw z symbolami dolara jest stabilna i nie powiela źródła
+ok 9 - synchronizacja nazw z symbolami dolara jest stabilna i nie powiela źródła
+  ---
+  duration_ms: 11.036125
+  type: 'test'
+  ...
+# Subtest: formatowanie jednego bloku nie zmienia plików pozostałych ścieżek
+ok 10 - formatowanie jednego bloku nie zmienia plików pozostałych ścieżek
+  ---
+  duration_ms: 10.528667
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 765.480166

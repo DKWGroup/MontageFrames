@@ -11,3 +11,6 @@ inbox/
 public/reels/
 **/surowe pliki/
 *.mp4
+
+# Ustawienia panelu (npm run ui) — mogą zawierać klucz API
+.panel.json

@@ -1,0 +1,968 @@
+{
+  "source": "source.mp4",
+  "style": "skyclass",
+  "client": "skyclass",
+  "fps": 30,
+  "segments": [
+    {
+      "start": 0,
+      "end": 13.65,
+      "zoom": 1
+    },
+    {
+      "start": 13.65,
+      "end": 16.56,
+      "zoom": 1.07
+    },
+    {
+      "start": 16.56,
+      "end": 22.24,
+      "zoom": 1,
+      "zoomTo": 1.04
+    },
+    {
+      "start": 22.24,
+      "end": 29.68,
+      "zoom": 1.07,
+      "zoomTo": 1.02
+    },
+    {
+      "start": 29.68,
+      "end": 34.85,
+      "zoom": 1
+    },
+    {
+      "start": 34.85,
+      "end": 40.64,
+      "zoom": 1.06
+    },
+    {
+      "start": 40.64,
+      "end": 44.2,
+      "zoom": 1
+    }
+  ],
+  "captions": [
+    {
+      "words": [
+        {
+          "text": "Alicante",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "text": "za",
+          "start": 0.64,
+          "end": 0.84
+        },
+        {
+          "text": "252",
+          "start": 0.84,
+          "end": 2
+        },
+        {
+          "text": "zł,",
+          "start": 2,
+          "end": 2.4
+        }
+      ],
+      "key": -1,
+      "layout": "stack",
+      "from": "left",
+      "end": 3.4
+    },
+    {
+      "words": [
+        {
+          "text": "Cypr",
+          "start": 2.66,
+          "end": 3.02
+        },
+        {
+          "text": "za",
+          "start": 3.02,
+          "end": 3.4
+        },
+        {
+          "text": "198",
+          "start": 3.4,
+          "end": 4.12
+        },
+        {
+          "text": "zł,",
+          "start": 4.12,
+          "end": 5.18
+        }
+      ],
+      "key": -1,
+      "layout": "stack",
+      "from": "right",
+      "end": 6.18
+    },
+    {
+      "words": [
+        {
+          "text": "Malaga",
+          "start": 5.48,
+          "end": 5.94
+        },
+        {
+          "text": "za",
+          "start": 5.94,
+          "end": 6.2
+        },
+        {
+          "text": "329",
+          "start": 6.2,
+          "end": 7.9
+        },
+        {
+          "text": "złotych,",
+          "start": 7.9,
+          "end": 8.46
+        }
+      ],
+      "key": -1,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 9.46
+    },
+    {
+      "words": [
+        {
+          "text": "czy",
+          "start": 8.74,
+          "end": 8.86
+        },
+        {
+          "text": "Kenia",
+          "start": 8.86,
+          "end": 9.24
+        },
+        {
+          "text": "za",
+          "start": 9.24,
+          "end": 9.64
+        },
+        {
+          "text": "999",
+          "start": 9.64,
+          "end": 10.8
+        },
+        {
+          "text": "zł.",
+          "start": 10.8,
+          "end": 11.3
+        }
+      ],
+      "key": -1,
+      "layout": "stack",
+      "from": "left",
+      "end": 12.3
+    },
+    {
+      "words": [
+        {
+          "text": "Takie",
+          "start": 11.7,
+          "end": 12.22
+        },
+        {
+          "text": "loty",
+          "start": 12.22,
+          "end": 12.42
+        },
+        {
+          "text": "dostajesz",
+          "start": 12.42,
+          "end": 12.78
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "right",
+      "end": 13.78
+    },
+    {
+      "words": [
+        {
+          "text": "każdego",
+          "start": 12.78,
+          "end": 13.28
+        },
+        {
+          "text": "dnia",
+          "start": 13.28,
+          "end": 13.58
+        },
+        {
+          "text": "w",
+          "start": 13.58,
+          "end": 14.06
+        },
+        {
+          "text": "SkyClass",
+          "start": 14.06,
+          "end": 14.72
+        }
+      ],
+      "key": 3,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 15.72
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 14.72,
+          "end": 14.94
+        },
+        {
+          "text": "to",
+          "start": 14.94,
+          "end": 15.04
+        },
+        {
+          "text": "oczywiście",
+          "start": 15.04,
+          "end": 15.4
+        },
+        {
+          "text": "w",
+          "start": 15.4,
+          "end": 15.7
+        },
+        {
+          "text": "obie",
+          "start": 15.7,
+          "end": 16.12
+        },
+        {
+          "text": "strony.",
+          "start": 16.12,
+          "end": 16.42
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "left",
+      "end": 17.42
+    },
+    {
+      "words": [
+        {
+          "text": "Takie",
+          "start": 16.62,
+          "end": 16.86
+        },
+        {
+          "text": "ceny",
+          "start": 16.86,
+          "end": 17.12
+        },
+        {
+          "text": "żyją",
+          "start": 17.12,
+          "end": 17.34
+        }
+      ],
+      "key": 1,
+      "layout": "stack",
+      "from": "right",
+      "end": 18.34
+    },
+    {
+      "words": [
+        {
+          "text": "tylko",
+          "start": 17.34,
+          "end": 17.6
+        },
+        {
+          "text": "kilka",
+          "start": 17.6,
+          "end": 17.96
+        },
+        {
+          "text": "godzin.",
+          "start": 17.96,
+          "end": 18.38
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "bottom",
+      "effect": "stamp",
+      "end": 19.38
+    },
+    {
+      "words": [
+        {
+          "text": "Błąd",
+          "start": 18.56,
+          "end": 18.88
+        },
+        {
+          "text": "taryfowy,",
+          "start": 18.88,
+          "end": 19.32
+        }
+      ],
+      "key": 1,
+      "layout": "stack",
+      "from": "left",
+      "end": 20.32
+    },
+    {
+      "words": [
+        {
+          "text": "połączenie",
+          "start": 19.44,
+          "end": 19.7
+        },
+        {
+          "text": "dwóch",
+          "start": 19.7,
+          "end": 20
+        },
+        {
+          "text": "linii.",
+          "start": 20,
+          "end": 20.36
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "right",
+      "end": 21.36
+    },
+    {
+      "words": [
+        {
+          "text": "Zanim",
+          "start": 20.44,
+          "end": 20.66
+        },
+        {
+          "text": "klikniesz",
+          "start": 20.66,
+          "end": 21.14
+        }
+      ],
+      "key": 1,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 22.14
+    },
+    {
+      "words": [
+        {
+          "text": "już",
+          "start": 21.14,
+          "end": 21.5
+        },
+        {
+          "text": "tego",
+          "start": 21.5,
+          "end": 21.72
+        },
+        {
+          "text": "nie",
+          "start": 21.72,
+          "end": 21.92
+        },
+        {
+          "text": "ma.",
+          "start": 21.92,
+          "end": 22.08
+        }
+      ],
+      "key": -1,
+      "layout": "stack",
+      "from": "left",
+      "end": 23.08
+    },
+    {
+      "words": [
+        {
+          "text": "Dlatego",
+          "start": 22.26,
+          "end": 22.5
+        },
+        {
+          "text": "w",
+          "start": 22.5,
+          "end": 22.68
+        },
+        {
+          "text": "SkyClass",
+          "start": 22.68,
+          "end": 23.24
+        },
+        {
+          "text": "zawsze",
+          "start": 23.24,
+          "end": 23.82
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "right",
+      "end": 24.82
+    },
+    {
+      "words": [
+        {
+          "text": "sprawdzamy",
+          "start": 23.82,
+          "end": 24.52
+        },
+        {
+          "text": "naszą",
+          "start": 24.52,
+          "end": 24.76
+        },
+        {
+          "text": "ofertę",
+          "start": 24.76,
+          "end": 25.14
+        }
+      ],
+      "key": 0,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 26.14
+    },
+    {
+      "words": [
+        {
+          "text": "przed",
+          "start": 25.14,
+          "end": 25.34
+        },
+        {
+          "text": "wysłaniem",
+          "start": 25.34,
+          "end": 25.9
+        }
+      ],
+      "key": 1,
+      "layout": "stack",
+      "from": "left",
+      "end": 26.9
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 25.9,
+          "end": 26.14
+        },
+        {
+          "text": "nie",
+          "start": 26.14,
+          "end": 26.34
+        },
+        {
+          "text": "jest",
+          "start": 26.34,
+          "end": 26.58
+        },
+        {
+          "text": "to",
+          "start": 26.58,
+          "end": 26.68
+        },
+        {
+          "text": "oferta,",
+          "start": 26.68,
+          "end": 27.06
+        }
+      ],
+      "key": 4,
+      "layout": "stack",
+      "from": "right",
+      "end": 28.06
+    },
+    {
+      "words": [
+        {
+          "text": "która",
+          "start": 27.08,
+          "end": 27.26
+        },
+        {
+          "text": "jest",
+          "start": 27.26,
+          "end": 27.36
+        },
+        {
+          "text": "dostępna",
+          "start": 27.36,
+          "end": 27.88
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 28.88
+    },
+    {
+      "words": [
+        {
+          "text": "na",
+          "start": 27.88,
+          "end": 28.32
+        },
+        {
+          "text": "wszystkich",
+          "start": 28.32,
+          "end": 28.64
+        },
+        {
+          "text": "możliwych",
+          "start": 28.64,
+          "end": 29.08
+        },
+        {
+          "text": "znanych",
+          "start": 29.08,
+          "end": 29.34
+        },
+        {
+          "text": "forach.",
+          "start": 29.34,
+          "end": 29.66
+        }
+      ],
+      "key": 4,
+      "layout": "stack",
+      "from": "left",
+      "end": 30.66
+    },
+    {
+      "words": [
+        {
+          "text": "Dostajesz",
+          "start": 29.66,
+          "end": 30.12
+        },
+        {
+          "text": "dokładne",
+          "start": 30.12,
+          "end": 30.8
+        },
+        {
+          "text": "daty,",
+          "start": 30.8,
+          "end": 31.32
+        }
+      ],
+      "key": 0,
+      "layout": "stack",
+      "from": "right",
+      "end": 32.32
+    },
+    {
+      "words": [
+        {
+          "text": "stronę",
+          "start": 31.42,
+          "end": 31.92
+        },
+        {
+          "text": "i",
+          "start": 31.92,
+          "end": 32.1
+        },
+        {
+          "text": "rezerwujesz",
+          "start": 32.1,
+          "end": 32.6
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 33.6
+    },
+    {
+      "words": [
+        {
+          "text": "to",
+          "start": 32.6,
+          "end": 32.72
+        },
+        {
+          "text": "w",
+          "start": 32.72,
+          "end": 32.86
+        },
+        {
+          "text": "kilka",
+          "start": 32.86,
+          "end": 33.12
+        },
+        {
+          "text": "minut",
+          "start": 33.12,
+          "end": 33.46
+        }
+      ],
+      "key": 3,
+      "layout": "stack",
+      "from": "left",
+      "end": 34.46
+    },
+    {
+      "words": [
+        {
+          "text": "bez",
+          "start": 33.46,
+          "end": 33.8
+        },
+        {
+          "text": "żadnego",
+          "start": 33.8,
+          "end": 34.34
+        },
+        {
+          "text": "problemu.",
+          "start": 34.34,
+          "end": 34.8
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "right",
+      "end": 35.8
+    },
+    {
+      "words": [
+        {
+          "text": "I",
+          "start": 34.88,
+          "end": 34.98
+        },
+        {
+          "text": "jeśli",
+          "start": 34.98,
+          "end": 35.18
+        },
+        {
+          "text": "w",
+          "start": 35.18,
+          "end": 35.36
+        },
+        {
+          "text": "30",
+          "start": 35.36,
+          "end": 35.66
+        },
+        {
+          "text": "dni",
+          "start": 35.66,
+          "end": 36.1
+        }
+      ],
+      "key": -1,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 37.1
+    },
+    {
+      "words": [
+        {
+          "text": "to",
+          "start": 36.1,
+          "end": 36.52
+        },
+        {
+          "text": "ci",
+          "start": 36.52,
+          "end": 36.64
+        },
+        {
+          "text": "się",
+          "start": 36.64,
+          "end": 36.76
+        },
+        {
+          "text": "nie",
+          "start": 36.76,
+          "end": 36.84
+        },
+        {
+          "text": "zwróci,",
+          "start": 36.84,
+          "end": 37.3
+        }
+      ],
+      "key": -1,
+      "layout": "stack",
+      "from": "left",
+      "end": 38.3
+    },
+    {
+      "words": [
+        {
+          "text": "bez",
+          "start": 37.42,
+          "end": 37.74
+        },
+        {
+          "text": "problemu,",
+          "start": 37.74,
+          "end": 38.24
+        }
+      ],
+      "key": 1,
+      "layout": "stack",
+      "from": "right",
+      "end": 39.24
+    },
+    {
+      "words": [
+        {
+          "text": "bez",
+          "start": 38.26,
+          "end": 38.4
+        },
+        {
+          "text": "żadnego",
+          "start": 38.4,
+          "end": 38.8
+        },
+        {
+          "text": "pytania,",
+          "start": 38.8,
+          "end": 39.26
+        }
+      ],
+      "key": 2,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 40.26
+    },
+    {
+      "words": [
+        {
+          "text": "oddajemy",
+          "start": 39.44,
+          "end": 40.1
+        },
+        {
+          "text": "kasę.",
+          "start": 40.1,
+          "end": 40.48
+        }
+      ],
+      "key": 0,
+      "layout": "stack",
+      "from": "left",
+      "effect": "stamp",
+      "end": 41.48
+    },
+    {
+      "words": [
+        {
+          "text": "Ale",
+          "start": 40.64,
+          "end": 40.78
+        },
+        {
+          "text": "wiesz",
+          "start": 40.78,
+          "end": 40.98
+        },
+        {
+          "text": "co?",
+          "start": 40.98,
+          "end": 41.16
+        }
+      ],
+      "key": 1,
+      "layout": "stack",
+      "from": "right",
+      "end": 42.16
+    },
+    {
+      "words": [
+        {
+          "text": "Nikt",
+          "start": 41.28,
+          "end": 41.62
+        },
+        {
+          "text": "z",
+          "start": 41.62,
+          "end": 41.74
+        },
+        {
+          "text": "tego",
+          "start": 41.74,
+          "end": 41.9
+        },
+        {
+          "text": "jeszcze",
+          "start": 41.9,
+          "end": 42.12
+        }
+      ],
+      "key": 0,
+      "layout": "stack",
+      "from": "bottom",
+      "end": 43.12
+    },
+    {
+      "words": [
+        {
+          "text": "nie",
+          "start": 42.12,
+          "end": 42.34
+        },
+        {
+          "text": "skorzystał.",
+          "start": 42.34,
+          "end": 42.92
+        }
+      ],
+      "key": 1,
+      "layout": "stack",
+      "from": "left",
+      "end": 43.92
+    },
+    {
+      "words": [
+        {
+          "text": "Link",
+          "start": 43.08,
+          "end": 43.42
+        },
+        {
+          "text": "poniżej.",
+          "start": 43.42,
+          "end": 44.02
+        }
+      ],
+      "key": -1,
+      "layout": "stack",
+      "from": "right",
+      "end": 44.2
+    }
+  ],
+  "overlays": [
+    {
+      "type": "travel",
+      "src": "broll-alicante.mp4",
+      "text": "Alicante",
+      "country": "Hiszpania",
+      "start": 0,
+      "end": 2.66
+    },
+    {
+      "type": "travel",
+      "src": "broll-cypr.jpg",
+      "text": "Petra tou Romiou",
+      "country": "Cypr",
+      "start": 2.66,
+      "end": 5.48,
+      "transitionFrom": "broll-alicante.mp4",
+      "transitionTrim": 2.66
+    },
+    {
+      "type": "travel",
+      "src": "broll-malaga.mp4",
+      "text": "Malaga",
+      "country": "Hiszpania",
+      "start": 5.48,
+      "end": 8.74,
+      "transitionFrom": "broll-cypr.jpg",
+      "transitionTrim": 2.8200000000000003
+    },
+    {
+      "type": "travel",
+      "src": "broll-kenia.mp4",
+      "text": "Amboseli",
+      "country": "Kenia",
+      "start": 8.74,
+      "end": 11.7,
+      "transitionFrom": "broll-malaga.mp4",
+      "transitionTrim": 3.26
+    },
+    {
+      "type": "ticket",
+      "start": 0,
+      "end": 2.66,
+      "text": "Alicante",
+      "country": "Hiszpania",
+      "code": "ALC",
+      "to": 252,
+      "priceAt": 0.84
+    },
+    {
+      "type": "ticket",
+      "start": 2.66,
+      "end": 5.48,
+      "text": "Cypr",
+      "country": "Cypr",
+      "code": "",
+      "to": 198,
+      "priceAt": 3.4
+    },
+    {
+      "type": "ticket",
+      "start": 5.48,
+      "end": 8.74,
+      "text": "Malaga",
+      "country": "Hiszpania",
+      "code": "AGP",
+      "to": 329,
+      "priceAt": 6.2
+    },
+    {
+      "type": "ticket",
+      "start": 8.74,
+      "end": 11.7,
+      "text": "Kenia",
+      "country": "Kenia",
+      "code": "",
+      "to": 999,
+      "priceAt": 9.64
+    },
+    {
+      "type": "list",
+      "start": 29.66,
+      "end": 32.1,
+      "items": [
+        {
+          "text": "Dokładne daty",
+          "at": 30.12
+        },
+        {
+          "text": "Strona rezerwacji",
+          "at": 31.42
+        }
+      ]
+    },
+    {
+      "type": "counter",
+      "start": 35.36,
+      "end": 37.3,
+      "to": 30,
+      "suffix": " dni"
+    },
+    {
+      "type": "cta",
+      "start": 43.08,
+      "end": 44.2,
+      "text": "Dołącz do SkyClass"
+    }
+  ],
+  "studio": {
+    "o1": {
+      "durationInFrames": 88
+    }
+  }
+}

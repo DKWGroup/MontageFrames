@@ -1,0 +1,1928 @@
+{
+ "source": "source.mp4",
+ "style": "bisanz",
+ "fps": 30,
+ "segments": [
+  {
+   "start": 0,
+   "end": 24.632,
+   "zoom": 1
+  },
+  {
+   "start": 24.941,
+   "end": 70.968,
+   "zoom": 1.1
+  },
+  {
+   "start": 71.58,
+   "end": 95.433,
+   "zoom": 1
+  }
+ ],
+ "captions": [
+  {
+   "words": [
+    {
+     "text": "Jaki",
+     "start": 0,
+     "end": 0.4
+    },
+    {
+     "text": "jeden",
+     "start": 0.4,
+     "end": 0.56
+    },
+    {
+     "text": "błąd",
+     "start": 0.64,
+     "end": 0.88
+    },
+    {
+     "text": "zrobił",
+     "start": 1.12,
+     "end": 1.28
+    },
+    {
+     "text": "Książulo",
+     "start": 1.28,
+     "end": 1.68
+    }
+   ],
+   "key": 4,
+   "from": "right",
+   "layout": "stack",
+   "hl": [
+    2
+   ]
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 1.84,
+     "end": 1.92
+    },
+    {
+     "text": "dlaczego",
+     "start": 1.92,
+     "end": 2.16
+    }
+   ],
+   "key": 1,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "nie",
+     "start": 2.24,
+     "end": 2.4
+    },
+    {
+     "text": "ma",
+     "start": 2.4,
+     "end": 2.56
+    },
+    {
+     "text": "to",
+     "start": 2.56,
+     "end": 2.72
+    },
+    {
+     "text": "żadnego",
+     "start": 2.72,
+     "end": 3.2
+    },
+    {
+     "text": "znaczenia.",
+     "start": 3.2,
+     "end": 3.6
+    }
+   ],
+   "key": 4,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Jako,",
+     "start": 3.6,
+     "end": 3.92
+    },
+    {
+     "text": "że",
+     "start": 3.92,
+     "end": 4
+    },
+    {
+     "text": "tworzyłem",
+     "start": 4.08,
+     "end": 4.56
+    }
+   ],
+   "key": 2,
+   "from": "left",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 4.56,
+     "end": 4.64
+    },
+    {
+     "text": "współtworzyłem",
+     "start": 4.64,
+     "end": 5.52
+    },
+    {
+     "text": "kilka",
+     "start": 5.68,
+     "end": 5.92
+    },
+    {
+     "text": "marek,",
+     "start": 6,
+     "end": 6.4
+    }
+   ],
+   "key": 1,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "to",
+     "start": 6.4,
+     "end": 6.56
+    },
+    {
+     "text": "myślę,",
+     "start": 6.56,
+     "end": 6.88
+    },
+    {
+     "text": "że",
+     "start": 6.88,
+     "end": 6.96
+    },
+    {
+     "text": "o",
+     "start": 6.96,
+     "end": 7.04
+    },
+    {
+     "text": "marketingu",
+     "start": 7.12,
+     "end": 7.44
+    }
+   ],
+   "key": 4,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 7.52,
+     "end": 7.6
+    },
+    {
+     "text": "PR-ze",
+     "start": 7.6,
+     "end": 7.92
+    },
+    {
+     "text": "trochę",
+     "start": 8,
+     "end": 8.24
+    },
+    {
+     "text": "wiem.",
+     "start": 8.24,
+     "end": 8.48
+    }
+   ],
+   "key": 1,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "I",
+     "start": 8.64,
+     "end": 8.96
+    },
+    {
+     "text": "to,",
+     "start": 8.96,
+     "end": 9.44
+    },
+    {
+     "text": "że",
+     "start": 9.44,
+     "end": 9.68
+    },
+    {
+     "text": "Książulo",
+     "start": 9.68,
+     "end": 10.32
+    }
+   ],
+   "key": 3,
+   "from": "bottom",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "zrobił",
+     "start": 10.4,
+     "end": 10.72
+    },
+    {
+     "text": "własną",
+     "start": 10.72,
+     "end": 11.12
+    },
+    {
+     "text": "pizzę,",
+     "start": 11.12,
+     "end": 11.76
+    }
+   ],
+   "key": 2,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "petarda.",
+     "start": 11.76,
+     "end": 12.64
+    }
+   ],
+   "key": 0,
+   "effect": "stamp"
+  },
+  {
+   "words": [
+    {
+     "text": "To,",
+     "start": 12.64,
+     "end": 12.96
+    },
+    {
+     "text": "że",
+     "start": 12.96,
+     "end": 13.12
+    },
+    {
+     "text": "dał",
+     "start": 13.2,
+     "end": 13.6
+    },
+    {
+     "text": "to",
+     "start": 13.6,
+     "end": 13.76
+    },
+    {
+     "text": "do",
+     "start": 13.76,
+     "end": 14
+    },
+    {
+     "text": "Żabki,",
+     "start": 14,
+     "end": 14.56
+    }
+   ],
+   "key": 5,
+   "from": "right",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "jeszcze",
+     "start": 14.56,
+     "end": 14.88
+    },
+    {
+     "text": "lepiej.",
+     "start": 14.88,
+     "end": 15.52
+    }
+   ],
+   "key": 1,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Ale",
+     "start": 15.84,
+     "end": 16.16
+    },
+    {
+     "text": "to,",
+     "start": 16.4,
+     "end": 16.64
+    },
+    {
+     "text": "że",
+     "start": 16.64,
+     "end": 16.88
+    },
+    {
+     "text": "nazwał",
+     "start": 16.88,
+     "end": 17.28
+    },
+    {
+     "text": "to",
+     "start": 17.28,
+     "end": 17.44
+    }
+   ],
+   "key": 3,
+   "from": "left",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "swoim",
+     "start": 17.44,
+     "end": 17.68
+    },
+    {
+     "text": "oznaczeniem",
+     "start": 17.84,
+     "end": 18.4
+    }
+   ],
+   "key": 1,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "„Muala”,",
+     "start": 18.4,
+     "end": 18.96
+    },
+    {
+     "text": "to",
+     "start": 18.96,
+     "end": 19.12
+    },
+    {
+     "text": "jest",
+     "start": 19.12,
+     "end": 19.2
+    },
+    {
+     "text": "błąd.",
+     "start": 19.2,
+     "end": 19.6
+    }
+   ],
+   "key": 3,
+   "layout": "inline",
+   "effect": "stamp",
+   "hl": [
+    0
+   ]
+  },
+  {
+   "words": [
+    {
+     "text": "Powinno",
+     "start": 19.6,
+     "end": 19.84
+    },
+    {
+     "text": "to",
+     "start": 19.92,
+     "end": 20
+    },
+    {
+     "text": "się",
+     "start": 20,
+     "end": 20.08
+    },
+    {
+     "text": "nazywać",
+     "start": 20.08,
+     "end": 20.32
+    },
+    {
+     "text": "Książulo",
+     "start": 20.32,
+     "end": 20.8
+    }
+   ],
+   "key": 4,
+   "from": "top",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 20.88,
+     "end": 21.04
+    },
+    {
+     "text": "tyle,",
+     "start": 21.04,
+     "end": 21.6
+    },
+    {
+     "text": "bo",
+     "start": 21.6,
+     "end": 21.84
+    },
+    {
+     "text": "dewaluuje",
+     "start": 22.08,
+     "end": 22.88
+    },
+    {
+     "text": "swoje",
+     "start": 22.88,
+     "end": 23.36
+    },
+    {
+     "text": "oznaczenie.",
+     "start": 23.36,
+     "end": 24.24
+    }
+   ],
+   "key": 3,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "Ale",
+     "start": 24.24,
+     "end": 24.56
+    },
+    {
+     "text": "to",
+     "start": 24.8,
+     "end": 25.04
+    },
+    {
+     "text": "nie",
+     "start": 25.04,
+     "end": 25.2
+    },
+    {
+     "text": "ma",
+     "start": 25.2,
+     "end": 25.44
+    },
+    {
+     "text": "znaczenia.",
+     "start": 25.44,
+     "end": 25.84
+    }
+   ],
+   "key": 4,
+   "from": "right",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Ludzie",
+     "start": 25.84,
+     "end": 26.16
+    },
+    {
+     "text": "popsioczą,",
+     "start": 26.16,
+     "end": 26.72
+    },
+    {
+     "text": "faktycznie",
+     "start": 26.8,
+     "end": 27.28
+    }
+   ],
+   "key": 1,
+   "from": "bottom",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "to",
+     "start": 27.28,
+     "end": 27.36
+    },
+    {
+     "text": "się",
+     "start": 27.36,
+     "end": 27.52
+    },
+    {
+     "text": "trochę",
+     "start": 27.52,
+     "end": 27.84
+    },
+    {
+     "text": "zdewaluuje,",
+     "start": 27.84,
+     "end": 28.56
+    }
+   ],
+   "key": 3,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "ale",
+     "start": 28.56,
+     "end": 28.72
+    },
+    {
+     "text": "i",
+     "start": 28.72,
+     "end": 28.88
+    },
+    {
+     "text": "tak",
+     "start": 28.88,
+     "end": 29.04
+    },
+    {
+     "text": "skala",
+     "start": 29.04,
+     "end": 29.36
+    },
+    {
+     "text": "zrobi",
+     "start": 29.52,
+     "end": 29.68
+    },
+    {
+     "text": "robotę.",
+     "start": 29.84,
+     "end": 30.24
+    }
+   ],
+   "key": 3,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "I",
+     "start": 30.24,
+     "end": 30.4
+    },
+    {
+     "text": "teraz",
+     "start": 30.4,
+     "end": 30.64
+    },
+    {
+     "text": "wszyscy",
+     "start": 30.64,
+     "end": 31.04
+    },
+    {
+     "text": "tam",
+     "start": 31.04,
+     "end": 31.2
+    },
+    {
+     "text": "narzekają,",
+     "start": 31.44,
+     "end": 32.08
+    }
+   ],
+   "key": 4,
+   "from": "left",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "że",
+     "start": 32.08,
+     "end": 32.24
+    },
+    {
+     "text": "jak",
+     "start": 32.24,
+     "end": 32.4
+    },
+    {
+     "text": "tak",
+     "start": 32.4,
+     "end": 32.56
+    },
+    {
+     "text": "można",
+     "start": 32.56,
+     "end": 32.72
+    }
+   ],
+   "key": 3,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 32.88,
+     "end": 32.96
+    },
+    {
+     "text": "tak",
+     "start": 32.96,
+     "end": 33.12
+    },
+    {
+     "text": "dalej.",
+     "start": 33.12,
+     "end": 33.44
+    }
+   ],
+   "key": 2,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Ale",
+     "start": 33.52,
+     "end": 33.68
+    },
+    {
+     "text": "ta",
+     "start": 33.68,
+     "end": 33.84
+    },
+    {
+     "text": "pizza",
+     "start": 33.84,
+     "end": 34.16
+    },
+    {
+     "text": "pewnie",
+     "start": 34.16,
+     "end": 34.32
+    },
+    {
+     "text": "będzie",
+     "start": 34.4,
+     "end": 34.48
+    },
+    {
+     "text": "smaczna,",
+     "start": 34.64,
+     "end": 35.12
+    }
+   ],
+   "key": 5,
+   "from": "right",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "oczywiście",
+     "start": 35.12,
+     "end": 35.6
+    },
+    {
+     "text": "będzie",
+     "start": 35.76,
+     "end": 36
+    },
+    {
+     "text": "niezdrowa,",
+     "start": 36.16,
+     "end": 36.8
+    }
+   ],
+   "key": 2,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "będzie",
+     "start": 36.8,
+     "end": 36.88
+    },
+    {
+     "text": "to",
+     "start": 37.04,
+     "end": 37.2
+    },
+    {
+     "text": "niewegańskie,",
+     "start": 37.2,
+     "end": 38
+    },
+    {
+     "text": "niezdrowe",
+     "start": 38,
+     "end": 38.48
+    },
+    {
+     "text": "ścierwo,",
+     "start": 38.56,
+     "end": 39.12
+    }
+   ],
+   "key": 2,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "ale",
+     "start": 39.2,
+     "end": 39.36
+    },
+    {
+     "text": "będzie",
+     "start": 39.36,
+     "end": 39.44
+    },
+    {
+     "text": "smaczna.",
+     "start": 39.52,
+     "end": 39.92
+    }
+   ],
+   "key": 2,
+   "layout": "inline",
+   "effect": "stamp"
+  },
+  {
+   "words": [
+    {
+     "text": "I",
+     "start": 39.92,
+     "end": 40
+    },
+    {
+     "text": "tego",
+     "start": 40,
+     "end": 40.16
+    },
+    {
+     "text": "ludzie",
+     "start": 40.24,
+     "end": 40.4
+    },
+    {
+     "text": "oczekują",
+     "start": 40.4,
+     "end": 40.72
+    },
+    {
+     "text": "w Żabce,",
+     "start": 40.88,
+     "end": 41.2
+    }
+   ],
+   "key": 3,
+   "from": "top",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "że",
+     "start": 41.2,
+     "end": 41.28
+    },
+    {
+     "text": "ma",
+     "start": 41.28,
+     "end": 41.36
+    },
+    {
+     "text": "być",
+     "start": 41.36,
+     "end": 41.44
+    },
+    {
+     "text": "czasem",
+     "start": 41.52,
+     "end": 41.84
+    },
+    {
+     "text": "smacznie,",
+     "start": 41.84,
+     "end": 42.32
+    }
+   ],
+   "key": 4,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "a",
+     "start": 42.32,
+     "end": 42.4
+    },
+    {
+     "text": "nie",
+     "start": 42.4,
+     "end": 42.56
+    },
+    {
+     "text": "zdrowo",
+     "start": 42.56,
+     "end": 42.88
+    }
+   ],
+   "key": 2,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 42.96,
+     "end": 43.12
+    },
+    {
+     "text": "nieważne",
+     "start": 43.12,
+     "end": 43.44
+    },
+    {
+     "text": "są",
+     "start": 43.6,
+     "end": 43.76
+    },
+    {
+     "text": "inne",
+     "start": 43.76,
+     "end": 44.08
+    },
+    {
+     "text": "koszty.",
+     "start": 44.08,
+     "end": 44.48
+    }
+   ],
+   "key": 4,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "Natomiast",
+     "start": 44.48,
+     "end": 45.04
+    },
+    {
+     "text": "ta",
+     "start": 45.04,
+     "end": 45.36
+    },
+    {
+     "text": "zagrywka",
+     "start": 45.36,
+     "end": 46
+    },
+    {
+     "text": "jest",
+     "start": 46,
+     "end": 46.16
+    },
+    {
+     "text": "dobra,",
+     "start": 46.16,
+     "end": 46.48
+    }
+   ],
+   "key": 2,
+   "from": "bottom",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "bo",
+     "start": 46.48,
+     "end": 46.56
+    },
+    {
+     "text": "czasem",
+     "start": 46.72,
+     "end": 47.04
+    },
+    {
+     "text": "nie",
+     "start": 47.04,
+     "end": 47.12
+    },
+    {
+     "text": "musisz",
+     "start": 47.52,
+     "end": 47.76
+    },
+    {
+     "text": "robić",
+     "start": 47.84,
+     "end": 48
+    },
+    {
+     "text": "idealnie,",
+     "start": 48,
+     "end": 48.4
+    }
+   ],
+   "key": 5,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "tylko",
+     "start": 48.4,
+     "end": 48.56
+    },
+    {
+     "text": "podejmujesz",
+     "start": 48.56,
+     "end": 49.04
+    },
+    {
+     "text": "decyzję,",
+     "start": 49.12,
+     "end": 49.52
+    }
+   ],
+   "key": 2,
+   "from": "left",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "wchodzisz",
+     "start": 49.52,
+     "end": 50
+    },
+    {
+     "text": "w",
+     "start": 50,
+     "end": 50.16
+    },
+    {
+     "text": "jakieś",
+     "start": 50.16,
+     "end": 50.48
+    },
+    {
+     "text": "kolejne",
+     "start": 50.48,
+     "end": 51.12
+    },
+    {
+     "text": "odnogi,",
+     "start": 51.12,
+     "end": 51.76
+    }
+   ],
+   "key": 4,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "nitki",
+     "start": 51.76,
+     "end": 52.08
+    },
+    {
+     "text": "biznesowe,",
+     "start": 52.16,
+     "end": 52.8
+    }
+   ],
+   "key": 1,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "to",
+     "start": 52.8,
+     "end": 52.96
+    },
+    {
+     "text": "ma",
+     "start": 52.96,
+     "end": 53.2
+    },
+    {
+     "text": "iść",
+     "start": 53.2,
+     "end": 53.44
+    },
+    {
+     "text": "do",
+     "start": 53.44,
+     "end": 53.6
+    },
+    {
+     "text": "przodu.",
+     "start": 53.6,
+     "end": 54.16
+    }
+   ],
+   "key": 4,
+   "from": "right",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "To",
+     "start": 54.16,
+     "end": 54.32
+    },
+    {
+     "text": "się",
+     "start": 54.32,
+     "end": 54.48
+    },
+    {
+     "text": "ma",
+     "start": 54.48,
+     "end": 54.72
+    },
+    {
+     "text": "kręcić.",
+     "start": 54.72,
+     "end": 55.2
+    }
+   ],
+   "key": 3,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Później",
+     "start": 55.2,
+     "end": 55.52
+    },
+    {
+     "text": "możesz",
+     "start": 55.52,
+     "end": 55.68
+    },
+    {
+     "text": "zrobić",
+     "start": 55.76,
+     "end": 55.92
+    },
+    {
+     "text": "piwoty,",
+     "start": 56,
+     "end": 56.56
+    }
+   ],
+   "key": 3,
+   "from": "top",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "jakieś",
+     "start": 56.56,
+     "end": 56.8
+    },
+    {
+     "text": "zmiany,",
+     "start": 56.8,
+     "end": 57.2
+    },
+    {
+     "text": "ulepszenia,",
+     "start": 57.2,
+     "end": 57.84
+    }
+   ],
+   "key": 2,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "ale",
+     "start": 57.92,
+     "end": 58.08
+    },
+    {
+     "text": "lepiej",
+     "start": 58.08,
+     "end": 58.32
+    },
+    {
+     "text": "jest",
+     "start": 58.32,
+     "end": 58.48
+    },
+    {
+     "text": "podejmować",
+     "start": 58.48,
+     "end": 58.88
+    },
+    {
+     "text": "ryzyko,",
+     "start": 58.96,
+     "end": 59.44
+    }
+   ],
+   "key": 4,
+   "from": "bottom",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "podejmować",
+     "start": 59.52,
+     "end": 59.92
+    },
+    {
+     "text": "też",
+     "start": 60.08,
+     "end": 60.32
+    },
+    {
+     "text": "takie",
+     "start": 60.32,
+     "end": 60.56
+    },
+    {
+     "text": "działania,",
+     "start": 60.56,
+     "end": 60.96
+    }
+   ],
+   "key": 3,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "które",
+     "start": 60.96,
+     "end": 61.2
+    },
+    {
+     "text": "generują",
+     "start": 61.2,
+     "end": 61.92
+    },
+    {
+     "text": "i",
+     "start": 61.92,
+     "end": 62.08
+    },
+    {
+     "text": "krytykę,",
+     "start": 62.08,
+     "end": 62.8
+    },
+    {
+     "text": "i",
+     "start": 62.95,
+     "end": 63.03
+    },
+    {
+     "text": "hejt,",
+     "start": 63.19,
+     "end": 63.43
+    }
+   ],
+   "key": 5,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "ale",
+     "start": 63.59,
+     "end": 63.83
+    },
+    {
+     "text": "lepiej",
+     "start": 63.83,
+     "end": 64.31
+    },
+    {
+     "text": "robić,",
+     "start": 64.31,
+     "end": 64.79
+    },
+    {
+     "text": "niż",
+     "start": 64.79,
+     "end": 65.03
+    },
+    {
+     "text": "nie",
+     "start": 65.03,
+     "end": 65.11
+    },
+    {
+     "text": "robić.",
+     "start": 65.11,
+     "end": 65.43
+    }
+   ],
+   "key": 5,
+   "from": "right",
+   "layout": "inline",
+   "hl": [
+    1
+   ]
+  },
+  {
+   "words": [
+    {
+     "text": "Gdyby",
+     "start": 65.51,
+     "end": 65.75
+    },
+    {
+     "text": "Książulo",
+     "start": 65.83,
+     "end": 66.39
+    },
+    {
+     "text": "nie",
+     "start": 66.47,
+     "end": 66.55
+    },
+    {
+     "text": "zrobił",
+     "start": 66.55,
+     "end": 66.87
+    }
+   ],
+   "key": 1,
+   "from": "left",
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "takiego",
+     "start": 66.87,
+     "end": 67.19
+    },
+    {
+     "text": "numeru",
+     "start": 67.19,
+     "end": 67.67
+    },
+    {
+     "text": "z",
+     "start": 67.67,
+     "end": 67.83
+    },
+    {
+     "text": "jedzeniem,",
+     "start": 67.83,
+     "end": 68.55
+    }
+   ],
+   "key": 3,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "to",
+     "start": 68.55,
+     "end": 68.87
+    },
+    {
+     "text": "marnowałby",
+     "start": 69.43,
+     "end": 70.07
+    },
+    {
+     "text": "potencjał,",
+     "start": 70.15,
+     "end": 70.63
+    }
+   ],
+   "key": 2,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "a",
+     "start": 70.63,
+     "end": 70.71
+    },
+    {
+     "text": "tak…",
+     "start": 70.79,
+     "end": 71.27
+    },
+    {
+     "text": "Petarda.",
+     "start": 71.51,
+     "end": 72.39
+    }
+   ],
+   "key": 2,
+   "from": "bottom",
+   "effect": "stamp"
+  },
+  {
+   "words": [
+    {
+     "text": "Także",
+     "start": 72.39,
+     "end": 72.87
+    },
+    {
+     "text": "biznesowo",
+     "start": 72.87,
+     "end": 73.75
+    },
+    {
+     "text": "petarda,",
+     "start": 73.75,
+     "end": 74.55
+    }
+   ],
+   "key": 1,
+   "from": "right",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "żywieniowo,",
+     "start": 74.55,
+     "end": 75.51
+    },
+    {
+     "text": "etycznie",
+     "start": 75.51,
+     "end": 76.15
+    },
+    {
+     "text": "może",
+     "start": 76.23,
+     "end": 76.47
+    },
+    {
+     "text": "różnie.",
+     "start": 76.63,
+     "end": 77.03
+    }
+   ],
+   "key": 0,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Natomiast",
+     "start": 77.03,
+     "end": 77.51
+    },
+    {
+     "text": "ja",
+     "start": 77.51,
+     "end": 77.67
+    },
+    {
+     "text": "uważam,",
+     "start": 77.67,
+     "end": 78.07
+    }
+   ],
+   "key": 2,
+   "from": "top",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "że",
+     "start": 78.07,
+     "end": 78.39
+    },
+    {
+     "text": "takie",
+     "start": 78.39,
+     "end": 78.95
+    },
+    {
+     "text": "ruchy",
+     "start": 79.11,
+     "end": 79.59
+    },
+    {
+     "text": "należy",
+     "start": 79.59,
+     "end": 79.91
+    },
+    {
+     "text": "chwalić",
+     "start": 79.91,
+     "end": 80.47
+    }
+   ],
+   "key": 4,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 80.47,
+     "end": 80.63
+    },
+    {
+     "text": "powinniśmy",
+     "start": 80.87,
+     "end": 81.27
+    },
+    {
+     "text": "mieć",
+     "start": 81.35,
+     "end": 81.51
+    },
+    {
+     "text": "w",
+     "start": 81.51,
+     "end": 81.59
+    },
+    {
+     "text": "Polsce",
+     "start": 81.59,
+     "end": 81.83
+    }
+   ],
+   "key": 4,
+   "from": "left",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "coraz",
+     "start": 81.83,
+     "end": 81.91
+    },
+    {
+     "text": "więcej",
+     "start": 82.07,
+     "end": 82.23
+    },
+    {
+     "text": "takich",
+     "start": 82.31,
+     "end": 82.47
+    },
+    {
+     "text": "przedsiębiorców,",
+     "start": 82.47,
+     "end": 83.19
+    }
+   ],
+   "key": 3,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "którzy",
+     "start": 83.19,
+     "end": 83.35
+    },
+    {
+     "text": "po",
+     "start": 83.35,
+     "end": 83.43
+    },
+    {
+     "text": "prostu",
+     "start": 83.43,
+     "end": 83.67
+    },
+    {
+     "text": "nie",
+     "start": 83.67,
+     "end": 83.75
+    },
+    {
+     "text": "boją",
+     "start": 83.75,
+     "end": 84.15
+    },
+    {
+     "text": "się",
+     "start": 84.15,
+     "end": 84.39
+    }
+   ],
+   "key": 4,
+   "from": "bottom",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "robić",
+     "start": 84.39,
+     "end": 84.71
+    },
+    {
+     "text": "własnego",
+     "start": 84.71,
+     "end": 85.19
+    },
+    {
+     "text": "produktu.",
+     "start": 85.19,
+     "end": 85.67
+    }
+   ],
+   "key": 1,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Oczywiście",
+     "start": 85.67,
+     "end": 85.91
+    },
+    {
+     "text": "on to",
+     "start": 86.07,
+     "end": 86.15
+    },
+    {
+     "text": "zleca",
+     "start": 86.15,
+     "end": 86.63
+    },
+    {
+     "text": "dalej,",
+     "start": 86.63,
+     "end": 86.87
+    }
+   ],
+   "key": 2,
+   "from": "right",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "ale",
+     "start": 86.87,
+     "end": 87.03
+    },
+    {
+     "text": "to",
+     "start": 87.03,
+     "end": 87.19
+    },
+    {
+     "text": "jest",
+     "start": 87.19,
+     "end": 87.35
+    },
+    {
+     "text": "nieistotne.",
+     "start": 87.35,
+     "end": 88.07
+    }
+   ],
+   "key": 3,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Może",
+     "start": 88.15,
+     "end": 88.39
+    },
+    {
+     "text": "kiedyś",
+     "start": 88.39,
+     "end": 88.71
+    },
+    {
+     "text": "będzie",
+     "start": 88.71,
+     "end": 88.79
+    },
+    {
+     "text": "sam to",
+     "start": 88.95,
+     "end": 89.03
+    },
+    {
+     "text": "produkował,",
+     "start": 89.11,
+     "end": 89.67
+    }
+   ],
+   "key": 4,
+   "from": "left",
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "kto",
+     "start": 89.67,
+     "end": 89.83
+    },
+    {
+     "text": "wie.",
+     "start": 89.83,
+     "end": 90.07
+    }
+   ],
+   "key": 1,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Na",
+     "start": 90.07,
+     "end": 90.15
+    },
+    {
+     "text": "ten",
+     "start": 90.15,
+     "end": 90.31
+    },
+    {
+     "text": "moment",
+     "start": 90.31,
+     "end": 90.39
+    },
+    {
+     "text": "jest",
+     "start": 90.55,
+     "end": 90.63
+    },
+    {
+     "text": "to",
+     "start": 90.63,
+     "end": 90.79
+    },
+    {
+     "text": "genialne",
+     "start": 90.79,
+     "end": 91.19
+    }
+   ],
+   "key": 5,
+   "from": "top",
+   "layout": "stack",
+   "effect": "stamp"
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 91.43,
+     "end": 91.67
+    },
+    {
+     "text": "to,",
+     "start": 91.67,
+     "end": 91.91
+    },
+    {
+     "text": "że",
+     "start": 91.91,
+     "end": 92.07
+    },
+    {
+     "text": "to",
+     "start": 92.07,
+     "end": 92.23
+    },
+    {
+     "text": "nie",
+     "start": 92.23,
+     "end": 92.39
+    },
+    {
+     "text": "jest",
+     "start": 92.39,
+     "end": 92.55
+    }
+   ],
+   "key": 5,
+   "layout": "inline"
+  },
+  {
+   "words": [
+    {
+     "text": "idealnie",
+     "start": 92.55,
+     "end": 93.03
+    },
+    {
+     "text": "zrealizowany",
+     "start": 93.03,
+     "end": 93.59
+    },
+    {
+     "text": "pomysł,",
+     "start": 93.59,
+     "end": 93.99
+    }
+   ],
+   "key": 1,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "nie",
+     "start": 93.99,
+     "end": 94.07
+    },
+    {
+     "text": "ma",
+     "start": 94.07,
+     "end": 94.23
+    },
+    {
+     "text": "znaczenia.",
+     "start": 94.23,
+     "end": 94.63
+    }
+   ],
+   "key": 2,
+   "layout": "stack"
+  },
+  {
+   "words": [
+    {
+     "text": "Powodzenia.",
+     "start": 94.71,
+     "end": 95.43
+    }
+   ],
+   "key": 0,
+   "from": "bottom",
+   "effect": "stamp"
+  }
+ ],
+ "overlays": [
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "ksiazulo.jpeg",
+   "text": "Książulo",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 380,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 1.28,
+   "end": 3.9
+  },
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "ksiazulo.jpeg",
+   "text": "Książulo",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 380,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 9.68,
+   "end": 11.069999999999999
+  },
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "pizza.jpeg",
+   "text": "Pizza „Muala” · Żabka",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 380,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 11.12,
+   "end": 13.95
+  },
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "zabka.jpg",
+   "text": "Żabka",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 300,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 14,
+   "end": 15.82
+  },
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "muala.jpg",
+   "text": "Muala",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 300,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 18.4,
+   "end": 19.900000000000002
+  },
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "zabka.jpg",
+   "text": "Żabka",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 300,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 40.88,
+   "end": 42.62
+  },
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "ksiazulo.jpeg",
+   "text": "Książulo",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 380,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 20.32,
+   "end": 24.54
+  },
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "pizza.jpeg",
+   "text": "Pizza „Muala” · Żabka",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 380,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 33.84,
+   "end": 40.22
+  },
+  {
+   "type": "media",
+   "fit": "card",
+   "src": "ksiazulo.jpeg",
+   "text": "Książulo",
+   "x": 0.5,
+   "y": 0.165,
+   "size": 380,
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.4,
+   "start": 65.83,
+   "end": 70.83
+  }
+ ]
+}

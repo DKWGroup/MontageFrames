@@ -1,0 +1,21 @@
+
+> MontageFrames@1.0.0 prebuild
+> npm run studio:sync
+
+
+> MontageFrames@1.0.0 studio:sync
+> node scripts/studio-sync.mjs
+
+
+> MontageFrames@1.0.0 build
+> remotion bundle
+
+Bundling 8%
+Bundling 24%
+Bundling 65%
+Bundling 70%
+Bundling 75%
+Bundling 81%
+Bundling 87%
+Bundling 93%
+○ /Users/wskopek/Documents/Github projekty/MontageFrames/build

@@ -3,6 +3,10 @@
 Spisane poprawki i życzenia. Mają pierwszeństwo przed domyślnymi ustawieniami.
 Każdą nową poprawkę dopisuję tutaj (z datą), zanim zmienię kod.
 
+## Pliki wynikowe
+
+- **Rendery w folderze klienta.** Gotową rolkę klienta zapisuj zawsze w `klienci/<klient>/Render/<nazwa>.mp4` (struktura: Klienci → nazwa klienta → Render), nie we wspólnym `out/`. Brakujący folder `Render` tworzy się przy renderze. W `out/` zostają tylko rolki bez klienta (testy, pokazówki). *(2026-10-06)*
+
 ## Napisy
 
 - **Bez „samosiek” (wiszących krótkich słów).** Nigdy nie zostawiaj „i”, „a”, „o”, „u”, „w”, „z” ani innych krótkich spójników i przyimków (np. „do”, „na”, „od”, „po”, „za”, „ze”, „we”) samotnie w osobnej linii ani na końcu linii, akapitu lub grupy napisów, gdy dalszy ciąg trafia do następnej. Łącz je z następującym słowem w tej samej linii i grupie (np. „w SkyClass”, „z tego”, „i rezerwujesz”); przy łamaniu tekstu przenoś cały taki fragment razem, używając spacji nierozdzielającej. Dotyczy też podziału wokół dużego słowa-klucza oraz animacji: krótkie słowo nie może przez moment wisieć samo — pokaż je razem z następnym słowem, zachowując pełny tekst wypowiedzi. *(2026-10-03)*
@@ -42,3 +46,9 @@ Każdą nową poprawkę dopisuję tutaj (z datą), zanim zmienię kod.
 
 - W bazie (`src/fonts.ts`): **Nunito** (domyślny), **Fustat**. MADE Tommy Soft, gdy pojawią się pliki. *(2026-10-02)*
 - **Bez Times New Roman** — usunięty z bazy i z grafik; etykiety w tym samym bezszeryfie co napisy. *(2026-10-02)*
+
+## Oś czasu w Studio
+
+- **Stała lista wszystkich elementów montażu.** Oś czasu ma stale pokazywać wszystkie ujęcia, grupy napisów i grafiki, z czytelnymi nazwami i rzeczywistymi czasami. Przewijanie i odtwarzanie nie mogą dodawać ani usuwać ścieżek. Nie ukrywaj elementów tworzonych z danych jako duplikatów kodu; wewnętrzne kontenery, kopie mediów do rozmycia i części animacji nie tworzą osobnych ścieżek. Dotyczy wszystkich stylów. *(2026-10-08)*
+
+- **Bloki osi czasu pozostają klikalne i edytowalne w inspektorze.** Stabilność listy nie może wyłączać zaznaczania ani edycji. Domyślne ustawienia każdej kompozycji muszą dać się zapisać bez ostrzeżenia o defaultProps. *(2026-10-08)*

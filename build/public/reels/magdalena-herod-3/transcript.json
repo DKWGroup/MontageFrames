@@ -1,0 +1,818 @@
+[
+  {
+    "id": "w0",
+    "text": "Możesz",
+    "start": 0,
+    "end": 0.48
+  },
+  {
+    "id": "w1",
+    "text": "wiedzieć,",
+    "start": 0.48,
+    "end": 0.96
+  },
+  {
+    "id": "w2",
+    "text": "czego",
+    "start": 0.96,
+    "end": 1.36
+  },
+  {
+    "id": "w3",
+    "text": "dokładnie",
+    "start": 1.36,
+    "end": 2
+  },
+  {
+    "id": "w4",
+    "text": "chces",
+    "start": 2,
+    "end": 2.4
+  },
+  {
+    "id": "w5",
+    "text": "od",
+    "start": 2.4,
+    "end": 2.56
+  },
+  {
+    "id": "w6",
+    "text": "swojego",
+    "start": 2.56,
+    "end": 2.96
+  },
+  {
+    "id": "w7",
+    "text": "życia.",
+    "start": 2.96,
+    "end": 3.44
+  },
+  {
+    "id": "w8",
+    "text": "Możliwe",
+    "start": 3.44,
+    "end": 3.92
+  },
+  {
+    "id": "w9",
+    "text": "nawet,",
+    "start": 3.92,
+    "end": 4.24
+  },
+  {
+    "id": "w10",
+    "text": "że",
+    "start": 4.24,
+    "end": 4.4
+  },
+  {
+    "id": "w11",
+    "text": "czytasz",
+    "start": 4.4,
+    "end": 4.72
+  },
+  {
+    "id": "w12",
+    "text": "książowe,",
+    "start": 4.8,
+    "end": 5.92
+  },
+  {
+    "id": "w13",
+    "text": "rozwijasz",
+    "start": 5.92,
+    "end": 6.64
+  },
+  {
+    "id": "w14",
+    "text": "się,",
+    "start": 6.64,
+    "end": 7.04
+  },
+  {
+    "id": "w15",
+    "text": "próbujesz",
+    "start": 7.04,
+    "end": 7.6
+  },
+  {
+    "id": "w16",
+    "text": "zmieniać",
+    "start": 7.6,
+    "end": 8.08
+  },
+  {
+    "id": "w17",
+    "text": "swoje",
+    "start": 8.08,
+    "end": 8.32
+  },
+  {
+    "id": "w18",
+    "text": "życie,",
+    "start": 8.32,
+    "end": 8.8
+  },
+  {
+    "id": "w19",
+    "text": "a",
+    "start": 8.8,
+    "end": 9.04
+  },
+  {
+    "id": "w20",
+    "text": "mimo",
+    "start": 9.04,
+    "end": 9.44
+  },
+  {
+    "id": "w21",
+    "text": "to",
+    "start": 9.44,
+    "end": 9.52
+  },
+  {
+    "id": "w22",
+    "text": "wciąż",
+    "start": 9.68,
+    "end": 10.08
+  },
+  {
+    "id": "w23",
+    "text": "wracasz",
+    "start": 10.08,
+    "end": 10.56
+  },
+  {
+    "id": "w24",
+    "text": "do",
+    "start": 10.8,
+    "end": 10.96
+  },
+  {
+    "id": "w25",
+    "text": "tych",
+    "start": 10.96,
+    "end": 11.12
+  },
+  {
+    "id": "w26",
+    "text": "samych",
+    "start": 11.12,
+    "end": 11.6
+  },
+  {
+    "id": "w27",
+    "text": "reakcji,",
+    "start": 11.6,
+    "end": 12.4
+  },
+  {
+    "id": "w28",
+    "text": "decyzje,",
+    "start": 12.4,
+    "end": 13.12
+  },
+  {
+    "id": "w29",
+    "text": "tych",
+    "start": 13.12,
+    "end": 13.28
+  },
+  {
+    "id": "w30",
+    "text": "samych",
+    "start": 13.28,
+    "end": 13.6
+  },
+  {
+    "id": "w31",
+    "text": "sytuacji,",
+    "start": 13.6,
+    "end": 14.16
+  },
+  {
+    "id": "w32",
+    "text": "tych",
+    "start": 14.16,
+    "end": 14.32
+  },
+  {
+    "id": "w33",
+    "text": "samych",
+    "start": 14.32,
+    "end": 14.64
+  },
+  {
+    "id": "w34",
+    "text": "schematów.",
+    "start": 14.64,
+    "end": 15.2
+  },
+  {
+    "id": "w35",
+    "text": "Bo",
+    "start": 15.2,
+    "end": 15.36
+  },
+  {
+    "id": "w36",
+    "text": "nie",
+    "start": 15.36,
+    "end": 15.52
+  },
+  {
+    "id": "w37",
+    "text": "wszystko,",
+    "start": 15.52,
+    "end": 15.76
+  },
+  {
+    "id": "w38",
+    "text": "co",
+    "start": 15.76,
+    "end": 15.92
+  },
+  {
+    "id": "w39",
+    "text": "kieruje",
+    "start": 15.92,
+    "end": 16.4
+  },
+  {
+    "id": "w40",
+    "text": "naszym",
+    "start": 16.4,
+    "end": 16.64
+  },
+  {
+    "id": "w41",
+    "text": "życiem,",
+    "start": 16.64,
+    "end": 17.12
+  },
+  {
+    "id": "w42",
+    "text": "jest",
+    "start": 17.12,
+    "end": 17.28
+  },
+  {
+    "id": "w43",
+    "text": "dla",
+    "start": 17.28,
+    "end": 17.44
+  },
+  {
+    "id": "w44",
+    "text": "nas",
+    "start": 17.44,
+    "end": 17.68
+  },
+  {
+    "id": "w45",
+    "text": "od",
+    "start": 17.68,
+    "end": 17.84
+  },
+  {
+    "id": "w46",
+    "text": "raz",
+    "start": 17.84,
+    "end": 18.16
+  },
+  {
+    "id": "w47",
+    "text": "widoczne.",
+    "start": 18.16,
+    "end": 19.2
+  },
+  {
+    "id": "w48",
+    "text": "Zobacz",
+    "start": 19.2,
+    "end": 19.76
+  },
+  {
+    "id": "w49",
+    "text": "siebie,",
+    "start": 19.92,
+    "end": 20.48
+  },
+  {
+    "id": "w50",
+    "text": "to",
+    "start": 20.48,
+    "end": 20.72
+  },
+  {
+    "id": "w51",
+    "text": "e-book,",
+    "start": 20.72,
+    "end": 21.52
+  },
+  {
+    "id": "w52",
+    "text": "który",
+    "start": 21.52,
+    "end": 21.76
+  },
+  {
+    "id": "w53",
+    "text": "powstał",
+    "start": 21.76,
+    "end": 22.32
+  },
+  {
+    "id": "w54",
+    "text": "po",
+    "start": 22.32,
+    "end": 22.48
+  },
+  {
+    "id": "w55",
+    "text": "to,",
+    "start": 22.48,
+    "end": 22.72
+  },
+  {
+    "id": "w56",
+    "text": "żeby",
+    "start": 22.72,
+    "end": 23.04
+  },
+  {
+    "id": "w57",
+    "text": "pomóc",
+    "start": 23.04,
+    "end": 23.6
+  },
+  {
+    "id": "w58",
+    "text": "ci",
+    "start": 23.6,
+    "end": 23.92
+  },
+  {
+    "id": "w59",
+    "text": "zatrzymać",
+    "start": 24.16,
+    "end": 24.96
+  },
+  {
+    "id": "w60",
+    "text": "się",
+    "start": 24.96,
+    "end": 25.28
+  },
+  {
+    "id": "w61",
+    "text": "i",
+    "start": 25.28,
+    "end": 25.44
+  },
+  {
+    "id": "w62",
+    "text": "zobaczyć,",
+    "start": 25.44,
+    "end": 26.32
+  },
+  {
+    "id": "w63",
+    "text": "co",
+    "start": 26.32,
+    "end": 26.56
+  },
+  {
+    "id": "w64",
+    "text": "do",
+    "start": 26.56,
+    "end": 26.72
+  },
+  {
+    "id": "w65",
+    "text": "tej",
+    "start": 26.72,
+    "end": 26.88
+  },
+  {
+    "id": "w66",
+    "text": "pory",
+    "start": 26.88,
+    "end": 27.28
+  },
+  {
+    "id": "w67",
+    "text": "mogło",
+    "start": 27.28,
+    "end": 27.68
+  },
+  {
+    "id": "w68",
+    "text": "działać",
+    "start": 27.68,
+    "end": 27.92
+  },
+  {
+    "id": "w69",
+    "text": "automatycznie,",
+    "start": 28,
+    "end": 28.72
+  },
+  {
+    "id": "w70",
+    "text": "czyli",
+    "start": 28.72,
+    "end": 29.04
+  },
+  {
+    "id": "w71",
+    "text": "Twoje",
+    "start": 29.04,
+    "end": 29.28
+  },
+  {
+    "id": "w72",
+    "text": "przekonania,",
+    "start": 29.28,
+    "end": 30
+  },
+  {
+    "id": "w73",
+    "text": "sposób",
+    "start": 30,
+    "end": 30.4
+  },
+  {
+    "id": "w74",
+    "text": "myślenia,",
+    "start": 30.4,
+    "end": 31.12
+  },
+  {
+    "id": "w75",
+    "text": "reakcje,",
+    "start": 31.12,
+    "end": 31.76
+  },
+  {
+    "id": "w76",
+    "text": "i",
+    "start": 31.76,
+    "end": 32
+  },
+  {
+    "id": "w77",
+    "text": "przede",
+    "start": 32,
+    "end": 32.48
+  },
+  {
+    "id": "w78",
+    "text": "wszystkim",
+    "start": 32.48,
+    "end": 33.04
+  },
+  {
+    "id": "w79",
+    "text": "obraz",
+    "start": 33.04,
+    "end": 33.68
+  },
+  {
+    "id": "w80",
+    "text": "samej",
+    "start": 33.92,
+    "end": 34.4
+  },
+  {
+    "id": "w81",
+    "text": "siebie,",
+    "start": 34.4,
+    "end": 34.8
+  },
+  {
+    "id": "w82",
+    "text": "czyli",
+    "start": 34.8,
+    "end": 35.04
+  },
+  {
+    "id": "w83",
+    "text": "to,",
+    "start": 35.04,
+    "end": 35.28
+  },
+  {
+    "id": "w84",
+    "text": "co",
+    "start": 35.28,
+    "end": 35.52
+  },
+  {
+    "id": "w85",
+    "text": "myślisz",
+    "start": 35.52,
+    "end": 36
+  },
+  {
+    "id": "w86",
+    "text": "na",
+    "start": 36,
+    "end": 36.16
+  },
+  {
+    "id": "w87",
+    "text": "swój",
+    "start": 36.16,
+    "end": 36.4
+  },
+  {
+    "id": "w88",
+    "text": "temat",
+    "start": 36.4,
+    "end": 36.72
+  },
+  {
+    "id": "w89",
+    "text": "i",
+    "start": 36.72,
+    "end": 36.8
+  },
+  {
+    "id": "w90",
+    "text": "w",
+    "start": 36.8,
+    "end": 36.96
+  },
+  {
+    "id": "w91",
+    "text": "co",
+    "start": 36.96,
+    "end": 37.12
+  },
+  {
+    "id": "w92",
+    "text": "wierzysz",
+    "start": 37.12,
+    "end": 37.52
+  },
+  {
+    "id": "w93",
+    "text": "na",
+    "start": 37.52,
+    "end": 37.68
+  },
+  {
+    "id": "w94",
+    "text": "swój",
+    "start": 37.68,
+    "end": 37.84
+  },
+  {
+    "id": "w95",
+    "text": "temat.",
+    "start": 37.84,
+    "end": 38.16
+  },
+  {
+    "id": "w96",
+    "text": "Znajdziesz",
+    "start": 38.16,
+    "end": 38.64
+  },
+  {
+    "id": "w97",
+    "text": "w",
+    "start": 38.72,
+    "end": 38.8
+  },
+  {
+    "id": "w98",
+    "text": "nim",
+    "start": 38.8,
+    "end": 38.88
+  },
+  {
+    "id": "w99",
+    "text": "nie",
+    "start": 38.96,
+    "end": 39.12
+  },
+  {
+    "id": "w100",
+    "text": "tylko",
+    "start": 39.12,
+    "end": 39.44
+  },
+  {
+    "id": "w101",
+    "text": "inspiracje,",
+    "start": 39.44,
+    "end": 40.4
+  },
+  {
+    "id": "w102",
+    "text": "zdania,",
+    "start": 40.4,
+    "end": 40.88
+  },
+  {
+    "id": "w103",
+    "text": "mocy,",
+    "start": 40.88,
+    "end": 41.28
+  },
+  {
+    "id": "w104",
+    "text": "ale",
+    "start": 41.28,
+    "end": 41.44
+  },
+  {
+    "id": "w105",
+    "text": "też",
+    "start": 41.44,
+    "end": 41.6
+  },
+  {
+    "id": "w106",
+    "text": "pytania",
+    "start": 41.6,
+    "end": 42
+  },
+  {
+    "id": "w107",
+    "text": "otwierające",
+    "start": 42,
+    "end": 42.64
+  },
+  {
+    "id": "w108",
+    "text": "ćwiczenia",
+    "start": 42.72,
+    "end": 43.2
+  },
+  {
+    "id": "w109",
+    "text": "i",
+    "start": 43.36,
+    "end": 43.44
+  },
+  {
+    "id": "w110",
+    "text": "praktyki,",
+    "start": 43.44,
+    "end": 44
+  },
+  {
+    "id": "w111",
+    "text": "które",
+    "start": 44,
+    "end": 44.24
+  },
+  {
+    "id": "w112",
+    "text": "pomogą",
+    "start": 44.24,
+    "end": 44.72
+  },
+  {
+    "id": "w113",
+    "text": "ci",
+    "start": 44.72,
+    "end": 44.88
+  },
+  {
+    "id": "w114",
+    "text": "przyjrzeć",
+    "start": 44.96,
+    "end": 45.76
+  },
+  {
+    "id": "w115",
+    "text": "sobie",
+    "start": 45.76,
+    "end": 46.24
+  },
+  {
+    "id": "w116",
+    "text": "z",
+    "start": 46.24,
+    "end": 46.4
+  },
+  {
+    "id": "w117",
+    "text": "nowej",
+    "start": 46.4,
+    "end": 46.8
+  },
+  {
+    "id": "w118",
+    "text": "perspektywy.",
+    "start": 46.8,
+    "end": 47.44
+  },
+  {
+    "id": "w119",
+    "text": "Po",
+    "start": 47.44,
+    "end": 47.6
+  },
+  {
+    "id": "w120",
+    "text": "to,",
+    "start": 47.6,
+    "end": 47.76
+  },
+  {
+    "id": "w121",
+    "text": "żeby",
+    "start": 47.76,
+    "end": 48
+  },
+  {
+    "id": "w122",
+    "text": "być",
+    "start": 48,
+    "end": 48.24
+  },
+  {
+    "id": "w123",
+    "text": "bliżej",
+    "start": 48.24,
+    "end": 48.64
+  },
+  {
+    "id": "w124",
+    "text": "siebie",
+    "start": 48.64,
+    "end": 48.8
+  },
+  {
+    "id": "w125",
+    "text": "i",
+    "start": 48.88,
+    "end": 49.04
+  },
+  {
+    "id": "w126",
+    "text": "coraz",
+    "start": 49.04,
+    "end": 49.36
+  },
+  {
+    "id": "w127",
+    "text": "częściej",
+    "start": 49.36,
+    "end": 49.68
+  },
+  {
+    "id": "w128",
+    "text": "świadomie",
+    "start": 49.84,
+    "end": 50.48
+  },
+  {
+    "id": "w129",
+    "text": "wybierać,",
+    "start": 50.48,
+    "end": 51.12
+  },
+  {
+    "id": "w130",
+    "text": "co",
+    "start": 51.12,
+    "end": 51.28
+  },
+  {
+    "id": "w131",
+    "text": "chcesz",
+    "start": 51.28,
+    "end": 51.76
+  },
+  {
+    "id": "w132",
+    "text": "zabrać",
+    "start": 51.76,
+    "end": 52.32
+  },
+  {
+    "id": "w133",
+    "text": "ze",
+    "start": 52.32,
+    "end": 52.56
+  },
+  {
+    "id": "w134",
+    "text": "sobą",
+    "start": 52.56,
+    "end": 52.96
+  },
+  {
+    "id": "w135",
+    "text": "dalej.",
+    "start": 52.96,
+    "end": 53.44
+  }
+]

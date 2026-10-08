@@ -1,0 +1,386 @@
+[
+  {
+    "id": "w0",
+    "text": "Trzy",
+    "start": 0.08,
+    "end": 0.24
+  },
+  {
+    "id": "w1",
+    "text": "rzeczy,",
+    "start": 0.32,
+    "end": 0.72
+  },
+  {
+    "id": "w2",
+    "text": "które",
+    "start": 0.88,
+    "end": 1.12
+  },
+  {
+    "id": "w3",
+    "text": "zmieniły",
+    "start": 1.12,
+    "end": 1.76
+  },
+  {
+    "id": "w4",
+    "text": "moje",
+    "start": 1.76,
+    "end": 2
+  },
+  {
+    "id": "w5",
+    "text": "rolki.",
+    "start": 2,
+    "end": 2.96
+  },
+  {
+    "id": "w6",
+    "text": "W",
+    "start": 3.2,
+    "end": 3.44
+  },
+  {
+    "id": "w7",
+    "text": "tym",
+    "start": 3.44,
+    "end": 3.68
+  },
+  {
+    "id": "w8",
+    "text": "miesiącu",
+    "start": 3.68,
+    "end": 4.24
+  },
+  {
+    "id": "w9",
+    "text": "moje",
+    "start": 4.24,
+    "end": 4.48
+  },
+  {
+    "id": "w10",
+    "text": "rolki",
+    "start": 4.48,
+    "end": 4.88
+  },
+  {
+    "id": "w11",
+    "text": "zrobiły",
+    "start": 4.88,
+    "end": 5.36
+  },
+  {
+    "id": "w12",
+    "text": "ponad",
+    "start": 5.36,
+    "end": 5.76
+  },
+  {
+    "id": "w13",
+    "text": "120",
+    "start": 5.76,
+    "end": 6.48
+  },
+  {
+    "id": "w14",
+    "text": "tysięcy",
+    "start": 6.48,
+    "end": 6.88
+  },
+  {
+    "id": "w15",
+    "text": "wyświetleń.",
+    "start": 7.04,
+    "end": 8.48
+  },
+  {
+    "id": "w16",
+    "text": "Średni",
+    "start": 8.56,
+    "end": 9.2
+  },
+  {
+    "id": "w17",
+    "text": "czas",
+    "start": 9.2,
+    "end": 9.44
+  },
+  {
+    "id": "w18",
+    "text": "oglądania",
+    "start": 9.44,
+    "end": 10
+  },
+  {
+    "id": "w19",
+    "text": "wzrósł",
+    "start": 10,
+    "end": 10.56
+  },
+  {
+    "id": "w20",
+    "text": "z",
+    "start": 10.56,
+    "end": 10.72
+  },
+  {
+    "id": "w21",
+    "text": "4",
+    "start": 10.72,
+    "end": 10.96
+  },
+  {
+    "id": "w22",
+    "text": "do",
+    "start": 11.04,
+    "end": 11.2
+  },
+  {
+    "id": "w23",
+    "text": "11",
+    "start": 11.2,
+    "end": 11.68
+  },
+  {
+    "id": "w24",
+    "text": "sekund.",
+    "start": 11.92,
+    "end": 12.96
+  },
+  {
+    "id": "w25",
+    "text": "73%",
+    "start": 13.12,
+    "end": 14.56
+  },
+  {
+    "id": "w26",
+    "text": "widzów",
+    "start": 14.64,
+    "end": 15.2
+  },
+  {
+    "id": "w27",
+    "text": "ogląda",
+    "start": 15.2,
+    "end": 15.6
+  },
+  {
+    "id": "w28",
+    "text": "do",
+    "start": 15.6,
+    "end": 15.76
+  },
+  {
+    "id": "w29",
+    "text": "samego",
+    "start": 15.76,
+    "end": 16.24
+  },
+  {
+    "id": "w30",
+    "text": "końca,",
+    "start": 16.24,
+    "end": 17.28
+  },
+  {
+    "id": "w31",
+    "text": "a",
+    "start": 17.36,
+    "end": 17.6
+  },
+  {
+    "id": "w32",
+    "text": "zasięgi",
+    "start": 17.6,
+    "end": 18.16
+  },
+  {
+    "id": "w33",
+    "text": "rosły",
+    "start": 18.16,
+    "end": 18.56
+  },
+  {
+    "id": "w34",
+    "text": "z",
+    "start": 18.56,
+    "end": 18.64
+  },
+  {
+    "id": "w35",
+    "text": "tygodnia",
+    "start": 18.64,
+    "end": 19.12
+  },
+  {
+    "id": "w36",
+    "text": "na",
+    "start": 19.2,
+    "end": 19.36
+  },
+  {
+    "id": "w37",
+    "text": "tydzień.",
+    "start": 19.36,
+    "end": 20.4
+  },
+  {
+    "id": "w38",
+    "text": "Po",
+    "start": 20.64,
+    "end": 20.88
+  },
+  {
+    "id": "w39",
+    "text": "pierwsze,",
+    "start": 20.88,
+    "end": 21.68
+  },
+  {
+    "id": "w40",
+    "text": "mocny",
+    "start": 21.68,
+    "end": 22.24
+  },
+  {
+    "id": "w41",
+    "text": "hak,",
+    "start": 22.24,
+    "end": 22.8
+  },
+  {
+    "id": "w42",
+    "text": "po",
+    "start": 22.8,
+    "end": 23.04
+  },
+  {
+    "id": "w43",
+    "text": "drugie,",
+    "start": 23.04,
+    "end": 23.44
+  },
+  {
+    "id": "w44",
+    "text": "napisy,",
+    "start": 23.68,
+    "end": 24.56
+  },
+  {
+    "id": "w45",
+    "text": "po",
+    "start": 24.56,
+    "end": 24.72
+  },
+  {
+    "id": "w46",
+    "text": "trzecie,",
+    "start": 24.72,
+    "end": 25.36
+  },
+  {
+    "id": "w47",
+    "text": "szybki",
+    "start": 25.44,
+    "end": 26
+  },
+  {
+    "id": "w48",
+    "text": "montaż.",
+    "start": 26,
+    "end": 27.12
+  },
+  {
+    "id": "w49",
+    "text": "Zamiast",
+    "start": 27.28,
+    "end": 28.08
+  },
+  {
+    "id": "w50",
+    "text": "długich",
+    "start": 28.08,
+    "end": 28.48
+  },
+  {
+    "id": "w51",
+    "text": "ujęć,",
+    "start": 28.48,
+    "end": 29.2
+  },
+  {
+    "id": "w52",
+    "text": "krótkie",
+    "start": 29.2,
+    "end": 29.76
+  },
+  {
+    "id": "w53",
+    "text": "cięcia,",
+    "start": 29.76,
+    "end": 30.56
+  },
+  {
+    "id": "w54",
+    "text": "zamiast",
+    "start": 30.56,
+    "end": 31.04
+  },
+  {
+    "id": "w55",
+    "text": "nudnego",
+    "start": 31.04,
+    "end": 31.68
+  },
+  {
+    "id": "w56",
+    "text": "tekstu,",
+    "start": 31.68,
+    "end": 32.48
+  },
+  {
+    "id": "w57",
+    "text": "animacje.",
+    "start": 32.48,
+    "end": 33.68
+  },
+  {
+    "id": "w58",
+    "text": "Spróbuj",
+    "start": 33.68,
+    "end": 34.48
+  },
+  {
+    "id": "w59",
+    "text": "tego",
+    "start": 34.48,
+    "end": 34.72
+  },
+  {
+    "id": "w60",
+    "text": "w",
+    "start": 34.72,
+    "end": 34.8
+  },
+  {
+    "id": "w61",
+    "text": "swojej",
+    "start": 34.8,
+    "end": 35.2
+  },
+  {
+    "id": "w62",
+    "text": "następnej",
+    "start": 35.2,
+    "end": 35.84
+  },
+  {
+    "id": "w63",
+    "text": "rolce.",
+    "start": 35.84,
+    "end": 36.4
+  }
+]

@@ -4,8 +4,10 @@
 **Język wizualny (tokeny kolorów, fontów, ruchu — lustro `C` w `src/overlays.tsx` i `T` w `src/styles/persona.tsx`):** @frame.md
 Każdą nową poprawkę od użytkowniczki najpierw dopisz do `PREFERENCJE.md` (z datą), potem zmień kod/rolkę.
 
-**Klienci:** rolka dla klienta → przed montażem przeczytaj `klienci/<klient>/PREFERENCJE.md`. Ma pierwszeństwo przed ogólnymi `PREFERENCJE.md`/`frame.md` tam, gdzie się różnią; poprawki dla klienta dopisuj tam. Logo i assety klienta: `public/Brandings/<Klient>/`.
+**Klienci:** rolka dla klienta → przed montażem przeczytaj `klienci/<klient>/PREFERENCJE.md`. Ma pierwszeństwo przed ogólnymi `PREFERENCJE.md`/`frame.md` tam, gdzie się różnią; poprawki dla klienta dopisuj tam. Logo i assety klienta: `public/Brandings/<Klient>/`. Gotowe rendery klienta: `klienci/<klient>/Render/`.
 - `magdalena-herod` — `klienci/magdalena-herod/PREFERENCJE.md`: spokojniejsze kinetic subtitles; Montserrat 400 w treści, Libre Baskerville 400/400 italic w ważnych słowach. Krem, śliwka i złoto; schludne karty i ikony jak na stronie, tematyczne przebitki z ludźmi. Wysokość napisów jak aktualny SkyClass (0,73 / 0,63), animacje bezpośrednio pod napisami. Subtelne SFX 10 dB poniżej oryginalnego filmu lub ciszej. Wiedza o ebooku w pliku klientki. To profil montażowy; przy wdrażaniu stylu w silniku korzystaj z tego pliku.
+- `kacper-bisanz` — `klienci/kacper-bisanz/PREFERENCJE.md`, styl `bisanz` (`src/styles/bisanz.tsx`): osobny od SkyClass. Inter 700/600/400 + Menlo 400 (etykiety „boardingowe”), biel `#FFFFFF` + niebieski `#066EED`, kinetic subtitles z dynamiką SkyClass, ale bardziej różnorodne (warianty dobierane do sensu, bez chaosu), białe karty. **Przebitki i wytyczne podane przez użytkowniczkę mają pierwszeństwo**, a do tego dobieraj własne przebitki. Prep wykrywa styl po „bisanz” w ścieżce.
+- `swieza-bryka-ameryka` — `klienci/swieza-bryka-ameryka/PREFERENCJE.md`, styl `ameryka` (`src/styles/ameryka.tsx`, motyw silnika Bisanza): import aut z USA (swiezabrykaameryka.pl). Poppins 900/600/400, złoto `#B79154`, czerń `#020203`, bordo `#651E1E`, krem `#F6F3EE`. Kinetic subtitles jak u Bisanza, ale zamiast kreski **zakreślacz na całe słowo**: klucz czarny na złotym (7,1:1), `hl` krem na bordo (10,8:1); ciemne karty ze złotą krawędzią. Zakazy treści: bez liczb o kredycie (RRSO), bez gwarancji ceny i terminu (widełki), prowizja jawna. Logo: `public/Brandings/SwiezaBrykaAmeryka/`. Prep wykrywa styl po „swieza-bryka-ameryka” w ścieżce.
 - `skyclass` — zachowuj ciszę i pełną wypowiedź (napisy 1:1), napisy 6% kadru wyżej niż w Alicante v2, grafiki na pozycji v2, przejścia między kierunkami bez przebłysków prowadzącego. SkyClass (skyclass.pl, tanie podróże): Poppins 500/900, granat `#124F81` + róż `#FF395C`, motywy bilet/lotnisko, kwoty w zielonym neonie, przebitki znanych miejsc.
 
 Użytkowniczka wrzuca surowe nagranie rolki (9:16, mówiona do kamery, po polsku), a Claude ją montuje: wycina ciszę i dubli, dodaje animowane napisy w zdefiniowanym stylu, zoomy. Silnik: Remotion (React). Komunikacja po polsku.
@@ -27,7 +29,7 @@ Użytkowniczka wrzuca surowe nagranie rolki (9:16, mówiona do kamery, po polsku
    - **SkyClass: pełne napisy 1:1 również przy cenach/listach/CTA; żadnego wycinania ciszy, zawahań ani urwanych słów.**
    - **bez dublowania** (PREFERENCJE.md, inne style): usuń z napisów słowa, które pokazuje grafika (liczby, punkty listy, porównania, tytuł); nad liczbą-bohaterem napis bez klucza (`key: -1`).
 4. Kontrola: `npx remotion still <nazwa> $TMPDIR/f.png --frame=<N> --scale=0.4`, potem obejrzyj PNG (Read). Sprawdź kilka klatek przed renderem.
-5. Render: `npx remotion render <nazwa> out/<nazwa>.mp4`, wynik wyślij użytkowniczce (SendUserFile).
+5. Render: rolka klienta → `npx remotion render <nazwa> "klienci/<klient>/Render/<nazwa>.mp4"` (Remotion sam tworzy brakujący folder); rolka bez klienta → `out/<nazwa>.mp4`. Wynik wyślij użytkowniczce (SendUserFile).
 6. Podgląd na żywo: `npm run dev` (Remotion Studio, każda rolka = osobna kompozycja; po edycji JSON odśwież stronę).
 
 ## reel.json
@@ -48,6 +50,7 @@ Czasy w sekundach **surowego nagrania**; mapowanie na oś po montażu robi `toOu
 ```
 
 `from`: `right|left|top|bottom` (skąd wjeżdża; wyjeżdża na przeciwną stronę). Prep zmienia kierunek przy każdym nowym zdaniu.
+`client`: folder klienta w `klienci/` — prep wpisuje go sam, gdy nagranie leży w `klienci/<klient>/…`; render idzie wtedy do `klienci/<client>/Render/`.
 `layout`: `stack` (małe nad/pod dużym kluczem) · `inline` (słowa w linii, klucz większy). Prep rotuje je automatycznie. Słowa zawsze zwarte i wycentrowane.
 `key`: indeks słowa-klucza; `-1` = bez klucza (same małe słowa).
 `hl`: indeksy słów w kolorze akcentu. Napis trzyma się ≥1 s po ostatnim słowie albo do startu następnej grupy.
@@ -75,6 +78,7 @@ Wzorcowy przykład: `public/reels/pokazowka/reel.json`. Wygląd grafik: tokeny `
 ## Style napisów
 
 - `skyclass` — `src/styles/skyclass.tsx`: Poppins 500/900, różowe pieczątki, start/odlot po skosie. Grafiki w `src/skyclass-overlays.tsx`: `money` (kwota `to`, opcjonalnie `upper`, `oldPrice`, `prefix`, banknoty wystrzeliwujące z cyfr), `ticket` (kierunek, `country`, opcjonalny `code`, kwota `to`, czas odliczania `priceAt`), `travel` (plik `src`, metka `text`/`country`, przejście okna), `list`, `counter` i `cta`. Przykład: rolka `alicante`. Napisy mogą mieć `effect: "stamp"` i jawny `end` w czasie źródła, aby kontrolować ich czas; w SkyClass grafika nie zastępuje wypowiadanych słów w napisach.
+- `bisanz` i `ameryka` — jeden silnik ruchu w `src/styles/bisanz.tsx` (`kineticCaptions(T)`, `kineticOverlay(T)`), dwa motywy: `BISANZ` (kreska pod kluczem) i `AMERYKA` w `src/styles/ameryka.tsx` (`marker`: zakreślacz na całe słowo). Zmiana wyglądu jednego klienta = tokeny jego motywu; zmiana w silniku dotyka obu (sprawdź klatki obu stylów).
 - Styl = jeden plik w `src/styles/` + wpis w `STYLES` w `src/Reel.tsx`; w `reel.json` wybiera się go przez `"style"`.
 - Nowy styl od użytkowniczki: skopiuj `src/styles/persona.tsx`, zmień tokeny `T` (font, rozmiary, kolory, pozycja `y`, `travel`, `drift`, `stairWidth`) i/lub ruch.
 - `persona` — wzorowany na rolkach Krzysztofa Persony / Toma Pietrzyka (kurs „Lepsze Rolki", presety „Persona Presets 2.0" do Premiere: Slide Bounce, Wobble, Scribble, Camera Shake, Glitch). Font marki to **MADE Tommy Soft** (Bold/ExtraBold/Black); dopóki plików nie ma w `public/fonts/`, styl używa Nunito (zbliżony, zaokrąglony, pełne polskie znaki).
@@ -83,6 +87,7 @@ Wzorcowy przykład: `public/reels/pokazowka/reel.json`. Wygląd grafik: tokeny `
 
 ## Narzędzia
 
+- Panel w przeglądarce: `npm run ui` → http://127.0.0.1:3100 (`PANEL.md`). Edytuje te same `reel.json`; „operator AI” to Claude Code bez okna (`claude -p`) z tymi instrukcjami. Zlecenie z panelu przychodzi bez czatu: nie zadawaj pytań, nie wysyłaj plików, nie commituj, na końcu krótko podsumuj po polsku.
 - Transkrypcja: `npx hyperframes transcribe <plik> -d <dir> -l pl --json` (Parakeet TDT 0.6B v3, lokalnie, ~3 s na klip). Końce słów u Parakeeta „rozlewają się" na pauzy — dlatego cięcie ciszy idzie z audio, nie z transkryptu. Głośne tło → `NOISE_DB` w `scripts/prep.mjs` na -30.
 - Skille HyperFrames w `.claude/skills/` (osobny silnik HTML+GSAP), przydatne do efektów spoza tego silnika: `embedded-captions` (napisy za postacią, z maską), `talking-head-recut` (plansze, lower-thirdy, callouty), `motion-graphics` (krótkie animacje, mapy, logo), `hyperframes-registry` (~400 gotowych bloków). Animację z HyperFrames renderuj jako przezroczysty plik i wstaw przez overlay `media` z `fit: "overlay"`.
 - Testy logiki prep: `npm test`. Typy + lint: `npm run lint`.

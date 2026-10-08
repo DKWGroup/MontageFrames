@@ -3,6 +3,7 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { syncStudio } from "./studio-sync.mjs";
 import { pathToFileURL } from "node:url";
 
 // Cięcie ciszy: próg głośności i minimalna długość pauzy do wycięcia.
@@ -67,7 +68,7 @@ export function keepRanges(silences, duration, pad = PAD) {
   return keep.map((k) => ({ start: +k.start.toFixed(3), end: +k.end.toFixed(3) }));
 }
 
-export function buildReel({ source, words, silences, duration, style = "persona" }) {
+export function buildReel({ source, words, silences, duration, style = "persona", client = null }) {
   const ranges = style === "skyclass" ? [{ start: 0, end: duration }] : keepRanges(silences, duration);
   const segments = ranges.map((s, i) => ({ ...s, zoom: i % 2 ? 1.1 : 1 }));
   let dir = 0;
@@ -82,8 +83,34 @@ export function buildReel({ source, words, silences, duration, style = "persona"
     if (/[.!?]$/.test(g.at(-1).text)) dir++; // nowe zdanie = nowy kierunek wjazdu
     return group;
   });
-  return { source, style, fps: 30, segments, captions, overlays: [] };
+  return { source, style, ...(client && { client }), fps: 30, segments, captions, overlays: [] };
 }
+
+// Klient = folder z klienci/<klient>/... w ścieżce nagrania. Jego rolki renderują się do klienci/<klient>/Render (PREFERENCJE.md), reszta do out/.
+export const clientOf = (input) => input.match(/(?:^|\/)klienci\/([^/]+)\//i)?.[1] ?? null;
+export const renderPath = (client, name) => (client ? `klienci/${client}/Render/${name}.mp4` : `out/${name}.mp4`);
+
+// Styl napisów z folderu klienta w ścieżce nagrania (--style= ma pierwszeństwo).
+export const styleOf = (input) =>
+  /(^|[\/])skyclass([\/]|$)/i.test(input)
+    ? "skyclass"
+    : /bisanz/i.test(input)
+      ? "bisanz"
+      : /herod/i.test(input)
+        ? "herod"
+        : /swieza-?bryka-?ameryka/i.test(input)
+          ? "ameryka"
+          : "persona";
+
+// Nazwa rolki/klienta: małe litery, bez polskich znaków, myślniki zamiast reszty.
+export const slug = (s) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/ł/g, "l")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 
 function detectSilences(file) {
   const { stderr } = spawnSync(
@@ -107,14 +134,13 @@ function main() {
     console.error("Użycie: node scripts/prep.mjs <plik-wideo> [nazwa] [--force] [--style=skyclass]");
     process.exit(1);
   }
-  const style = args.find((a) => a.startsWith("--style="))?.slice(8) ?? (/(^|[\/])skyclass([\/]|$)/i.test(input) ? "skyclass" : "persona");
-  const name = (rawName ?? path.parse(input).name)
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/ł/g, "l")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+  const style = args.find((a) => a.startsWith("--style="))?.slice(8) ?? styleOf(input);
+  const client = clientOf(input);
+  const name = slug(rawName ?? path.parse(input).name);
+  if (!name) {
+    console.error("Nazwa rolki jest pusta po oczyszczeniu — podaj ją jako drugi argument.");
+    process.exit(1);
+  }
   const dir = path.join("public", "reels", name);
   if (existsSync(path.join(dir, "reel.json")) && !force) {
     console.error(`${dir}/reel.json już istnieje (może mieć ręczne poprawki). Dodaj --force, żeby nadpisać.`);
@@ -133,13 +159,14 @@ function main() {
   execFileSync("npx", ["hyperframes", "transcribe", src, "-d", dir, "-l", "pl", "--json"], { stdio: "inherit" });
   const words = JSON.parse(readFileSync(path.join(dir, "transcript.json"), "utf8"));
 
-  const reel = buildReel({ source, words, silences: style === "skyclass" ? [] : detectSilences(src), duration, style });
+  const reel = buildReel({ source, words, silences: style === "skyclass" ? [] : detectSilences(src), duration, style, client });
   writeFileSync(path.join(dir, "reel.json"), JSON.stringify(reel, null, 2));
+  syncStudio();
   const kept = reel.segments.reduce((n, s) => n + s.end - s.start, 0);
   console.log(
     `\n${name}: ${duration.toFixed(1)}s -> ${kept.toFixed(1)}s (${style === "skyclass" ? "bez cięcia ciszy" : "po cięciu ciszy"}), ${reel.segments.length} ujęć, ${reel.captions.length} grup napisów`,
   );
-  console.log(`Podgląd: npm run dev  |  Render: npx remotion render ${name} out/${name}.mp4`);
+  console.log(`Podgląd: npm run dev  |  Render: npx remotion render ${name} "${renderPath(client, name)}"`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();

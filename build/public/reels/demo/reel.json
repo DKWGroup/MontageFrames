@@ -1,0 +1,202 @@
+{
+  "source": "source.mp4",
+  "style": "persona",
+  "fps": 30,
+  "segments": [
+    {
+      "start": 0,
+      "end": 3.313,
+      "zoom": 1
+    },
+    {
+      "start": 4.651,
+      "end": 7.268,
+      "zoom": 1.1
+    },
+    {
+      "start": 8.315,
+      "end": 14.531,
+      "zoom": 1
+    }
+  ],
+  "captions": [
+    {
+      "words": [
+        {
+          "text": "Większość",
+          "start": 0,
+          "end": 0.64
+        },
+        {
+          "text": "ludzi",
+          "start": 0.64,
+          "end": 0.88
+        }
+      ],
+      "key": 0,
+      "from": "right"
+    },
+    {
+      "words": [
+        {
+          "text": "przewija",
+          "start": 0.88,
+          "end": 1.44
+        },
+        {
+          "text": "rolkę",
+          "start": 1.44,
+          "end": 1.84
+        }
+      ],
+      "key": 0,
+      "from": "right"
+    },
+    {
+      "words": [
+        {
+          "text": "w",
+          "start": 1.92,
+          "end": 2
+        },
+        {
+          "text": "pierwsze",
+          "start": 2,
+          "end": 2.4
+        },
+        {
+          "text": "3",
+          "start": 2.4,
+          "end": 2.72
+        },
+        {
+          "text": "sekundy.",
+          "start": 2.72,
+          "end": 3.84
+        }
+      ],
+      "key": 2,
+      "from": "right"
+    },
+    {
+      "words": [
+        {
+          "text": "Dlatego",
+          "start": 4.48,
+          "end": 5.2
+        },
+        {
+          "text": "napisy",
+          "start": 5.2,
+          "end": 5.76
+        },
+        {
+          "text": "muszą",
+          "start": 5.76,
+          "end": 6.08
+        }
+      ],
+      "key": 1,
+      "from": "bottom"
+    },
+    {
+      "words": [
+        {
+          "text": "przyciągać",
+          "start": 6.08,
+          "end": 6.8
+        },
+        {
+          "text": "uwagę.",
+          "start": 6.8,
+          "end": 7.92
+        }
+      ],
+      "key": 0,
+      "from": "bottom"
+    },
+    {
+      "words": [
+        {
+          "text": "Jedno",
+          "start": 8.24,
+          "end": 8.64
+        },
+        {
+          "text": "słowo",
+          "start": 8.64,
+          "end": 9.12
+        },
+        {
+          "text": "klucz,",
+          "start": 9.12,
+          "end": 9.76
+        }
+      ],
+      "key": 2,
+      "from": "left"
+    },
+    {
+      "words": [
+        {
+          "text": "duże",
+          "start": 9.76,
+          "end": 10.16
+        },
+        {
+          "text": "i",
+          "start": 10.16,
+          "end": 10.24
+        },
+        {
+          "text": "wyraźne,",
+          "start": 10.24,
+          "end": 11.04
+        }
+      ],
+      "key": 2,
+      "from": "left",
+      "hl": [
+        2
+      ]
+    },
+    {
+      "words": [
+        {
+          "text": "reszta",
+          "start": 11.04,
+          "end": 11.52
+        },
+        {
+          "text": "mniejsza,",
+          "start": 11.52,
+          "end": 12.32
+        }
+      ],
+      "key": 1,
+      "from": "left"
+    },
+    {
+      "words": [
+        {
+          "text": "spokojna",
+          "start": 12.32,
+          "end": 13.04
+        },
+        {
+          "text": "i",
+          "start": 13.04,
+          "end": 13.2
+        },
+        {
+          "text": "czytelna.",
+          "start": 13.2,
+          "end": 13.76
+        }
+      ],
+      "key": 2,
+      "from": "left"
+    }
+  ],
+  "overlays": []
+}

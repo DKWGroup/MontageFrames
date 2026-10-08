@@ -44,7 +44,7 @@ const VEC: Record<Dir, [number, number]> = {
   bottom: [0, 1],
 };
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
-const clean = (t: string) => t.replace(/[.,;:…]+$/u, "");
+export const clean = (t: string) => t.replace(/[.,;:…]+$/u, "");
 
 // Przyimki i spójniki są nierozdzielne z następnym słowem także podczas animacji.
 const JOIN = new Set([
@@ -66,8 +66,8 @@ const JOIN = new Set([
   "nad",
   "pod",
 ]);
-const joins = (w: W) => JOIN.has(clean(w.text).toLowerCase());
-const atoms = (ws: W[]): W[][] => {
+export const joins = (w: W) => JOIN.has(clean(w.text).toLowerCase());
+export const atoms = (ws: W[]): W[][] => {
   const out: W[][] = [];
   let pending: W[] = [];
   for (const w of ws) {
@@ -96,7 +96,7 @@ const lines = (ws: W[]): W[][] => {
   );
   return [as.slice(0, best).flat(), as.slice(best).flat()];
 };
-const stackLines = (words: W[], k: number): Line[] => {
+export const stackLines = (words: W[], k: number): Line[] => {
   if (k < 0) return lines(words).map((ws) => ({ ws, key: false }));
   const as = atoms(words);
   const a = as.findIndex((ws) => ws.includes(words[k]));

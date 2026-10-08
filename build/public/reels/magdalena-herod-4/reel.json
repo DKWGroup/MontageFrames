@@ -1,0 +1,2121 @@
+{
+  "source": "source.mp4",
+  "style": "herod",
+  "client": "magdalena-herod",
+  "fps": 30,
+  "segments": [
+    {
+      "start": 0,
+      "end": 18.8,
+      "zoom": 1
+    },
+    {
+      "start": 18.8,
+      "end": 36.32,
+      "zoom": 1.02
+    },
+    {
+      "start": 36.32,
+      "end": 49.44,
+      "zoom": 1
+    },
+    {
+      "start": 49.44,
+      "end": 65.91,
+      "zoom": 1.015
+    },
+    {
+      "start": 65.91,
+      "end": 80.15,
+      "zoom": 1
+    },
+    {
+      "start": 80.15,
+      "end": 93.03,
+      "zoom": 1.02
+    },
+    {
+      "start": 93.03,
+      "end": 110.633333,
+      "zoom": 1
+    }
+  ],
+  "captions": [
+    {
+      "words": [
+        {
+          "text": "Przez",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "ostatnie",
+          "start": 0.32,
+          "end": 0.96
+        },
+        {
+          "text": "ponad",
+          "start": 0.96,
+          "end": 1.44
+        },
+        {
+          "text": "już",
+          "start": 1.44,
+          "end": 1.68
+        },
+        {
+          "text": "8",
+          "start": 1.68,
+          "end": 2
+        },
+        {
+          "text": "lat",
+          "start": 2,
+          "end": 2.32
+        }
+      ],
+      "key": 4,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "intensywnie",
+          "start": 2.48,
+          "end": 3.2
+        },
+        {
+          "text": "uczyłam",
+          "start": 3.44,
+          "end": 4.08
+        },
+        {
+          "text": "się,",
+          "start": 4.08,
+          "end": 4.4
+        },
+        {
+          "text": "zdobywałam",
+          "start": 4.4,
+          "end": 5.04
+        },
+        {
+          "text": "wiedzę,",
+          "start": 5.04,
+          "end": 5.44
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "jeździłam",
+          "start": 5.44,
+          "end": 6.08
+        },
+        {
+          "text": "na",
+          "start": 6.08,
+          "end": 6.32
+        },
+        {
+          "text": "przeróżne",
+          "start": 6.48,
+          "end": 7.12
+        },
+        {
+          "text": "warsztaty.",
+          "start": 7.12,
+          "end": 7.76
+        }
+      ],
+      "key": 3,
+      "lineBreak": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Zdobywałam",
+          "start": 7.76,
+          "end": 8.24
+        },
+        {
+          "text": "wiedzę",
+          "start": 8.24,
+          "end": 8.48
+        },
+        {
+          "text": "z",
+          "start": 8.48,
+          "end": 8.64
+        },
+        {
+          "text": "obszaru",
+          "start": 8.64,
+          "end": 9.04
+        },
+        {
+          "text": "samoświadomości.",
+          "start": 9.04,
+          "end": 10
+        }
+      ],
+      "key": 1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Przede",
+          "start": 10,
+          "end": 10.24
+        },
+        {
+          "text": "wszystkim",
+          "start": 10.24,
+          "end": 10.48
+        },
+        {
+          "text": "wdrażałam",
+          "start": 10.64,
+          "end": 11.36
+        },
+        {
+          "text": "ją",
+          "start": 11.36,
+          "end": 11.6
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 11.6,
+          "end": 11.76
+        },
+        {
+          "text": "sprawdzałam",
+          "start": 11.76,
+          "end": 12.72
+        },
+        {
+          "text": "na",
+          "start": 12.72,
+          "end": 13.04
+        },
+        {
+          "text": "sobie,",
+          "start": 13.04,
+          "end": 13.44
+        }
+      ],
+      "key": 1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "na",
+          "start": 13.44,
+          "end": 13.6
+        },
+        {
+          "text": "własnych",
+          "start": 13.6,
+          "end": 14
+        },
+        {
+          "text": "emocjach,",
+          "start": 14,
+          "end": 14.8
+        },
+        {
+          "text": "na",
+          "start": 14.8,
+          "end": 14.96
+        },
+        {
+          "text": "własnych",
+          "start": 14.96,
+          "end": 15.36
+        },
+        {
+          "text": "reakcjach,",
+          "start": 15.36,
+          "end": 16
+        }
+      ],
+      "key": 2,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "na",
+          "start": 16,
+          "end": 16.08
+        },
+        {
+          "text": "własnym",
+          "start": 16.08,
+          "end": 16.48
+        },
+        {
+          "text": "ciele,",
+          "start": 16.48,
+          "end": 16.8
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "układzie",
+          "start": 16.8,
+          "end": 17.28
+        },
+        {
+          "text": "nerwowym",
+          "start": 17.28,
+          "end": 17.76
+        },
+        {
+          "text": "na",
+          "start": 17.76,
+          "end": 17.92
+        },
+        {
+          "text": "własnym.",
+          "start": 17.92,
+          "end": 18.8
+        }
+      ],
+      "key": 1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "I",
+          "start": 18.8,
+          "end": 18.96
+        },
+        {
+          "text": "przez",
+          "start": 18.96,
+          "end": 19.28
+        },
+        {
+          "text": "te",
+          "start": 19.28,
+          "end": 19.44
+        },
+        {
+          "text": "lata",
+          "start": 19.44,
+          "end": 19.84
+        }
+      ],
+      "key": 3,
+      "lineBreak": 3,
+      "layout": "inline",
+      "end": 19.84
+    },
+    {
+      "words": [
+        {
+          "text": "które",
+          "start": 21.92,
+          "end": 22.16
+        },
+        {
+          "text": "pomogły",
+          "start": 22.16,
+          "end": 22.8
+        },
+        {
+          "text": "mi",
+          "start": 22.8,
+          "end": 23.04
+        },
+        {
+          "text": "zupełnie",
+          "start": 23.04,
+          "end": 23.6
+        },
+        {
+          "text": "inaczej",
+          "start": 23.6,
+          "end": 24.16
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "spojrzeć",
+          "start": 24.16,
+          "end": 24.96
+        },
+        {
+          "text": "na",
+          "start": 24.96,
+          "end": 25.2
+        },
+        {
+          "text": "siebie",
+          "start": 25.2,
+          "end": 25.68
+        }
+      ],
+      "key": 0,
+      "lineBreak": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 25.68,
+          "end": 25.84
+        },
+        {
+          "text": "na",
+          "start": 25.84,
+          "end": 26
+        },
+        {
+          "text": "otaczający",
+          "start": 26,
+          "end": 26.88
+        },
+        {
+          "text": "mnie",
+          "start": 26.88,
+          "end": 27.12
+        },
+        {
+          "text": "świat",
+          "start": 27.44,
+          "end": 27.76
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "na",
+          "start": 27.92,
+          "end": 28
+        },
+        {
+          "text": "to,",
+          "start": 28,
+          "end": 28.16
+        },
+        {
+          "text": "kim",
+          "start": 28.24,
+          "end": 28.48
+        },
+        {
+          "text": "jestem.",
+          "start": 28.48,
+          "end": 29.28
+        }
+      ],
+      "key": 3,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Na",
+          "start": 29.28,
+          "end": 29.52
+        },
+        {
+          "text": "to,",
+          "start": 29.52,
+          "end": 29.68
+        },
+        {
+          "text": "jak",
+          "start": 29.68,
+          "end": 29.84
+        },
+        {
+          "text": "chcę",
+          "start": 29.84,
+          "end": 30.16
+        },
+        {
+          "text": "żyć,",
+          "start": 30.16,
+          "end": 30.48
+        }
+      ],
+      "key": 4,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "jak",
+          "start": 30.48,
+          "end": 30.72
+        },
+        {
+          "text": "budować",
+          "start": 30.72,
+          "end": 31.2
+        },
+        {
+          "text": "relacje,",
+          "start": 31.2,
+          "end": 31.6
+        },
+        {
+          "text": "jak",
+          "start": 31.6,
+          "end": 31.76
+        },
+        {
+          "text": "świadomie",
+          "start": 31.76,
+          "end": 32.32
+        },
+        {
+          "text": "działać,",
+          "start": 32.32,
+          "end": 32.88
+        }
+      ],
+      "key": 2,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 32.88,
+          "end": 33.04
+        },
+        {
+          "text": "na",
+          "start": 33.04,
+          "end": 33.2
+        },
+        {
+          "text": "to,",
+          "start": 33.2,
+          "end": 33.44
+        },
+        {
+          "text": "na",
+          "start": 33.44,
+          "end": 33.68
+        },
+        {
+          "text": "ile",
+          "start": 33.68,
+          "end": 34
+        },
+        {
+          "text": "dobra",
+          "start": 34,
+          "end": 34.4
+        }
+      ],
+      "key": 5,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "w",
+          "start": 34.4,
+          "end": 34.48
+        },
+        {
+          "text": "ogóle",
+          "start": 34.48,
+          "end": 34.8
+        },
+        {
+          "text": "pozwalam",
+          "start": 34.8,
+          "end": 35.36
+        },
+        {
+          "text": "sobie",
+          "start": 35.36,
+          "end": 35.6
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "w",
+          "start": 35.6,
+          "end": 35.68
+        },
+        {
+          "text": "swoim",
+          "start": 35.68,
+          "end": 36
+        },
+        {
+          "text": "życiu.",
+          "start": 36,
+          "end": 36.32
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "I",
+          "start": 36.32,
+          "end": 36.48
+        },
+        {
+          "text": "zrozumiałam",
+          "start": 36.48,
+          "end": 37.04
+        },
+        {
+          "text": "podczas",
+          "start": 37.04,
+          "end": 37.36
+        },
+        {
+          "text": "tej",
+          "start": 37.36,
+          "end": 37.52
+        },
+        {
+          "text": "drogi",
+          "start": 37.52,
+          "end": 38
+        }
+      ],
+      "key": 1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "jedną",
+          "start": 38,
+          "end": 38.4
+        },
+        {
+          "text": "bardzo",
+          "start": 38.4,
+          "end": 38.72
+        },
+        {
+          "text": "ważną",
+          "start": 38.72,
+          "end": 39.28
+        },
+        {
+          "text": "rzecz",
+          "start": 39.28,
+          "end": 39.76
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "żeby przyjąć",
+          "start": 39.84,
+          "end": 40.96
+        },
+        {
+          "text": "więcej,",
+          "start": 40.96,
+          "end": 41.6
+        },
+        {
+          "text": "trzeba",
+          "start": 41.6,
+          "end": 41.84
+        },
+        {
+          "text": "też",
+          "start": 41.84,
+          "end": 42.08
+        },
+        {
+          "text": "mieć",
+          "start": 42.08,
+          "end": 42.32
+        }
+      ],
+      "key": 1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "w",
+          "start": 42.32,
+          "end": 42.48
+        },
+        {
+          "text": "sobie",
+          "start": 42.48,
+          "end": 42.72
+        },
+        {
+          "text": "przestrzeń",
+          "start": 42.72,
+          "end": 43.28
+        },
+        {
+          "text": "na",
+          "start": 43.28,
+          "end": 43.44
+        },
+        {
+          "text": "to",
+          "start": 43.44,
+          "end": 43.6
+        },
+        {
+          "text": "więcej.",
+          "start": 43.6,
+          "end": 44
+        }
+      ],
+      "key": 2,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "I",
+          "start": 44,
+          "end": 44.16
+        },
+        {
+          "text": "nie",
+          "start": 44.16,
+          "end": 44.24
+        },
+        {
+          "text": "chodzi",
+          "start": 44.24,
+          "end": 44.48
+        },
+        {
+          "text": "o",
+          "start": 44.48,
+          "end": 44.56
+        },
+        {
+          "text": "to,",
+          "start": 44.56,
+          "end": 44.72
+        }
+      ],
+      "key": -1,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "żeby",
+          "start": 44.72,
+          "end": 44.96
+        },
+        {
+          "text": "jeszcze",
+          "start": 44.96,
+          "end": 45.2
+        },
+        {
+          "text": "bardziej",
+          "start": 45.2,
+          "end": 45.52
+        },
+        {
+          "text": "się",
+          "start": 45.52,
+          "end": 45.68
+        },
+        {
+          "text": "starać",
+          "start": 45.68,
+          "end": 46.08
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "więcej",
+          "start": 46.16,
+          "end": 46.48
+        },
+        {
+          "text": "pracować",
+          "start": 46.56,
+          "end": 47.12
+        }
+      ],
+      "key": 1,
+      "lineBreak": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 47.12,
+          "end": 47.28
+        },
+        {
+          "text": "bardziej",
+          "start": 47.28,
+          "end": 47.68
+        },
+        {
+          "text": "siebie",
+          "start": 47.68,
+          "end": 48
+        },
+        {
+          "text": "dociskać,",
+          "start": 48,
+          "end": 48.64
+        }
+      ],
+      "key": 3,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "wręcz",
+          "start": 48.64,
+          "end": 48.96
+        },
+        {
+          "text": "przeciwnie.",
+          "start": 48.96,
+          "end": 49.44
+        }
+      ],
+      "lineBreak": 1,
+      "key": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Mam",
+          "start": 49.44,
+          "end": 49.68
+        },
+        {
+          "text": "na",
+          "start": 49.68,
+          "end": 49.76
+        },
+        {
+          "text": "myśli",
+          "start": 49.76,
+          "end": 50.16
+        },
+        {
+          "text": "to,",
+          "start": 50.16,
+          "end": 50.48
+        }
+      ],
+      "lineBreak": 3,
+      "key": -1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "żeby",
+          "start": 50.48,
+          "end": 50.8
+        },
+        {
+          "text": "coraz",
+          "start": 50.8,
+          "end": 51.2
+        },
+        {
+          "text": "częściej",
+          "start": 51.2,
+          "end": 51.68
+        }
+      ],
+      "lineBreak": 2,
+      "key": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "żyć",
+          "start": 51.84,
+          "end": 52.24
+        },
+        {
+          "text": "z",
+          "start": 52.24,
+          "end": 52.32
+        },
+        {
+          "text": "większym",
+          "start": 52.32,
+          "end": 52.8
+        },
+        {
+          "text": "spokojem,",
+          "start": 52.8,
+          "end": 53.6
+        }
+      ],
+      "key": 3,
+      "lineBreak": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "zaufaniem",
+          "start": 53.6,
+          "end": 54.32
+        },
+        {
+          "text": "do",
+          "start": 54.32,
+          "end": 54.48
+        },
+        {
+          "text": "siebie",
+          "start": 54.48,
+          "end": 54.72
+        },
+        {
+          "text": "i",
+          "start": 54.72,
+          "end": 54.8
+        },
+        {
+          "text": "poczuciem,",
+          "start": 54.88,
+          "end": 55.68
+        }
+      ],
+      "key": 0,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "że",
+          "start": 55.68,
+          "end": 55.92
+        },
+        {
+          "text": "nie",
+          "start": 55.92,
+          "end": 56.08
+        },
+        {
+          "text": "muszę",
+          "start": 56.08,
+          "end": 56.48
+        },
+        {
+          "text": "już",
+          "start": 56.48,
+          "end": 56.8
+        }
+      ],
+      "key": -1,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "ze",
+          "start": 56.8,
+          "end": 56.96
+        },
+        {
+          "text": "wszystkim",
+          "start": 56.96,
+          "end": 57.28
+        },
+        {
+          "text": "walczyć.",
+          "start": 57.28,
+          "end": 57.84
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Moja",
+          "start": 57.84,
+          "end": 58.08
+        },
+        {
+          "text": "droga",
+          "start": 58.08,
+          "end": 58.48
+        },
+        {
+          "text": "do",
+          "start": 58.48,
+          "end": 58.56
+        },
+        {
+          "text": "tego",
+          "start": 58.56,
+          "end": 58.8
+        },
+        {
+          "text": "miejsca",
+          "start": 58.8,
+          "end": 59.28
+        }
+      ],
+      "key": 1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Nie",
+          "start": 59.35,
+          "end": 59.59
+        },
+        {
+          "text": "była",
+          "start": 59.59,
+          "end": 59.83
+        },
+        {
+          "text": "ani",
+          "start": 59.83,
+          "end": 60.07
+        },
+        {
+          "text": "krótka,",
+          "start": 60.07,
+          "end": 60.47
+        }
+      ],
+      "key": 3,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "ani",
+          "start": 60.47,
+          "end": 60.55
+        },
+        {
+          "text": "zawsze",
+          "start": 60.63,
+          "end": 60.95
+        },
+        {
+          "text": "łatwa,",
+          "start": 60.95,
+          "end": 61.27
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "ale",
+          "start": 61.27,
+          "end": 61.43
+        },
+        {
+          "text": "w",
+          "start": 61.43,
+          "end": 61.51
+        },
+        {
+          "text": "pewnym",
+          "start": 61.51,
+          "end": 61.67
+        },
+        {
+          "text": "momencie",
+          "start": 61.75,
+          "end": 62.07
+        },
+        {
+          "text": "pomyślałam,",
+          "start": 62.07,
+          "end": 62.87
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "nie",
+          "start": 62.87,
+          "end": 63.03
+        },
+        {
+          "text": "chcę",
+          "start": 63.03,
+          "end": 63.35
+        },
+        {
+          "text": "tej",
+          "start": 63.35,
+          "end": 63.59
+        },
+        {
+          "text": "wiedzy",
+          "start": 63.59,
+          "end": 63.99
+        },
+        {
+          "text": "zatrzymywać",
+          "start": 63.99,
+          "end": 64.79
+        }
+      ],
+      "key": 3,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "tylko",
+          "start": 64.79,
+          "end": 65.11
+        },
+        {
+          "text": "dla",
+          "start": 65.11,
+          "end": 65.35
+        },
+        {
+          "text": "siebie.",
+          "start": 65.35,
+          "end": 65.91
+        }
+      ],
+      "key": -1,
+      "lineBreak": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Wiem,",
+          "start": 65.91,
+          "end": 66.55
+        },
+        {
+          "text": "jak",
+          "start": 66.55,
+          "end": 66.71
+        },
+        {
+          "text": "potrafi",
+          "start": 66.71,
+          "end": 67.35
+        },
+        {
+          "text": "ona",
+          "start": 67.35,
+          "end": 67.75
+        },
+        {
+          "text": "odmienić",
+          "start": 67.75,
+          "end": 68.39
+        },
+        {
+          "text": "życie",
+          "start": 68.39,
+          "end": 68.95
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 68.95,
+          "end": 69.27
+        },
+        {
+          "text": "polepszyć",
+          "start": 69.27,
+          "end": 70.15
+        },
+        {
+          "text": "jakość",
+          "start": 70.15,
+          "end": 70.71
+        },
+        {
+          "text": "naszego",
+          "start": 70.71,
+          "end": 71.11
+        },
+        {
+          "text": "życia.",
+          "start": 71.11,
+          "end": 71.51
+        }
+      ],
+      "key": 2,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Dlatego",
+          "start": 71.51,
+          "end": 71.75
+        },
+        {
+          "text": "stworzyłam",
+          "start": 71.83,
+          "end": 72.47
+        },
+        {
+          "text": "serię",
+          "start": 72.47,
+          "end": 72.79
+        },
+        {
+          "text": "pięciu",
+          "start": 72.79,
+          "end": 73.11
+        },
+        {
+          "text": "ebooków",
+          "start": 73.11,
+          "end": 73.67
+        }
+      ],
+      "key": -1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Bliżej",
+          "start": 73.75,
+          "end": 74.23
+        },
+        {
+          "text": "siebie",
+          "start": 74.23,
+          "end": 74.55
+        },
+        {
+          "text": "i",
+          "start": 74.63,
+          "end": 74.79
+        },
+        {
+          "text": "ułożyłam",
+          "start": 74.79,
+          "end": 75.67
+        },
+        {
+          "text": "z",
+          "start": 75.67,
+          "end": 75.75
+        },
+        {
+          "text": "nich",
+          "start": 75.75,
+          "end": 76.07
+        }
+      ],
+      "key": 3,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "krok",
+          "start": 76.07,
+          "end": 76.31
+        },
+        {
+          "text": "po",
+          "start": 76.31,
+          "end": 76.47
+        },
+        {
+          "text": "kroku",
+          "start": 76.47,
+          "end": 76.79
+        },
+        {
+          "text": "tę",
+          "start": 76.79,
+          "end": 76.95
+        },
+        {
+          "text": "drogę,",
+          "start": 76.95,
+          "end": 77.35
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "którą",
+          "start": 77.35,
+          "end": 77.67
+        },
+        {
+          "text": "sama",
+          "start": 77.67,
+          "end": 77.99
+        },
+        {
+          "text": "przez",
+          "start": 78.07,
+          "end": 78.31
+        },
+        {
+          "text": "lata",
+          "start": 78.31,
+          "end": 78.63
+        },
+        {
+          "text": "poznawałam",
+          "start": 78.63,
+          "end": 79.27
+        }
+      ],
+      "key": 4,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "w",
+          "start": 79.27,
+          "end": 79.35
+        },
+        {
+          "text": "różnych",
+          "start": 79.35,
+          "end": 79.75
+        },
+        {
+          "text": "miejscach.",
+          "start": 79.75,
+          "end": 80.15
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Pierwszy",
+          "start": 80.15,
+          "end": 80.47
+        },
+        {
+          "text": "z",
+          "start": 80.47,
+          "end": 80.55
+        },
+        {
+          "text": "nich",
+          "start": 80.63,
+          "end": 80.71
+        }
+      ],
+      "key": -1,
+      "lineBreak": 1,
+      "layout": "inline",
+      "end": 80.79
+    },
+    {
+      "words": [
+        {
+          "text": "jest",
+          "start": 81.35,
+          "end": 81.51
+        },
+        {
+          "text": "już",
+          "start": 81.51,
+          "end": 81.67
+        },
+        {
+          "text": "dostępny.",
+          "start": 81.67,
+          "end": 82.15
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "I",
+          "start": 82.15,
+          "end": 82.31
+        },
+        {
+          "text": "jeśli",
+          "start": 82.31,
+          "end": 82.63
+        },
+        {
+          "text": "czujesz,",
+          "start": 82.63,
+          "end": 83.19
+        },
+        {
+          "text": "że",
+          "start": 83.19,
+          "end": 83.35
+        },
+        {
+          "text": "jesteś",
+          "start": 83.35,
+          "end": 83.75
+        }
+      ],
+      "key": 2,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "w",
+          "start": 83.75,
+          "end": 83.83
+        },
+        {
+          "text": "takim",
+          "start": 83.83,
+          "end": 84.15
+        },
+        {
+          "text": "momencie",
+          "start": 84.15,
+          "end": 84.55
+        },
+        {
+          "text": "swojego",
+          "start": 84.55,
+          "end": 84.87
+        },
+        {
+          "text": "życia,",
+          "start": 84.87,
+          "end": 85.51
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "w",
+          "start": 85.51,
+          "end": 85.67
+        },
+        {
+          "text": "którym",
+          "start": 85.67,
+          "end": 85.99
+        },
+        {
+          "text": "chcesz",
+          "start": 85.99,
+          "end": 86.39
+        },
+        {
+          "text": "lepiej",
+          "start": 86.39,
+          "end": 86.79
+        },
+        {
+          "text": "zrozumieć",
+          "start": 86.79,
+          "end": 87.35
+        },
+        {
+          "text": "siebie",
+          "start": 87.35,
+          "end": 87.67
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 87.75,
+          "end": 87.91
+        },
+        {
+          "text": "zacząć",
+          "start": 87.91,
+          "end": 88.47
+        },
+        {
+          "text": "coś",
+          "start": 88.47,
+          "end": 88.79
+        },
+        {
+          "text": "naprawdę",
+          "start": 88.79,
+          "end": 89.11
+        },
+        {
+          "text": "zmieniać,",
+          "start": 89.19,
+          "end": 89.83
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "to",
+          "start": 89.83,
+          "end": 89.99
+        },
+        {
+          "text": "być",
+          "start": 89.99,
+          "end": 90.23
+        },
+        {
+          "text": "może",
+          "start": 90.23,
+          "end": 90.55
+        },
+        {
+          "text": "będzie",
+          "start": 90.79,
+          "end": 91.11
+        },
+        {
+          "text": "to",
+          "start": 91.11,
+          "end": 91.27
+        },
+        {
+          "text": "również",
+          "start": 91.27,
+          "end": 91.59
+        }
+      ],
+      "key": -1,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "początek",
+          "start": 91.67,
+          "end": 92.07
+        },
+        {
+          "text": "twojej",
+          "start": 92.23,
+          "end": 92.47
+        },
+        {
+          "text": "drogi.",
+          "start": 92.55,
+          "end": 93.03
+        }
+      ],
+      "key": 2,
+      "lineBreak": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Tylko mam",
+          "start": 93.03,
+          "end": 93.51
+        },
+        {
+          "text": "do",
+          "start": 93.59,
+          "end": 93.75
+        },
+        {
+          "text": "ciebie",
+          "start": 93.75,
+          "end": 94.07
+        },
+        {
+          "text": "jedną",
+          "start": 94.07,
+          "end": 94.39
+        },
+        {
+          "text": "prośbę.",
+          "start": 94.39,
+          "end": 94.95
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Jeśli",
+          "start": 94.95,
+          "end": 95.11
+        },
+        {
+          "text": "go",
+          "start": 95.19,
+          "end": 95.43
+        },
+        {
+          "text": "kupisz,",
+          "start": 95.43,
+          "end": 96.07
+        }
+      ],
+      "key": 2,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "nie",
+          "start": 96.07,
+          "end": 96.23
+        },
+        {
+          "text": "odkładaj",
+          "start": 96.23,
+          "end": 96.87
+        },
+        {
+          "text": "go",
+          "start": 96.87,
+          "end": 96.95
+        },
+        {
+          "text": "na",
+          "start": 96.95,
+          "end": 97.03
+        },
+        {
+          "text": "później.",
+          "start": 97.03,
+          "end": 97.59
+        }
+      ],
+      "key": 4,
+      "lineBreak": 3,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Czytaj,",
+          "start": 97.59,
+          "end": 97.99
+        },
+        {
+          "text": "odpowiadaj",
+          "start": 98.07,
+          "end": 98.71
+        },
+        {
+          "text": "na",
+          "start": 98.71,
+          "end": 98.87
+        },
+        {
+          "text": "pytania,",
+          "start": 98.87,
+          "end": 99.51
+        }
+      ],
+      "key": 3,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "rób",
+          "start": 99.51,
+          "end": 99.67
+        },
+        {
+          "text": "ćwiczenia,",
+          "start": 99.75,
+          "end": 100.55
+        },
+        {
+          "text": "wracaj",
+          "start": 100.55,
+          "end": 101.11
+        },
+        {
+          "text": "do",
+          "start": 101.19,
+          "end": 101.35
+        },
+        {
+          "text": "niego.",
+          "start": 101.35,
+          "end": 101.67
+        }
+      ],
+      "key": 1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Niech",
+          "start": 101.67,
+          "end": 101.91
+        },
+        {
+          "text": "doda",
+          "start": 101.91,
+          "end": 102.39
+        },
+        {
+          "text": "ci",
+          "start": 102.39,
+          "end": 102.63
+        },
+        {
+          "text": "mocy",
+          "start": 102.63,
+          "end": 103.11
+        }
+      ],
+      "key": 3,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "i",
+          "start": 103.35,
+          "end": 103.51
+        },
+        {
+          "text": "zainspiruje",
+          "start": 103.51,
+          "end": 104.31
+        },
+        {
+          "text": "do",
+          "start": 104.31,
+          "end": 104.47
+        },
+        {
+          "text": "odkrycia",
+          "start": 104.47,
+          "end": 104.95
+        }
+      ],
+      "key": 1,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "swojej",
+          "start": 104.95,
+          "end": 105.27
+        },
+        {
+          "text": "pełni.",
+          "start": 105.27,
+          "end": 105.99
+        }
+      ],
+      "lineBreak": 1,
+      "key": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "Nie",
+          "start": 105.99,
+          "end": 106.23
+        },
+        {
+          "text": "kupuj",
+          "start": 106.23,
+          "end": 106.71
+        },
+        {
+          "text": "go",
+          "start": 106.71,
+          "end": 106.87
+        }
+      ],
+      "lineBreak": 2,
+      "key": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "po",
+          "start": 106.87,
+          "end": 107.03
+        },
+        {
+          "text": "to,",
+          "start": 107.03,
+          "end": 107.19
+        },
+        {
+          "text": "żeby",
+          "start": 107.19,
+          "end": 107.35
+        },
+        {
+          "text": "go",
+          "start": 107.43,
+          "end": 107.59
+        },
+        {
+          "text": "mieć,",
+          "start": 107.59,
+          "end": 107.99
+        }
+      ],
+      "key": 4,
+      "lineBreak": 2,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "tylko",
+          "start": 107.99,
+          "end": 108.31
+        },
+        {
+          "text": "kup",
+          "start": 108.31,
+          "end": 108.63
+        },
+        {
+          "text": "go,",
+          "start": 108.63,
+          "end": 108.87
+        }
+      ],
+      "key": -1,
+      "lineBreak": 1,
+      "layout": "inline"
+    },
+    {
+      "words": [
+        {
+          "text": "żeby",
+          "start": 108.87,
+          "end": 109.19
+        },
+        {
+          "text": "coś",
+          "start": 109.19,
+          "end": 109.51
+        },
+        {
+          "text": "z",
+          "start": 109.59,
+          "end": 109.75
+        },
+        {
+          "text": "nim",
+          "start": 109.75,
+          "end": 109.91
+        },
+        {
+          "text": "zrobić.",
+          "start": 110.07,
+          "end": 110.55
+        }
+      ],
+      "key": 4,
+      "lineBreak": 2,
+      "layout": "inline"
+    }
+  ],
+  "overlays": [
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-czytanie.mp4",
+      "start": 3.44,
+      "end": 7.76,
+      "trim": 5
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-oddech.mp4",
+      "start": 12.72,
+      "end": 16.8,
+      "trim": 1
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-dziennik.mp4",
+      "start": 21.92,
+      "end": 25.68,
+      "trim": 1
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-rozmowa.mp4",
+      "start": 30.48,
+      "end": 33.44,
+      "trim": 0.2
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-dziennik.mp4",
+      "start": 44.72,
+      "end": 48.64,
+      "trim": 5.5
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-spokoj.mp4",
+      "start": 51.84,
+      "end": 56.32,
+      "trim": 15
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-rozmowa.mp4",
+      "start": 65.91,
+      "end": 69.27,
+      "trim": 2.2
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-spokoj.mp4",
+      "start": 75.67,
+      "end": 79.27,
+      "trim": 22
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-refleksja.mp4",
+      "start": 85.51,
+      "end": 89.83,
+      "trim": 1.5
+    },
+    {
+      "type": "media",
+      "fit": "full",
+      "src": "przebitka-dziennik.mp4",
+      "start": 97.59,
+      "end": 101.67,
+      "trim": 0.3
+    },
+    {
+      "type": "media",
+      "fit": "card",
+      "src": "okladka1.png",
+      "start": 72.79,
+      "end": 75.67
+    },
+    {
+      "type": "media",
+      "fit": "card",
+      "src": "okladka1.png",
+      "start": 80.79,
+      "end": 85.51
+    },
+    {
+      "type": "list",
+      "start": 19.84,
+      "end": 21.92,
+      "items": [
+        {
+          "text": "Narzędzia",
+          "at": 19.84
+        },
+        {
+          "text": "Ćwiczenia",
+          "at": 20.88
+        },
+        {
+          "text": "Pytania",
+          "at": 21.44
+        }
+      ]
+    },
+    {
+      "type": "emoji",
+      "emoji": "eye",
+      "start": 7.76,
+      "end": 10,
+      "y": 0.63
+    },
+    {
+      "type": "emoji",
+      "emoji": "brain",
+      "start": 36.32,
+      "end": 39.84,
+      "y": 0.63
+    },
+    {
+      "type": "emoji",
+      "emoji": "leaf",
+      "start": 40.16,
+      "end": 44,
+      "y": 0.63
+    },
+    {
+      "type": "emoji",
+      "emoji": "layers",
+      "start": 57.84,
+      "end": 61.27,
+      "y": 0.63
+    },
+    {
+      "type": "emoji",
+      "emoji": "heart",
+      "start": 101.67,
+      "end": 105.99,
+      "y": 0.63
+    }
+  ]
+}

@@ -68,6 +68,8 @@ export type Overlay = {
   aspect?: number; // media card: wysokość/szerokość
   volume?: number; // media: głośność B-rollu (domyślnie 0)
   trim?: number; // media: od której sekundy pliku startować
+  sfx?: string; // efekt dźwiękowy przy wejściu (plik w folderze rolki; na razie styl bisanz)
+  sfxVolume?: number; // mnożnik amplitudy SFX, dobrany tak, by efekt był ≥10 dB pod głosem
 };
 type P = {
   o: Overlay;

@@ -1,7 +1,7 @@
 {
   "name": "MontageFrames",
   "version": "1.0.0",
-  "description": "Montaż rolek: cięcie ciszy + animowane napisy (Remotion)",
+  "description": "Monta\u017c rolek: ci\u0119cie ciszy + animowane napisy (Remotion)",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
@@ -10,6 +10,7 @@
     "@remotion/cli": "4.0.532",
     "@remotion/layout-utils": "4.0.532",
     "@remotion/media-utils": "4.0.532",
+    "@remotion/player": "4.0.532",
     "@remotion/tailwind-v4": "4.0.532",
     "@remotion/zod-types": "4.0.532",
     "react": "19.2.3",
@@ -21,10 +22,12 @@
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.532",
     "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.7",
     "@types/web": "0.0.166",
     "eslint": "9.39.5",
     "prettier": "3.8.1",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vite": "8.3.3"
   },
   "scripts": {
     "dev": "remotion studio",
@@ -32,7 +35,11 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
     "reel": "node scripts/prep.mjs",
-    "test": "node --test scripts/*.test.mjs"
+    "test": "node --test scripts/*.test.mjs ui/*.test.mjs",
+    "ui": "vite --config vite.config.mjs",
+    "studio:sync": "node scripts/studio-sync.mjs",
+    "predev": "npm run studio:sync",
+    "prebuild": "npm run studio:sync"
   },
   "sideEffects": [
     "*.css"
