@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildReel, clientOf, groupWords, keepRanges, pickKey, renderPath, slug, styleOf } from "./prep.mjs";
+import { buildReel, clientOf, groupWords, keepRanges, matchProducts, pickKey, renderPath, slug, styleOf } from "./prep.mjs";
 
 const w = (s) => s.split(" ").map((text, i) => ({ text, start: i, end: i + 0.5 }));
 
@@ -70,4 +70,25 @@ test("styl napisów z folderu klienta w ścieżce nagrania", () => {
   assert.equal(styleOf("klienci/swieza-bryka-ameryka/surowe pliki/mustang.mp4"), "ameryka");
   assert.equal(styleOf("/Users/x/Klienci/swiezabryka-ameryka/a.mp4"), "ameryka");
   assert.equal(styleOf("inbox/lot do ameryki.mp4"), "persona");
+});
+
+test("produkty: poprawia błędy ASR, scala nazwy dwuwyrazowe, karta trzyma się dłużej, kolejny produkt ucina poprzedni", () => {
+  const catalog = [
+    { name: "SHIELD", file: "shield.png", label: "70% sylimaryny", aliases: ["shield", "szild"] },
+    { name: "NA SERCE", file: "na-serce.png", aliases: ["na serce"] },
+    { name: "GlowUp", type: "logo", file: "../logo/logo-white.png", aliases: ["glow up"] },
+  ];
+  const { words, overlays } = matchProducts(w("biorę szild, potem na serce. glow up"), catalog);
+  assert.deepEqual(words.map((x) => x.text), ["biorę", "SHIELD,", "potem", "NA SERCE.", "GlowUp"]);
+  assert.deepEqual(words[3], { text: "NA SERCE.", start: 3, end: 4.5 });
+  assert.deepEqual(overlays, [
+    { type: "product", start: 1, end: 3, src: "shield.png", text: "SHIELD", label: "70% sylimaryny" },
+    { type: "product", start: 3, end: 5, src: "na-serce.png", text: "NA SERCE" },
+    { type: "logo", start: 5, end: 9.5, src: "logo-white.png" },
+  ]);
+});
+
+test("glowup: grupy po max 5 słów, przecinek tnie dopiero od 3", () => {
+  const g = groupWords(w("Powiem Ci, co działa, a co nie i dlaczego to ważne"), { maxWords: 5, minSoft: 3 });
+  assert.deepEqual(g.map((x) => x.map((y) => y.text).join(" ")), ["Powiem Ci, co działa,", "a co nie i dlaczego", "to ważne"]);
 });

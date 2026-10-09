@@ -35,13 +35,22 @@ export const captionClips = (data: ReelData) => {
   const visible = data.captions
     .map((g, index) => ({ g, index, words: keptWords(g, segments) }))
     .filter((c) => c.words.length);
+  // hold: ostatnie słowo grupy zostaje na ekranie min. tyle sekund od swojego startu — następna grupa
+  // wjeżdża najwcześniej wtedy (jej słowa, które już padły, pokazują się od razu). 0 = start z pierwszym słowem.
+  const hold = data.hold ?? 0;
+  const starts: number[] = [];
+  let floor = 0;
+  for (const { words } of visible) {
+    const s = Math.max(toOut(words[0].start, segments), floor);
+    starts.push(s);
+    floor = Math.max(s, toOut(words[words.length - 1].start, segments)) + hold;
+  }
   return visible.flatMap(({ g, index, words }, i) => {
-    const start = toOut(words[0].start, segments);
-    const next = visible[i + 1];
+    const start = starts[i];
     const end = Math.min(
       reelFrames(data) / fps,
       g.end == null ? Infinity : toOut(g.end, segments),
-      next ? toOut(next.words[0].start, segments) : Infinity,
+      i + 1 < starts.length ? starts[i + 1] : Infinity,
       Math.max(toOut(words[words.length - 1].end, segments) + 1, start + 0.8),
     );
     const from = Math.round(start * fps);

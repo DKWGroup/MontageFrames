@@ -58,3 +58,24 @@ test("jawny koniec i początek następnej grupy ograniczają czas napisów", () 
     ],
   );
 });
+
+test("hold: ostatnie słowo zostaje min. hold s, następna grupa wjeżdża później, bez kumulacji", () => {
+  const fixture = {
+    ...data,
+    segments: [{ start: 0, end: 10 }],
+    hold: 0.7,
+    captions: [
+      { words: [{ text: "a", start: 0, end: 0.3 }, { text: "b", start: 1, end: 1.2 }] },
+      { words: [{ text: "c", start: 1.2, end: 1.5 }, { text: "d", start: 3, end: 3.2 }] },
+      { words: [{ text: "e", start: 5, end: 5.5 }] },
+    ],
+  };
+  assert.deepEqual(
+    captionClips(fixture).map((c) => [c.from, c.durationInFrames]),
+    [
+      [0, 51], // 1 + 0,7 = 1,7 s
+      [51, 75], // koniec: ostatnie słowo 3,2 + 1 s
+      [150, 45],
+    ],
+  );
+});

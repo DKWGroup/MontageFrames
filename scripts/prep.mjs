@@ -21,7 +21,7 @@ const LAYOUTS = ["stack", "inline"]; // tylko zwarte układy — PREFERENCJE.md
 
 const bare = (t) => t.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
 
-export function groupWords(words, { maxWords = 6, maxChars = 32, pauses = [] } = {}) {
+export function groupWords(words, { maxWords = 6, maxChars = 32, minSoft = 2, pauses = [] } = {}) {
   const groups = [];
   let cur = [];
   for (const w of words) {
@@ -29,7 +29,7 @@ export function groupWords(words, { maxWords = 6, maxChars = 32, pauses = [] } =
     const chars = cur.reduce((n, x) => n + bare(x.text).length + 1, 0) + bare(w.text).length;
     const full = cur.length >= maxWords || chars > maxChars;
     // przecinek albo pauza w mowie zamyka grupę dopiero od 2 słów — napisy nie migają
-    const soft = cur.length >= 2 && (/[,;:]$/.test(prev?.text) || pauses.some((t) => t > prev.start && t < w.start));
+    const soft = cur.length >= minSoft && (/[,;:]$/.test(prev?.text) || pauses.some((t) => t > prev.start && t < w.start));
     if (prev && (full || soft || /[.!?]$/.test(prev.text))) {
       // "w", "i", "na"... przechodzą do następnej grupy zamiast wisieć na końcu
       const carry = full && cur.length > 1 && STOP.has(bare(prev.text)) ? [cur.pop()] : [];
@@ -73,7 +73,9 @@ export function buildReel({ source, words, silences, duration, style = "persona"
   const segments = ranges.map((s, i) => ({ ...s, zoom: i % 2 ? 1.1 : 1 }));
   let dir = 0;
   const pauses = silences.map((s) => s.start);
-  const captions = groupWords(words, { pauses }).map((g, i) => {
+  // glowup: 2–5 słów, przecinek/pauza tnie dopiero od 3 słów — napisy dłużej na ekranie (klienci/glowup-nutrition)
+  const opts = style === "glowup" ? { maxWords: 5, minSoft: 3 } : {};
+  const captions = groupWords(words, { pauses, ...opts }).map((g, i) => {
     const group = {
       words: g.map(({ text, start, end }) => ({ text, start, end })),
       key: pickKey(g),
@@ -83,7 +85,47 @@ export function buildReel({ source, words, silences, duration, style = "persona"
     if (/[.!?]$/.test(g.at(-1).text)) dir++; // nowe zdanie = nowy kierunek wjazdu
     return group;
   });
-  return { source, style, ...(client && { client }), fps: 30, segments, captions, overlays: [] };
+  return { source, style, ...(client && { client }), fps: 30, ...(style === "glowup" && { hold: 0.7 }), segments, captions, overlays: [] };
+}
+
+// Katalog produktów klienta (klienci/<klient>/produkty/produkty.json): ASR myli nazwy („szild” zamiast SHIELD),
+// więc podmieniamy je na właściwe i przy każdej wzmiance o produkcie ze zdjęciem (`file`) dokładamy kartę `product`,
+// która trzyma się HOLD s dłużej niż samo słowo. Wpis z `type` (np. "logo" dla marki) daje grafikę tego typu. Kolejny produkt ucina poprzednią kartę — nigdy dwie naraz.
+const HOLD = 3;
+export function matchProducts(words, catalog) {
+  const aliases = catalog
+    .flatMap((p) => p.aliases.map((a) => ({ p, toks: a.split(" ").map(bare) })))
+    .sort((a, b) => b.toks.length - a.toks.length);
+  const out = [];
+  const overlays = [];
+  for (let i = 0; i < words.length; i++) {
+    const hit = aliases.find(({ toks }) => toks.every((t, k) => words[i + k] && bare(words[i + k].text) === t));
+    if (!hit) {
+      out.push(words[i]);
+      continue;
+    }
+    const last = words[i + hit.toks.length - 1];
+    const w = { ...words[i], text: hit.p.name + (last.text.match(/[^\p{L}\p{N}]+$/u)?.[0] ?? ""), end: last.end };
+    out.push(w);
+    i += hit.toks.length - 1;
+    if (!hit.p.file) continue;
+    const prev = overlays.at(-1);
+    if (prev?.src === path.basename(hit.p.file) && w.start <= prev.end) prev.end = +(w.end + HOLD).toFixed(3);
+    else {
+      if (prev) prev.end = Math.min(prev.end, w.start);
+      const product = !hit.p.type;
+      overlays.push({
+        type: hit.p.type ?? "product",
+        start: w.start,
+        end: +(w.end + HOLD).toFixed(3),
+        src: path.basename(hit.p.file),
+        ...(product && { text: hit.p.name }),
+        ...(hit.p.label && { label: hit.p.label }),
+        ...(product && hit.p.logo && { logo: path.basename(hit.p.logo) }),
+      });
+    }
+  }
+  return { words: out, overlays };
 }
 
 // Klient = folder z klienci/<klient>/... w ścieżce nagrania. Jego rolki renderują się do klienci/<klient>/Render (PREFERENCJE.md), reszta do out/.
@@ -100,7 +142,9 @@ export const styleOf = (input) =>
         ? "herod"
         : /swieza-?bryka-?ameryka/i.test(input)
           ? "ameryka"
-          : "persona";
+          : /glowup/i.test(input)
+            ? "glowup"
+            : "persona";
 
 // Nazwa rolki/klienta: małe litery, bez polskich znaków, myślniki zamiast reszty.
 export const slug = (s) =>
@@ -157,9 +201,18 @@ function main() {
 
   console.log("Transkrypcja (Parakeet, pl)...");
   execFileSync("npx", ["hyperframes", "transcribe", src, "-d", dir, "-l", "pl", "--json"], { stdio: "inherit" });
-  const words = JSON.parse(readFileSync(path.join(dir, "transcript.json"), "utf8"));
+  let words = JSON.parse(readFileSync(path.join(dir, "transcript.json"), "utf8"));
+  let products = [];
+  const catalog = client && path.join("klienci", client, "produkty", "produkty.json");
+  if (catalog && existsSync(catalog)) {
+    ({ words, overlays: products } = matchProducts(words, JSON.parse(readFileSync(catalog, "utf8"))));
+    const files = JSON.parse(readFileSync(catalog, "utf8")).flatMap((p) => [p.file, p.logo]).filter(Boolean);
+    for (const f of new Set(files)) copyFileSync(path.join(path.dirname(catalog), f), path.join(dir, path.basename(f)));
+    console.log(`Produkty: ${products.length} kart (${[...new Set(products.map((o) => o.text))].join(", ") || "brak wzmianek"})`);
+  }
 
   const reel = buildReel({ source, words, silences: style === "skyclass" ? [] : detectSilences(src), duration, style, client });
+  reel.overlays.push(...products);
   writeFileSync(path.join(dir, "reel.json"), JSON.stringify(reel, null, 2));
   syncStudio();
   const kept = reel.segments.reduce((n, s) => n + s.end - s.start, 0);

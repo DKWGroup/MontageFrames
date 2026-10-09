@@ -13,7 +13,7 @@ import {
 // Grafiki nakładane na rolkę. Wpis w reel.json -> "overlays": [{ "type": "...", "start", "end", ... }].
 // Czasy start/end (i "at" w elementach list) w sekundach ŹRÓDŁA, jak słowa w transkrypcji.
 // Język wizualny: frame.md — karty liquid glass, jeden pomarańczowy akcent, żywe ale czyste animacje.
-type Item = string | { text: string; at?: number };
+type Item = string | { text: string; at?: number; sub?: string; badge?: string }; // sub/badge: styl glowup
 type Col = { title: string; items: Item[] };
 export type Overlay = {
   type:
@@ -29,7 +29,10 @@ export type Overlay = {
     | "list"
     | "compare"
     | "emoji"
-    | "media";
+    | "media"
+    | "logo" // styl glowup: samo logo marki przy wzmiance (src = logo-white/black.png)
+    | "process" // styl glowup: pełnoekranowa animacja procesu A → enzym → B (items[0..2])
+    | "product"; // styl glowup: karta produktu (src = zdjęcie, text = nazwa, label = plakietka)
   transitionFrom?: string; // Pełne tło poprzedniego miejsca pod oknem kolejnej przebitki
   transitionTrim?: number;
   country?: string;
@@ -59,7 +62,7 @@ export type Overlay = {
   points?: number[]; // line
   labels?: string[]; // line: podpisy osi X (np. ["Tydzień 1", "Tydzień 8"])
   items?: Item[]; // list
-  mark?: "num" | "check" | "x" | "dot"; // list
+  mark?: "num" | "check" | "x" | "dot" | "flow"; // list; flow = łańcuch A → B → C (glowup)
   left?: Col; // compare: "było" (przygaszone, przekreślane)
   right?: Col; // compare: "jest" (akcent)
   emoji?: string;
@@ -68,6 +71,10 @@ export type Overlay = {
   aspect?: number; // media card: wysokość/szerokość
   volume?: number; // media: głośność B-rollu (domyślnie 0)
   trim?: number; // media: od której sekundy pliku startować
+  source?: string; // glowup: podpis źródła danych pod kartą (np. „Hall i in., JCEM 2008”)
+  logo?: string; // glowup: logo marki na karcie (plik w folderze rolki; wersja z kontrastem do tła)
+  flip?: boolean; // glowup product: tekst po lewej, produkt po prawej (pochylony w prawo)
+  h?: number; // glowup: minimalna wysokość karty jako część kadru (np. żeby przykryć wypaloną grafikę)
   sfx?: string; // efekt dźwiękowy przy wejściu (plik w folderze rolki; na razie styl bisanz)
   sfxVolume?: number; // mnożnik amplitudy SFX, dobrany tak, by efekt był ≥10 dB pod głosem
 };

@@ -1,0 +1,622 @@
+{
+  "source": "source.mp4",
+  "style": "ameryka",
+  "client": "swieza-bryka-ameryka",
+  "fps": 30,
+  "segments": [
+    {
+      "start": 0,
+      "end": 62.267,
+      "zoom": 1
+    }
+  ],
+  "captions": [
+    {
+      "words": [
+        {
+          "text": "Who's",
+          "start": 4.76,
+          "end": 5.16
+        },
+        {
+          "text": "calling?",
+          "start": 5.16,
+          "end": 5.88
+        },
+        {
+          "text": "Ah,",
+          "start": 6.12,
+          "end": 6.44
+        },
+        {
+          "text": "Christoff.",
+          "start": 6.52,
+          "end": 7.32
+        }
+      ],
+      "key": 3,
+      "from": "left",
+      "layout": "stack",
+      "align": "left",
+      "motion": "letters"
+    },
+    {
+      "words": [
+        {
+          "text": "Jack,",
+          "start": 7.36,
+          "end": 7.84
+        },
+        {
+          "text": "słuchaj,",
+          "start": 7.84,
+          "end": 8.4
+        }
+      ],
+      "key": 0,
+      "from": "right",
+      "layout": "inline",
+      "align": "right",
+      "motion": "slide"
+    },
+    {
+      "words": [
+        {
+          "text": "potrzebuję",
+          "start": 8.72,
+          "end": 9.12
+        },
+        {
+          "text": "Jeepa",
+          "start": 9.28,
+          "end": 9.68
+        },
+        {
+          "text": "Grand",
+          "start": 9.68,
+          "end": 9.84
+        },
+        {
+          "text": "Cherokee.",
+          "start": 9.92,
+          "end": 10.48
+        }
+      ],
+      "key": 1,
+      "from": "right",
+      "layout": "stack",
+      "hl": [
+        2,
+        3
+      ],
+      "align": "right",
+      "motion": "rise"
+    },
+    {
+      "words": [
+        {
+          "text": "Czarny,",
+          "start": 11.12,
+          "end": 11.52
+        },
+        {
+          "text": "w",
+          "start": 11.6,
+          "end": 11.68
+        },
+        {
+          "text": "skórach,",
+          "start": 11.68,
+          "end": 12.24
+        },
+        {
+          "text": "ma",
+          "start": 12.24,
+          "end": 12.32
+        },
+        {
+          "text": "być",
+          "start": 12.48,
+          "end": 12.56
+        },
+        {
+          "text": "dowalony.",
+          "start": 12.64,
+          "end": 13.36
+        }
+      ],
+      "key": 5,
+      "from": "left",
+      "layout": "stack",
+      "hl": [
+        0
+      ],
+      "align": "left",
+      "motion": "pop"
+    },
+    {
+      "words": [
+        {
+          "text": "No",
+          "start": 13.96,
+          "end": 14.04
+        },
+        {
+          "text": "worries,",
+          "start": 14.2,
+          "end": 14.52
+        },
+        {
+          "text": "yeah,",
+          "start": 14.52,
+          "end": 14.76
+        },
+        {
+          "text": "yeah,",
+          "start": 14.76,
+          "end": 14.92
+        },
+        {
+          "text": "yeah.",
+          "start": 14.92,
+          "end": 15.24
+        }
+      ],
+      "key": 1,
+      "from": "right",
+      "layout": "inline",
+      "align": "right",
+      "motion": "slide"
+    },
+    {
+      "words": [
+        {
+          "text": "Ogarniesz",
+          "start": 15.28,
+          "end": 15.92
+        },
+        {
+          "text": "mi",
+          "start": 16.0,
+          "end": 16.16
+        },
+        {
+          "text": "takie",
+          "start": 16.16,
+          "end": 16.4
+        },
+        {
+          "text": "auto,",
+          "start": 16.4,
+          "end": 16.72
+        }
+      ],
+      "key": 0,
+      "from": "left",
+      "layout": "stack",
+      "align": "left",
+      "motion": "rise"
+    },
+    {
+      "words": [
+        {
+          "text": "jak",
+          "start": 16.72,
+          "end": 16.88
+        },
+        {
+          "text": "zawsze,",
+          "start": 16.88,
+          "end": 17.28
+        },
+        {
+          "text": "prawda?",
+          "start": 17.28,
+          "end": 17.76
+        }
+      ],
+      "key": 2,
+      "from": "left",
+      "layout": "inline",
+      "align": "left",
+      "motion": "drop"
+    },
+    {
+      "words": [
+        {
+          "text": "No",
+          "start": 20.2,
+          "end": 20.28
+        },
+        {
+          "text": "well,",
+          "start": 20.44,
+          "end": 20.6
+        },
+        {
+          "text": "yeah.",
+          "start": 20.76,
+          "end": 21.96
+        }
+      ],
+      "key": -1,
+      "from": "right",
+      "layout": "inline",
+      "align": "right",
+      "motion": "pop"
+    },
+    {
+      "words": [
+        {
+          "text": "Cześć",
+          "start": 22.08,
+          "end": 22.48
+        },
+        {
+          "text": "wszystkim.",
+          "start": 22.48,
+          "end": 23.04
+        }
+      ],
+      "key": 0,
+      "from": "left",
+      "layout": "inline",
+      "align": "left",
+      "motion": "drop"
+    },
+    {
+      "words": [
+        {
+          "text": "Ja",
+          "start": 23.2,
+          "end": 23.44
+        },
+        {
+          "text": "nazywam",
+          "start": 23.44,
+          "end": 24.0
+        },
+        {
+          "text": "się",
+          "start": 24.0,
+          "end": 24.16
+        },
+        {
+          "text": "Jack",
+          "start": 24.16,
+          "end": 24.48
+        },
+        {
+          "text": "Śruba,",
+          "start": 24.64,
+          "end": 25.2
+        }
+      ],
+      "key": 4,
+      "from": "left",
+      "layout": "stack",
+      "hl": [
+        3
+      ],
+      "align": "left",
+      "motion": "letters"
+    },
+    {
+      "words": [
+        {
+          "text": "a",
+          "start": 25.2,
+          "end": 25.36
+        },
+        {
+          "text": "to",
+          "start": 25.36,
+          "end": 25.52
+        },
+        {
+          "text": "Jeep",
+          "start": 25.68,
+          "end": 26.0
+        },
+        {
+          "text": "Grand",
+          "start": 26.16,
+          "end": 26.48
+        },
+        {
+          "text": "Cherokee.",
+          "start": 26.64,
+          "end": 27.2
+        }
+      ],
+      "key": 4,
+      "from": "right",
+      "layout": "stack",
+      "hl": [
+        2,
+        3
+      ],
+      "align": "right",
+      "motion": "rise",
+      "end": 27.25
+    },
+    {
+      "words": [
+        {
+          "text": "Ale",
+          "start": 39.44,
+          "end": 39.76
+        },
+        {
+          "text": "poczekajcie",
+          "start": 39.76,
+          "end": 40.56
+        },
+        {
+          "text": "na",
+          "start": 40.56,
+          "end": 40.64
+        },
+        {
+          "text": "wnętrze.",
+          "start": 40.64,
+          "end": 41.68
+        }
+      ],
+      "key": 3,
+      "from": "left",
+      "layout": "stack",
+      "align": "left",
+      "motion": "letters"
+    },
+    {
+      "words": [
+        {
+          "text": "Rock",
+          "start": 52.68,
+          "end": 53.0
+        },
+        {
+          "text": "and",
+          "start": 53.08,
+          "end": 53.16
+        },
+        {
+          "text": "roll!",
+          "start": 53.4,
+          "end": 53.88
+        }
+      ],
+      "key": 2,
+      "from": "right",
+      "layout": "inline",
+      "effect": "stamp",
+      "align": "right",
+      "motion": "pop"
+    },
+    {
+      "words": [
+        {
+          "text": "Tak",
+          "start": 55.04,
+          "end": 55.2
+        },
+        {
+          "text": "jak",
+          "start": 55.28,
+          "end": 55.44
+        },
+        {
+          "text": "Jack",
+          "start": 55.44,
+          "end": 55.6
+        },
+        {
+          "text": "wam",
+          "start": 55.76,
+          "end": 56.0
+        },
+        {
+          "text": "powiedział,",
+          "start": 56.0,
+          "end": 56.56
+        }
+      ],
+      "key": -1,
+      "from": "left",
+      "layout": "inline",
+      "y": 0.58,
+      "align": "left",
+      "motion": "slide"
+    },
+    {
+      "words": [
+        {
+          "text": "Jeep",
+          "start": 56.56,
+          "end": 56.72
+        },
+        {
+          "text": "Grand",
+          "start": 56.88,
+          "end": 57.04
+        },
+        {
+          "text": "Cherokee",
+          "start": 57.2,
+          "end": 57.76
+        },
+        {
+          "text": "4×4!",
+          "start": 57.76,
+          "end": 58.72
+        }
+      ],
+      "key": 3,
+      "from": "left",
+      "layout": "stack",
+      "hl": [
+        0,
+        1,
+        2
+      ],
+      "y": 0.58,
+      "align": "left",
+      "motion": "pop"
+    },
+    {
+      "words": [
+        {
+          "text": "Pomożemy",
+          "start": 58.85,
+          "end": 59.25
+        },
+        {
+          "text": "ci",
+          "start": 59.41,
+          "end": 59.57
+        },
+        {
+          "text": "go",
+          "start": 59.57,
+          "end": 59.65
+        },
+        {
+          "text": "ogarnąć,",
+          "start": 59.73,
+          "end": 60.21
+        }
+      ],
+      "key": 3,
+      "from": "right",
+      "layout": "stack",
+      "y": 0.58,
+      "align": "right",
+      "motion": "rise"
+    },
+    {
+      "words": [
+        {
+          "text": "zadzwoń",
+          "start": 60.21,
+          "end": 60.53
+        },
+        {
+          "text": "do",
+          "start": 60.61,
+          "end": 60.69
+        },
+        {
+          "text": "nas!",
+          "start": 60.77,
+          "end": 60.85
+        }
+      ],
+      "key": 0,
+      "from": "right",
+      "layout": "inline",
+      "y": 0.58,
+      "align": "right",
+      "motion": "drop"
+    },
+    {
+      "words": [
+        {
+          "text": "Świeża",
+          "start": 60.93,
+          "end": 61.09
+        },
+        {
+          "text": "Bryka",
+          "start": 61.33,
+          "end": 61.57
+        },
+        {
+          "text": "Ameryka!",
+          "start": 61.65,
+          "end": 62.21
+        }
+      ],
+      "key": 2,
+      "from": "right",
+      "layout": "inline",
+      "hl": [
+        0,
+        1
+      ],
+      "y": 0.58,
+      "end": 62.26,
+      "align": "right",
+      "motion": "letters"
+    }
+  ],
+  "overlays": [
+    {
+      "type": "title",
+      "start": 0,
+      "end": 4.3,
+      "text": "Christoff zamawia Jeepa Grand Cherokee z USA",
+      "hl": "Jeepa Grand Cherokee"
+    },
+    {
+      "type": "media",
+      "src": "logo.png",
+      "fit": "card",
+      "size": 220,
+      "start": 2.16,
+      "end": 4.5,
+      "y": 0.66
+    },
+    {
+      "type": "list",
+      "start": 27.28,
+      "end": 38.6,
+      "items": [
+        {
+          "text": "5.7 V8",
+          "at": 27.28
+        },
+        {
+          "text": "20-calowe srebrne felgi",
+          "at": 30.64
+        },
+        {
+          "text": "Czarny lakier",
+          "at": 32.32
+        },
+        {
+          "text": "Napęd 4×4",
+          "at": 36.32
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "start": 43.28,
+      "end": 49.8,
+      "items": [
+        {
+          "text": "Skórzana tapicerka",
+          "at": 43.28
+        },
+        {
+          "text": "Skrzynia automatyczna",
+          "at": 44.88
+        },
+        {
+          "text": "CarPlay",
+          "at": 46.32
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "src": "logo.png",
+      "fit": "card",
+      "size": 260,
+      "start": 60.9,
+      "end": 62.26,
+      "y": 0.15
+    }
+  ]
+}

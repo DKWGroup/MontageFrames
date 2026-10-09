@@ -7,6 +7,13 @@ Każdą nową poprawkę dopisuję tutaj (z datą), zanim zmienię kod.
 
 - **Rendery w folderze klienta.** Gotową rolkę klienta zapisuj zawsze w `klienci/<klient>/Render/<nazwa>.mp4` (struktura: Klienci → nazwa klienta → Render), nie we wspólnym `out/`. Brakujący folder `Render` tworzy się przy renderze. W `out/` zostają tylko rolki bez klienta (testy, pokazówki). *(2026-10-06)*
 
+## Hook na początku rolki *(2026-10-09)*
+
+- **Każda rolka zaczyna się tekstowym hookiem: 2–5 słów** u góry kadru (grafika `title`, pierwsze ~2–3 s), który najlepiej streszcza film albo zatrzymuje scroll: pytanie, mocne stwierdzenie, kontrowersja, liczba, wywołanie emocji.
+- Hook dobieram skillem **`hook-engineer`** (bank formuł szkieletowych PL + taksonomia typów, tier 1: kontrast, contrarian, liczba, self-relevance, open loop). Rozważam 3 warianty, wybieram najlepiej dopasowany do treści i przepuszczam przez jego anti-cringe check: konkret zamiast ogólnika, działa na wyciszonym telefonie, zero hype'u i „szokujących” dopowiedzeń, hook obiecuje tylko to, co rolka dowozi.
+- Rejestr i zakazy klienta mają pierwszeństwo (np. GlowUp: bez działania przypisanego produktowi i bez wykrzykników; Herod: tylko miękkie typy). Hook nie zasłania twarzy i stoi w strefie bezpiecznej (od y ≈ 250 px).
+- Hook to osobny tekst — napisy wypowiedzi zostają (w SkyClass zawsze 1:1); zdejmuję je tylko, gdy hook powtarza to samo zdanie. Gdy w nagraniu jest już wypalony hak, nie dokładam drugiego.
+
 ## Napisy
 
 - **Bez „samosiek” (wiszących krótkich słów).** Nigdy nie zostawiaj „i”, „a”, „o”, „u”, „w”, „z” ani innych krótkich spójników i przyimków (np. „do”, „na”, „od”, „po”, „za”, „ze”, „we”) samotnie w osobnej linii ani na końcu linii, akapitu lub grupy napisów, gdy dalszy ciąg trafia do następnej. Łącz je z następującym słowem w tej samej linii i grupie (np. „w SkyClass”, „z tego”, „i rezerwujesz”); przy łamaniu tekstu przenoś cały taki fragment razem, używając spacji nierozdzielającej. Dotyczy też podziału wokół dużego słowa-klucza oraz animacji: krótkie słowo nie może przez moment wisieć samo — pokaż je razem z następnym słowem, zachowując pełny tekst wypowiedzi. *(2026-10-03)*
@@ -17,6 +24,22 @@ Każdą nową poprawkę dopisuję tutaj (z datą), zanim zmienię kod.
 - Linie małych słów łamane równo, bez samotnego słowa w linii. *(2026-10-02)*
 - Ma być kreatywnie: zmiana kierunku wjazdu przy nowym zdaniu, akcenty kolorem na liczbach i puentach, pop słowa-klucza. *(2026-10-02)*
 
+## Strefa bezpieczna (Instagram Reels i TikTok) *(2026-10-08)*
+
+Kadr 1080×1920. Napisy, grafiki, logo i CTA trzymam tam, gdzie nie zasłoni ich interfejs żadnej z platform. Rolka idzie na oba serwisy, więc obowiązuje część wspólna:
+
+| krawędź | Instagram Reels | TikTok | wspólna strefa |
+|---|---|---|---|
+| góra | ~220–250 px (nagłówek, „Rolki”, kamera) | ~150–160 px (Obserwowani / Dla Ciebie) | **od y ≈ 250 px (0,13)** |
+| dół | ~320–400 px (nick, opis, dźwięk) | ~450–480 px (nick, opis, dźwięk, pasek) | **do y ≈ 1440 px (0,75)** dla tekstu ważnego na TikToku; na samego Instagrama do ~1520 px (0,79) |
+| prawo | ~120–140 px (serduszko, komentarze, udostępnij) | ~140–160 px (avatar, akcje) | **bez prawych 150 px (x ≤ 930)** |
+| lewo | ~40 px | ~60 px | **od x ≈ 60 px** |
+
+- Najważniejsze treści (kwoty, numer telefonu, CTA, słowo-klucz) celuję w środek strefy, nie w jej brzeg.
+- Napisy wyrównane do prawej kończą się przed prawym pasem przycisków (x ≤ 930), nie przy krawędzi kadru.
+- Twarz i tak ma pierwszeństwo: jeśli strefa wypada na twarz, przesuwam grafikę, a nie twarz zasłaniam.
+- Przy kontroli klatek sprawdzam, czy dolna krawędź kart i bloków napisów nie schodzi poniżej 0,75 (TikTok) lub 0,79 (tylko Instagram).
+
 ## Grafiki i animacje
 
 - **Logo przy wzmiance o firmie lub platformie.** Gdy w wypowiedzi pada nazwa marki, firmy, aplikacji lub platformy (np. Facebook, Instagram, WhatsApp, XTB), pobierz jej właściwe logo **bez tła** (przezroczysty PNG lub SVG), najlepiej z oficjalnych materiałów marki. Dodaj je do animacji albo jako osobny element graficzny pojawiający się w rolce w momencie wzmianki. Logo ma być czytelne, zachowywać oryginalne proporcje i nie zasłaniać twarzy ani napisów. **Zasada obowiązuje w kolejnych montażach; nie poprawiaj aktualnej rolki bez osobnego polecenia.** *(2026-10-03)*
@@ -26,6 +49,11 @@ Każdą nową poprawkę dopisuję tutaj (z datą), zanim zmienię kod.
 - **Estetycznie, ale nie ubogo:** czysto i z powietrzem, bez krzykliwych efektów — ale animacje mają życie: sprężyste wejścia, odliczanie liczb, rysowanie linii i pasków, pop znaczników, połysk. Wersja „same cienkie linie bez tła” była za bardzo uproszczona. *(2026-10-02)*
 - **Tło grafik: liquid glass.** Każdy wykres/licznik/lista/porównanie stoi na karcie jak dawniej, ale ze szkła: ciemniejsza, półprzezroczysta, z mocnym rozmyciem tego, co jest za nią (wideo w tle zblurowane), z delikatnym połyskiem krawędzi. *(2026-10-02)*
 - **Kolor akcentu: pomarańczowy, nie żółty** (grafiki i akcenty w napisach). *(2026-10-02)*
+
+## Research i wizualizacje danych *(2026-10-09)*
+
+- **Funkcja dostępna dla każdej rolki, ale domyślnie wyłączona.** Gdy w wypowiedzi pada zjawisko, badanie, norma albo statystyka, mogę znaleźć wiarygodne źródło (wytyczne, recenzowane publikacje, PubMed, WHO, EFSA, GUS) i pokazać dokładne dane z niego jako wykres, animację procesu, licznik, skalę lub porównanie. Taka grafika może zająć cały ekran. Zawsze dodaję podpis „Źródło: …”, a link zapisuję w `public/reels/<nazwa>/sources.md`. Nie pokazuję liczb, których nie ma w źródle.
+- **Kiedy stosuję:** tylko wtedy, gdy włącza go plik klienta (dziś: GlowUp Nutrition, Vital Hormone) albo użytkowniczka poprosi o to przy danej rolce. W pozostałych rolkach **nie dodaję go sam**. Po oddaniu gotowej rolki pytam, czy chce wersję z researchem, i wypisuję konkretne miejsca (np. „0:12 francuski paradoks → wykres ze źródłem”). W zleceniu z panelu, gdzie nie mogę zadawać pytań, umieszczam tę propozycję w podsumowaniu.
 
 ## Efekty dźwiękowe
 
@@ -52,3 +80,8 @@ Każdą nową poprawkę dopisuję tutaj (z datą), zanim zmienię kod.
 - **Stała lista wszystkich elementów montażu.** Oś czasu ma stale pokazywać wszystkie ujęcia, grupy napisów i grafiki, z czytelnymi nazwami i rzeczywistymi czasami. Przewijanie i odtwarzanie nie mogą dodawać ani usuwać ścieżek. Nie ukrywaj elementów tworzonych z danych jako duplikatów kodu; wewnętrzne kontenery, kopie mediów do rozmycia i części animacji nie tworzą osobnych ścieżek. Dotyczy wszystkich stylów. *(2026-10-08)*
 
 - **Bloki osi czasu pozostają klikalne i edytowalne w inspektorze.** Stabilność listy nie może wyłączać zaznaczania ani edycji. Domyślne ustawienia każdej kompozycji muszą dać się zapisać bez ostrzeżenia o defaultProps. *(2026-10-08)*
+
+## Panel montażowy
+
+- **Ręczna korekta transkrypcji jest najważniejszą funkcją.** Panel ma być prosty do zrozumienia; tekst wypowiedzi musi dać się poprawić manualnie po montażu, z czytelnym zapisem i podglądem. *(2026-10-08)*
+- **Przepływ jak w AnimaFX:** zaczynamy od dodania filmu, następnie wybieramy branding i dostawcę AI oraz wytyczne; AI montuje film na ich podstawie, a potem można poprawić transkrypcję i inne szczegóły. Do pracy nad panelem używamy UI/UX Pro Max, Superpowers i Impeccable. *(2026-10-08)*

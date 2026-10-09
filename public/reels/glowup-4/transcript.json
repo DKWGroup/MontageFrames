@@ -1,0 +1,950 @@
+[
+  {
+    "id": "w0",
+    "text": "90%",
+    "start": 0,
+    "end": 0.8
+  },
+  {
+    "id": "w1",
+    "text": "boosterów",
+    "start": 0.8,
+    "end": 1.28
+  },
+  {
+    "id": "w2",
+    "text": "testosteronu",
+    "start": 1.28,
+    "end": 1.92
+  },
+  {
+    "id": "w3",
+    "text": "to",
+    "start": 2,
+    "end": 2.16
+  },
+  {
+    "id": "w4",
+    "text": "ściema.",
+    "start": 2.16,
+    "end": 2.72
+  },
+  {
+    "id": "w5",
+    "text": "Powiem",
+    "start": 2.72,
+    "end": 3.04
+  },
+  {
+    "id": "w6",
+    "text": "Ci,",
+    "start": 3.04,
+    "end": 3.28
+  },
+  {
+    "id": "w7",
+    "text": "co",
+    "start": 3.28,
+    "end": 3.44
+  },
+  {
+    "id": "w8",
+    "text": "działa,",
+    "start": 3.44,
+    "end": 3.76
+  },
+  {
+    "id": "w9",
+    "text": "a",
+    "start": 3.76,
+    "end": 3.92
+  },
+  {
+    "id": "w10",
+    "text": "co",
+    "start": 3.92,
+    "end": 4.08
+  },
+  {
+    "id": "w11",
+    "text": "nie.",
+    "start": 4.08,
+    "end": 4.32
+  },
+  {
+    "id": "w12",
+    "text": "Popularny",
+    "start": 4.32,
+    "end": 4.8
+  },
+  {
+    "id": "w13",
+    "text": "Tribulus",
+    "start": 4.8,
+    "end": 5.52
+  },
+  {
+    "id": "w14",
+    "text": "nie",
+    "start": 5.52,
+    "end": 5.68
+  },
+  {
+    "id": "w15",
+    "text": "ma",
+    "start": 5.68,
+    "end": 5.76
+  },
+  {
+    "id": "w16",
+    "text": "żadnego",
+    "start": 5.76,
+    "end": 6.16
+  },
+  {
+    "id": "w17",
+    "text": "wpływ",
+    "start": 6.16,
+    "end": 6.48
+  },
+  {
+    "id": "w18",
+    "text": "na",
+    "start": 6.48,
+    "end": 6.56
+  },
+  {
+    "id": "w19",
+    "text": "testosteron.",
+    "start": 6.56,
+    "end": 7.36
+  },
+  {
+    "id": "w20",
+    "text": "Jeżeli",
+    "start": 7.36,
+    "end": 7.68
+  },
+  {
+    "id": "w21",
+    "text": "chodzi",
+    "start": 7.68,
+    "end": 7.92
+  },
+  {
+    "id": "w22",
+    "text": "o",
+    "start": 7.92,
+    "end": 8.08
+  },
+  {
+    "id": "w23",
+    "text": "Macę,",
+    "start": 8.08,
+    "end": 8.56
+  },
+  {
+    "id": "w24",
+    "text": "na",
+    "start": 8.64,
+    "end": 8.8
+  },
+  {
+    "id": "w25",
+    "text": "libido",
+    "start": 8.88,
+    "end": 9.36
+  },
+  {
+    "id": "w26",
+    "text": "ma",
+    "start": 9.52,
+    "end": 9.76
+  },
+  {
+    "id": "w27",
+    "text": "pozytywny",
+    "start": 9.76,
+    "end": 10.16
+  },
+  {
+    "id": "w28",
+    "text": "wpływ,",
+    "start": 10.16,
+    "end": 10.56
+  },
+  {
+    "id": "w29",
+    "text": "natomiast",
+    "start": 10.56,
+    "end": 10.88
+  },
+  {
+    "id": "w30",
+    "text": "na",
+    "start": 10.88,
+    "end": 10.96
+  },
+  {
+    "id": "w31",
+    "text": "hormony",
+    "start": 11.04,
+    "end": 11.36
+  },
+  {
+    "id": "w32",
+    "text": "nie.",
+    "start": 11.44,
+    "end": 11.68
+  },
+  {
+    "id": "w33",
+    "text": "Duże",
+    "start": 11.68,
+    "end": 11.84
+  },
+  {
+    "id": "w34",
+    "text": "ważniejsze",
+    "start": 11.92,
+    "end": 12.32
+  },
+  {
+    "id": "w35",
+    "text": "jest",
+    "start": 12.4,
+    "end": 12.56
+  },
+  {
+    "id": "w36",
+    "text": "to,",
+    "start": 12.56,
+    "end": 12.72
+  },
+  {
+    "id": "w37",
+    "text": "aby",
+    "start": 12.72,
+    "end": 12.88
+  },
+  {
+    "id": "w38",
+    "text": "sprawdzać",
+    "start": 12.88,
+    "end": 13.36
+  },
+  {
+    "id": "w39",
+    "text": "swój",
+    "start": 13.44,
+    "end": 13.68
+  },
+  {
+    "id": "w40",
+    "text": "obwód",
+    "start": 13.68,
+    "end": 14
+  },
+  {
+    "id": "w41",
+    "text": "pasa.",
+    "start": 14,
+    "end": 14.32
+  },
+  {
+    "id": "w42",
+    "text": "Tkanka",
+    "start": 14.48,
+    "end": 14.96
+  },
+  {
+    "id": "w43",
+    "text": "tłuszowa",
+    "start": 14.96,
+    "end": 15.52
+  },
+  {
+    "id": "w44",
+    "text": "na",
+    "start": 15.52,
+    "end": 15.6
+  },
+  {
+    "id": "w45",
+    "text": "brzuchu",
+    "start": 15.6,
+    "end": 16
+  },
+  {
+    "id": "w46",
+    "text": "produkuje",
+    "start": 16.08,
+    "end": 16.64
+  },
+  {
+    "id": "w47",
+    "text": "tzw.",
+    "start": 16.64,
+    "end": 16.88
+  },
+  {
+    "id": "w48",
+    "text": "aromatazę,",
+    "start": 17.12,
+    "end": 18
+  },
+  {
+    "id": "w49",
+    "text": "czyli",
+    "start": 18,
+    "end": 18.24
+  },
+  {
+    "id": "w50",
+    "text": "enzym,",
+    "start": 18.24,
+    "end": 18.64
+  },
+  {
+    "id": "w51",
+    "text": "który",
+    "start": 18.64,
+    "end": 18.8
+  },
+  {
+    "id": "w52",
+    "text": "zamienia",
+    "start": 18.8,
+    "end": 19.12
+  },
+  {
+    "id": "w53",
+    "text": "Twój",
+    "start": 19.2,
+    "end": 19.28
+  },
+  {
+    "id": "w54",
+    "text": "testosteron",
+    "start": 19.36,
+    "end": 20
+  },
+  {
+    "id": "w55",
+    "text": "w",
+    "start": 20,
+    "end": 20.16
+  },
+  {
+    "id": "w56",
+    "text": "estrogen.",
+    "start": 20.16,
+    "end": 20.8
+  },
+  {
+    "id": "w57",
+    "text": "Im",
+    "start": 20.8,
+    "end": 20.96
+  },
+  {
+    "id": "w58",
+    "text": "masz",
+    "start": 20.96,
+    "end": 21.2
+  },
+  {
+    "id": "w59",
+    "text": "większy",
+    "start": 21.2,
+    "end": 21.52
+  },
+  {
+    "id": "w60",
+    "text": "brzuch,",
+    "start": 21.52,
+    "end": 21.92
+  },
+  {
+    "id": "w61",
+    "text": "tym",
+    "start": 21.92,
+    "end": 22.08
+  },
+  {
+    "id": "w62",
+    "text": "więcej",
+    "start": 22.08,
+    "end": 22.32
+  },
+  {
+    "id": "w63",
+    "text": "testosteronu",
+    "start": 22.32,
+    "end": 22.88
+  },
+  {
+    "id": "w64",
+    "text": "tracisz",
+    "start": 22.96,
+    "end": 23.36
+  },
+  {
+    "id": "w65",
+    "text": "codziennie.",
+    "start": 23.36,
+    "end": 24
+  },
+  {
+    "id": "w66",
+    "text": "Mierz",
+    "start": 24,
+    "end": 24.4
+  },
+  {
+    "id": "w67",
+    "text": "pas",
+    "start": 24.4,
+    "end": 24.64
+  },
+  {
+    "id": "w68",
+    "text": "w",
+    "start": 24.88,
+    "end": 24.96
+  },
+  {
+    "id": "w69",
+    "text": "tygodniu,",
+    "start": 24.96,
+    "end": 25.6
+  },
+  {
+    "id": "w70",
+    "text": "Twoim",
+    "start": 25.6,
+    "end": 25.84
+  },
+  {
+    "id": "w71",
+    "text": "celem",
+    "start": 25.92,
+    "end": 26.24
+  },
+  {
+    "id": "w72",
+    "text": "jest",
+    "start": 26.24,
+    "end": 26.48
+  },
+  {
+    "id": "w73",
+    "text": "poniżej",
+    "start": 26.48,
+    "end": 27.04
+  },
+  {
+    "id": "w74",
+    "text": "94",
+    "start": 27.04,
+    "end": 27.84
+  },
+  {
+    "id": "w75",
+    "text": "cm.",
+    "start": 27.84,
+    "end": 28.32
+  },
+  {
+    "id": "w76",
+    "text": "Po",
+    "start": 28.48,
+    "end": 28.64
+  },
+  {
+    "id": "w77",
+    "text": "trzecie,",
+    "start": 28.64,
+    "end": 29.2
+  },
+  {
+    "id": "w78",
+    "text": "Bor.",
+    "start": 29.2,
+    "end": 29.76
+  },
+  {
+    "id": "w79",
+    "text": "Z",
+    "start": 29.76,
+    "end": 29.84
+  },
+  {
+    "id": "w80",
+    "text": "diety",
+    "start": 29.84,
+    "end": 30.16
+  },
+  {
+    "id": "w81",
+    "text": "masz",
+    "start": 30.32,
+    "end": 30.48
+  },
+  {
+    "id": "w82",
+    "text": "od",
+    "start": 30.48,
+    "end": 30.64
+  },
+  {
+    "id": "w83",
+    "text": "1",
+    "start": 30.64,
+    "end": 30.96
+  },
+  {
+    "id": "w84",
+    "text": "do",
+    "start": 30.96,
+    "end": 31.12
+  },
+  {
+    "id": "w85",
+    "text": "2",
+    "start": 31.12,
+    "end": 31.2
+  },
+  {
+    "id": "w86",
+    "text": "mg",
+    "start": 31.36,
+    "end": 31.52
+  },
+  {
+    "id": "w87",
+    "text": "max",
+    "start": 31.92,
+    "end": 32.16
+  },
+  {
+    "id": "w88",
+    "text": "dziennie,",
+    "start": 32.24,
+    "end": 32.72
+  },
+  {
+    "id": "w89",
+    "text": "a",
+    "start": 32.72,
+    "end": 32.88
+  },
+  {
+    "id": "w90",
+    "text": "od",
+    "start": 32.88,
+    "end": 32.96
+  },
+  {
+    "id": "w91",
+    "text": "lat",
+    "start": 32.96,
+    "end": 33.12
+  },
+  {
+    "id": "w92",
+    "text": "90.",
+    "start": 33.28,
+    "end": 33.76
+  },
+  {
+    "id": "w93",
+    "text": "naukowcy",
+    "start": 33.92,
+    "end": 34.4
+  },
+  {
+    "id": "w94",
+    "text": "badają",
+    "start": 34.4,
+    "end": 34.8
+  },
+  {
+    "id": "w95",
+    "text": "go",
+    "start": 34.8,
+    "end": 34.96
+  },
+  {
+    "id": "w96",
+    "text": "w",
+    "start": 34.96,
+    "end": 35.04
+  },
+  {
+    "id": "w97",
+    "text": "kontekście",
+    "start": 35.04,
+    "end": 35.28
+  },
+  {
+    "id": "w98",
+    "text": "hormonów",
+    "start": 35.44,
+    "end": 35.84
+  },
+  {
+    "id": "w99",
+    "text": "mężczyzn.",
+    "start": 35.84,
+    "end": 36.48
+  },
+  {
+    "id": "w100",
+    "text": "Jest",
+    "start": 36.48,
+    "end": 36.72
+  },
+  {
+    "id": "w101",
+    "text": "drogi",
+    "start": 36.8,
+    "end": 37.2
+  },
+  {
+    "id": "w102",
+    "text": "i",
+    "start": 37.2,
+    "end": 37.36
+  },
+  {
+    "id": "w103",
+    "text": "mało",
+    "start": 37.36,
+    "end": 37.6
+  },
+  {
+    "id": "w104",
+    "text": "znany,",
+    "start": 37.6,
+    "end": 38
+  },
+  {
+    "id": "w105",
+    "text": "dlatego",
+    "start": 38,
+    "end": 38.4
+  },
+  {
+    "id": "w106",
+    "text": "99%",
+    "start": 38.4,
+    "end": 39.28
+  },
+  {
+    "id": "w107",
+    "text": "boosterów",
+    "start": 39.28,
+    "end": 39.84
+  },
+  {
+    "id": "w108",
+    "text": "go",
+    "start": 39.84,
+    "end": 40
+  },
+  {
+    "id": "w109",
+    "text": "pomija.",
+    "start": 40,
+    "end": 40.56
+  },
+  {
+    "id": "w110",
+    "text": "W",
+    "start": 40.56,
+    "end": 40.64
+  },
+  {
+    "id": "w111",
+    "text": "drive",
+    "start": 40.64,
+    "end": 40.88
+  },
+  {
+    "id": "w112",
+    "text": "masz",
+    "start": 40.96,
+    "end": 41.12
+  },
+  {
+    "id": "w113",
+    "text": "pełną",
+    "start": 41.12,
+    "end": 41.44
+  },
+  {
+    "id": "w114",
+    "text": "dawkę",
+    "start": 41.44,
+    "end": 41.84
+  },
+  {
+    "id": "w115",
+    "text": "boru",
+    "start": 41.84,
+    "end": 42.08
+  },
+  {
+    "id": "w116",
+    "text": "i",
+    "start": 42.16,
+    "end": 42.24
+  },
+  {
+    "id": "w117",
+    "text": "100",
+    "start": 42.24,
+    "end": 42.4
+  },
+  {
+    "id": "w118",
+    "text": "kapsułę.",
+    "start": 42.48,
+    "end": 42.88
+  },
+  {
+    "id": "w119",
+    "text": "Do",
+    "start": 42.96,
+    "end": 43.12
+  },
+  {
+    "id": "w120",
+    "text": "tego",
+    "start": 43.12,
+    "end": 43.28
+  },
+  {
+    "id": "w121",
+    "text": "w",
+    "start": 43.28,
+    "end": 43.36
+  },
+  {
+    "id": "w122",
+    "text": "środku",
+    "start": 43.36,
+    "end": 43.68
+  },
+  {
+    "id": "w123",
+    "text": "masz",
+    "start": 43.68,
+    "end": 43.84
+  },
+  {
+    "id": "w124",
+    "text": "inne",
+    "start": 43.84,
+    "end": 44.08
+  },
+  {
+    "id": "w125",
+    "text": "składniki,",
+    "start": 44.08,
+    "end": 44.64
+  },
+  {
+    "id": "w126",
+    "text": "w",
+    "start": 44.64,
+    "end": 44.72
+  },
+  {
+    "id": "w127",
+    "text": "tym",
+    "start": 44.72,
+    "end": 44.96
+  },
+  {
+    "id": "w128",
+    "text": "cynk",
+    "start": 44.96,
+    "end": 45.28
+  },
+  {
+    "id": "w129",
+    "text": "przyczyniając",
+    "start": 45.36,
+    "end": 45.92
+  },
+  {
+    "id": "w130",
+    "text": "się",
+    "start": 45.92,
+    "end": 46
+  },
+  {
+    "id": "w131",
+    "text": "do",
+    "start": 46.08,
+    "end": 46.16
+  },
+  {
+    "id": "w132",
+    "text": "prawidłowego",
+    "start": 46.16,
+    "end": 46.72
+  },
+  {
+    "id": "w133",
+    "text": "poziomu",
+    "start": 46.72,
+    "end": 47.12
+  },
+  {
+    "id": "w134",
+    "text": "testosteronu.",
+    "start": 47.12,
+    "end": 47.76
+  },
+  {
+    "id": "w135",
+    "text": "Wejdź",
+    "start": 47.84,
+    "end": 48.16
+  },
+  {
+    "id": "w136",
+    "text": "w",
+    "start": 48.16,
+    "end": 48.24
+  },
+  {
+    "id": "w137",
+    "text": "link",
+    "start": 48.24,
+    "end": 48.4
+  },
+  {
+    "id": "w138",
+    "text": "poniżej,",
+    "start": 48.4,
+    "end": 48.88
+  },
+  {
+    "id": "w139",
+    "text": "jeśli",
+    "start": 48.88,
+    "end": 48.96
+  },
+  {
+    "id": "w140",
+    "text": "zależy",
+    "start": 49.04,
+    "end": 49.44
+  },
+  {
+    "id": "w141",
+    "text": "ci",
+    "start": 49.44,
+    "end": 49.6
+  },
+  {
+    "id": "w142",
+    "text": "na",
+    "start": 49.6,
+    "end": 49.68
+  },
+  {
+    "id": "w143",
+    "text": "wygodzie,",
+    "start": 49.68,
+    "end": 50.24
+  },
+  {
+    "id": "w144",
+    "text": "ponieważ",
+    "start": 50.24,
+    "end": 50.48
+  },
+  {
+    "id": "w145",
+    "text": "wszystkie",
+    "start": 50.72,
+    "end": 51.04
+  },
+  {
+    "id": "w146",
+    "text": "składniki",
+    "start": 51.04,
+    "end": 51.52
+  },
+  {
+    "id": "w147",
+    "text": "zawarliśmy",
+    "start": 51.52,
+    "end": 52.08
+  },
+  {
+    "id": "w148",
+    "text": "w",
+    "start": 52.08,
+    "end": 52.16
+  },
+  {
+    "id": "w149",
+    "text": "dwóch",
+    "start": 52.16,
+    "end": 52.4
+  },
+  {
+    "id": "w150",
+    "text": "kapsułkach,",
+    "start": 52.4,
+    "end": 53.04
+  },
+  {
+    "id": "w151",
+    "text": "żebyś",
+    "start": 53.04,
+    "end": 53.36
+  },
+  {
+    "id": "w152",
+    "text": "nie",
+    "start": 53.36,
+    "end": 53.44
+  },
+  {
+    "id": "w153",
+    "text": "musiał",
+    "start": 53.44,
+    "end": 53.6
+  },
+  {
+    "id": "w154",
+    "text": "łykać",
+    "start": 53.68,
+    "end": 54.08
+  },
+  {
+    "id": "w155",
+    "text": "4",
+    "start": 54.08,
+    "end": 54.32
+  },
+  {
+    "id": "w156",
+    "text": "różnych",
+    "start": 54.48,
+    "end": 54.8
+  },
+  {
+    "id": "w157",
+    "text": "produktów.",
+    "start": 54.8,
+    "end": 55.2
+  }
+]

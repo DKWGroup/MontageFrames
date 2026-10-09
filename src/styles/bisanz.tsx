@@ -32,6 +32,8 @@ export type Theme = {
   pill: string; // metka przebitki
   pillText: string;
   labelShadow?: string; // etykieta nad CTA stoi prosto na wideo
+  keyFont?: string; // osobny krój słowa-klucza (GlowUp: Bebas Neue), domyślnie `font`
+  keySpacing?: string; // rozstrzelenie klucza, domyślnie -0.03em
   keyWeight: number;
   smallWeight: number;
   titleStyle: "italic" | "normal";
@@ -49,7 +51,12 @@ export type Theme = {
   exitFrames: number;
   radius: number;
   // Zakreślacz na całe słowo zamiast kreski: [tło, tekst] dla klucza i dla `hl`.
-  marker?: { key: [string, string]; hl: [string, string] };
+  marker?: {
+    key: [string, string];
+    hl: [string, string];
+    hlWeight?: number; // waga słowa na zakreślaczu `hl`
+    hlPop?: boolean; // zakreślacz `hl` wyskakuje zamiast przejeżdżać od lewej
+  };
 };
 
 // Kacper Bisanz (bisanz.pl): Inter 700/600/400 + Menlo 400, biel i niebieski #066EED.
@@ -117,7 +124,7 @@ export const kineticCaptions = (T: Theme): React.FC<StyleProps> => {
       const size = fitText({
         text,
         withinWidth: box,
-        fontFamily: T.font,
+        fontFamily: isKey ? (T.keyFont ?? T.font) : T.font,
         fontWeight: isKey ? T.keyWeight : T.smallWeight,
         textTransform: isKey ? "uppercase" : "none",
         validateFontIsLoaded: false,
@@ -150,38 +157,97 @@ export const kineticCaptions = (T: Theme): React.FC<StyleProps> => {
         ? (atom.find((x) => !joins(x))?.at ?? w.at)
         : w.at;
       const wf = f - Math.round(reveal * fps);
+      const mo = group.motion ?? "rise";
       const s =
         wf < 0
           ? 0
-          : spring({ frame: wf, fps, config: { damping: 18, stiffness: 210 } });
+          : spring({
+              frame: wf,
+              fps,
+              config: { damping: mo === "pop" ? 11 : 18, stiffness: 210 },
+            });
       const pill = w.key && group.effect === "stamp";
+      const text = clean(w.text);
+      // litera po literze: każda wysuwa się spod maski z małym opóźnieniem
+      const STEP = 1.2;
+      const letters =
+        mo === "letters"
+          ? [...text].map((c, i) => {
+              const lf = wf - i * STEP;
+              const ls =
+                lf < 0
+                  ? 0
+                  : spring({ frame: lf, fps, config: { damping: 18, stiffness: 230 } });
+              return (
+                <span
+                  key={i}
+                  style={{
+                    display: "inline-block",
+                    whiteSpace: "pre",
+                    transform: `translateY(${(1 - ls) * 110}%)`,
+                  }}
+                >
+                  {c}
+                </span>
+              );
+            })
+          : text;
       // kreska pod kluczem / zakreślacz rysuje się od lewej chwilę po wejściu słowa
       const draw = () =>
         spring({
-          frame: Math.max(0, wf - 4),
+          frame: Math.max(
+            0,
+            wf - 4 - (mo === "letters" ? text.length * STEP : 0),
+          ),
           fps,
           config: { damping: 20, stiffness: 140 },
         });
+      const masked = mo === "rise" || mo === "drop" || mo === "letters";
       const outer: React.CSSProperties = {
         display: "inline-block",
         fontSize,
         // przed wejściem słowo całkiem ukryte (inaczej czubki wersalików wystają spod maski)
-        opacity: wf < 0 ? 0 : 1,
-        // maska tylko od dołu i tylko w trakcie wjazdu — cień i ogonki liter zostają
-        clipPath: s < 0.99 ? "inset(-60% -20% 0 -20%)" : undefined,
+        opacity: wf < 0 ? 0 : masked ? 1 : Math.min(1, s * 1.6),
+        // maska tylko od strony wjazdu i tylko w trakcie — cień i ogonki liter zostają
+        clipPath:
+          masked && s < 0.99
+            ? mo === "drop"
+              ? "inset(0 -20% -60% -20%)"
+              : "inset(-60% -20% 0 -20%)"
+            : undefined,
+        filter: mo === "slide" && s < 0.99 ? `blur(${(1 - s) * 10}px)` : undefined,
       };
-      const lift = `translateY(${(1 - s) * 110}%)`;
+      const lift =
+        mo === "drop"
+          ? `translateY(${-(1 - s) * 110}%)`
+          : mo === "slide"
+            ? `translate(${dx * (1 - s) * 1.4}em, ${dy * (1 - s) * 1.4}em)`
+            : mo === "pop"
+              ? `scale(${0.3 + 0.7 * s})`
+              : mo === "letters"
+                ? "none"
+                : `translateY(${(1 - s) * 110}%)`;
       const type: React.CSSProperties = {
+        fontFamily: w.key ? T.keyFont : undefined,
         fontWeight: w.key ? T.keyWeight : T.smallWeight,
         textTransform: w.key ? "uppercase" : undefined,
-        letterSpacing: w.key ? "-0.03em" : "-0.01em",
+        letterSpacing: w.key ? (T.keySpacing ?? "-0.03em") : "-0.01em",
       };
 
       // Zakreślacz: dolna warstwa to jasne słowo z cieniem, górna to blok z ciemnym słowem,
       // odsłaniany od lewej. Litery leżą zawsze albo na bloku, albo na wideo — kontrast w każdej klatce.
       if (T.marker) {
         const m = w.key ? T.marker.key : w.hl ? T.marker.hl : null;
-        const sweep = !m ? 0 : pill ? 1 : draw();
+        const popHl = !!(w.hl && !w.key && !pill && T.marker.hlPop);
+        // pop out: blok rośnie sprężyście z przestrzeleniem i prostuje się z przechyłu
+        const p = popHl
+          ? spring({
+              frame: Math.max(0, wf - 3),
+              fps,
+              config: { damping: 9, stiffness: 220 },
+            })
+          : 0;
+        const sweep = !m ? 0 : pill ? 1 : popHl ? (wf >= 3 ? 1 : 0) : draw();
         return (
           <span key={`${w.start}-${w.text}`} style={outer}>
             <span
@@ -194,10 +260,13 @@ export const kineticCaptions = (T: Theme): React.FC<StyleProps> => {
                   : lift,
                 color: T.text,
                 ...type,
+                ...(w.hl && !w.key && T.marker.hlWeight
+                  ? { fontWeight: T.marker.hlWeight }
+                  : {}),
                 padding: m ? `0 ${PAD}em` : undefined,
               }}
             >
-              {clean(w.text)}
+              {letters}
               {m && sweep > 0 && (
                 <span
                   aria-hidden
@@ -209,7 +278,13 @@ export const kineticCaptions = (T: Theme): React.FC<StyleProps> => {
                     background: m[0],
                     color: m[1],
                     textShadow: "none",
-                    clipPath: `inset(0 ${(1 - sweep) * 100}% 0 0)`,
+                    clipPath: popHl
+                      ? undefined
+                      : `inset(0 ${(1 - sweep) * 100}% 0 0)`,
+                    transform: popHl
+                      ? `scale(${0.35 + 0.65 * p}) rotate(${(1 - p) * -7}deg)`
+                      : undefined,
+                    opacity: popHl ? Math.min(1, p * 2.5) : undefined,
                   }}
                 >
                   {clean(w.text)}
@@ -242,7 +317,7 @@ export const kineticCaptions = (T: Theme): React.FC<StyleProps> => {
               textShadow: pill ? "none" : undefined,
             }}
           >
-            {clean(w.text)}
+            {letters}
             {bar > 0 && (
               <span
                 style={{
@@ -339,8 +414,8 @@ export const kineticCaptions = (T: Theme): React.FC<StyleProps> => {
             position: "absolute",
             left: (width - box) / 2,
             width: box,
-            top: (raised ? T.yRaised : T.y) * height,
-            transform: `translate(${dx * off}px, calc(${raised ? -100 : -50}% + ${dy * off - exit * 50}px))`,
+            top: (group.y ?? (raised ? T.yRaised : T.y)) * height,
+            transform: `translate(${dx * off}px, calc(${raised && group.y == null ? -100 : -50}% + ${dy * off - exit * 50}px))`,
             opacity,
             filter: exit > 0.05 ? `blur(${exit * 8}px)` : undefined,
             display: "flex",
@@ -361,7 +436,7 @@ export const kineticCaptions = (T: Theme): React.FC<StyleProps> => {
 // ——— Grafiki ———
 // Karty pod napisami, etykiety „boardingowe” („/01”, „GATE”), liczby w akcencie.
 // Typy spoza tej listy spadają na wspólne OverlayView.
-type OverlayProps = {
+export type OverlayProps = {
   o: Overlay;
   dur: number;
   src: (file: string) => string;

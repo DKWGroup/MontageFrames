@@ -1,0 +1,28 @@
+// Każdy blok ma własny plik: edycja nie przesuwa lokalizacji innych bloków.
+import { Reel, type ReelProps } from "../Reel";
+import s0 from "./jeep-grand/s0";
+import o0 from "./jeep-grand/o0";
+import o1 from "./jeep-grand/o1";
+import o2 from "./jeep-grand/o2";
+import o3 from "./jeep-grand/o3";
+import o4 from "./jeep-grand/o4";
+import c0 from "./jeep-grand/c0";
+import c1 from "./jeep-grand/c1";
+import c2 from "./jeep-grand/c2";
+import c3 from "./jeep-grand/c3";
+import c4 from "./jeep-grand/c4";
+import c5 from "./jeep-grand/c5";
+import c6 from "./jeep-grand/c6";
+import c7 from "./jeep-grand/c7";
+import c8 from "./jeep-grand/c8";
+import c9 from "./jeep-grand/c9";
+import c10 from "./jeep-grand/c10";
+import c11 from "./jeep-grand/c11";
+import c12 from "./jeep-grand/c12";
+import c13 from "./jeep-grand/c13";
+import c14 from "./jeep-grand/c14";
+import c15 from "./jeep-grand/c15";
+import c16 from "./jeep-grand/c16";
+import c17 from "./jeep-grand/c17";
+const timeline = { s0, o0, o1, o2, o3, o4, c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17 };
+export const StudioReel: React.FC<ReelProps> = (props) => <Reel {...props} timeline={props.reel === "jeep-grand" ? timeline : undefined} />;

@@ -12,6 +12,14 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
 - **Kontrast ma się zgadzać** w każdej klatce (tabela niżej).
 - **Zakreślacz:** słowo-klucz na złotym, akcenty `hl` na bordo.
 
+- **Nazwy modeli aut piszę poprawnie** (ASR przekręca: „cipa grant siroki” → **Jeep Grand Cherokee**). Przy wątpliwości pytam o model. *(2026-10-08)*
+- **Gotowe nagrania ze scenkami:** gdy użytkowniczka prosi „bez przebitek”, nie dodaję żadnego B-rollu; logo i karty z danymi zostają. Napisy omijają tekst wypalony w nagraniu (pole `y` grupy). *(2026-10-08)*
+- **Kinetic subtitles bardziej zróżnicowane, ale uporządkowane:** różne animacje wejścia słów (pole `motion`: wysuw z dołu, opad z góry, wjazd z boku z rozmyciem, pop, litera po literze), dobierane do sensu. Bloki zawsze wyjustowane do lewej albo do prawej (`align`), na przemian przy nowym zdaniu; nigdy losowe rozmieszczenie. Pozycja jak dotąd. *(2026-10-08)*
+- **Hak tekstem na start:** w pierwszych ~3 s rolki-scenki zamiast napisów tytuł na ekranie (np. „Christoff zamawia Jeepa Grand Cherokee z USA”). *(2026-10-08)*
+- **Imię Krzyśka w scenkach: „Christoff”** (nie „Chris”). Dane auta z karty sprawdzam z obrazem: felgi Jeepa są srebrne, czarny jest lakier auta. *(2026-10-08)*
+- **Akcent bordo (`hl`) cięższy i z popem:** słowo na bordo ma wagę o 200 wyższą od małych słów (Poppins 800 zamiast 600), a zakreślacz nie przejeżdża od lewej, tylko wyskakuje (pop out: blok rośnie sprężyście z lekkim przestrzeleniem i przechyłem). Złoty klucz zostaje bez zmian. *(2026-10-08)*
+- **Wyliczanki po amerykańsku, typograficznie:** listy (np. specyfikacja auta, etapy, koszty) nie stoją na zwykłej ciemnej karcie. Każdy punkt to pas jak pas flagi USA (na przemian czerń i bordo) wjeżdżający od lewej, ze złotą gwiazdką, która wyskakuje z obrotem, numerem `01` w złocie i treścią WERSALIKAMI Poppins 900 w kremie. Nad listą rząd złotych gwiazdek, które zapalają się po kolei, opcjonalnie z etykietą `title`. Kontrast: krem na czerni 18,7:1, krem na bordo 10,8:1. *(2026-10-08)*
+
 ## Marka *(rozeznanie strony i skilli `swiezabryka-ameryka`, `swiezabryka-ameryka-social`, 2026-10-07)*
 
 - Import aut z USA na zamówienie (Copart, IAAI, Manheim): wybór i weryfikacja, umowa i zwrotna kaucja, licytacja, płatność w 48 h, transport do portu, rejs do Europy, odprawa, naprawa i przygotowanie do rejestracji. Siostrzana marka Świeżej Bryki (auta z Europy). Twarze: Krzysiek (frontman) i Dawid.
@@ -62,7 +70,7 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
 - **Ruch jak u Bisanza:** blok wsuwa się krótko (70 px) z kierunku `from`, a każde słowo wysuwa się spod maski w chwili, gdy pada (krótkie spójniki razem z następnym słowem). Kierunek zmienia się przy nowym zdaniu, wyjście idzie szybko w górę z rozmyciem.
 - **Zakreślacz zamiast kreski:** blok pod całym słowem przejeżdża od lewej chwilę po jego wejściu. Ciemny tekst siedzi na bloku i odsłania się razem z nim, więc litery zawsze leżą albo na bloku, albo na wideo z cieniem.
   - słowo-klucz: WERSALIKI Poppins 900, czarny na złotym;
-  - `hl`: Poppins 600, krem na bordo (np. kwota, model auta, „Copart”);
+  - `hl`: Poppins 800, krem na bordo, blok wyskakuje (pop out) (np. kwota, model auta, „Copart”);
   - `effect: "stamp"`: złoty blok pojawia się od razu i wskakuje z przechyłem (puenta, najwyżej raz na ~5 s).
 - **Małe słowa:** Poppins 600, krem `#F6F3EE`, cień z `#020203`.
 - Pole `color` grupy nie działa w tym stylu: kolory zakreślaczy są stałe, żeby kontrast zawsze się zgadzał.
@@ -74,7 +82,7 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
 | type | wygląd |
 |---|---|
 | `counter` | czarna karta ze złotą krawędzią, `title` jako złota etykieta Poppins 400, duża złota liczba Poppins 900, `label` w kremie |
-| `list` | czarna karta, numery `01` w złocie, punkty Poppins 600 w kremie, wchodzą przy `at`; pasuje do rozpiski kosztów (cena aukcji, transport w USA, fracht, cło, akcyza, VAT, transport do Polski, naprawa, prowizja) |
+| `list` | pasy flagi USA (czerń/bordo) bez karty, złota gwiazdka z popem, numer `01` w złocie, punkt WERSALIKAMI Poppins 900 w kremie, wchodzą przy `at`; pasuje do rozpiski kosztów (cena aukcji, transport w USA, fracht, cło, akcyza, VAT, transport do Polski, naprawa, prowizja) |
 | `title` | hak u góry: WERSALIKI Poppins 900 w kremie, fragment `hl` na złotym zakreślaczu z czarnym tekstem |
 | `cta` | etykieta + złoty przycisk z czarnym tekstem (jak „Porozmawiajmy” na stronie), np. „Napisz model i budżet” |
 | `media` (fit `full`) | przebitka na cały kadr, powolny najazd, czarna metka ze złotą kropką, np. „COPART · TEXAS” |
@@ -95,3 +103,7 @@ Logo: `public/Brandings/SwiezaBrykaAmeryka/logo-swieza-bryka.png` (PNG 1600×160
 | odbiór | wydanie auta i kluczyki (klient tylko za zgodą) |
 
 Najpierw własny materiał klienta (marka nagrywa każdy etap telefonem), potem stock bez znaków wodnych. Źródło i licencję zapisuję w `public/reels/<nazwa>/sources.md`.
+
+## Opisy do rolek *(2026-10-08)*
+
+- W stałej końcówce opisu zawsze dodawaj numer telefonu. Numer marki potwierdzony na swiezabrykaameryka.pl: **797 978 478**. Nie pomijaj go przy stronie i CTA.

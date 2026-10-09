@@ -28,11 +28,14 @@ const FONTS: {
     weight: "100 900",
     style: "italic",
   },
-  // Poppins: SkyClass 500/900, Świeża Bryka Ameryka 400/600/900.
+  // Poppins: SkyClass 500/900, Świeża Bryka Ameryka 400/600/800/900.
   { family: "Poppins", file: "fonts/Poppins-Regular.ttf", weight: "400" },
   { family: "Poppins", file: "fonts/Poppins-Medium.ttf", weight: "500" },
   { family: "Poppins", file: "fonts/Poppins-SemiBold.ttf", weight: "600" },
+  { family: "Poppins", file: "fonts/Poppins-ExtraBold.ttf", weight: "800" },
   { family: "Poppins", file: "fonts/Poppins-Black.ttf", weight: "900" },
+  // GlowUp Nutrition: Bebas Neue 400 (nagłówki, klucz, liczby) + Poppins 600/400.
+  { family: "Bebas Neue", file: "fonts/BebasNeue-Regular.ttf", weight: "400" },
   { family: "Nunito", file: "fonts/Nunito.ttf", weight: "200 1000" },
   { family: "Fustat", file: "fonts/Fustat.ttf", weight: "200 800" },
   // Font marki Persony — wrzuć pliki z madetype.com pod tymi nazwami, a styl "persona" sam go użyje.

@@ -1,0 +1,632 @@
+[
+  {
+    "id": "w0",
+    "text": "Chyba,",
+    "start": 0.32,
+    "end": 0.88
+  },
+  {
+    "id": "w1",
+    "text": "jakąś",
+    "start": 0.88,
+    "end": 1.2
+  },
+  {
+    "id": "w2",
+    "text": "furę",
+    "start": 1.2,
+    "end": 1.44
+  },
+  {
+    "id": "w3",
+    "text": "bym",
+    "start": 1.52,
+    "end": 1.68
+  },
+  {
+    "id": "w4",
+    "text": "ogarnął.",
+    "start": 1.68,
+    "end": 2.16
+  },
+  {
+    "id": "w5",
+    "text": "Świeża",
+    "start": 2.16,
+    "end": 2.56
+  },
+  {
+    "id": "w6",
+    "text": "brek,",
+    "start": 2.64,
+    "end": 2.96
+  },
+  {
+    "id": "w7",
+    "text": "Ameryka",
+    "start": 2.96,
+    "end": 3.44
+  },
+  {
+    "id": "w8",
+    "text": "mi",
+    "start": 3.44,
+    "end": 3.6
+  },
+  {
+    "id": "w9",
+    "text": "położę.",
+    "start": 3.6,
+    "end": 4.24
+  },
+  {
+    "id": "w10",
+    "text": "Who's",
+    "start": 4.76,
+    "end": 5.16
+  },
+  {
+    "id": "w11",
+    "text": "calling?",
+    "start": 5.16,
+    "end": 5.88
+  },
+  {
+    "id": "w12",
+    "text": "Ah,",
+    "start": 6.12,
+    "end": 6.44
+  },
+  {
+    "id": "w13",
+    "text": "Chris.",
+    "start": 6.52,
+    "end": 7.32
+  },
+  {
+    "id": "w14",
+    "text": "Jack,",
+    "start": 7.36,
+    "end": 7.84
+  },
+  {
+    "id": "w15",
+    "text": "słuchaj,",
+    "start": 7.84,
+    "end": 8.4
+  },
+  {
+    "id": "w16",
+    "text": "potrzebuje",
+    "start": 8.72,
+    "end": 9.12
+  },
+  {
+    "id": "w17",
+    "text": "cipa,",
+    "start": 9.28,
+    "end": 9.68
+  },
+  {
+    "id": "w18",
+    "text": "grant",
+    "start": 9.68,
+    "end": 9.84
+  },
+  {
+    "id": "w19",
+    "text": "sirokiego.",
+    "start": 9.92,
+    "end": 10.48
+  },
+  {
+    "id": "w20",
+    "text": "Czarne",
+    "start": 11.12,
+    "end": 11.52
+  },
+  {
+    "id": "w21",
+    "text": "w",
+    "start": 11.6,
+    "end": 11.68
+  },
+  {
+    "id": "w22",
+    "text": "skórach,",
+    "start": 11.68,
+    "end": 12.24
+  },
+  {
+    "id": "w23",
+    "text": "mam",
+    "start": 12.24,
+    "end": 12.32
+  },
+  {
+    "id": "w24",
+    "text": "być",
+    "start": 12.48,
+    "end": 12.56
+  },
+  {
+    "id": "w25",
+    "text": "dowalony.",
+    "start": 12.64,
+    "end": 13.36
+  },
+  {
+    "id": "w26",
+    "text": "no",
+    "start": 13.96,
+    "end": 14.04
+  },
+  {
+    "id": "w27",
+    "text": "worries,",
+    "start": 14.2,
+    "end": 14.52
+  },
+  {
+    "id": "w28",
+    "text": "yeah,",
+    "start": 14.52,
+    "end": 14.76
+  },
+  {
+    "id": "w29",
+    "text": "yeah,",
+    "start": 14.76,
+    "end": 14.92
+  },
+  {
+    "id": "w30",
+    "text": "yeah.",
+    "start": 14.92,
+    "end": 15.24
+  },
+  {
+    "id": "w31",
+    "text": "Ogarniesz",
+    "start": 15.28,
+    "end": 15.92
+  },
+  {
+    "id": "w32",
+    "text": "mi",
+    "start": 16,
+    "end": 16.16
+  },
+  {
+    "id": "w33",
+    "text": "takie",
+    "start": 16.16,
+    "end": 16.4
+  },
+  {
+    "id": "w34",
+    "text": "auto,",
+    "start": 16.4,
+    "end": 16.72
+  },
+  {
+    "id": "w35",
+    "text": "jak",
+    "start": 16.72,
+    "end": 16.88
+  },
+  {
+    "id": "w36",
+    "text": "zawsze,",
+    "start": 16.88,
+    "end": 17.28
+  },
+  {
+    "id": "w37",
+    "text": "prawda?",
+    "start": 17.28,
+    "end": 17.76
+  },
+  {
+    "id": "w38",
+    "text": "No",
+    "start": 20.2,
+    "end": 20.28
+  },
+  {
+    "id": "w39",
+    "text": "wall",
+    "start": 20.44,
+    "end": 20.6
+  },
+  {
+    "id": "w40",
+    "text": "yeah.",
+    "start": 20.76,
+    "end": 21.96
+  },
+  {
+    "id": "w41",
+    "text": "Cześć",
+    "start": 22.08,
+    "end": 22.48
+  },
+  {
+    "id": "w42",
+    "text": "wszystkim.",
+    "start": 22.48,
+    "end": 23.04
+  },
+  {
+    "id": "w43",
+    "text": "Ja",
+    "start": 23.2,
+    "end": 23.44
+  },
+  {
+    "id": "w44",
+    "text": "nazywam",
+    "start": 23.44,
+    "end": 24
+  },
+  {
+    "id": "w45",
+    "text": "się",
+    "start": 24,
+    "end": 24.16
+  },
+  {
+    "id": "w46",
+    "text": "Jack",
+    "start": 24.16,
+    "end": 24.48
+  },
+  {
+    "id": "w47",
+    "text": "śruba,",
+    "start": 24.64,
+    "end": 25.2
+  },
+  {
+    "id": "w48",
+    "text": "a",
+    "start": 25.2,
+    "end": 25.36
+  },
+  {
+    "id": "w49",
+    "text": "to",
+    "start": 25.36,
+    "end": 25.52
+  },
+  {
+    "id": "w50",
+    "text": "Gip",
+    "start": 25.68,
+    "end": 26
+  },
+  {
+    "id": "w51",
+    "text": "Grant",
+    "start": 26.16,
+    "end": 26.48
+  },
+  {
+    "id": "w52",
+    "text": "Shiroki.",
+    "start": 26.64,
+    "end": 27.2
+  },
+  {
+    "id": "w53",
+    "text": "Pięć",
+    "start": 27.28,
+    "end": 27.52
+  },
+  {
+    "id": "w54",
+    "text": "siedem.",
+    "start": 27.6,
+    "end": 28.24
+  },
+  {
+    "id": "w55",
+    "text": "V8,",
+    "start": 28.24,
+    "end": 29.2
+  },
+  {
+    "id": "w56",
+    "text": "silnik",
+    "start": 29.2,
+    "end": 29.6
+  },
+  {
+    "id": "w57",
+    "text": "Pentasta.",
+    "start": 29.68,
+    "end": 30.4
+  },
+  {
+    "id": "w58",
+    "text": "Dwudziesty-calowe",
+    "start": 30.64,
+    "end": 31.76
+  },
+  {
+    "id": "w59",
+    "text": "felki.",
+    "start": 31.76,
+    "end": 32.32
+  },
+  {
+    "id": "w60",
+    "text": "W",
+    "start": 32.32,
+    "end": 32.48
+  },
+  {
+    "id": "w61",
+    "text": "czarnym",
+    "start": 32.48,
+    "end": 32.88
+  },
+  {
+    "id": "w62",
+    "text": "lakierze.",
+    "start": 32.88,
+    "end": 33.68
+  },
+  {
+    "id": "w63",
+    "text": "Napęd",
+    "start": 36.32,
+    "end": 36.8
+  },
+  {
+    "id": "w64",
+    "text": "cztery",
+    "start": 36.96,
+    "end": 37.36
+  },
+  {
+    "id": "w65",
+    "text": "na",
+    "start": 37.36,
+    "end": 37.52
+  },
+  {
+    "id": "w66",
+    "text": "cztery.",
+    "start": 37.52,
+    "end": 37.84
+  },
+  {
+    "id": "w67",
+    "text": "Ale",
+    "start": 39.44,
+    "end": 39.76
+  },
+  {
+    "id": "w68",
+    "text": "poczekajcie",
+    "start": 39.76,
+    "end": 40.56
+  },
+  {
+    "id": "w69",
+    "text": "na",
+    "start": 40.56,
+    "end": 40.64
+  },
+  {
+    "id": "w70",
+    "text": "wnętrze.",
+    "start": 40.64,
+    "end": 41.68
+  },
+  {
+    "id": "w71",
+    "text": "Skórzana",
+    "start": 43.28,
+    "end": 43.84
+  },
+  {
+    "id": "w72",
+    "text": "ta",
+    "start": 43.92,
+    "end": 44.08
+  },
+  {
+    "id": "w73",
+    "text": "picerka.",
+    "start": 44.08,
+    "end": 44.8
+  },
+  {
+    "id": "w74",
+    "text": "Skrzynia",
+    "start": 44.88,
+    "end": 45.44
+  },
+  {
+    "id": "w75",
+    "text": "automatyczna.",
+    "start": 45.44,
+    "end": 46.24
+  },
+  {
+    "id": "w76",
+    "text": "Karpę.",
+    "start": 46.32,
+    "end": 46.96
+  },
+  {
+    "id": "w77",
+    "text": "Raw",
+    "start": 50.84,
+    "end": 51.16
+  },
+  {
+    "id": "w78",
+    "text": "Braw!",
+    "start": 50.88,
+    "end": 51.44
+  },
+  {
+    "id": "w79",
+    "text": "Raw",
+    "start": 51.56,
+    "end": 51.88
+  },
+  {
+    "id": "w80",
+    "text": "and",
+    "start": 51.96,
+    "end": 52.04
+  },
+  {
+    "id": "w81",
+    "text": "Rock",
+    "start": 52.68,
+    "end": 53
+  },
+  {
+    "id": "w82",
+    "text": "and",
+    "start": 53.08,
+    "end": 53.16
+  },
+  {
+    "id": "w83",
+    "text": "Roll",
+    "start": 53.4,
+    "end": 53.88
+  },
+  {
+    "id": "w84",
+    "text": "Tak",
+    "start": 55.04,
+    "end": 55.2
+  },
+  {
+    "id": "w85",
+    "text": "jak",
+    "start": 55.28,
+    "end": 55.44
+  },
+  {
+    "id": "w86",
+    "text": "Jack",
+    "start": 55.44,
+    "end": 55.6
+  },
+  {
+    "id": "w87",
+    "text": "wam",
+    "start": 55.76,
+    "end": 56
+  },
+  {
+    "id": "w88",
+    "text": "powiedział,",
+    "start": 56,
+    "end": 56.56
+  },
+  {
+    "id": "w89",
+    "text": "Gip",
+    "start": 56.56,
+    "end": 56.72
+  },
+  {
+    "id": "w90",
+    "text": "gras",
+    "start": 56.88,
+    "end": 57.04
+  },
+  {
+    "id": "w91",
+    "text": "siroki!",
+    "start": 57.2,
+    "end": 57.76
+  },
+  {
+    "id": "w92",
+    "text": "Czter",
+    "start": 57.76,
+    "end": 58.16
+  },
+  {
+    "id": "w93",
+    "text": "na",
+    "start": 58.16,
+    "end": 58.32
+  },
+  {
+    "id": "w94",
+    "text": "cztery!",
+    "start": 58.32,
+    "end": 58.72
+  },
+  {
+    "id": "w95",
+    "text": "Pomůžeme",
+    "start": 58.85,
+    "end": 59.25
+  },
+  {
+    "id": "w96",
+    "text": "ci",
+    "start": 59.41,
+    "end": 59.57
+  },
+  {
+    "id": "w97",
+    "text": "go",
+    "start": 59.57,
+    "end": 59.65
+  },
+  {
+    "id": "w98",
+    "text": "ogarnąć,",
+    "start": 59.73,
+    "end": 60.21
+  },
+  {
+    "id": "w99",
+    "text": "zadzwoni",
+    "start": 60.21,
+    "end": 60.53
+  },
+  {
+    "id": "w100",
+    "text": "do",
+    "start": 60.61,
+    "end": 60.69
+  },
+  {
+    "id": "w101",
+    "text": "nas",
+    "start": 60.77,
+    "end": 60.85
+  },
+  {
+    "id": "w102",
+    "text": "4",
+    "start": 60.93,
+    "end": 61.09
+  },
+  {
+    "id": "w103",
+    "text": "bryka",
+    "start": 61.33,
+    "end": 61.57
+  },
+  {
+    "id": "w104",
+    "text": "Ameryka!",
+    "start": 61.65,
+    "end": 62.21
+  }
+]

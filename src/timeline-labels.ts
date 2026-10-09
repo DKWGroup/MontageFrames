@@ -14,6 +14,9 @@ const KINDS: Record<string, string> = {
   ticket: "Bilet",
   cta: "Wezwanie do akcji",
   travel: "Podróż",
+  product: "Produkt",
+  process: "Proces",
+  logo: "Logo",
 };
 
 export const overlayLabel = (o: Overlay) => ({

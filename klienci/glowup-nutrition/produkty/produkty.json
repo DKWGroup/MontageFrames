@@ -1,0 +1,12 @@
+[
+  {"name": "GlowUp", "aliases": ["glowup", "glow up", "glołap", "glow ap", "glou up", "glołup", "glolap", "glow app"], "type": "logo", "file": "../logo/logo-white.png"},
+  {"name": "NA SERCE", "file": "na-serce.png", "label": "1100 mg w porcji dziennej", "aliases": ["na serce"], "logo": "../logo/logo-white.png"},
+  {"name": "DRIVE", "file": "drive.png", "label": "L-tyrozyna 500 mg", "aliases": ["drive", "drajw", "drajf", "drajwa", "drajwie", "draiw"], "logo": "../logo/logo-white.png"},
+  {"name": "BALANCE", "file": "balance.png", "label": "KSM-66® 200 mg", "aliases": ["balance", "balans", "balansu", "balens", "belens", "balanse"], "logo": "../logo/logo-white.png"},
+  {"name": "SHIELD", "file": "shield.png", "label": "70% sylimaryny", "aliases": ["shield", "szild", "szilt", "szyld", "szilda", "szildu", "sziald"], "logo": "../logo/logo-white.png"},
+  {"name": "REST", "file": "rest.png", "label": "L-tryptofan 500 mg", "aliases": ["rest", "resta", "restu"], "logo": "../logo/logo-white.png"},
+  {"name": "MIND", "file": "mind.png", "label": "Soplówka 200 mg", "aliases": ["mind", "majnd", "maind", "majnda", "majnt"], "logo": "../logo/logo-white.png"},
+  {"name": "SYNAPSE", "file": "synapse.png", "label": "Chaga 200 mg", "aliases": ["synapse", "synaps", "sinaps", "synapsa", "sajneps", "synapsę"], "logo": "../logo/logo-white.png"},
+  {"name": "ZEN", "file": "zen.png", "label": "Reishi 200 mg", "aliases": ["zen", "zena", "zenu"], "logo": "../logo/logo-white.png"},
+  {"name": "SHAKER", "file": "shaker.png", "aliases": ["shaker", "szejker", "szejkera", "szejkerze"], "logo": "../logo/logo-white.png"}
+]

@@ -22,6 +22,7 @@ import { Persona } from "./styles/persona";
 import { Herod, HerodOverlay } from "./styles/herod";
 import { Bisanz, BisanzOverlay } from "./styles/bisanz";
 import { Ameryka, AmerykaOverlay } from "./styles/ameryka";
+import { Glowup, GlowupOverlay } from "./styles/glowup";
 
 // Czasy w reel.json są w sekundach ŹRÓDŁA (surowego nagrania).
 export type Word = { text: string; start: number; end: number };
@@ -37,6 +38,8 @@ export type CaptionGroup = {
   color?: string; // kolor słowa-klucza dla tej grupy
   layout?: "stack" | "inline"; // układ słów na ekranie (zwarty, wycentrowany)
   hl?: number[]; // indeksy słów w kolorze akcentu
+  motion?: "rise" | "drop" | "slide" | "pop" | "letters"; // wejście słów (style bisanz/ameryka), domyślnie rise
+  y?: number; // środek bloku (ułamek wysokości), np. omijanie tekstu wypalonego w nagraniu
 };
 // zoom = skala kadru; zoomTo = powolny najazd do tej skali w trakcie ujęcia
 export type Segment = {
@@ -53,6 +56,7 @@ export type ReelData = {
   segments: Segment[]; // fragmenty źródła, które zostają (reszta wycięta)
   captions: CaptionGroup[];
   studio?: Record<string, Partial<SequenceProps>>; // trwałe ustawienia bloków z inspektora
+  hold?: number; // s: min. czas ostatniego słowa grupy na ekranie przed wjazdem następnej (glowup 0,7)
   overlays?: Overlay[]; // grafiki: wykresy, liczniki, listy, tytuły... (src/overlays.tsx)
 };
 
@@ -70,6 +74,7 @@ const STYLES: Record<string, React.FC<StyleProps>> = {
   herod: Herod,
   bisanz: Bisanz,
   ameryka: Ameryka,
+  glowup: Glowup,
 };
 
 export type ReelProps = {
@@ -157,7 +162,9 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline }) => {
           ? BisanzOverlay
           : data.style === "ameryka"
             ? AmerykaOverlay
-            : OverlayView;
+            : data.style === "glowup"
+              ? GlowupOverlay
+              : OverlayView;
   const bottom = (data.overlays ?? []).filter(atBottom);
 
   return (

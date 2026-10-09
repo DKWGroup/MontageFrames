@@ -3,14 +3,25 @@ dist
 .DS_Store
 .env
 
-# Ignore the output video from Git but not videos you import into src/.
+# Wygenerowane: rendery bez klienta, bundle Remotion, brudnopisy
 out/
+build/
+scratch/
 
-# Surowe nagrania i projekty rolek (duże pliki wideo)
+# Surowe nagrania i rendery klientów — nigdy na GitHuba
 inbox/
-public/reels/
 **/surowe pliki/
-*.mp4
+**/Render/
+public/reels/*/source.*
+
+# Wszelkie wideo (surowe, rendery, przebitki) — za duże do repo
+*.[mM][pP]4
+*.[mM][oO][vV]
+*.[mM]4[vV]
+*.[mM][kK][vV]
+*.[wW][eE][bB][mM]
+*.[aA][vV][iI]
+*.[mM][xX][fF]
 
 # Ustawienia panelu (npm run ui) — mogą zawierać klucz API
 .panel.json

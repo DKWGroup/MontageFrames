@@ -1,0 +1,992 @@
+{
+ "source": "source.mp4",
+ "style": "glowup",
+ "client": "glowup-nutrition",
+ "fps": 30,
+ "segments": [
+  {
+   "start": 0,
+   "end": 55.267,
+   "zoom": 1
+  }
+ ],
+ "captions": [
+  {
+   "words": [
+    {
+     "text": "90%",
+     "start": 0,
+     "end": 0.8
+    },
+    {
+     "text": "boosterów",
+     "start": 0.8,
+     "end": 1.28
+    },
+    {
+     "text": "testosteronu",
+     "start": 1.28,
+     "end": 1.92
+    },
+    {
+     "text": "to",
+     "start": 2,
+     "end": 2.16
+    },
+    {
+     "text": "ściema.",
+     "start": 2.16,
+     "end": 2.72
+    }
+   ],
+   "key": 0,
+   "layout": "stack",
+   "align": "left",
+   "y": 0.42,
+   "from": "left",
+   "hl": [
+    4
+   ],
+   "motion": "pop"
+  },
+  {
+   "words": [
+    {
+     "text": "Powiem",
+     "start": 2.72,
+     "end": 3.04
+    },
+    {
+     "text": "Ci,",
+     "start": 3.04,
+     "end": 3.28
+    },
+    {
+     "text": "co",
+     "start": 3.28,
+     "end": 3.44
+    },
+    {
+     "text": "działa,",
+     "start": 3.44,
+     "end": 3.76
+    }
+   ],
+   "key": 3,
+   "layout": "inline",
+   "align": "right",
+   "y": 0.42,
+   "from": "right",
+   "motion": "slide"
+  },
+  {
+   "words": [
+    {
+     "text": "a",
+     "start": 3.76,
+     "end": 3.92
+    },
+    {
+     "text": "co",
+     "start": 3.92,
+     "end": 4.08
+    },
+    {
+     "text": "nie.",
+     "start": 4.08,
+     "end": 4.32
+    }
+   ],
+   "key": 2,
+   "layout": "stack",
+   "align": "right",
+   "y": 0.42,
+   "from": "right",
+   "effect": "stamp"
+  },
+  {
+   "words": [
+    {
+     "text": "Dużo",
+     "start": 11.68,
+     "end": 11.84
+    },
+    {
+     "text": "ważniejsze",
+     "start": 11.92,
+     "end": 12.32
+    },
+    {
+     "text": "jest",
+     "start": 12.4,
+     "end": 12.56
+    },
+    {
+     "text": "to,",
+     "start": 12.56,
+     "end": 12.72
+    }
+   ],
+   "key": 1,
+   "layout": "inline",
+   "align": "left",
+   "motion": "slide",
+   "from": "left"
+  },
+  {
+   "words": [
+    {
+     "text": "aby",
+     "start": 12.72,
+     "end": 12.88
+    },
+    {
+     "text": "sprawdzać",
+     "start": 12.88,
+     "end": 13.36
+    },
+    {
+     "text": "swój",
+     "start": 13.44,
+     "end": 13.68
+    },
+    {
+     "text": "obwód",
+     "start": 13.68,
+     "end": 14
+    },
+    {
+     "text": "pasa.",
+     "start": 14,
+     "end": 14.32
+    }
+   ],
+   "key": 3,
+   "layout": "stack",
+   "align": "left",
+   "hl": [
+    4
+   ],
+   "from": "left"
+  },
+  {
+   "words": [
+    {
+     "text": "Tkanka",
+     "start": 14.48,
+     "end": 14.96
+    },
+    {
+     "text": "tłuszczowa",
+     "start": 14.96,
+     "end": 15.52
+    },
+    {
+     "text": "na",
+     "start": 15.52,
+     "end": 15.6
+    },
+    {
+     "text": "brzuchu",
+     "start": 15.6,
+     "end": 16
+    }
+   ],
+   "key": 0,
+   "layout": "stack",
+   "align": "right",
+   "motion": "letters",
+   "from": "right"
+  },
+  {
+   "words": [
+    {
+     "text": "produkuje",
+     "start": 16.08,
+     "end": 16.64
+    },
+    {
+     "text": "tzw.",
+     "start": 16.64,
+     "end": 16.88
+    }
+   ],
+   "key": 0,
+   "layout": "inline",
+   "align": "right",
+   "from": "right"
+  },
+  {
+   "words": [
+    {
+     "text": "Im",
+     "start": 20.8,
+     "end": 20.96
+    },
+    {
+     "text": "masz",
+     "start": 20.96,
+     "end": 21.2
+    },
+    {
+     "text": "większy",
+     "start": 21.2,
+     "end": 21.52
+    },
+    {
+     "text": "brzuch,",
+     "start": 21.52,
+     "end": 21.92
+    }
+   ],
+   "key": 3,
+   "layout": "stack",
+   "align": "left",
+   "motion": "drop",
+   "from": "left"
+  },
+  {
+   "words": [
+    {
+     "text": "tym",
+     "start": 21.92,
+     "end": 22.08
+    },
+    {
+     "text": "więcej",
+     "start": 22.08,
+     "end": 22.32
+    },
+    {
+     "text": "testosteronu",
+     "start": 22.32,
+     "end": 22.88
+    },
+    {
+     "text": "tracisz",
+     "start": 22.96,
+     "end": 23.36
+    },
+    {
+     "text": "codziennie.",
+     "start": 23.36,
+     "end": 24
+    }
+   ],
+   "key": 3,
+   "layout": "stack",
+   "align": "left",
+   "from": "left",
+   "hl": [
+    2
+   ]
+  },
+  {
+   "words": [
+    {
+     "text": "Mierz",
+     "start": 24,
+     "end": 24.4
+    },
+    {
+     "text": "pas",
+     "start": 24.4,
+     "end": 24.64
+    },
+    {
+     "text": "raz",
+     "start": 24.64,
+     "end": 24.88
+    },
+    {
+     "text": "w",
+     "start": 24.88,
+     "end": 24.96
+    },
+    {
+     "text": "tygodniu,",
+     "start": 24.96,
+     "end": 25.6
+    }
+   ],
+   "key": 1,
+   "layout": "stack",
+   "align": "right",
+   "motion": "pop",
+   "hl": [
+    2
+   ],
+   "from": "right"
+  },
+  {
+   "words": [
+    {
+     "text": "Twoim",
+     "start": 25.6,
+     "end": 25.84
+    },
+    {
+     "text": "celem",
+     "start": 25.92,
+     "end": 26.24
+    },
+    {
+     "text": "jest",
+     "start": 26.24,
+     "end": 26.48
+    },
+    {
+     "text": "poniżej",
+     "start": 26.48,
+     "end": 27.04
+    }
+   ],
+   "key": -1,
+   "layout": "inline",
+   "align": "center",
+   "from": "bottom"
+  },
+  {
+   "words": [
+    {
+     "text": "Po",
+     "start": 28.48,
+     "end": 28.64
+    },
+    {
+     "text": "trzecie,",
+     "start": 28.64,
+     "end": 29.2
+    },
+    {
+     "text": "bor.",
+     "start": 29.2,
+     "end": 29.76
+    }
+   ],
+   "key": 2,
+   "layout": "inline",
+   "align": "left",
+   "from": "left",
+   "effect": "stamp"
+  },
+  {
+   "words": [
+    {
+     "text": "Z",
+     "start": 29.76,
+     "end": 29.84
+    },
+    {
+     "text": "diety",
+     "start": 29.84,
+     "end": 30.16
+    },
+    {
+     "text": "masz",
+     "start": 30.32,
+     "end": 30.48
+    }
+   ],
+   "key": -1,
+   "layout": "inline",
+   "align": "center",
+   "from": "bottom"
+  },
+  {
+   "words": [
+    {
+     "text": "a",
+     "start": 32.72,
+     "end": 32.88
+    },
+    {
+     "text": "od",
+     "start": 32.88,
+     "end": 32.96
+    },
+    {
+     "text": "lat",
+     "start": 32.96,
+     "end": 33.12
+    },
+    {
+     "text": "90.",
+     "start": 33.28,
+     "end": 33.76
+    }
+   ],
+   "key": 3,
+   "layout": "stack",
+   "align": "right",
+   "motion": "pop",
+   "from": "right"
+  },
+  {
+   "words": [
+    {
+     "text": "naukowcy",
+     "start": 33.92,
+     "end": 34.4
+    },
+    {
+     "text": "badają",
+     "start": 34.4,
+     "end": 34.8
+    },
+    {
+     "text": "go",
+     "start": 34.8,
+     "end": 34.96
+    }
+   ],
+   "key": 0,
+   "layout": "stack",
+   "align": "right",
+   "from": "right",
+   "motion": "slide"
+  },
+  {
+   "words": [
+    {
+     "text": "w",
+     "start": 34.96,
+     "end": 35.04
+    },
+    {
+     "text": "kontekście",
+     "start": 35.04,
+     "end": 35.28
+    },
+    {
+     "text": "hormonów",
+     "start": 35.44,
+     "end": 35.84
+    },
+    {
+     "text": "mężczyzn.",
+     "start": 35.84,
+     "end": 36.48
+    }
+   ],
+   "key": 2,
+   "layout": "stack",
+   "align": "right",
+   "from": "right",
+   "hl": [
+    3
+   ]
+  },
+  {
+   "words": [
+    {
+     "text": "Jest",
+     "start": 36.48,
+     "end": 36.72
+    },
+    {
+     "text": "drogi",
+     "start": 36.8,
+     "end": 37.2
+    },
+    {
+     "text": "i",
+     "start": 37.2,
+     "end": 37.36
+    },
+    {
+     "text": "mało",
+     "start": 37.36,
+     "end": 37.6
+    },
+    {
+     "text": "znany,",
+     "start": 37.6,
+     "end": 38
+    }
+   ],
+   "key": 4,
+   "layout": "stack",
+   "align": "left",
+   "hl": [
+    1
+   ],
+   "from": "left"
+  },
+  {
+   "words": [
+    {
+     "text": "dlatego",
+     "start": 38,
+     "end": 38.4
+    },
+    {
+     "text": "99%",
+     "start": 38.4,
+     "end": 39.28
+    },
+    {
+     "text": "boosterów",
+     "start": 39.28,
+     "end": 39.84
+    },
+    {
+     "text": "go",
+     "start": 39.84,
+     "end": 40
+    },
+    {
+     "text": "pomija.",
+     "start": 40,
+     "end": 40.56
+    }
+   ],
+   "key": 4,
+   "layout": "stack",
+   "align": "left",
+   "motion": "letters",
+   "from": "left"
+  },
+  {
+   "words": [
+    {
+     "text": "W",
+     "start": 40.56,
+     "end": 40.64
+    },
+    {
+     "text": "DRIVE",
+     "start": 40.64,
+     "end": 40.88
+    },
+    {
+     "text": "masz",
+     "start": 40.96,
+     "end": 41.12
+    }
+   ],
+   "key": 1,
+   "layout": "stack",
+   "align": "center",
+   "y": 0.38,
+   "from": "right",
+   "motion": "pop"
+  },
+  {
+   "words": [
+    {
+     "text": "pełną",
+     "start": 41.12,
+     "end": 41.44
+    },
+    {
+     "text": "dawkę",
+     "start": 41.44,
+     "end": 41.84
+    },
+    {
+     "text": "boru",
+     "start": 41.84,
+     "end": 42.08
+    }
+   ],
+   "key": 2,
+   "layout": "stack",
+   "align": "center",
+   "y": 0.38,
+   "from": "right",
+   "hl": [
+    0
+   ]
+  },
+  {
+   "words": [
+    {
+     "text": "i",
+     "start": 42.16,
+     "end": 42.24
+    },
+    {
+     "text": "100",
+     "start": 42.24,
+     "end": 42.4
+    },
+    {
+     "text": "kapsułek.",
+     "start": 42.48,
+     "end": 42.88
+    }
+   ],
+   "key": 2,
+   "layout": "inline",
+   "align": "center",
+   "y": 0.38,
+   "from": "right"
+  },
+  {
+   "words": [
+    {
+     "text": "Wejdź",
+     "start": 47.84,
+     "end": 48.16
+    },
+    {
+     "text": "w",
+     "start": 48.16,
+     "end": 48.24
+    },
+    {
+     "text": "link",
+     "start": 48.24,
+     "end": 48.4
+    },
+    {
+     "text": "poniżej,",
+     "start": 48.4,
+     "end": 48.88
+    }
+   ],
+   "key": 2,
+   "layout": "stack",
+   "align": "right",
+   "motion": "drop",
+   "y": 0.42,
+   "from": "right"
+  },
+  {
+   "words": [
+    {
+     "text": "jeśli",
+     "start": 48.88,
+     "end": 48.96
+    },
+    {
+     "text": "zależy",
+     "start": 49.04,
+     "end": 49.44
+    },
+    {
+     "text": "ci",
+     "start": 49.44,
+     "end": 49.6
+    },
+    {
+     "text": "na",
+     "start": 49.6,
+     "end": 49.68
+    },
+    {
+     "text": "wygodzie,",
+     "start": 49.68,
+     "end": 50.24
+    }
+   ],
+   "key": 4,
+   "layout": "stack",
+   "align": "right",
+   "y": 0.42,
+   "from": "right"
+  },
+  {
+   "words": [
+    {
+     "text": "ponieważ",
+     "start": 50.24,
+     "end": 50.48
+    },
+    {
+     "text": "wszystkie",
+     "start": 50.72,
+     "end": 51.04
+    },
+    {
+     "text": "składniki",
+     "start": 51.04,
+     "end": 51.52
+    }
+   ],
+   "key": 2,
+   "layout": "stack",
+   "align": "left",
+   "motion": "slide",
+   "y": 0.42,
+   "from": "left"
+  },
+  {
+   "words": [
+    {
+     "text": "zawarliśmy",
+     "start": 51.52,
+     "end": 52.08
+    },
+    {
+     "text": "w",
+     "start": 52.08,
+     "end": 52.16
+    },
+    {
+     "text": "dwóch",
+     "start": 52.16,
+     "end": 52.4
+    },
+    {
+     "text": "kapsułkach,",
+     "start": 52.4,
+     "end": 53.04
+    }
+   ],
+   "key": 3,
+   "layout": "stack",
+   "align": "left",
+   "hl": [
+    2
+   ],
+   "y": 0.42,
+   "from": "left"
+  },
+  {
+   "words": [
+    {
+     "text": "żebyś",
+     "start": 53.04,
+     "end": 53.36
+    },
+    {
+     "text": "nie",
+     "start": 53.36,
+     "end": 53.44
+    },
+    {
+     "text": "musiał",
+     "start": 53.44,
+     "end": 53.6
+    },
+    {
+     "text": "łykać",
+     "start": 53.68,
+     "end": 54.08
+    }
+   ],
+   "key": 3,
+   "layout": "inline",
+   "align": "right",
+   "y": 0.42,
+   "from": "right"
+  },
+  {
+   "words": [
+    {
+     "text": "4",
+     "start": 54.08,
+     "end": 54.32
+    },
+    {
+     "text": "różnych",
+     "start": 54.48,
+     "end": 54.8
+    },
+    {
+     "text": "produktów.",
+     "start": 54.8,
+     "end": 55.2
+    }
+   ],
+   "key": 0,
+   "layout": "stack",
+   "align": "right",
+   "effect": "stamp",
+   "y": 0.42,
+   "from": "right"
+  }
+ ],
+ "overlays": [
+  {
+   "type": "list",
+   "start": 4.32,
+   "end": 11.68,
+   "title": "Testosteron: co nie działa",
+   "items": [
+    {
+     "text": "Tribulus",
+     "badge": "NIE",
+     "sub": "brak wpływu na testosteron",
+     "at": 4.8
+    },
+    {
+     "text": "Maca",
+     "badge": "NIE",
+     "sub": "bez wpływu na hormony",
+     "at": 8.08
+    }
+   ],
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.5,
+   "source": "Neychev i Mitev, J Ethnopharmacol 2005 · Gonzales i in., Andrologia 2002"
+  },
+  {
+   "type": "media",
+   "fit": "full",
+   "src": "przebitka-pas.mp4",
+   "start": 11.68,
+   "end": 14.48,
+   "trim": 1
+  },
+  {
+   "type": "process",
+   "start": 14.48,
+   "end": 21.3,
+   "y": 0.42,
+   "title": "Co dzieje się w brzuchu",
+   "items": [
+    {
+     "text": "Testosteron",
+     "at": 14.6
+    },
+    {
+     "text": "Aromataza",
+     "sub": "enzym",
+     "at": 17.1
+    },
+    {
+     "text": "Estrogen",
+     "at": 20.15
+    }
+   ],
+   "source": "Kelly i Jones, Obesity Reviews 2015",
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.5
+  },
+  {
+   "type": "bars",
+   "start": 21.3,
+   "end": 24.0,
+   "title": "Średni obwód pasa · 1822 mężczyzn",
+   "suffix": " CM",
+   "max": 120,
+   "highlight": 1,
+   "data": [
+    {
+     "label": "Testosteron w normie",
+     "value": 96
+    },
+    {
+     "label": "Niski testosteron",
+     "value": 104
+    },
+    {
+     "label": "Niski T + objawy",
+     "value": 116
+    }
+   ],
+   "source": "Hall i in., J Clin Endocrinol Metab 2008",
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.5,
+   "dim": true,
+   "y": 0.4
+  },
+  {
+   "type": "media",
+   "fit": "full",
+   "src": "przebitka-pas.mp4",
+   "start": 24.0,
+   "end": 25.6,
+   "trim": 7
+  },
+  {
+   "type": "counter",
+   "start": 26.4,
+   "end": 28.48,
+   "prefix": "<",
+   "from": 110,
+   "to": 94,
+   "suffix": "CM",
+   "label": "obwód pasa",
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.5,
+   "source": "WHO 2008 · IDF 2006 (próg dla mężczyzn)"
+  },
+  {
+   "type": "counter",
+   "start": 30.4,
+   "end": 32.72,
+   "title": "Bor z diety",
+   "prefix": "1–",
+   "from": 2,
+   "to": 2,
+   "suffix": "MG",
+   "label": "max dziennie",
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.5,
+   "source": "Rainey i in., J Am Diet Assoc 1999"
+  },
+  {
+   "type": "media",
+   "fit": "full",
+   "src": "przebitka-lab.mp4",
+   "start": 33.9,
+   "end": 36.45,
+   "trim": 1
+  },
+  {
+   "type": "product",
+   "start": 40.55,
+   "end": 43.3,
+   "y": 0.7,
+   "h": 0.33,
+   "src": "drive.png",
+   "text": "DRIVE",
+   "label": "Bor 3 mg w porcji dziennej",
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.5,
+   "logo": "logo-white.png"
+  },
+  {
+   "type": "list",
+   "start": 42.96,
+   "end": 48.2,
+   "y": 0.7,
+   "title": "DRIVE · porcja dzienna (2 kaps.)",
+   "items": [
+    {
+     "text": "Bor",
+     "badge": "3 MG",
+     "at": 42.96
+    },
+    {
+     "text": "L-tyrozyna",
+     "badge": "500 MG",
+     "at": 43.84
+    },
+    {
+     "text": "Ashwagandha",
+     "badge": "100 MG",
+     "sub": "ekstrakt, 10% witanolidów",
+     "at": 44.08
+    },
+    {
+     "text": "Cynk",
+     "badge": "15 MG",
+     "at": 44.96
+    }
+   ],
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.5,
+   "h": 0.33,
+   "logo": "logo-white.png"
+  },
+  {
+   "type": "product",
+   "start": 47.84,
+   "end": 55.267,
+   "y": 0.7,
+   "h": 0.33,
+   "src": "drive.png",
+   "text": "DRIVE",
+   "label": "4 składniki · 2 kapsułki dziennie",
+   "sfx": "pop.mp3",
+   "sfxVolume": 0.5,
+   "logo": "logo-white.png"
+  }
+ ],
+ "hold": 0.7
+}
