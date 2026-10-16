@@ -76,3 +76,64 @@ Logo: folder `public/Brandings/Bisanz/` czeka na pliki (wordmark „bisanz.pl”
 | luksus, „Expert w Bentleyu” | samochód premium, business class, lounge |
 
 Przebitka trwa 2–4 s, bez znaków wodnych i obcych napisów, domyślnie bez własnego dźwięku. Do Kacpra wracam przy puencie i CTA.
+
+
+## Poprawka wyglądu i pionu — 2026-10-15 (najwyższy priorytet)
+
+- Podkreślenia/zakreślacze jak w GlowUp Nutrition i Świeża Bryka Ameryka, ale **#066FED**, zawsze z **białym tekstem** na akcencie. Ten dokładny kolor zastępuje wcześniejsze #066EED.
+- Ładnie animowane wejście zakreślacza zsynchronizowane ze słowem; różnorodne, sensowne grupy i ruch (rise/slide/pop/bounce/letters), jeden mocniejszy efekt naraz. Nie zasłaniać twarzy. Domyślnie napisy w dolnej bezpiecznej strefie, mniejsze grupy pod twarzą; zmieniać układ inline/stack bez przepełnień.
+- W pionie płynny tracking pozycji głowy: lokalne próbki twarzy, wygładzone przesuwanie kadru, bez nerwowych skoków. Brak detekcji → zachowany ostatni kadr/jawny fallback. Nie przeskakiwać bez powodu pomiędzy twarzami.
+- Subtelne najazdy w granicach1,00–1,06 z łagodnym powrotem przy zmianie myśli. Głowa nie może być ucinana przez najazd.
+- Zastosować do gotowej rolki QuickContent „Drogie auto na kredyt: ryzyko, o którym łatwo zapomnieć”; klient `kacper-bisanz`, styl `bisanz`, nowa wersja renderu w folderze klienta. Poprzedni render zostaje.
+
+- Po tej poprawce domyślny środek napisów y≈0,70 (zamiast wcześniejszego0,83), aby klucz mieścił się w strefie Reels/TikTok; maksymalnie dolna krawędź≈0,75, twarz zawsze odsłonięta.
+
+
+## Hook otwarcia nad głową — 2026-10-15 (obowiązuje przy poprawkach)
+
+- Każda montowana rolka ma wyraźny tekst hooka **nad głową przez pierwsze3 sekundy**. Istniejącego hooka nie usuwać przy zmianie napisów, stylu, trackingiem ani porządkowaniu montażu. Kolizję rozwiązać pozycją, rozmiarem lub kadrem, zachowując tekst. Zmiana/usunięcie tylko na wyraźne polecenie użytkowniczki.
+- Formę opracowywać z **Hook Engineer** (`hook-engineer`) i **Silnik Social Media** (`silnik-social-media`): konkret, liczba/kontrast/problem lub uczciwa luka ciekawości, krótki overlay≈5–8 słów czytelny bez dźwięku, obietnica spełniona przez fragment, bez pustego clickbaitu, zmyślonych faktów i guru-hype. Struktura historii: hook → zaciekawienie → konkrety/payoff → domknięcie; bez dopisywania obcego audio lub fikcyjnegoCTA do źródła.
+- Skille dostarczają strukturę; głos, kolory i zakazy klienta mają pierwszeństwo. Nie przenosić osobistego tonu Wiktorii do klientów. Przy nowym hooku rozważyć3 różne kąty i wybrać najmocniejszy zgodny z nagraniem; istniejący zaakceptowany hook zachować.
+- Hook to osobna warstwa od napisów wypowiedzi. Zachować pełną treść nagrania i wymagane napisy (SkyClass1:1); nie usuwać ich mechanicznie tylko dlatego, że na górze jest hook.
+
+- Dla poprawianej rolki przywrócić dokładnie **„Auto za150 tysięcy?”** (w pliku z normalnymi spacjami),0–3s, biel/akcent#066FED, nad głową. To zaakceptowany hook liczbowy/pytanie, a dalsza wypowiedź dowozi porównanie50/150 tysięcy.
+
+
+## Aktualizacja położenia hooka — 2026-10-15 (najnowsze polecenie, zastępuje „nad głową”)
+
+- Hook przez pierwsze3s ma być **pod tekstem / pod napisami wypowiedzi**, nie nad głową. Zachować odstęp i nie nakładać warstw. Na te3s podnieść zwykłe napisy pod twarz, a krótki hook umieścić niżej.
+- Docelowo całość w bezpiecznej strefie IG/TikTok: dolna krawędź ważnej treści≈0,75, prawa≤930/1080, lewa≥60/1080. Minimalne wejście w safezone tylko jeśli nie da się inaczej; najpierw zmniejszyć/zwęzić hook, skorygować układ i kadr. Twarz odsłonięta.
+- Obowiązek zachowania hooka i zasady Hook Engineer + Silnik Social Media pozostają. Aktualne położenie ma pierwszeństwo przed starszą instrukcją „nad głową”.
+
+
+## Bez zoomów kamery — 2026-10-15 (najnowsza korekta)
+
+- **Usunąć zoomy kamery**: żadnych najazdów/odjazdów, pulsowania skali ani skoków wielkości obrazu. W segmentach `zoom=1` i `zoomTo=1`. To zastępuje wcześniejsze polecenie subtelnych zoomów1,00–1,06.
+- Tracking utrzymuje głowę w poziomym centrum przez płynne przesunięcie; nie zmienia skali w czasie. Nie stosować adaptacyjnego pomniejszania/oddalania do twarzy ani rozmytych ramek z tego powodu. Naturalne zmiany ujęcia w oryginale zachować.
+- Animacje napisów i niebieskie markery pozostają; hook pod napisami przez0–3s pozostaje. Poprawić gotową rolkę o aucie, zachowując poprzednieMP4.
+- Po ukończeniu filmu opis według globalnej zasadyGPT‑6LunaAPI: hook, krótka puenta pod wyszukiwanie,5hashtagów.
+
+
+## Czytelność napisów bez dźwięku — 2026-10-15 (najnowsza korekta)
+
+- Napisy muszą przekazywać całą wypowiedź także przy oglądaniu bez głosu. Czytelność ma pierwszeństwo przed animacją.
+- Grupować sensownie po około 4–6 słów (zwykle o jedno słowo więcej niż dotychczas), bez krótkich migających resztek i bez gubienia wypowiedzianych słów. Nie zmieniać czasów ASR.
+- Cała grupa ma być czytelna od początku: krótki, spokojny wjazd całego bloku, bez czekania na odsłonięcie kolejnych liter/słów. Akcent niebieski może podążać za głosem, lecz sam tekst już jest widoczny.
+- Dłuższa ekspozycja, minimum około 1 s na grupę, bez narastającego opóźnienia względem mowy. Wejście do około 0,13 s, wyjście do 0,07 s. Bez rozmywania tekstu, długiego literowania i niedokończonych wejść.
+- Nadal białe napisy z markerem #066FED pod twarzą; hook pod napisami przez pierwsze 3 s. Tracking twarzy pozostaje, zoomy kamery wyłączone. Poprawić istniejącą rolkę o aucie i zachować poprzednie MP4.
+
+- Cel ekspozycji około 1 s nie może kumulować opóźnienia względem mowy: maksymalnie około 0,35 s. Przy wyjątkowo szybkich zdaniach i końcu filmu skrócić ekspozycję, ale zachować cały czytelny blok, zamiast gubić słowa lub ucinać animację.
+
+
+## Ruch napisów — korekta 2026-10-15 (zastępuje statyczne pełne bloki)
+
+- Przywrócić wcześniejszy charakter i różnorodność animacji napisów. Uspokojenie jedynie o około 10–15%, bez radykalnego usuwania ruchu i zamiany w nudne statyczne bloki.
+- Sprawdzić rzeczywistą czytelność słów, szczególnie ostatnich w grupie; wejścia muszą się kończyć przed zniknięciem napisu. Można pokazać jedno słowo wcześniej, zachować nieco większe grupy i ekspozycję, bez opóźniania wypowiedzi.
+- Nadal tracking twarzy bez zoomów, hook pod napisami0–3s, biel i #066FED. Poprawić tę samą rolkę i zachować wcześniejsze MP4.
+
+
+## Poprawny profil i bez dekoracji Happy News — 2026-10-16
+
+- Rolki Kacpra Bisanza zawsze korzystają z klienta kacper-bisanz i stylu bisanz, także tworzone w panelu QuickContent/Studio. Podkreślenia i markery wyłącznie #066FED, białe litery, Inter. Pomarańczowy styl persona jest błędem przypisania i należy go poprawić w istniejących rolkach.
+- Instrukcje częstych automatycznych emotek/flag, dużych naklejek za słowem i popów dotyczyły tylko Happy News. Nie dodawać ich automatycznie do Bisanza. Emotka tylko na konkretne polecenie do danej rolki i przy jednoznacznym znaczeniu; bez przypadkowych skojarzeń, ideogramów i przycisków CJK.
+- Zachować dotychczasowe zasady: tracking pozycji bez zoomów kamery, hook pod napisami przez pierwsze 3 s, czytelne różnorodne animacje. Poprawić istniejące rolki z aktualnego projektu o kredycie, bez ponownej płatnej analizy.

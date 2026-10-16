@@ -9,6 +9,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { tokensFor } from "./reel-timing";
 
 // Grafiki nakładane na rolkę. Wpis w reel.json -> "overlays": [{ "type": "...", "start", "end", ... }].
 // Czasy start/end (i "at" w elementach list) w sekundach ŹRÓDŁA, jak słowa w transkrypcji.
@@ -32,7 +33,27 @@ export type Overlay = {
     | "media"
     | "logo" // styl glowup: samo logo marki przy wzmiance (src = logo-white/black.png)
     | "process" // styl glowup: pełnoekranowa animacja procesu A → enzym → B (items[0..2])
-    | "product"; // styl glowup: karta produktu (src = zdjęcie, text = nazwa, label = plakietka)
+    | "product" // styl glowup: karta produktu (src = zdjęcie, text = nazwa, label = plakietka)
+    | "labs" // styl vital: karta badań, wiersze items[{text, sub, at}]
+    | "steps" // styl vital: kroki z numerami i rysowaną linią
+    | "mythfact" // styl vital: items[0] = mit (przekreślany), items[1] = fakt
+    | "quote" // styl vital: cytat kursywą (text, label = podpis)
+    | "typography" // LongForm: hasło/teza (role: "hook" = hak otwarcia)
+    | "chapter-card" // LongForm: plansza rozdziału (n, title)
+    | "zoom-through" // LongForm: przejście przez cięcie na granicy rozdziału (ruch kamery w Reel.tsx)
+    | "cutout" // LongForm L4 (warstwy w SourceShot, src/longform/mask.tsx): osoba na rozmytym tle z obrysem
+    | "text-behind" // LongForm L4: duże słowo za głową
+    | "background-swap" // LongForm L4: tło blur | color | broll (src)
+    | "vertigo"; // LongForm L4: dolly zoom (noMask = najazd + winieta)
+  lf?: boolean; // warstwa z planu LongForm (zastępowana przy ponownym montażu)
+  effectId?: string; // id efektu w plan.json
+  role?: "hook";
+  n?: number; // chapter-card: numer rozdziału
+  mask?: { src: string; from: number }; // LongForm L4: wycięta osoba (WebM z alfą) od czasu źródła `from`
+  bg?: "blur" | "color" | "broll"; // background-swap
+  noMask?: boolean; // wariant efektu L4 bez maski
+  brand?: string; // LongForm logo: nazwa marki
+  credit?: string; // przebitka: autor / Pexels
   transitionFrom?: string; // Pełne tło poprzedniego miejsca pod oknem kolejnej przebitki
   transitionTrim?: number;
   country?: string;
@@ -76,6 +97,7 @@ export type Overlay = {
   flip?: boolean; // glowup product: tekst po lewej, produkt po prawej (pochylony w prawo)
   h?: number; // glowup: minimalna wysokość karty jako część kadru (np. żeby przykryć wypaloną grafikę)
   sfx?: string; // efekt dźwiękowy przy wejściu (plik w folderze rolki; na razie styl bisanz)
+  tone?: "light" | "dark"; // styl vital: karta jasna (domyślnie dla labs) albo ciemna
   sfxVolume?: number; // mnożnik amplitudy SFX, dobrany tak, by efekt był ≥10 dB pod głosem
 };
 type P = {
@@ -99,7 +121,11 @@ const C = {
   radius: 48,
   width: 0.84, // szerokość grafik względem kadru
   bottom: 0.79, // dolna krawędź grafik pod napisami (niżej zasłania UI Instagrama)
+  column: null as null | { x: number; top: number }, // kadr poziomy: karta w kolumnie z boku
 };
+// Kadr poziomy 1920×1080 (LongForm): karty w prawej kolumnie obok twarzy, napisy pod spodem.
+// ponytail: kolumna zawsze po prawej; strona przeciwna do twarzy, gdy face dostanie x.
+const C16: typeof C = { ...C, width: 0.4, column: { x: 0.75, top: 0.14 } };
 // Liquid glass: przyciemnione, mocno rozmyte i lekko nasycone tło spod karty + połysk krawędzi
 const GLASS: React.CSSProperties = {
   background:
@@ -147,6 +173,7 @@ const isVideo = (file: string) => /\.(mp4|mov|webm|m4v)$/i.test(file);
 const useAnim = () => {
   const f = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
+  const tk = tokensFor({ T: C, T16: C16 }, { width, height });
   // 0..1 od `sec` przez `len` sekund
   const t = (sec: number, len: number, easing = EXPO) =>
     interpolate(f, [sec * fps, (sec + len) * fps], [0, 1], {
@@ -156,7 +183,7 @@ const useAnim = () => {
   // sprężyna startująca po `sec` sekundach
   const pop = (sec: number, config = SOFT) =>
     spring({ frame: Math.max(0, f - Math.round(sec * fps)), fps, config });
-  return { f, fps, width, height, t, pop };
+  return { f, fps, width, height, t, pop, tk };
 };
 
 // Wsuwanie z rozmyciem (dla treści wewnątrz karty)
@@ -318,7 +345,7 @@ const TitleBody: React.FC<B> = ({ o, p, exit }) => {
 
 // Liczba-bohater na szkle: odlicza się, pod nią podpis i pasek postępu ze świeceniem
 const CounterBody: React.FC<B> = ({ o, p, exit }) => {
-  const { width, t, pop } = useAnim();
+  const { width, t, pop, tk } = useAnim();
   const to = o.to ?? 0;
   const from = o.from ?? 0;
   const n = t(0.15, 1.3, QUART);
@@ -327,7 +354,7 @@ const CounterBody: React.FC<B> = ({ o, p, exit }) => {
     o.size ?? 180,
     fitText({
       text: final,
-      withinWidth: width * C.width - 96,
+      withinWidth: width * tk.width - 96,
       fontFamily: C.font,
       fontWeight: 900,
       letterSpacing: "-0.03em",
@@ -531,9 +558,9 @@ const RingBody: React.FC<B> = ({ o, p, exit }) => {
 
 // Linia rysuje się ze świecącą głowicą, pod nią poświata; na końcu wyskakuje pomarańczowa wartość
 const LineBody: React.FC<B> = ({ o, p, exit }) => {
-  const { width, t, pop } = useAnim();
+  const { width, t, pop, tk } = useAnim();
   const pts = o.points ?? [];
-  const W = width * C.width - 96;
+  const W = width * tk.width - 96;
   const H = 250;
   const lo = Math.min(...pts);
   const hi = Math.max(...pts);
@@ -822,14 +849,14 @@ const MediaEl: React.FC<P & { style: React.CSSProperties }> = ({
 
 // Zdjęcie / B-roll w szklanej ramce
 const MediaCard: React.FC<B> = (b) => {
-  const { width } = useAnim();
+  const { width, tk } = useAnim();
   return (
     <Glass p={b.p} exit={b.exit} pad={10} radius={44}>
       <MediaEl
         {...b}
         style={{
           width: "100%",
-          height: (width * C.width - 20) * (b.o.aspect ?? 1),
+          height: (width * tk.width - 20) * (b.o.aspect ?? 1),
           objectFit: "cover",
           display: "block",
           borderRadius: 34,
@@ -874,12 +901,13 @@ const BODIES: Partial<Record<Overlay["type"], React.FC<B>>> = {
 // Wspólne: pozycja i czas wejścia/wyjścia. Bez opacity na tym poziomie (zabiłoby blur szkła).
 export const OverlayView: React.FC<P> = (props) => {
   const { o, dur } = props;
-  const { f, fps, width, height, pop } = useAnim();
+  const { f, fps, width, height, pop, tk } = useAnim();
   const Body = BODIES[o.type];
   if (!Body) return null;
   if (o.type === "media" && o.fit !== "card") return <MediaFull {...props} />;
 
   const bottom = atBottom(o);
+  const col = bottom && o.x == null ? tk.column : null;
   const p = pop(0.05);
   const exitLen = Math.max(1, Math.min(0.3 * fps, dur / 3));
   const exit = interpolate(f, [dur - exitLen, dur], [0, 1], {
@@ -899,13 +927,13 @@ export const OverlayView: React.FC<P> = (props) => {
       <div
         style={{
           position: "absolute",
-          left: (o.x ?? 0.5) * width,
-          top: (bottom ? C.bottom : (o.y ?? DEFAULT_Y[o.type] ?? 0.5)) * height,
+          left: (col?.x ?? o.x ?? 0.5) * width,
+          top: (col ? col.top : bottom ? tk.bottom : (o.y ?? DEFAULT_Y[o.type] ?? 0.5)) * height,
           width:
             o.type === "emoji"
               ? undefined
-              : width * (o.type === "title" ? 0.92 : C.width),
-          transform: `translate(-50%, ${bottom ? -100 : -50}%)`,
+              : width * (o.type === "title" ? 0.92 : tk.width),
+          transform: `translate(-50%, ${col ? 0 : bottom ? -100 : -50}%)`,
         }}
       >
         <Body {...props} p={p} exit={exit} />

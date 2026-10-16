@@ -1,0 +1,223 @@
+{
+  "publication": {
+    "status": "ready",
+    "contentHash": "48437d972ffbfe5fbf309c1f3bf72dbb4524b5c623616e20521364df230ba701",
+    "instructions": "Krótko, w pierwszej osobie. Puenta zachęcająca do obejrzenia rolki, naturalne słowa kluczowe i 5 hashtagów.",
+    "model": "gpt-6-luna",
+    "promptVersion": 2,
+    "usage": [
+      {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "responseId": "resp_02ad41cd280f0752016ad10b43d59087d29a359878bcab41d7",
+        "inputTokens": 5302,
+        "outputTokens": 136,
+        "cachedTokens": 0,
+        "cacheWriteTokens": 5299,
+        "costMicroUsd": 730.675,
+        "pricingDate": "2026-10-15",
+        "priceSource": "https://developers.openai.com/api/docs/pricing",
+        "at": "2026-10-15T17:20:06.424Z",
+        "purpose": "description"
+      },
+      {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "responseId": "resp_0316f48b24842ae1016ad10b48f63c87d2a95d2bfd1f56935b",
+        "inputTokens": 5302,
+        "outputTokens": 152,
+        "cachedTokens": 5299,
+        "cacheWriteTokens": 0,
+        "costMicroUsd": 129.29,
+        "pricingDate": "2026-10-15",
+        "priceSource": "https://developers.openai.com/api/docs/pricing",
+        "at": "2026-10-15T17:20:11.786Z",
+        "purpose": "description"
+      },
+      {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "responseId": "resp_07d47fdf31a88fd8016ad10f5b97d887d2889e06fb20de89b9",
+        "inputTokens": 5648,
+        "outputTokens": 126,
+        "cachedTokens": 0,
+        "cacheWriteTokens": 5645,
+        "costMicroUsd": 768.925,
+        "pricingDate": "2026-10-15",
+        "priceSource": "https://developers.openai.com/api/docs/pricing",
+        "at": "2026-10-15T17:37:33.774Z",
+        "purpose": "description"
+      }
+    ],
+    "updatedAt": "2026-10-15T17:40:17.875Z",
+    "previousReady": {
+      "status": "ready",
+      "contentHash": "30c3517debd7c8fcb86a31fa86b54c07b3fcf0bd84cce1e2ebfdf1bdcd4ea24f",
+      "model": "gpt-6-luna",
+      "promptVersion": 1,
+      "usage": [
+        {
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "responseId": "resp_02ad41cd280f0752016ad10b43d59087d29a359878bcab41d7",
+          "inputTokens": 5302,
+          "outputTokens": 136,
+          "cachedTokens": 0,
+          "cacheWriteTokens": 5299,
+          "costMicroUsd": 730.675,
+          "pricingDate": "2026-10-15",
+          "priceSource": "https://developers.openai.com/api/docs/pricing",
+          "at": "2026-10-15T17:20:06.424Z",
+          "purpose": "description"
+        },
+        {
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "responseId": "resp_0316f48b24842ae1016ad10b48f63c87d2a95d2bfd1f56935b",
+          "inputTokens": 5302,
+          "outputTokens": 152,
+          "cachedTokens": 5299,
+          "cacheWriteTokens": 0,
+          "costMicroUsd": 129.29,
+          "pricingDate": "2026-10-15",
+          "priceSource": "https://developers.openai.com/api/docs/pricing",
+          "at": "2026-10-15T17:20:11.786Z",
+          "purpose": "description"
+        }
+      ],
+      "updatedAt": "2026-10-15T17:20:11.796Z",
+      "hook": "Auto za 150 tysięcy, żeby nie spóźnić się do pracy?",
+      "body": "Czy naprawdę potrzebujesz drogiego auta na kredyt, żeby dojeżdżać do pracy? Kacper bez owijania w bawełnę mówi o różnicy między potrzebą a przekonaniem, że samochód nie może się zepsuć. Posłuchaj, dlaczego awaria i spóźnienie nie muszą oznaczać końca świata.",
+      "hashtags": [
+        "#kredytSamochodowy",
+        "#zakupAuta",
+        "#finanseOsobiste",
+        "#samochód",
+        "#rozsądneFinanse"
+      ],
+      "text": "Auto za 150 tysięcy, żeby nie spóźnić się do pracy?\n\nCzy naprawdę potrzebujesz drogiego auta na kredyt, żeby dojeżdżać do pracy? Kacper bez owijania w bawełnę mówi o różnicy między potrzebą a przekonaniem, że samochód nie może się zepsuć. Posłuchaj, dlaczego awaria i spóźnienie nie muszą oznaczać końca świata.\n\n#kredytSamochodowy #zakupAuta #finanseOsobiste #samochód #rozsądneFinanse"
+    },
+    "hook": "Auto za 50 czy 150 tysięcy?",
+    "body": "Nie każde auto musi być za 150 tysięcy, żeby dojechać do pracy. Mówię, kiedy droższy samochód może mieć sens, a kiedy obawa przed awarią zaczyna rządzić decyzjami. Zobacz, jak na to patrzę.",
+    "hashtags": [
+      "#finanseosobiste",
+      "#kredytsamochodowy",
+      "#samochód",
+      "#budżetdomowy",
+      "#świadomewydatki"
+    ],
+    "text": "Auto za 50 czy 150 tysięcy?\n\nNie każde auto musi być za 150 tysięcy, żeby dojechać do pracy. Mówię, kiedy droższy samochód może mieć sens, a kiedy obawa przed awarią zaczyna rządzić decyzjami. Zobacz, jak patrzę na kredyt samochodowy.\n\n#finanseosobiste #kredytsamochodowy #samochód #budżetdomowy #świadomewydatki",
+    "manuallyEdited": true
+  },
+  "verifiedAt": "2026-10-15T17:37:36.099Z",
+  "jobId": "job-40f6e0d3-df85-4bd6-9591-6f963cd58eee",
+  "status": "completed",
+  "file": "klienci/kacper-bisanz/Render/qc-c310ad37c2e34aed-56c8858e0acc6c3d-v006.mp4",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "side_data_list": [
+          {}
+        ]
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "format": {
+      "duration": "42.581000"
+    }
+  },
+  "isCurrent": true,
+  "editRevision": 10,
+  "download": {
+    "status": 200,
+    "bytes": 44640184
+  },
+  "usage": [
+    {
+      "provider": "openai",
+      "model": "gpt-6-luna",
+      "responseId": "resp_07d47fdf31a88fd8016ad10f5b97d887d2889e06fb20de89b9",
+      "inputTokens": 5648,
+      "outputTokens": 126,
+      "cachedTokens": 0,
+      "cacheWriteTokens": 5645,
+      "costMicroUsd": 768.925,
+      "purpose": "description",
+      "pricingDate": "2026-10-15",
+      "priceSource": "https://developers.openai.com/api/docs/pricing",
+      "at": "2026-10-15T17:37:33.774Z"
+    }
+  ],
+  "trackingPoints": 45,
+  "hook": {
+    "type": "title",
+    "start": 0,
+    "end": 3,
+    "text": "Auto za 150 tysięcy?",
+    "hl": "150 tysięcy",
+    "y": 0.72,
+    "size": 58
+  },
+  "client": "kacper-bisanz",
+  "style": "bisanz",
+  "selectedCount": 8,
+  "fullAudioListening": false,
+  "captionCheck": {
+    "groups": 29,
+    "words": 134,
+    "frames": [
+      79,
+      132,
+      181,
+      270,
+      307,
+      380,
+      410,
+      450,
+      484,
+      529,
+      569,
+      599,
+      645,
+      708,
+      771,
+      811,
+      857,
+      886,
+      916,
+      939,
+      976,
+      1006,
+      1039,
+      1067,
+      1101,
+      1155,
+      1208,
+      1238,
+      1273
+    ],
+    "fullVisibilityFramesBeforeEnd": 4,
+    "contactSheet": "docs/quickcontent/assets/bisanz-all-captions-final.png",
+    "motions": [
+      "rise",
+      "slide",
+      "letters",
+      "color",
+      "drop",
+      "pop"
+    ]
+  },
+  "manualEditCheck": {
+    "persisted": true,
+    "usageCountUnchanged": true,
+    "copyButtonConfirmed": true,
+    "checkedAt": "2026-10-15T17:41:17.924Z"
+  }
+}

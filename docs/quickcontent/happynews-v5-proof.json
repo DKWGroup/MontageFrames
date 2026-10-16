@@ -1,0 +1,168 @@
+{
+  "verifiedAt": "2026-10-16T16:23:35.469Z",
+  "projectId": "qc-42b2386b-063f-4787-ad94-55571385e7ed",
+  "films": [
+    {
+      "title": "Zarzuty o rozprzedaż Polski i cisza przy zakupach",
+      "reelName": "qc-bcf526f4a6fe12de-0e9b4d28d3f4f096",
+      "candidateId": "c-fd4d3d67-9909-491f-99f1-02fe8325d655",
+      "revision": 6,
+      "isCurrent": true,
+      "render": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-0e9b4d28d3f4f096-v008.mp4",
+        "renderRevision": 6,
+        "signature": "4690abd52617b02a6ead1aad41757e62cc8cb3ff5c5947eb595b5d4b3e4a4acb",
+        "verified": true,
+        "createdAt": "2026-10-16T16:19:13.645Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-8616e5fa-33a1-4e06-8946-e9eccc841459/input.json"
+      },
+      "jobId": "job-8616e5fa-33a1-4e06-8946-e9eccc841459",
+      "newUsage": [
+        {
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "responseId": "resp_05719d59b49a8869016ad24e83041487d2a5e3517c171be80e",
+          "inputTokens": 2837,
+          "outputTokens": 127,
+          "cachedTokens": 0,
+          "cacheWriteTokens": 2834,
+          "costMicroUsd": 418.05,
+          "purpose": "description",
+          "pricingDate": "2026-10-15",
+          "priceSource": "https://developers.openai.com/api/docs/pricing",
+          "at": "2026-10-16T16:19:17.639Z"
+        }
+      ],
+      "montageUsage": [],
+      "descriptionCostMicroUsd": 418.05,
+      "layoutKinds": [
+        "speaker",
+        "duo"
+      ],
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "33.003000"
+        }
+      }
+    },
+    {
+      "title": "Trzmiel nie zdążył wrócić? Śpi w kwiatku",
+      "reelName": "qc-bcf526f4a6fe12de-90b068b31a1788b9",
+      "candidateId": "c-485bb458-6fa4-4c07-8fc0-e45c1acb9388",
+      "revision": 6,
+      "isCurrent": true,
+      "render": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-90b068b31a1788b9-v005.mp4",
+        "renderRevision": 6,
+        "signature": "62524317af63bdaab10c6de584030ceebd8f14372344306d3355908bc2ab7826",
+        "verified": true,
+        "createdAt": "2026-10-16T16:23:06.342Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-8a673f55-eb7b-4f57-bb43-ea23406d375e/input.json"
+      },
+      "jobId": "job-8a673f55-eb7b-4f57-bb43-ea23406d375e",
+      "newUsage": [
+        {
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "responseId": "resp_05b57f25003b4f0b016ad24f6ae9ec87d2a20dbcfba63ce5c4",
+          "inputTokens": 2952,
+          "outputTokens": 110,
+          "cachedTokens": 0,
+          "cacheWriteTokens": 2949,
+          "costMicroUsd": 423.925,
+          "purpose": "description",
+          "pricingDate": "2026-10-15",
+          "priceSource": "https://developers.openai.com/api/docs/pricing",
+          "at": "2026-10-16T16:23:09.673Z"
+        }
+      ],
+      "montageUsage": [],
+      "descriptionCostMicroUsd": 423.925,
+      "layoutKinds": [
+        "speaker",
+        "duo-media",
+        "duo"
+      ],
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "57.344000"
+        }
+      }
+    }
+  ],
+  "renderedCandidates": 2,
+  "emojiData": {
+    "keywords": 3187,
+    "source": "src/emoji-data/source.json"
+  },
+  "cameraVerification": {
+    "fixedViewport": [
+      0,
+      220,
+      1080,
+      1440
+    ],
+    "overscan": 1.08,
+    "backgroundHashAt1s": "d861293d9f780d7a94cfc1f91451d0c6",
+    "backgroundHashAt2s": "d861293d9f780d7a94cfc1f91451d0c6",
+    "maxPanPixelsPerSecond": 69.12,
+    "encodedMp4BackgroundHashAt1s": "b18ad026654d7e144ee5f5b909dc0970",
+    "encodedMp4BackgroundHashAt2s": "b18ad026654d7e144ee5f5b909dc0970"
+  },
+  "automaticEmojiCounts": [
+    20,
+    26
+  ],
+  "asrRepeated": false,
+  "montageAiRepeated": false,
+  "tests": {
+    "passed": 347,
+    "failed": 0
+  },
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 24
+  },
+  "notes": [
+    "Fixed 1080x1440 viewport at y220; overscan 1.08, no moving borders.",
+    "Frozen blurred background within each camera shot; PNG background hash equal at 1s/2s.",
+    "Pan dead zone .018; tau .9s; max source-centre speed .025/s.",
+    "Shot-local robust seed rejects stale camera-cut detection; split view scale fixed per camera shot.",
+    "3187 local Polish CLDR labels/keywords plus inflection rules; up to 2 distinct accents per group, country flags retained."
+  ],
+  "fullListeningCheck": false
+}

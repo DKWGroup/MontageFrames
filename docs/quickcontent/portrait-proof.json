@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-15",
+  "reelName": "qc-834f1a539e3a2ae0-074c4a37921819ce",
+  "framing": {
+    "mode": "crop",
+    "centerX": 0.9471347372872488,
+    "centerY": 0.5
+  },
+  "framingNote": "Kadr 9:16 ustawiony lokalnie na wykrytą twarz. Sprawdź go w podglądzie; przy ruchu lub kilku osobach popraw kadr ręcznie.",
+  "results": [
+    {
+      "resolution": 720,
+      "width": 720,
+      "height": 1280,
+      "duration": 1.408,
+      "audio": "aac",
+      "file": "out/qc-portrait-proof-720-20261015.mp4"
+    },
+    {
+      "resolution": 2160,
+      "width": 2160,
+      "height": 3840,
+      "duration": 1.408,
+      "audio": "aac",
+      "file": "out/qc-portrait-proof-2160-20261015.mp4"
+    }
+  ]
+}

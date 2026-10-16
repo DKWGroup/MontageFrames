@@ -58,6 +58,7 @@ test("nowa rolka dostaje deklarację kompozycji z literalnym id i zapisywalnym d
   const root = fs.readFileSync(path.join(f.root, "src/Root.tsx"), "utf8");
   assert.match(root, /id="sample"/);
   assert.match(root, /defaultProps=\{\{"reel":"sample"\}\}/);
+  assert.match(root, /<QuickContentRenderCompositions \/>/);
   const previous = root;
   syncStudio(f.root);
   assert.equal(
@@ -183,4 +184,14 @@ test("formatowanie jednego bloku nie zmienia plików pozostałych ścieżek", (t
   syncStudio(f.root);
   assert.equal(fs.readFileSync(path.join(f.tracks, "o0.tsx"), "utf8"), other);
   assert.equal(readAll(f).s0.style.scale, 1.01);
+});
+
+test("czysta instalacja generuje pusty rejestr bez prywatnych rolek i nieużywanych importów", (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "montage-empty-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  assert.deepEqual(syncStudio(root), []);
+  const source = fs.readFileSync(path.join(root, "src/Root.tsx"), "utf8");
+  assert.match(source, /<MotionCompositions \/>/);
+  assert.match(source, /<QuickContentRenderCompositions \/>/);
+  assert.doesNotMatch(source, /import \{ Composition \}|calculateReelMetadata|\.\/studio\//);
 });

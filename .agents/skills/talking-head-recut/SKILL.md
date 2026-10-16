@@ -1206,3 +1206,8 @@ Tell the user:
 ```
 
 Do not delete the work directory unless the user asks.
+
+
+## MontageFrames: Happy News — topic media (2026-10-16)
+
+For Happy News in this repository, read `klienci/happy-news/PREFERENCJE.md` first. Topic photos and B-roll must be visible in the lower panel of the portrait reel, with the current hosts above. Keep the discussed photo visible through host-camera cutaways, and switch to the next actual source photo when the discussion does. A temporarily undetected face (for example, looking down) must not remove the topic media. Use the actual source images; do not invent or substitute unrelated pictures. Fit the full photo without stretching; fill unused side space with the same photo enlarged and blurred, never black bars. This client rule applies to future Happy News edits and overrides the generic packaging placement.

@@ -1,0 +1,347 @@
+/* LongForm — tokeny panelu (panel.css). Znaczenie zawsze także tekstem/ikoną, nie tylko kolorem. */
+.lf {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+.lf-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.lf-top h1 {
+  font-size: 18px;
+  margin: 0;
+  flex: 1;
+}
+.lf .btn {
+  min-height: 44px;
+}
+.lf .btn.sm {
+  min-height: 36px;
+}
+.lf .btn:focus-visible,
+.lf-chip button:focus-visible,
+.lf-words:focus-visible,
+.lf select:focus-visible,
+.lf input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.lf .btn[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.lf-pad {
+  padding: 20px;
+}
+.lf-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+}
+.lf-card h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+.lf-hint {
+  color: var(--muted);
+  margin: 8px 0;
+}
+.lf-error {
+  color: var(--danger);
+}
+.lf-warn,
+.lf-notice {
+  color: var(--text);
+  background: var(--raised);
+  border-left: 3px solid var(--hot);
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.lf-list {
+  display: grid;
+  grid-template-columns: minmax(320px, 440px) 1fr;
+  gap: 20px;
+  padding: 20px;
+  align-items: start;
+}
+.lf-new {
+  display: grid;
+  gap: 14px;
+}
+.lf-new label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+.lf-new select,
+.lf-new input {
+  min-height: 44px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  background: var(--raised);
+  color: var(--text);
+  font: inherit;
+}
+.lf-projects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.lf-projects a {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+.lf-projects a:hover {
+  border-color: var(--line-strong);
+}
+.lf-projects span {
+  color: var(--muted);
+}
+
+.lf-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 20px;
+  flex-wrap: wrap;
+}
+.lf-head h2 {
+  margin: 0;
+  font-size: 16px;
+}
+.lf-stepper {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+.lf-stepper li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--faint);
+  border: 1px solid var(--line);
+}
+.lf-stepper .n {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: 12px;
+}
+.lf-stepper .current {
+  color: var(--text);
+  font-weight: 700;
+  border-color: var(--accent);
+}
+.lf-stepper .done {
+  color: var(--muted);
+}
+.lf-progress progress {
+  width: 100%;
+  height: 10px;
+  accent-color: var(--accent);
+}
+.lf-project > .lf-card {
+  margin: 0 20px;
+}
+
+.lf-cuts {
+  display: grid;
+  grid-template-columns: minmax(420px, 1.1fr) minmax(360px, 1fr);
+  gap: 20px;
+  padding: 0 20px 20px;
+  align-items: start;
+}
+.lf-preview {
+  position: sticky;
+  top: 12px;
+  display: grid;
+  gap: 10px;
+}
+.lf-seg {
+  display: flex;
+  gap: 6px;
+}
+.lf-player {
+  width: 100%;
+  background: black;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.lf-timeline {
+  position: relative;
+  height: 12px;
+  background: var(--raised);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.lf-timeline span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.lf-timeline .cut {
+  background: var(--danger);
+}
+.lf-timeline .undecided {
+  background: repeating-linear-gradient(45deg, var(--hot) 0 3px, transparent 3px 6px);
+}
+.lf-stats {
+  margin: 0;
+  color: var(--muted);
+}
+.lf-stats strong {
+  color: var(--text);
+}
+.lf-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.lf-save {
+  margin: 0;
+  color: var(--faint);
+  text-align: right;
+}
+.lf-help summary {
+  cursor: pointer;
+  color: var(--muted);
+  min-height: 32px;
+}
+
+.lf-transcript {
+  display: grid;
+  gap: 10px;
+}
+.lf-filters,
+.lf-bulk {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.lf-words {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 16px;
+  line-height: 2.1;
+  max-height: calc(100vh - 220px);
+  overflow: auto;
+}
+.lf-w {
+  cursor: pointer;
+  border-radius: 3px;
+}
+.lf-w:hover {
+  background: var(--raised);
+}
+.lf-w.struck {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  color: var(--faint);
+}
+.lf-w.maybe {
+  text-decoration: underline wavy var(--hot);
+}
+.lf-chip {
+  display: inline-flex;
+  align-items: stretch;
+  margin: 0 4px;
+  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  font-size: 12px;
+  line-height: 1.2;
+  vertical-align: middle;
+  overflow: hidden;
+}
+.lf-chip button {
+  border: 0;
+  background: var(--raised);
+  color: var(--text);
+  font: inherit;
+  padding: 5px 8px;
+  min-height: 28px;
+  cursor: pointer;
+}
+.lf-chip .lf-chip-act {
+  border-left: 1px solid var(--line-strong);
+  font-weight: 700;
+}
+.lf-chip.cut {
+  border-color: var(--danger);
+}
+.lf-chip.undecided {
+  border-color: var(--hot);
+  border-style: dashed;
+}
+.lf-chip.keep button {
+  color: var(--muted);
+}
+.lf-chip.focused {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.lf-mute {
+  margin-left: 4px;
+  font-size: 12px;
+  border: 1px solid var(--hot);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  min-height: 28px;
+  cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .lf-list,
+  .lf-cuts {
+    grid-template-columns: 1fr;
+  }
+  .lf-preview {
+    position: static;
+  }
+}
+.lf-usage {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  color: var(--muted);
+}
+.lf-usage td {
+  padding: 4px 6px;
+  border-top: 1px solid var(--line);
+}
+
+/* Plan i wynik (LongFormPlan.tsx) */
+.lf-plan { display: grid; gap: 12px; }
+.lf-hook { display: block; margin: 0 0 10px; }
+.lf-removed { opacity: 0.45; text-decoration: line-through; }
+.lf-plan .lf-list input { min-width: min(32ch, 100%); }

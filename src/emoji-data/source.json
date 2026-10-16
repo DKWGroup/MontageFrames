@@ -1,0 +1,7 @@
+{
+  "source": "https://github.com/unicode-org/cldr-json/blob/main/cldr-json/cldr-annotations-full/annotations/pl/annotations.json",
+  "sourceSha256": "81420256d40acb05a9a512cdde5c67bafa6a373df51c93a83f02ecc200cba6fa",
+  "license": "Unicode-3.0",
+  "keywords": 3187,
+  "note": "Local single-word Polish CLDR labels and low-ambiguity keywords; generated 2026-10-16."
+}

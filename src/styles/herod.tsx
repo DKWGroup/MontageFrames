@@ -1,3 +1,4 @@
+import { WordEmoji } from "../WordEmoji";
 import { AbsoluteFill, Audio, Easing, Img, OffthreadVideo, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import type { StyleProps } from "../Reel";
 import type { Overlay } from "../overlays";
@@ -200,7 +201,7 @@ export const Herod: React.FC<StyleProps> = ({ group, words, durationInFrames: du
                         }}
                       >
                         {j > 0 ? "\u00a0" : ""}
-                        {w.text.replace(/[.,;:]+$/u, "")}
+                        {w.text.replace(/[.,;:]+$/u, "")}<WordEmoji emoji={w.emoji}/>
                       </span>
                     ))}
                   </span>

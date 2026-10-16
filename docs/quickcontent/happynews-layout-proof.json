@@ -1,0 +1,295 @@
+{
+  "verifiedAt": "2026-10-16T00:37:09.445Z",
+  "projectId": "qc-42b2386b-063f-4787-ad94-55571385e7ed",
+  "tests": {
+    "passed": 286,
+    "failed": 0
+  },
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 24
+  },
+  "appleEmoji": {
+    "localFile": "public/fonts/AppleColorEmoji.ttc",
+    "bytes": 192123488,
+    "rendererFont": "Apple Color Emoji installed on macOS"
+  },
+  "audioCheck": {
+    "reel": "qc-bcf526f4a6fe12de-0e9b4d28d3f4f096",
+    "range": [
+      12.8,
+      14.8
+    ],
+    "correlation": 0.9837,
+    "offsetMs": -0.3125,
+    "levelDifferenceDb": -0.012,
+    "fullListeningCheck": false
+  },
+  "films": [
+    {
+      "title": "Skuterzysta „transformuje się” w pieszego",
+      "reelName": "qc-bcf526f4a6fe12de-ad654e5b915a1539",
+      "revision": 5,
+      "isCurrent": true,
+      "currentRender": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-ad654e5b915a1539-v004.mp4",
+        "renderRevision": 5,
+        "signature": "4e522094fec45ac01d3eb9a9e1aa7fdc60d8c4fa4fc291e293800e3eeecf1d84",
+        "verified": true,
+        "createdAt": "2026-10-16T00:31:00.344Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-948280d6-7889-45b8-847f-e2d5896f15e3/input.json"
+      },
+      "latestRender": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-ad654e5b915a1539-v004.mp4",
+        "renderRevision": 5,
+        "signature": "4e522094fec45ac01d3eb9a9e1aa7fdc60d8c4fa4fc291e293800e3eeecf1d84",
+        "verified": true,
+        "createdAt": "2026-10-16T00:31:00.344Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-948280d6-7889-45b8-847f-e2d5896f15e3/input.json"
+      },
+      "costs": {
+        "analysis": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "montage": {
+          "costMicroUsd": 0,
+          "requests": 1,
+          "missing": 0,
+          "inputTokens": 37138,
+          "outputTokens": 2347,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "chat": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "description": {
+          "costMicroUsd": 491.975,
+          "requests": 2,
+          "missing": 0,
+          "inputTokens": 2921,
+          "outputTokens": 254,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        }
+      },
+      "trackingSamples": 185,
+      "layoutSamples": 45,
+      "layoutKinds": [
+        "duo-media",
+        "duo"
+      ]
+    },
+    {
+      "title": "Trzmiel nie zdążył wrócić? Śpi w kwiatku",
+      "reelName": "qc-bcf526f4a6fe12de-90b068b31a1788b9",
+      "revision": 5,
+      "isCurrent": true,
+      "currentRender": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-90b068b31a1788b9-v003.mp4",
+        "renderRevision": 5,
+        "signature": "18b999c323ff5169f5e57491590ba501ba923702a49bac1e60d2ffcd2c6163fd",
+        "verified": true,
+        "createdAt": "2026-10-16T00:28:25.951Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-9060dcdd-8768-4deb-873f-9ea7ec30a293/input.json"
+      },
+      "latestRender": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-90b068b31a1788b9-v003.mp4",
+        "renderRevision": 5,
+        "signature": "18b999c323ff5169f5e57491590ba501ba923702a49bac1e60d2ffcd2c6163fd",
+        "verified": true,
+        "createdAt": "2026-10-16T00:28:25.951Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-9060dcdd-8768-4deb-873f-9ea7ec30a293/input.json"
+      },
+      "costs": {
+        "analysis": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "montage": {
+          "costMicroUsd": 0,
+          "requests": 1,
+          "missing": 0,
+          "inputTokens": 39106,
+          "outputTokens": 4237,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "chat": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "description": {
+          "costMicroUsd": 505.225,
+          "requests": 2,
+          "missing": 0,
+          "inputTokens": 3143,
+          "outputTokens": 225,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        }
+      },
+      "trackingSamples": 233,
+      "layoutSamples": 101,
+      "layoutKinds": [
+        "duo-media",
+        "speaker-media",
+        "duo"
+      ]
+    },
+    {
+      "title": "Cztery godziny na transport serca",
+      "reelName": "qc-bcf526f4a6fe12de-1ea168dc78314305",
+      "revision": 5,
+      "isCurrent": true,
+      "currentRender": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-1ea168dc78314305-v004.mp4",
+        "renderRevision": 5,
+        "signature": "cd80409938b227bc225cac17a01add866ed177a7e901680057398bdfa3ba93b6",
+        "verified": true,
+        "createdAt": "2026-10-16T00:35:26.063Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-5fdce2ce-6d3b-4705-b373-b4be423ecf49/input.json"
+      },
+      "latestRender": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-1ea168dc78314305-v004.mp4",
+        "renderRevision": 5,
+        "signature": "cd80409938b227bc225cac17a01add866ed177a7e901680057398bdfa3ba93b6",
+        "verified": true,
+        "createdAt": "2026-10-16T00:35:26.063Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-5fdce2ce-6d3b-4705-b373-b4be423ecf49/input.json"
+      },
+      "costs": {
+        "analysis": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "montage": {
+          "costMicroUsd": 0,
+          "requests": 1,
+          "missing": 0,
+          "inputTokens": 37954,
+          "outputTokens": 3804,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "chat": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "description": {
+          "costMicroUsd": 525.975,
+          "requests": 2,
+          "missing": 0,
+          "inputTokens": 3109,
+          "outputTokens": 275,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        }
+      },
+      "trackingSamples": 123,
+      "layoutSamples": 90,
+      "layoutKinds": [
+        "speaker-media",
+        "duo-media",
+        "duo"
+      ]
+    },
+    {
+      "title": "Zarzuty o rozprzedaż Polski i cisza przy zakupach",
+      "reelName": "qc-bcf526f4a6fe12de-0e9b4d28d3f4f096",
+      "revision": 4,
+      "isCurrent": true,
+      "currentRender": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-0e9b4d28d3f4f096-v005.mp4",
+        "renderRevision": 4,
+        "signature": "35ab2e4925a15492734e2bd13ddea8514fba132ce10334c9a46b3029b89b2ab0",
+        "verified": true,
+        "createdAt": "2026-10-16T00:36:32.201Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-280af968-d114-4ebe-9016-81569b348093/input.json"
+      },
+      "latestRender": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-0e9b4d28d3f4f096-v005.mp4",
+        "renderRevision": 4,
+        "signature": "35ab2e4925a15492734e2bd13ddea8514fba132ce10334c9a46b3029b89b2ab0",
+        "verified": true,
+        "createdAt": "2026-10-16T00:36:32.201Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-280af968-d114-4ebe-9016-81569b348093/input.json"
+      },
+      "costs": {
+        "analysis": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "montage": {
+          "costMicroUsd": 0,
+          "requests": 1,
+          "missing": 0,
+          "inputTokens": 36798,
+          "outputTokens": 2454,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "chat": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "description": {
+          "costMicroUsd": 490.975,
+          "requests": 2,
+          "missing": 0,
+          "inputTokens": 2913,
+          "outputTokens": 254,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        }
+      },
+      "trackingSamples": 135,
+      "layoutSamples": 24,
+      "layoutKinds": [
+        "duo"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "verifiedAt": "2026-10-16T12:50:35.651Z",
+  "projectId": "qc-42b2386b-063f-4787-ad94-55571385e7ed",
+  "candidateId": "c-fd4d3d67-9909-491f-99f1-02fe8325d655",
+  "reelName": "qc-bcf526f4a6fe12de-0e9b4d28d3f4f096",
+  "revision": 6,
+  "isCurrent": true,
+  "render": {
+    "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-0e9b4d28d3f4f096-v006.mp4",
+    "renderRevision": 6,
+    "signature": "440a763cdd66f3a3707199cd8fd56abfc66d4d94c894baed14059eeeb5086a4a",
+    "verified": true,
+    "createdAt": "2026-10-16T12:50:20.971Z",
+    "snapshotPath": ".quickcontent/render-snapshots/job-9f3be7ad-64f4-4fe1-be02-a606096efb98/input.json"
+  },
+  "renderOnly": true,
+  "newJobUsage": [
+    {
+      "provider": "openai",
+      "model": "gpt-6-luna",
+      "responseId": "resp_060d9fe1ff4c2354016ad21d8e56c887d18b85695b91632b7c",
+      "inputTokens": 2175,
+      "outputTokens": 134,
+      "cachedTokens": 0,
+      "cacheWriteTokens": 2172,
+      "costMicroUsd": 338.8,
+      "purpose": "description",
+      "pricingDate": "2026-10-15",
+      "priceSource": "https://developers.openai.com/api/docs/pricing",
+      "at": "2026-10-16T12:50:24.889Z"
+    }
+  ],
+  "transcriptionRepeated": false,
+  "layoutChanges": {
+    "before": 4,
+    "after": 2
+  },
+  "layoutKinds": [
+    "speaker",
+    "duo"
+  ],
+  "tests": {
+    "passed": 341,
+    "failed": 0
+  },
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 24
+  },
+  "panel": {
+    "viteBuildPassed": true,
+    "longformTransformHttpStatus": 200,
+    "browserInspection": "blocked by browser URL policy; not performed"
+  },
+  "fullListeningCheck": false,
+  "notes": [
+    "Only this candidate rendered; earlier versions and other candidates kept.",
+    "Background screen only in wide shots with two current hosts.",
+    "Reduced closeup uses blurred source fill without black bars."
+  ],
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1080,
+        "height": 1920,
+        "side_data_list": [
+          {}
+        ]
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio"
+      }
+    ],
+    "format": {
+      "duration": "33.003000"
+    }
+  },
+  "newMontageUsage": [],
+  "publicationCostMicroUsd": 338.8
+}

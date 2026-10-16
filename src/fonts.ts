@@ -36,6 +36,18 @@ const FONTS: {
   { family: "Poppins", file: "fonts/Poppins-Black.ttf", weight: "900" },
   // GlowUp Nutrition: Bebas Neue 400 (nagłówki, klucz, liczby) + Poppins 600/400.
   { family: "Bebas Neue", file: "fonts/BebasNeue-Regular.ttf", weight: "400" },
+  // Vital Hormone: Plus Jakarta Sans 400/700 + 700 italic (tylko cytaty), obok Montserrat 700/800.
+  {
+    family: "Plus Jakarta Sans",
+    file: "fonts/PlusJakartaSans.ttf",
+    weight: "200 800",
+  },
+  {
+    family: "Plus Jakarta Sans",
+    file: "fonts/PlusJakartaSans-Italic.ttf",
+    weight: "200 800",
+    style: "italic",
+  },
   { family: "Nunito", file: "fonts/Nunito.ttf", weight: "200 1000" },
   { family: "Fustat", file: "fonts/Fustat.ttf", weight: "200 800" },
   // Font marki Persony — wrzuć pliki z madetype.com pod tymi nazwami, a styl "persona" sam go użyje.

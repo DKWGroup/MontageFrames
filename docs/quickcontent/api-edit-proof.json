@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-15",
+  "purpose": "Short real API montage contract regression, not a full reel",
+  "validData": true,
+  "words": 4,
+  "receipt": {
+    "provider": "openai",
+    "model": "gpt-6-luna",
+    "responseId": "resp_01d5c8b2fef697ff016ad0c63be55087d28c322a736f81bd8e",
+    "inputTokens": 990,
+    "outputTokens": 375,
+    "cachedTokens": 0,
+    "cacheWriteTokens": 0,
+    "costMicroUsd": 286.5,
+    "pricingDate": "2026-10-15",
+    "priceSource": "https://developers.openai.com/api/docs/pricing",
+    "at": "2026-10-15T12:25:37.918Z"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-15",
+  "result": {
+    "ok": true
+  },
+  "receipt": {
+    "provider": "codex",
+    "model": "konto ChatGPT",
+    "responseId": null,
+    "inputTokens": 29494,
+    "outputTokens": 15,
+    "cachedTokens": 0,
+    "cacheWriteTokens": 0,
+    "costMicroUsd": 0,
+    "billingKind": "subscription",
+    "pricingDate": "",
+    "priceSource": "",
+    "at": "2026-10-15T12:23:46.761Z"
+  }
+}

@@ -1,4 +1,10 @@
+import { recordPublicationRender, publicationRenderCurrent } from "./reel-publication-state.mjs";
+import { generateReelDescription, readReelDescription, saveReelDescriptionInstructions, saveReelDescriptionText } from "../scripts/reel-description.mjs";
 // API panelu — plugin Vite w tym samym procesie co serwer. Kontrakt: docs/superpowers/plans/2026-10-07-panel-etap-1-2.md
+import { motionRoute } from "./motion-server.mjs";
+import { createLongFormService } from "./longform-server.mjs";
+import { createQuickContentService,installQuickContentLifecycle } from "./quickcontent-server.mjs";
+import { tryAcquireHeavy } from "./process-resource.mjs";
 import { execFile, spawn } from "node:child_process";
 import fs from "node:fs";
 import fsp from "node:fs/promises";
@@ -17,6 +23,8 @@ const DEFAULTS = { operator: "claude-account", apiKey: "", model: "opus", render
 
 // ponytail: zadania żyją w pamięci procesu — restart serwera je przerywa (pliki zostają); trwała kolejka dopiero w wersji serwerowej.
 const jobs = new Map();
+const quickcontent = createQuickContentService(ROOT, {isBusy: () => [...jobs.values()].some(j => j.status === "running")});
+const longform = createLongFormService(ROOT);
 
 const fail = (status, message) => Object.assign(new Error(message), { status });
 const send = (res, status, body) => {
@@ -89,9 +97,13 @@ async function snapshot(name, every = 0) {
   await fsp.copyFile(file, path.join(dir, `${new Date().toISOString().replace(/[:.]/g, "-")}.json`));
 }
 
-async function saveReel(name, data) {
+async function saveReel(name, data, expectedRevision) {
   const file = reelFile(name);
+  const qcSaved=await quickcontent.saveEditedReel(name,data,expectedRevision);
+  if(qcSaved){const{syncStudio}=await import('../scripts/studio-sync.mjs');syncStudio(ROOT);return qcSaved;}
   const job = jobs.get(name);
+  const qcJob = await quickcontent.bridgeReelJob({method:"GET",reelName:name});
+  if (qcJob?.status === "running" && qcJob.kind !== "render") throw fail(409, "QuickContent pracuje nad tą rolką — poczekaj albo zatrzymaj zadanie");
   // render czyta reel.json na starcie, więc w trakcie renderu można dalej poprawiać; operator pisze sam — wtedy nie
   if (job?.status === "running" && job.kind !== "render") throw fail(409, "Operator pracuje nad tą rolką — poczekaj albo go zatrzymaj");
   if (typeof data?.source !== "string" || !Array.isArray(data.segments) || !Array.isArray(data.captions)) throw fail(400, "To nie wygląda na reel.json");
@@ -100,6 +112,8 @@ async function saveReel(name, data) {
   await writeJson(file, data);
   const { syncStudio } = await import("../scripts/studio-sync.mjs");
   syncStudio(ROOT);
+  await quickcontent.reconcileReel(name);
+  return {ok:true};
 }
 
 const clean = (s) => s.replace(/\x1B\[[0-9;]*[A-Za-z]/g, "").trim(); // bez kolorów terminala
@@ -131,7 +145,9 @@ function run(job, cmd, args, { env = process.env, onLine = (l) => job.lines.push
 }
 
 function startJob(name, meta, steps) {
-  const job = { ...meta, status: "running", lines: [], pct: null, result: null, child: null };
+  const release = tryAcquireHeavy(`Rolka ${name}`);
+  if (!release) throw fail(409, "Inny montaż, analiza lub render jest w toku — poczekaj na zwolnienie kolejki");
+  const job = { ...meta, startedAt: Date.now(), status: "running", lines: [], pct: null, result: null, child: null };
   jobs.set(name, job);
   (async () => {
     for (const step of steps) await step(job);
@@ -144,7 +160,7 @@ function startJob(name, meta, steps) {
       job.status = "error";
       job.lines.push(`Błąd: ${e.message}`);
     },
-  );
+  ).finally(release);
   return job;
 }
 
@@ -164,6 +180,7 @@ function stopJob(name) {
 
 const renderStep = (name, client) => async (job) => {
   const out = renderPath(client, name);
+  const renderedData = await readJson(reelFile(name),null);
   job.lines.push(`Render → ${out}`);
   job.pct = 0;
   await run(job, "npx", ["remotion", "render", name, out], {
@@ -174,7 +191,24 @@ const renderStep = (name, client) => async (job) => {
     },
   });
   job.result = out;
+  await recordPublicationRender(ROOT,name,renderedData,out);
+  await describeFinished(name, out, job, renderedData);
 };
+
+async function describeFinished(name, out, job, renderedData) {
+  const stat = await fsp.stat(path.join(ROOT,out)).catch(()=>null);
+  const inputStat = await fsp.stat(reelFile(name));
+  if(!stat || stat.mtimeMs < Math.max(job.startedAt ?? 0,inputStat.mtimeMs)) return;
+  if(!renderedData) {
+    renderedData=await readJson(reelFile(name),null);
+    await recordPublicationRender(ROOT,name,renderedData,out);
+  }
+  job.lines.push("Gotowy film zapisany. Opis do publikacji — GPT‑6 Luna API…");
+  try {
+    const copy=await generateReelDescription(name,{root:ROOT,renderedData});
+    job.lines.push(copy.status === "ready" ? "Opis do publikacji gotowy." : "Film gotowy; ponów sam opis w panelu.");
+  } catch {job.lines.push("Film gotowy; ponów sam opis w panelu.");}
+}
 
 const prepStep = (name, input) => async (job) => {
   job.lines.push("Transkrypcja i szkic montażu…");
@@ -238,6 +272,7 @@ async function startTask(name, b) {
     const render = b.render ?? s.renderAfter;
     steps.push(() => snapshot(name));
     steps.push(operatorStep(name, montagePrompt({ reel: name, client: who, render, out: renderPath(who, name) })));
+    steps.push(job=>describeFinished(name,renderPath(who,name),job));
     return startJob(name, { kind: "montage", client: who }, steps);
   }
 
@@ -248,6 +283,7 @@ async function startTask(name, b) {
     const job = startJob(name, { kind: "chat", client }, [
       () => snapshot(name),
       operatorStep(name, chatPrompt({ reel: name, client, message }), { resume: true }),
+      job=>describeFinished(name,renderPath(client,name),job),
     ]);
     job.lines.unshift(`› ${message}`);
     return job;
@@ -335,31 +371,71 @@ function renderFile(rel) {
 async function route(req, res) {
   // Ochrona przed stronami z internetu: tylko adres lokalny (DNS rebinding) i własny nagłówek przy zmianach (CSRF).
   if (!/^(127\.0\.0\.1|localhost)(:\d+)?$/.test(req.headers.host ?? "")) throw fail(403, "Panel działa tylko lokalnie");
-  if (req.method !== "GET" && req.headers["x-panel"] !== "1") throw fail(403, "Brak nagłówka X-Panel");
+  if (!["GET","HEAD"].includes(req.method) && req.headers["x-panel"] !== "1") throw fail(403, "Brak nagłówka X-Panel");
   const url = new URL(req.url, "http://panel");
   const [, what, name] = url.pathname.split("/");
   const m = req.method;
+  if (what === "quickcontent") return quickcontent.route(req, res, url);
+  if (what === "motion") return motionRoute(req, res, url);
+  if (what === "lf") return longform.route(req, res, url);
 
+  if (what === "description" && ["GET","POST","PUT"].includes(m)) {
+    if(!isName(name)) throw fail(400,"Nieprawidłowa nazwa rolki");
+    const data=await readJson(reelFile(name),null);
+    if(!data) throw fail(404,"Nie ma takiej rolki");
+    const edit=m === "PUT" ? await body(req) : null;
+    if (m === "PUT" && (!edit || typeof edit !== "object" || Array.isArray(edit) || Object.keys(edit).length !== 1 || !["instructions","text"].includes(Object.keys(edit)[0])))
+      throw fail(400,"Zapisz osobno wytyczne albo tekst opisu.");
+    if(edit && Object.hasOwn(edit,"instructions"))
+      return send(res,200,await saveReelDescriptionInstructions(name,edit.instructions,ROOT));
+    const origin=await quickcontent.originOf(name);
+    let current=true;
+    let descriptionInstructions;
+    if(origin) {
+      const p=await quickcontent.project(origin.projectId);
+      descriptionInstructions=p.descriptionInstructions;
+      current=Boolean(p.candidates.find(c=>c.id===origin.candidateId)?.isCurrent);
+    } else {
+      current=jobs.get(name)?.status !== "running" && await publicationRenderCurrent(ROOT,name,data,renderPath(data.client ?? null,name));
+    }
+    if(m === "GET") {
+      const copy=await readReelDescription(name,ROOT,{descriptionInstructions});
+      if(!current && copy?.status === "ready") return send(res,200,{status:"stale",model:copy.model,usage:copy.usage,instructions:copy.instructions,error:"Najpierw wyrenderuj aktualną rolkę."});
+      return send(res,200,copy ?? {status:"missing",instructions:descriptionInstructions ?? ""});
+    }
+    if(!current) throw fail(409,"Najpierw ukończ render aktualnej rolki. Opis nie uruchamia renderu.");
+    if(m === "PUT") return send(res,200,await saveReelDescriptionText(name,edit.text,ROOT,{descriptionInstructions}));
+    return send(res,200,await generateReelDescription(name,{root:ROOT,renderedData:data,descriptionInstructions}));
+  }
   if (m === "GET" && what === "library") return send(res, 200, await library());
   if (what === "reel" && m === "GET") {
+    const state=await quickcontent.readEditedReel(name);
+    if(state){res.setHeader('X-Edit-Revision',String(state.editRevision));return send(res,200,state.data);}
     const d = await readJson(reelFile(name), null);
     return d ? send(res, 200, d) : send(res, 404, { error: "Nie ma takiej rolki" });
   }
   if (what === "reel" && m === "PUT") {
-    await saveReel(name, await body(req));
-    return send(res, 200, { ok: true });
+    const revision=req.headers['x-edit-revision'];
+    return send(res,200,await saveReel(name,await body(req),revision===undefined?undefined:Number(revision)));
   }
   if (what === "job" && m === "POST") {
-    await startTask(name, await body(req));
+    const requestBody = await body(req);
+    const qc = await quickcontent.bridgeReelJob({method:m,reelName:name,body:requestBody});
+    if (qc) return send(res, 200, qc);
+    await startTask(name, requestBody);
     return send(res, 200, { ok: true });
   }
   if (what === "job" && m === "GET") {
+    const qc = await quickcontent.bridgeReelJob({method:m,reelName:name,cursor:url.searchParams.get("since")});
+    if (qc) return send(res, 200, qc);
     const job = jobs.get(name);
     if (!job) return send(res, 200, { status: "idle" });
     const since = Number(url.searchParams.get("since")) || 0;
     return send(res, 200, { kind: job.kind, status: job.status, lines: job.lines.slice(since), next: job.lines.length, pct: job.pct, result: job.result });
   }
   if (what === "job" && m === "DELETE") {
+    const qc = await quickcontent.bridgeReelJob({method:m,reelName:name});
+    if (qc) return send(res, 200, qc);
     stopJob(name);
     return send(res, 200, { ok: true });
   }
@@ -388,6 +464,7 @@ export function panelApi() {
   return {
     name: "montage-panel-api",
     configureServer(server) {
+      installQuickContentLifecycle(server,quickcontent);
       server.middlewares.use("/api", (req, res, next) => {
         // Connect montuje „/api” także dla „/api.ts” — to plik klienta, oddaj go Vite
         if (!req.originalUrl?.startsWith("/api/")) return next();

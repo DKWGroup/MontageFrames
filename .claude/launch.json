@@ -4,9 +4,25 @@
     {
       "name": "panel",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "ui"],
+      "runtimeArgs": [
+        "run",
+        "ui"
+      ],
       "port": 3100,
       "url": "http://127.0.0.1:3100"
+    },
+    {
+      "name": "panel-l4",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "ui",
+        "--",
+        "--port",
+        "3101"
+      ],
+      "port": 3101,
+      "url": "http://127.0.0.1:3101"
     }
   ]
 }

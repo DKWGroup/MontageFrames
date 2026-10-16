@@ -17,6 +17,13 @@ const KINDS: Record<string, string> = {
   product: "Produkt",
   process: "Proces",
   logo: "Logo",
+  labs: "Badania",
+  steps: "Kroki",
+  mythfact: "Mit i fakt",
+  quote: "Cytat",
+  typography: "Typografia",
+  "chapter-card": "Rozdział",
+  "zoom-through": "Przejście",
 };
 
 export const overlayLabel = (o: Overlay) => ({

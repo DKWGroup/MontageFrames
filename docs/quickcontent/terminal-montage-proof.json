@@ -1,0 +1,56 @@
+{
+  "verifiedAt": "2026-10-15",
+  "jobId": "job-6cf92703-a817-4f89-ad40-ca6e71be8db4",
+  "status": "completed",
+  "provider": "codex",
+  "billingKind": "subscription",
+  "separateApiCostMicroUsd": 0,
+  "usage": [
+    {
+      "provider": "openai",
+      "model": "gpt-6-luna",
+      "responseId": "resp_080d33ed7f647f70016ad0c324796887d2a4613009acde5277",
+      "inputTokens": 8567,
+      "outputTokens": 873,
+      "cachedTokens": 0,
+      "cacheWriteTokens": 8564,
+      "costMicroUsd": 1507.3,
+      "pricingDate": "2026-10-15",
+      "priceSource": "https://developers.openai.com/api/docs/pricing",
+      "at": "2026-10-15T12:12:32.749Z"
+    },
+    {
+      "provider": "codex",
+      "model": "konto ChatGPT",
+      "responseId": null,
+      "inputTokens": 33160,
+      "outputTokens": 3426,
+      "cachedTokens": 0,
+      "cacheWriteTokens": 0,
+      "costMicroUsd": 0,
+      "billingKind": "subscription",
+      "pricingDate": "",
+      "priceSource": "",
+      "at": "2026-10-15T12:31:17.700Z"
+    }
+  ],
+  "artifactReferences": {
+    "reelName": "qc-c310ad37c2e34aed-56c8858e0acc6c3d",
+    "filePath": "out/qc-c310ad37c2e34aed-56c8858e0acc6c3d-v001.mp4"
+  },
+  "video": {
+    "codec": "h264",
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 42.581,
+    "audioCodec": "aac"
+  },
+  "download": {
+    "httpStatus": 200,
+    "bytes": 45516375
+  },
+  "visualFramesChecked": true,
+  "audioListeningChecked": false,
+  "otherCancelledMontagesRetried": false,
+  "savedSelections": 6
+}

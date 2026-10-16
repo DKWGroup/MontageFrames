@@ -1,0 +1,47 @@
+{
+  "verifiedAt": "2026-10-15T16:53:33.253Z",
+  "jobId": "job-c88f72b9-8f5c-465f-ae4f-508a0045a001",
+  "status": "completed",
+  "file": "klienci/kacper-bisanz/Render/qc-c310ad37c2e34aed-56c8858e0acc6c3d-v003.mp4",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "side_data_list": [
+          {}
+        ]
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "format": {
+      "duration": "42.581000"
+    }
+  },
+  "isCurrent": true,
+  "editRevision": 7,
+  "download": {
+    "status": 200,
+    "bytes": 46414764
+  },
+  "usage": [],
+  "trackingPoints": 45,
+  "hook": {
+    "type": "title",
+    "start": 0,
+    "end": 3,
+    "text": "Auto za 150 tysięcy?",
+    "hl": "150 tysięcy",
+    "y": 0.72,
+    "size": 58
+  },
+  "client": "kacper-bisanz",
+  "style": "bisanz",
+  "selectedCount": 8,
+  "fullAudioListening": false
+}

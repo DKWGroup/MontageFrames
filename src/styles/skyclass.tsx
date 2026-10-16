@@ -1,3 +1,4 @@
+import { WordEmoji } from "../WordEmoji";
 import { fitText } from "@remotion/layout-utils";
 import {
   AbsoluteFill,
@@ -193,7 +194,7 @@ export const SkyClass: React.FC<StyleProps> = ({
           letterSpacing: w.key ? "-0.01em" : undefined,
         }}
       >
-        {clean(w.text)}
+        {clean(w.text)}<WordEmoji emoji={w.emoji}/>
       </span>
     );
   };

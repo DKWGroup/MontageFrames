@@ -1,0 +1,320 @@
+{
+  "checkedAt": "2026-10-16T18:06:30.656Z",
+  "tests": {
+    "pass": 351,
+    "fail": 0,
+    "lintErrors": 0,
+    "existingLintWarnings": 24
+  },
+  "scope": "3 completed Bisanz reels + one Happy News bumblebee reel; no ASR or editorial AI rerun",
+  "limitations": [
+    "No full audio audition or browser UI acceptance",
+    "One Bisanz publication description failed after isolated retry; MP4 is valid"
+  ],
+  "rows": [
+    {
+      "reel": "qc-c310ad37c2e34aed-e85040b5388d1cf4",
+      "jobId": "job-34fb4f52-0193-4ae2-9422-d6d4ed24d8b0",
+      "status": "completed",
+      "editRevision": 2,
+      "isCurrent": true,
+      "render": {
+        "filePath": "klienci/kacper-bisanz/Render/qc-c310ad37c2e34aed-e85040b5388d1cf4-v001.mp4",
+        "renderRevision": 2,
+        "signature": "379ad9f9e95ec1729efdead426ae50cae032b65436a8a93aa7eeda306ad0bfdf",
+        "verified": true,
+        "createdAt": "2026-10-16T17:58:52.933Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-34fb4f52-0193-4ae2-9422-d6d4ed24d8b0/input.json"
+      },
+      "style": "bisanz",
+      "client": "kacper-bisanz",
+      "publication": "failed",
+      "costs": {
+        "analysis": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "montage": {
+          "costMicroUsd": 0,
+          "requests": 1,
+          "missing": 2,
+          "inputTokens": 34675,
+          "outputTokens": 3708,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "chat": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "description": {
+          "costMicroUsd": 1028.645,
+          "requests": 3,
+          "missing": 0,
+          "inputTokens": 12249,
+          "outputTokens": 365,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        }
+      },
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1080,
+            "height": 1920,
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac"
+          }
+        ],
+        "format": {
+          "duration": "43.371000"
+        }
+      }
+    },
+    {
+      "reel": "qc-c310ad37c2e34aed-5921daf630acc6ff",
+      "jobId": "job-ea579f67-3ec9-4b08-932c-731fb8bb3dc8",
+      "status": "completed",
+      "editRevision": 3,
+      "isCurrent": true,
+      "render": {
+        "filePath": "klienci/kacper-bisanz/Render/qc-c310ad37c2e34aed-5921daf630acc6ff-v001.mp4",
+        "renderRevision": 3,
+        "signature": "cbb2a297bea103527862a66daf142a5874d56d66ce7d0ceef8b6f1c81913c7af",
+        "verified": true,
+        "createdAt": "2026-10-16T18:00:48.869Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-ea579f67-3ec9-4b08-932c-731fb8bb3dc8/input.json"
+      },
+      "style": "bisanz",
+      "client": "kacper-bisanz",
+      "publication": "ready",
+      "costs": {
+        "analysis": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "montage": {
+          "costMicroUsd": 0,
+          "requests": 1,
+          "missing": 2,
+          "inputTokens": 36532,
+          "outputTokens": 4174,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "chat": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "description": {
+          "costMicroUsd": 943.4749999999999,
+          "requests": 2,
+          "missing": 0,
+          "inputTokens": 6627,
+          "outputTokens": 265,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        }
+      },
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1080,
+            "height": 1920,
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac"
+          }
+        ],
+        "format": {
+          "duration": "51.435000"
+        }
+      }
+    },
+    {
+      "reel": "qc-c310ad37c2e34aed-56c8858e0acc6c3d",
+      "jobId": "job-661bb811-5b4b-414a-9e64-a420323d1888",
+      "status": "completed",
+      "editRevision": 10,
+      "isCurrent": true,
+      "render": {
+        "filePath": "klienci/kacper-bisanz/Render/qc-c310ad37c2e34aed-56c8858e0acc6c3d-v007.mp4",
+        "renderRevision": 10,
+        "signature": "ecd0963b9765108490eb4c0c03f16130e55c29bfa5e17cb8d531c1fe558a0225",
+        "verified": true,
+        "createdAt": "2026-10-16T18:02:11.171Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-661bb811-5b4b-414a-9e64-a420323d1888/input.json"
+      },
+      "style": "bisanz",
+      "client": "kacper-bisanz",
+      "publication": "ready",
+      "costs": {
+        "analysis": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "montage": {
+          "costMicroUsd": 1507.3,
+          "requests": 2,
+          "missing": 0,
+          "inputTokens": 41727,
+          "outputTokens": 4299,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "chat": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "description": {
+          "costMicroUsd": 2435.4399999999996,
+          "requests": 4,
+          "missing": 0,
+          "inputTokens": 22169,
+          "outputTokens": 548,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        }
+      },
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1080,
+            "height": 1920,
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac"
+          }
+        ],
+        "format": {
+          "duration": "42.581000"
+        }
+      }
+    },
+    {
+      "reel": "qc-bcf526f4a6fe12de-90b068b31a1788b9",
+      "jobId": "job-331537f0-c713-4b0b-be3e-6782db7ad8b3",
+      "status": "completed",
+      "editRevision": 7,
+      "isCurrent": true,
+      "render": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-90b068b31a1788b9-v006.mp4",
+        "renderRevision": 7,
+        "signature": "44ffc93a4e462d740d3b8ad6a83f60af86389ba0b43e1c7777dd2692b382ad6f",
+        "verified": true,
+        "createdAt": "2026-10-16T18:05:56.577Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-331537f0-c713-4b0b-be3e-6782db7ad8b3/input.json"
+      },
+      "style": "happynews",
+      "client": "happy-news",
+      "publication": "ready",
+      "costs": {
+        "analysis": {
+          "costMicroUsd": 0,
+          "requests": 0,
+          "missing": 0,
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        },
+        "montage": {
+          "costMicroUsd": 0,
+          "requests": 1,
+          "missing": 0,
+          "inputTokens": 39106,
+          "outputTokens": 4237,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "chat": {
+          "costMicroUsd": 0,
+          "requests": 1,
+          "missing": 0,
+          "inputTokens": 67222,
+          "outputTokens": 255,
+          "subscriptionRequests": 1,
+          "missingTokenMeasurements": 0
+        },
+        "description": {
+          "costMicroUsd": 1800,
+          "requests": 5,
+          "missing": 0,
+          "inputTokens": 12155,
+          "outputTokens": 562,
+          "subscriptionRequests": 0,
+          "missingTokenMeasurements": 0
+        }
+      },
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1080,
+            "height": 1920,
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac"
+          }
+        ],
+        "format": {
+          "duration": "57.344000"
+        }
+      }
+    }
+  ]
+}

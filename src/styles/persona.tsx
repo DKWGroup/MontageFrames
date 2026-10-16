@@ -1,3 +1,4 @@
+import { WordEmoji } from "../WordEmoji";
 import { fitText } from "@remotion/layout-utils";
 import {
   AbsoluteFill,
@@ -8,6 +9,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { Dir, StyleProps } from "../Reel";
+import { tokensFor } from "../reel-timing";
 
 // Styl "persona": 2–6 słów na ekranie, słowo-klucz duże, reszta mała.
 // Grupa wjeżdża z boku (sprężyna z lekkim odbiciem), dryfuje i wyjeżdża dalej w tę samą stronę.
@@ -17,7 +19,7 @@ import type { Dir, StyleProps } from "../Reel";
 //   stack  — małe słowa nad i pod dużym kluczem
 //   inline — słowa płyną w 1–2 liniach, klucz większy w środku zdania
 // ——— Tokeny: tu stroisz wygląd ———
-const T = {
+export const T = {
   font: '"MADE Tommy Soft", Nunito, sans-serif',
   keySize: 190, // max px słowa-klucza (kadr 1080 px szerokości)
   smallSize: 64, // max px małych słów (stack)
@@ -39,6 +41,21 @@ const T = {
   exitFrames: 6,
 };
 
+// Kadr poziomy 1920×1080 (LongForm): napis nisko (środek 0,80), klucz ≈ 5% wysokości, blok ≤ 0,6 szerokości.
+export const T16: typeof T = {
+  ...T,
+  keySize: 58,
+  smallSize: 40,
+  inlineKey: 58,
+  inlineSmall: 42,
+  maxWidth: 0.6,
+  lineChars: 40,
+  y: 0.8,
+  yRaised: 0.86,
+  travel: 90,
+  drift: 14,
+};
+
 type W = StyleProps["words"][number];
 type Align = "flex-start" | "center" | "flex-end";
 type Line = { ws: W[]; key: boolean };
@@ -53,9 +70,9 @@ const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const clean = (t: string) => t.replace(/[.,;:…]+$/u, "");
 
 // Małe słowa w 1 linii; za długie -> 2 możliwie równe linie (bez samotnego słowa w linii)
-const lines = (ws: W[]): W[][] => {
+const lines = (ws: W[], lineChars: number): W[][] => {
   const len = (a: W[]) => a.reduce((n, x) => n + clean(x.text).length + 1, -1);
-  if (ws.length < 2 || len(ws) <= T.lineChars) return ws.length ? [ws] : [];
+  if (ws.length < 2 || len(ws) <= lineChars) return ws.length ? [ws] : [];
   const cost = (i: number) => Math.max(len(ws.slice(0, i)), len(ws.slice(i)));
   let best = 1;
   for (let i = 2; i < ws.length; i++) if (cost(i) < cost(best)) best = i;
@@ -63,13 +80,13 @@ const lines = (ws: W[]): W[][] => {
 };
 
 // k < 0 = grupa bez słowa-klucza (same małe słowa, np. wstęp do liczby w grafice)
-const stackLines = (words: W[], k: number): Line[] =>
+const stackLines = (words: W[], k: number, lineChars: number): Line[] =>
   k < 0
-    ? lines(words).map((ws) => ({ ws, key: false }))
+    ? lines(words, lineChars).map((ws) => ({ ws, key: false }))
     : [
-        ...lines(words.slice(0, k)).map((ws) => ({ ws, key: false })),
+        ...lines(words.slice(0, k), lineChars).map((ws) => ({ ws, key: false })),
         { ws: [words[k]], key: true },
-        ...lines(words.slice(k + 1)).map((ws) => ({ ws, key: false })),
+        ...lines(words.slice(k + 1), lineChars).map((ws) => ({ ws, key: false })),
       ];
 
 export const Persona: React.FC<StyleProps> = ({
@@ -80,10 +97,11 @@ export const Persona: React.FC<StyleProps> = ({
 }) => {
   const f = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
+  const tk = tokensFor({ T, T16 }, { width, height });
   const layout = group.layout ?? "stack";
 
   const k = words.findIndex((w) => w.key);
-  const box = width * T.maxWidth;
+  const box = width * tk.maxWidth;
   const align: Align =
     group.align === "left"
       ? "flex-start"
@@ -96,9 +114,9 @@ export const Persona: React.FC<StyleProps> = ({
       fitText({
         text,
         withinWidth: box,
-        fontFamily: T.font,
-        fontWeight: isKey ? T.keyWeight : T.smallWeight,
-        textTransform: isKey && T.keyUpper ? "uppercase" : "none",
+        fontFamily: tk.font,
+        fontWeight: isKey ? tk.keyWeight : tk.smallWeight,
+        textTransform: isKey && tk.keyUpper ? "uppercase" : "none",
         validateFontIsLoaded: false,
       }).fontSize,
     );
@@ -110,15 +128,15 @@ export const Persona: React.FC<StyleProps> = ({
     fps,
     config: { damping: 14, stiffness: 170, mass: 0.7 },
   });
-  const exitLen = Math.max(1, Math.min(T.exitFrames, Math.floor(D / 3)));
+  const exitLen = Math.max(1, Math.min(tk.exitFrames, Math.floor(D / 3)));
   const exit = interpolate(f, [D - exitLen, D], [0, 1], {
     ...clamp,
     easing: Easing.in(Easing.cubic),
   });
   const off =
-    T.travel * (1 - enter) +
-    interpolate(f, [0, D], [T.drift, -T.drift]) -
-    T.travel * exit;
+    tk.travel * (1 - enter) +
+    interpolate(f, [0, D], [tk.drift, -tk.drift]) -
+    tk.travel * exit;
   const opacity = Math.min(interpolate(f, [0, 4], [0, 1], clamp), 1 - exit);
   const blur = Math.max(0, 1 - enter) * 10 + exit * 10;
 
@@ -143,16 +161,16 @@ export const Persona: React.FC<StyleProps> = ({
             : `translateY(${(1 - s) * 24}px)`,
           transformOrigin: "50% 60%",
           color: w.hl
-            ? T.accent
+            ? tk.accent
             : w.key
-              ? (group.color ?? T.keyColor)
-              : T.smallColor,
-          fontWeight: w.key ? T.keyWeight : T.smallWeight,
-          textTransform: w.key && T.keyUpper ? "uppercase" : undefined,
+              ? (group.color ?? tk.keyColor)
+              : tk.smallColor,
+          fontWeight: w.key ? tk.keyWeight : tk.smallWeight,
+          textTransform: w.key && tk.keyUpper ? "uppercase" : undefined,
           letterSpacing: w.key ? "-0.01em" : undefined,
         }}
       >
-        {clean(w.text)}
+        {clean(w.text)}<WordEmoji emoji={w.emoji}/>
       </span>
     );
   };
@@ -174,8 +192,8 @@ export const Persona: React.FC<StyleProps> = ({
             key={w.start}
             style={{
               fontSize: w.key
-                ? fit(clean(w.text), true, T.inlineKey)
-                : T.inlineSmall,
+                ? fit(clean(w.text), true, tk.inlineKey)
+                : tk.inlineSmall,
             }}
           >
             {word(w)}
@@ -186,7 +204,7 @@ export const Persona: React.FC<StyleProps> = ({
       <div
         style={{ display: "flex", flexDirection: "column", alignItems: align }}
       >
-        {stackLines(words, k).map((line) => (
+        {stackLines(words, k, tk.lineChars).map((line) => (
           <div
             key={line.ws[0].start}
             style={{
@@ -196,7 +214,7 @@ export const Persona: React.FC<StyleProps> = ({
               fontSize: fit(
                 line.ws.map((w) => clean(w.text)).join(" "),
                 line.key,
-                line.key ? T.keySize : T.smallSize,
+                line.key ? tk.keySize : tk.smallSize,
               ),
               lineHeight: line.key ? 0.92 : 1.04,
             }}
@@ -214,15 +232,15 @@ export const Persona: React.FC<StyleProps> = ({
           position: "absolute",
           left: (width - box) / 2,
           width: box,
-          top: (raised ? T.yRaised : T.y) * height,
+          top: (raised ? tk.yRaised : tk.y) * height,
           transform: `translate(${dx * off}px, calc(${raised ? -100 : -50}% + ${dy * off}px))`,
           opacity,
           filter: blur > 0.2 ? `blur(${blur}px)` : undefined,
           display: "flex",
           flexDirection: "column",
           alignItems: align,
-          fontFamily: T.font,
-          textShadow: T.shadow,
+          fontFamily: tk.font,
+          textShadow: tk.shadow,
         }}
       >
         {body}

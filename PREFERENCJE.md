@@ -1,7 +1,66 @@
+## LongForm: napisy i typografia tylko we wstępie — 2026-10-17
+
+- Bazowo w filmie poziomym **poza wstępem nie robimy napisów ani typografii**. Wyjątek: podkreślenie konkretnego słowa albo dokładniejsze wytłumaczenie danego fragmentu (wtedy napisy/typografia tylko na tym fragmencie, z powodem w planie). Wstęp (hook, napisy, typografia) bez zmian.
+
+## LongForm: AI tylko przez konto CLI — 2026-10-16
+
+- Redakcja, rozdziały, hook, plan efektów i research LongForm idą przez operatora na koncie (Claude Code / Codex CLI), **nie przez płatne API gpt-6-luna**. „Domyślny z ustawień” w LongForm nie może rozwiązać się na płatne API; brak zalogowania = czytelny błąd, bez płatnego fallbacku. GPT-6 Luna zostaje tylko do opisów publikacji (zasada 2026-10-15).
+
+## Montaż poziomy LongForm i plugin Premiere — 2026-10-15 (plan)
+
+- Nowa funkcja (na razie research i plan, bez kodu): montaż poziomych nagrań „gadającej głowy”. Program sam tnie: cisza, „yyy/eee/aaa”, falstarty, dubli i zbędne powtórzenia — **inteligentnie, sens filmu i zdań bez zmian**. Cenzura przekleństw: ok. **80% słowa wyciszone do zera** (początek słyszalny) + **dźwięk kruka**.
+- Najpierw **pocięty materiał do przejrzenia**, dopiero po zatwierdzeniu montaż. Program dzieli film na rozdziały i rozpoznaje wstęp; **wstęp ma być angażujący** (hook, typografia, śledzenie twarzy, wycięcie osoby, podmiana tła, 3D, mockup telefonu, logotypy, liczby, wykresy, porównania, napisy z globalnych presetów kinetic i efekty z katalogu `docs/longform/efekty.md`).
+- Przebitki z Pexels, animacje, wizualne pokazanie omawianych rzeczy oraz **research tego, co mówi autor, żeby skutecznie doedukować widza** — w LongForm research domyślnie włączony (źródła obowiązkowe). Przejścia na cięciach, branding i preferencje klienta.
+- W przyszłości całe MontageFrames jako **plugin Premiere Pro**: montaż i animacje wykonywane na plikach zaimportowanych do projektu Premiere.
+- Przy pracy: UI/UX Pro Max, Superpowers, Ponytail, Hook Engineer, Silnik Social Media. Dokumenty: `zalozenia-funkcji-LongForm.md`, `plan-wdrozenia-LongForm.md`, `zalozenia-funkcji-Premiere.md`, `plan-wdrozenia-Premiere.md`, `docs/longform/`, `docs/premiere/`.
+
+## Opisy gotowych rolek — 2026-10-15 (globalnie)
+
+- Po ukończeniu montażu/renderu każdej gotowej rolki, dla każdego klienta oraz bez klienta, przygotować z faktycznej transkrypcji filmu krótki opis do publikacji przez **OpenAI API, model gpt-6-luna**. To jawnie zaakceptowany wyjątek od montażu przez kontoCLI.
+- Opis: mocny, prawdziwy hook + krótka puenta zachęcająca do obejrzenia, naturalne słowa kluczowe pod wyszukiwanie i **dokładnie5 hashtagów**. Bez streszczania wszystkiego, lania wody, keywordstuffingu, zmyślania faktów i obietnic, których film nie dowozi. Zachować ton klienta.
+- Opis udostępnić przy gotowym filmie wGUI do skopiowania oraz zapisać lokalnie. Koszt opisu pokazywać osobno od montażu. Zmiany samych zoomów/kadru nie powinny ponownie opłacać identycznego opisu; zmiana transkrypcji wymaga aktualnego opisu.
+- BłądAPI opisu nie usuwa gotowegoMP4 ani nie wymusza ponownego renderu; pokazać błąd i możliwość ponowienia samego opisu.
+
+## Nowy klient Happy News — 2026-10-15
+
+- Styl `happynews`: napisy jak u Bisanza, kreska pod kluczem różowa albo zielona, Bebas Neue + Poppins. Profil: `klienci/happy-news/PREFERENCJE.md`.
+- QuickContent przy poziomym źródle (YouTube, kilka kamer/osób): rozpoznaje cięcia kamer, przypisuje głos do twarzy po ruchu ust i śledzi osobę, która mówi. Ujęcia bez mówiącej twarzy (np. materiał z omawianego newsa) pokazuje w całości (poziomo, z rozmytym tłem) z napisami. Dotyczy wszystkich klientów QuickContent.
+
+## Poprawki użytkowniczki — 2026-10-15: prosty panel i ruch kadru
+
+- QuickContent: zmontowane filmy mają wyraźną zakładkę/przycisk w projekcie, szybkie obejrzenie, poprawki i pobranie. Uprościć panel: główne zadanie i wyniki na wierzchu, opcje techniczne/koszty/historia w ustawieniach lub zwijane.
+- Pion9:16 ma płynnie podążać za głową mówcy, utrzymując ją na środku, kiedy przesuwa się w poziomie. Subtelne zoomy. Nie deklarować śledzenia, jeśli detekcja nie zadziałała.
+- Gotową rolkę QuickContent o drogim aucie poprawić według profilu Kacpra Bisanza i zachować poprzedni MP4.
+
 # Preferencje montażu — zasady użytkowniczki
 
 Spisane poprawki i życzenia. Mają pierwszeństwo przed domyślnymi ustawieniami.
 Każdą nową poprawkę dopisuję tutaj (z datą), zanim zmienię kod.
+
+## QuickContent — założenia nowej funkcji *(2026-10-14)*
+
+- **Operator terminalowy i naprawa montażu *(2026-10-15)*:** QuickContent ma obsługiwać Claude Code i Codex przez lokalne CLI, na zalogowanym koncie, jako alternatywę dla osobno płatnego API. Wybór operatora ma być jawny w GUI i działać również przy uruchomieniu zadania z terminala. Sprawdzić i naprawić rzeczywisty błąd montażu API; zachować transkrypcję, selekcję i dotychczasowe poprawki.
+- **Pion i koszty *(2026-10-15)*:** fragmenty wynikowe mają być wycięte i wykadrowane do9:16; w GUI wybór rozdzielczości wyjściowej. Dla oszczędności wycinanie, pionowe kadrowanie i montaż dopiero po wyborze propozycji i kliknięciu przycisku montażu, bez kosztownej obróbki wszystkich propozycji. Pokazuj oddzielnie koszt analizy, montażu i kolejnych poprawek, z rozróżnieniem kosztu rzeczywistego, oszacowania i brakujących danych.
+- **Widoczność transkrypcji *(2026-10-15)*:** długie oczekiwanie na Whisper bez informacji jest punktem irytacji. Pokazuj prawdziwy postęp procentowy, przetworzony fragment/całość, aktualny krok i czas pracy; sprawdź też przyczynę wolnego działania. Procent ma wynikać z pracy narzędzia, bez animowanego zgadywania.
+- **Operator AI *(2026-10-15)*:** użytkowniczka poleciła skopiować `.env` z projektu AnimaFX i użyć jego konfiguracji, aby naprawić `Invalid MCP configuration: mcpServers: Invalid input` oraz uruchomić dalsze przetwarzanie QuickContent. Kluczy nie wypisywać w logach ani czacie.
+
+- **Kontynuacja i priorytet *(2026-10-15)*:** finisz aplikacji dzielić na etapy, jeśli całość grozi przekroczeniem limitu; po etapie zapisać stan i następne zadania. Użytkowniczka poleciła od razu naprawić błąd YouTube `HTTP403` przy yt-dlp2026.07.04 i ponowić rzeczywiste pobieranie.
+
+- **Zgoda na wdrożenie *(2026-10-14)*:** użytkowniczka poleciła rozpocząć implementację przygotowanych założeń i planu QuickContent. Etapy może dobrać Codex; podczas całego wdrożenia korzystać z Ponytail, UI/UX Pro Max i Superpowers. Zgoda obejmuje kod oraz integrację przez obecne GUI, nie tylko dalszą dokumentację.
+
+- Użytkowniczka zleca research i plan wdrożenia modułu QuickContent w obecnym GUI: link YouTube lub lokalny film → propozycje kompletnych rolek → wybór → montaż według klienta → korekty i pobranie. Dokumentacja ma obejmować założenia funkcji, plan wdrożenia i instrukcje w `AGENTS.md`. Przy planowaniu używać Ponytail, UI/UX Pro Max i Superpowers.
+- YouTube: osobno obraz bez audio w 1080p albo 4K, osobno najlepsza dostępna ścieżka audio, tytuł i metadane; ffmpeg łączy strumienie. Gotowy materiał źródłowy zostaje lokalnie w folderze wybranego istniejącego klienta; bez klienta w przestrzeni roboczej. Nie deklarować 4K, jeśli źródło go nie udostępnia.
+- Transkrypcja QuickContent przez Whisper. Analiza ma znajdować ciekawe, mocne, kontrowersyjne lub mające potencjał na rolki fragmenty. W GUI: klient i branding/szablon, tryb Auto albo tekstowe wskazówki tematów, preferowana długość, przycisk „Przetwarzaj”; praca w tle.
+- Najpierw maksymalnie wiele sensownych propozycji, bez automatycznego montażu. Każda ma zrozumiały początek, rozwinięcie i puentę, opis tematu oraz uzasadnioną ocenę charakteru/potencjału. Przycisk „Znajdź więcej” szuka nowych fragmentów bez powielania poprzednich; nie wymyśla treści, gdy materiał się wyczerpał.
+- Montować tylko zaznaczone propozycje. GUI pokazuje liczbę gotowych rolek, etapy i rzeczywisty postęp; po poprawnym zakończeniu wybranego montażu i renderu oznacza fragment „Zmontowane”. Dostępne: podgląd, ręczna korekta tekstu transkrypcji bez przesuwania czasów, czat do poprawek i pobranie aktualnego renderu.
+- Selekcja fragmentu nie pozwala zmieniać sensu wypowiedzi; w późniejszym montażu obowiązują preferencje klienta, w tym SkyClass: pełna wypowiedź i cisza wewnątrz wybranego fragmentu. Szczegóły architektury i domyślne ustawienia zapisane w dokumentacji QuickContent są propozycjami wdrożeniowymi, nie istniejącą funkcją panelu.
+
+## Motion Studio — dodatkowa funkcja *(2026-10-13)*
+
+- Na polecenie użytkowniczki poradnik „How to Build a Motion Design Studio With Opus 5.5” wdrażamy jako **osobny moduł w MontageFrames**, wykorzystujący istniejące Remotion, panel i narzędzia. Nie zastępuje montażu rolek, edycji transkrypcji ani stylów klientów i nie przebudowuje ich wyglądu.
+- Motion Studio: brief i prawdziwe materiały → plan ujęć → podgląd klatek i kontrola czytelności → poprawki → render. Modele i dostęp do AI z obecnych ustawień; nie wymuszać modelu z tytułu PDF, nie włączać płatnych API ani automatycznej publikacji przy instalacji.
+- Nie wymyślać ekranów produktu, liczb, opinii ani wyników kontroli jakości. Referencja służy do analizy języka ruchu, nie kopiowania cudzych znaków/treści. Zasady i istniejący branding klienta mają pierwszeństwo przed przykładami wyglądu z poradnika.
+- Niezapisane zmiany i gotowe materiały pozostają nienaruszone. Rendery motion dla klienta również trafiają do `klienci/<klient>/Render/`; pokazy/testy do `out/`.
 
 ## Pliki wynikowe
 
@@ -18,6 +77,8 @@ Każdą nową poprawkę dopisuję tutaj (z datą), zanim zmienię kod.
 
 - **Bez „samosiek” (wiszących krótkich słów).** Nigdy nie zostawiaj „i”, „a”, „o”, „u”, „w”, „z” ani innych krótkich spójników i przyimków (np. „do”, „na”, „od”, „po”, „za”, „ze”, „we”) samotnie w osobnej linii ani na końcu linii, akapitu lub grupy napisów, gdy dalszy ciąg trafia do następnej. Łącz je z następującym słowem w tej samej linii i grupie (np. „w SkyClass”, „z tego”, „i rezerwujesz”); przy łamaniu tekstu przenoś cały taki fragment razem, używając spacji nierozdzielającej. Dotyczy też podziału wokół dużego słowa-klucza oraz animacji: krótkie słowo nie może przez moment wisieć samo — pokaż je razem z następnym słowem, zachowując pełny tekst wypowiedzi. *(2026-10-03)*
 
+- **Napisy zawsze pod twarzą, nigdy na niej.** Zanim nałożę napisy, sprawdzam, gdzie mniej więcej jest twarz w kadrze (arkusz klatek co ~5 s z liniami pomocniczymi, dolną krawędź twarzy z zapasem na ruch zapisuję jako `face.bottom` w `reel.json` — silnik stawia napis nad kartą pod nią). Napis, tytuł-hak i każdy tekst stoją poniżej dolnej krawędzi twarzy (z zapasem), z uwzględnieniem zoomu ujęcia. Gdy napis stoi nad kartą, karta jest na tyle niska, żeby oba zmieściły się pod twarzą w strefie bezpiecznej. Przy kontroli klatek sprawdzam to na każdej grafice. *(2026-10-09)*
+- **Urozmaicone wejścia słów, mniej „pop out”.** Pop out (wyskakiwanie) to przyprawa, nie domyślny ruch: maks. kilka razy na rolkę, przy prawdziwej puencie. Wejścia dobieram do sensu i mieszam: `color` (słowo zalewa się kolorem akcentu), `slide` (wsuwa się z boku), `bounce` (spada ze sprężystym odbiciem), `wiggle` (wchodzi z krótkim zakołysaniem), `rise`/`drop` (spod maski), `letters` (litera po literze). Bez dwóch takich samych wejść pod rząd. Zakreślacz `hl` domyślnie przejeżdża od lewej zamiast wyskakiwać. *(2026-10-09)*
 - **Styl bazowy:** jak u Krzysztofa Persony / Toma Pietrzyka: płynne wjazdy i wyjazdy (lewo/prawo, góra/dół), słowo-klucz duże, reszta mała, estetyczna typografia, która dodaje rolce wartości. *(2026-10-02)*
 - **2–6 słów naraz**, napis trzyma się dłużej na ekranie, żeby nie migał. *(2026-10-02)*
 - **Zwarte, nie rozrzucone:** słowa stoją blisko siebie, wycentrowane, jako jeden blok. Żadnego rozrzucania słów po kadrze na lewo i prawo (np. „Spróbuj tego w swojej następnej rolce” ma być jednym zgrabnym blokiem). Dozwolone układy: `stack` i `inline`. *(2026-10-02)*
@@ -85,3 +146,54 @@ Kadr 1080×1920. Napisy, grafiki, logo i CTA trzymam tam, gdzie nie zasłoni ich
 
 - **Ręczna korekta transkrypcji jest najważniejszą funkcją.** Panel ma być prosty do zrozumienia; tekst wypowiedzi musi dać się poprawić manualnie po montażu, z czytelnym zapisem i podglądem. *(2026-10-08)*
 - **Przepływ jak w AnimaFX:** zaczynamy od dodania filmu, następnie wybieramy branding i dostawcę AI oraz wytyczne; AI montuje film na ich podstawie, a potem można poprawić transkrypcję i inne szczegóły. Do pracy nad panelem używamy UI/UX Pro Max, Superpowers i Impeccable. *(2026-10-08)*
+
+## Nowe skille motion design *(2026-10-14)*
+
+- Zainstalować OneTake, lemo-opuscar, ClaudeAnimationBase i gbro-collage-broll globalnie w Codexie i Claude Code. Przy motion design szczególnie korzystać z OneTake: ciągłość ruchu, widoczna przyczyna kolejnej animacji, elementy przechodzące między etapami i spokojna końcowa pauza. Dobierać pozostałe skille do zadania i respektować licencje ich kodu.
+
+## Co oznacza styl OneTake *(2026-10-14)*
+
+- Użytkowniczka oczekuje płynnych najazdów i przejść między sceneriami: zoom na samolot, przejście przez jego okno i wejście w przebitkę plaży. Samo użycie funkcji easing OneTake w animowanym bilecie nie spełnia tej intencji. Motion ma być widoczny w pracy kamery i ciągłości świata, a nie wyłącznie w animowaniu treści karty.
+
+
+## Hook otwarcia nad głową — 2026-10-15 (obowiązuje przy poprawkach)
+
+- Każda montowana rolka ma wyraźny tekst hooka **nad głową przez pierwsze3 sekundy**. Istniejącego hooka nie usuwać przy zmianie napisów, stylu, trackingiem ani porządkowaniu montażu. Kolizję rozwiązać pozycją, rozmiarem lub kadrem, zachowując tekst. Zmiana/usunięcie tylko na wyraźne polecenie użytkowniczki.
+- Formę opracowywać z **Hook Engineer** (`hook-engineer`) i **Silnik Social Media** (`silnik-social-media`): konkret, liczba/kontrast/problem lub uczciwa luka ciekawości, krótki overlay≈5–8 słów czytelny bez dźwięku, obietnica spełniona przez fragment, bez pustego clickbaitu, zmyślonych faktów i guru-hype. Struktura historii: hook → zaciekawienie → konkrety/payoff → domknięcie; bez dopisywania obcego audio lub fikcyjnegoCTA do źródła.
+- Skille dostarczają strukturę; głos, kolory i zakazy klienta mają pierwszeństwo. Nie przenosić osobistego tonu Wiktorii do klientów. Przy nowym hooku rozważyć3 różne kąty i wybrać najmocniejszy zgodny z nagraniem; istniejący zaakceptowany hook zachować.
+- Hook to osobna warstwa od napisów wypowiedzi. Zachować pełną treść nagrania i wymagane napisy (SkyClass1:1); nie usuwać ich mechanicznie tylko dlatego, że na górze jest hook.
+
+
+## Aktualizacja położenia hooka — 2026-10-15 (najnowsze polecenie, zastępuje „nad głową”)
+
+- Hook przez pierwsze3s ma być **pod tekstem / pod napisami wypowiedzi**, nie nad głową. Zachować odstęp i nie nakładać warstw. Na te3s podnieść zwykłe napisy pod twarz, a krótki hook umieścić niżej.
+- Docelowo całość w bezpiecznej strefie IG/TikTok: dolna krawędź ważnej treści≈0,75, prawa≤930/1080, lewa≥60/1080. Minimalne wejście w safezone tylko jeśli nie da się inaczej; najpierw zmniejszyć/zwęzić hook, skorygować układ i kadr. Twarz odsłonięta.
+- Obowiązek zachowania hooka i zasady Hook Engineer + Silnik Social Media pozostają. Aktualne położenie ma pierwszeństwo przed starszą instrukcją „nad głową”.
+
+
+## Opisy rolek: pierwsza osoba i własne wytyczne — 2026-10-15
+
+- Opis pisać w pierwszej osobie, z perspektywy autora/mówcy (np. „W tej rolce omawiam…”), bez narracji „[nazwa klienta] mówi o…”. Zachować krótki hook, naturalne słowa kluczowe, puentę i5hashtagów.
+- Przed generowaniem opisu dostępne pole własnego tekstu/wytycznych. Gotowy opis można od razu poprawić i zapisać w aplikacji; ręczna edycja bez kolejnego kosztu API. Wytyczne obowiązują globalnie dla wszystkich klientów.
+
+## Naprawa pobierania YouTube 4K — 2026-10-15
+
+- Naprawić błąd „Brak oddzielnego obrazu lub oryginalnej ścieżki audio” po wyborze 4K i ponowić rzeczywiste pobieranie wskazanego w projekcie filmu. Zachować przepływ jak w VSKTools: osobny obraz do 4K, osobne oryginalne audio, tytuł YouTube, następnie scalenie FFmpeg bez zbędnej kompresji. Zatrzymać poprzedni proces MontageFrames i uruchomić panel lokalnie ponownie.
+- Doprecyzowanie: gdy wybrane 4K jest niedostępne, automatycznie pobrać najlepszą dostępną jakość (dla aktualnego filmu Happy News: 1080p), z informacją o faktycznej rozdzielczości.
+
+## Emotki przy słowach i koszt pojedynczej rolki — 2026-10-15
+
+- Happy News (zakres sprostowany 2026-10-16): subtelna pasująca emotka Apple obok wypowiadanego słowa (np. trzmiele→🐝, skuter→🛵), zsynchronizowana z nim, bez zasłaniania treści/twarzy; pełny dostępny zestaw lokalny. Zachować tekst i czas słowa.
+- Pokazywać dla pojedynczego filmu zmierzone tokeny i koszt/kredyty montażu; rozróżniać API i konto terminalowe, poprawki i opis. Nie wymyślać zużycia kredytów ani traktować brakujących danych jako zera. Szczególne układy i oprawa Happy News w pliku klienta.
+
+
+## Zakres emotek i branding klientów — 2026-10-16 (najnowsze sprostowanie)
+
+- Automatyczne emotki przy wypowiadanych słowach, flagi, duży rozmiar i pop dotyczą wyłącznie klienta Happy News. Wcześniejsze słowo „Globalnie” w sekcji emotek było błędne; nie przenosić tej oprawy na innych klientów. Globalna informacja o kosztach pozostaje.
+- Każdy klient ma własny styl i preferencje. Kacper Bisanz: styl bisanz, biel i niebieski #066FED, nigdy pomarańcz persona. Przy poprawkach istniejącego projektu zachować źródło, transkrypcję i wcześniejsze rendery.
+- Nie dobierać przypadkowych emotek na podstawie wieloznacznych słów, podobnych rdzeni ani znaków/przycisków z ideogramami CJK. Brak jednoznacznego dopasowania oznacza brak emotki.
+## Panel UI/UX: biel, niebieski i prostota — 2026-10-17
+
+- Odświeżenie całego panelu MontageFrames: białe/jasne powierzchnie i niebieski akcent, intuicyjna i prosta obsługa. Główne zadanie oraz wyniki na wierzchu; szczegóły i dodatkowe opcje pod „Szczegóły” / „Więcej ustawień”.
+- Kierunek projektowy z pomocą skilla `gpt-taste`, podporządkowany prostocie aplikacji roboczej. Na tym etapie użytkowniczka zamówiła plan do wdrożenia, bez implementacji UI.
+- Po akceptacji: najpierw opublikować na GitHub aktualną bazę programu z klientami i preferencjami, bez filmów, sekretów i lokalnych projektów; następnie wdrażać zaakceptowany plan panelu. Zgoda na wdrożenie: 2026-10-17.

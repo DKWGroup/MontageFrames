@@ -1,0 +1,56 @@
+{
+  "publication": {
+    "status": "failed",
+    "error": "Nie udało się przygotować poprawnego opisu. Gotowy film zachowano; ponów sam opis.",
+    "contentHash": "25c4e50a83c4fe7d70d5d9c1bfafbd0d7e7070d5488b9a0d551efa735ab2b090",
+    "model": "gpt-6-luna",
+    "promptVersion": 1,
+    "usage": [],
+    "updatedAt": "2026-10-15T17:07:58.424Z"
+  },
+  "verifiedAt": "2026-10-15T17:08:02.189Z",
+  "jobId": "job-783c7b8b-fa9c-46a5-ad8a-2041aef61359",
+  "status": "completed",
+  "file": "klienci/kacper-bisanz/Render/qc-c310ad37c2e34aed-56c8858e0acc6c3d-v004.mp4",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "side_data_list": [
+          {}
+        ]
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "format": {
+      "duration": "42.581000"
+    }
+  },
+  "isCurrent": true,
+  "editRevision": 8,
+  "download": {
+    "status": 200,
+    "bytes": 44798351
+  },
+  "usage": [],
+  "trackingPoints": 45,
+  "hook": {
+    "type": "title",
+    "start": 0,
+    "end": 3,
+    "text": "Auto za 150 tysięcy?",
+    "hl": "150 tysięcy",
+    "y": 0.72,
+    "size": 58
+  },
+  "client": "kacper-bisanz",
+  "style": "bisanz",
+  "selectedCount": 8,
+  "fullAudioListening": false
+}

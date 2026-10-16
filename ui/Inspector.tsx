@@ -10,10 +10,14 @@ import {
   type OperatorStatus,
   type RenderFile,
   type Settings,
+  type QuickContentReelInfo,
 } from "./api";
+import { PublicationDescription } from "./PublicationDescription";
+import { publicationRefreshKey } from "./quickcontent-api";
+import { currentCandidate, reelRenderFiles } from "./quickcontent-view.mjs";
 import { overlayLabel, type Lane, type Lanes } from "./Timeline";
 
-export type Tab = "napisy" | "grafiki" | "ai" | "render";
+export type Tab = "napisy" | "kadr" | "grafiki" | "ai" | "render";
 export type JobView = {
   kind: JobKind | null;
   status: JobStatus | "idle";
@@ -38,6 +42,10 @@ type Props = {
   out: string;
   files: RenderFile[];
   job: JobView;
+  quickContent?: QuickContentReelInfo | null;
+  quickContentLoading?: boolean;
+  isQuickContent?: boolean;
+  pendingSave?: boolean;
   readOnly: boolean;
   operator: OperatorStatus | null;
   settings: Settings | null;
@@ -53,6 +61,7 @@ type Props = {
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "napisy", label: "Napisy" },
+  { id: "kadr", label: "Kadr" },
   { id: "grafiki", label: "Grafiki" },
   { id: "ai", label: "Operator AI" },
   { id: "render", label: "Render" },
@@ -109,6 +118,12 @@ export function Inspector(p: Props) {
           ) : (
             <Waiting />
           ))}
+        {p.tab === "kadr" &&
+          (p.data ? (
+            <Framing data={p.data} edit={p.edit} readOnly={p.readOnly} />
+          ) : (
+            <Waiting />
+          ))}
         {p.tab === "ai" && <Assistant {...p} hasReel={Boolean(p.data)} />}
         {p.tab === "render" && <RenderTab {...p} hasReel={Boolean(p.data)} />}
       </div>
@@ -122,6 +137,142 @@ const Waiting = () => (
     widać w zakładce Operator AI.
   </p>
 );
+
+function Framing({
+  data,
+  edit,
+  readOnly,
+}: {
+  data: ReelData;
+  edit: Edit;
+  readOnly: boolean;
+}) {
+  const framing = data.framing ?? {
+    mode: "crop" as const,
+    centerX: 0.5,
+    centerY: 0.5,
+  };
+  const update = (patch: Partial<NonNullable<ReelData["framing"]>>) =>
+    edit((d) => ({
+      ...d,
+      framing: {
+        mode: "crop",
+        centerX: 0.5,
+        centerY: 0.5,
+        ...d.framing,
+        ...patch,
+      },
+    }));
+  return (
+    <div className="stack qc-framing">
+      {data.framingNote && <p className="note">{data.framingNote}</p>}
+      <p className="note">
+        Dopasuj źródło do pionowego kadru. Zmiana zapisuje się i jest widoczna w
+        podglądzie.
+      </p>
+      <fieldset className="choices" disabled={readOnly}>
+        <legend>Dopasowanie obrazu</legend>
+        <label className="choice">
+          <input
+            type="radio"
+            name="framing-mode"
+            checked={framing.mode === "fit"}
+            onChange={() => update({ mode: "fit" })}
+          />
+          <span>
+            Pokaż cały obraz<small>Zachowaj pełną zawartość źródła.</small>
+          </span>
+        </label>
+        <label className="choice">
+          <input
+            type="radio"
+            name="framing-mode"
+            checked={framing.mode === "crop"}
+            onChange={() => update({ mode: "crop" })}
+          />
+          <span>
+            Wypełnij pionowy kadr<small>Dopasuj wycinek ręcznie.</small>
+          </span>
+        </label>
+      </fieldset>
+      {framing.tracking?.length ? (
+        <label className="choice">
+          <input
+            type="checkbox"
+            checked={framing.trackingEnabled !== false}
+            disabled={readOnly || framing.mode === "fit"}
+            onChange={(event) =>
+              update({ trackingEnabled: event.target.checked })
+            }
+          />
+          <span>
+            Podążaj za twarzą
+            <small>
+              Płynny ruch kadru. Wyłącz, żeby przesunąć obraz ręcznie.
+            </small>
+          </span>
+        </label>
+      ) : null}
+      <label className="field">
+        <span>
+          Pozycja obrazu w poziomie: {Math.round(framing.centerX * 100)}%
+        </span>
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.01}
+          value={framing.centerX}
+          disabled={readOnly || framing.mode === "fit"}
+          onChange={(event) =>
+            update({
+              centerX: event.target.valueAsNumber,
+              trackingEnabled: false,
+            })
+          }
+          aria-label="Pozycja obrazu w poziomie"
+        />
+      </label>
+      <label className="field">
+        <span>
+          Pozycja obrazu w pionie: {Math.round(framing.centerY * 100)}%
+        </span>
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.01}
+          value={framing.centerY}
+          disabled={readOnly || framing.mode === "fit"}
+          onChange={(event) =>
+            update({
+              centerY: event.target.valueAsNumber,
+              trackingEnabled: false,
+            })
+          }
+          aria-label="Pozycja obrazu w pionie"
+        />
+      </label>
+      {framing.mode === "fit" && (
+        <p className="note">
+          Cały obraz mieści się w kadrze. Przesuwanie wycinka jest dostępne po
+          wybraniu „Wypełnij pionowy kadr”.
+        </p>
+      )}
+      <button
+        type="button"
+        className="btn"
+        disabled={readOnly}
+        onClick={() =>
+          update({ centerX: 0.5, centerY: 0.5, trackingEnabled: false })
+        }
+      >
+        Wyśrodkuj obraz
+      </button>
+      <p className="note">Po zmianie kadru wyrenderuj aktualną wersję filmu.</p>
+    </div>
+  );
+}
 
 function useScrollTo(focus: Focus, lane: Lane, prefix: string) {
   useEffect(() => {
@@ -461,12 +612,24 @@ function Assistant(p: Props & { hasReel: boolean }) {
   };
   return (
     <div className="stack">
-      <OperatorNote
-        operator={p.operator}
-        settings={p.settings}
-        onRecheck={p.onRecheck}
-        onSettings={p.onSettings}
-      />
+      {p.isQuickContent || p.quickContent ? (
+        <p className="note">
+          Operator QuickContent:{" "}
+          {p.quickContent?.aiProvider === "openai"
+            ? "OpenAI API"
+            : p.quickContent?.aiProvider === "claude"
+              ? "Claude Code — konto CLI"
+              : "Codex — konto ChatGPT"}
+          . Używa ustawień tego projektu; zmienisz je po powrocie do propozycji.
+        </p>
+      ) : (
+        <OperatorNote
+          operator={p.operator}
+          settings={p.settings}
+          onRecheck={p.onRecheck}
+          onSettings={p.onSettings}
+        />
+      )}
       <form
         className="stack"
         onSubmit={(e) => {
@@ -490,14 +653,23 @@ function Assistant(p: Props & { hasReel: boolean }) {
           <button
             type="submit"
             className="btn primary"
-            disabled={running || !msg.trim() || !p.hasReel}
+            disabled={
+              running ||
+              !msg.trim() ||
+              !p.hasReel ||
+              Boolean(p.isQuickContent && p.pendingSave)
+            }
           >
             Wyślij poprawkę
           </button>
           <button
             type="button"
             className="btn"
-            disabled={running || !p.hasReel}
+            disabled={
+              running ||
+              !p.hasReel ||
+              Boolean(p.isQuickContent && p.pendingSave)
+            }
             onClick={() => {
               if (
                 confirm(
@@ -525,25 +697,88 @@ function Assistant(p: Props & { hasReel: boolean }) {
 
 function RenderTab(p: Props & { hasReel: boolean }) {
   const running = p.job.status === "running";
-  const files = [...p.files].sort((a, b) => b.mtime - a.mtime);
+  const qcMode = Boolean(p.isQuickContent || p.quickContent);
+  const candidate = p.quickContent?.candidate;
+  const current =
+    candidate && currentCandidate(candidate) && !p.pendingSave
+      ? candidate.currentRender?.filePath
+      : null;
+  const files = reelRenderFiles(
+    [...p.files].sort((a, b) => b.mtime - a.mtime),
+    p.name,
+    qcMode,
+  );
   return (
     <div className="stack">
-      <p className="note">
-        Plik trafi do <code>{p.out}</code>.
-      </p>
+      {qcMode ? (
+        <div className="note warn">
+          <p role="status">
+            {p.quickContentLoading
+              ? "Sprawdzam aktualność renderu…"
+              : current
+                ? `Zmontowane — aktualny render rewizji ${candidate?.editRevision ?? 0}`
+                : p.pendingSave
+                  ? "Najpierw zapisz zmiany, aby wyrenderować poprawki."
+                  : "Zmiany do wyrenderowania — brak aktualnego MP4"}
+          </p>
+          <p>Rendery są wersjonowane. Poprzednie pliki pozostają w folderze.</p>
+          {current && (
+            <a className="btn primary" href={api.fileUrl(current)} download>
+              Pobierz aktualny film
+            </a>
+          )}
+        </div>
+      ) : (
+        <p className="note">
+          Plik trafi do <code>{p.out}</code>.
+        </p>
+      )}
       <div className="row">
         <button
           type="button"
           className="btn primary"
-          disabled={running || !p.hasReel}
+          disabled={
+            running ||
+            !p.hasReel ||
+            Boolean(qcMode && (p.pendingSave || p.quickContentLoading))
+          }
           onClick={() => p.onStart({ kind: "render" })}
         >
-          {running && p.job.kind === "render" ? "Renderuję…" : "Renderuj"}
+          {running && p.job.kind === "render"
+            ? "Renderuję…"
+            : qcMode
+              ? current
+                ? "Renderuj nową wersję"
+                : "Renderuj poprawki"
+              : "Renderuj"}
         </button>
       </div>
       {p.job.kind === "render" && <JobPanel job={p.job} onStop={p.onStop} />}
-      <h3 className="sub">Gotowe pliki w tym folderze</h3>
-      {files.length ? (
+      {p.hasReel && (
+        <PublicationDescription
+          key={p.name}
+          reelName={p.name}
+          canGenerate={files.some((file) => {
+            const base = file.file.split("/").pop() ?? "";
+            return (
+              base === `${p.name}.mp4` ||
+              (base.startsWith(`${p.name}-v`) && /-v\d+\.mp4$/.test(base))
+            );
+          })}
+          refreshKey={`${p.job.status}:${publicationRefreshKey(candidate)}:${p.pendingSave}:${files
+            .filter((file) =>
+              (file.file.split("/").pop() ?? "").startsWith(p.name),
+            )
+            .map((file) => file.mtime)
+            .join(",")}`}
+        />
+      )}
+      <h3 className="sub">
+        {qcMode ? "Wersje tej rolki" : "Gotowe pliki w tym folderze"}
+      </h3>
+      {p.quickContentLoading ? (
+        <p className="note">Odczytuję informacje o aktualnej wersji…</p>
+      ) : files.length ? (
         <ul className="files">
           {files.map((f) => {
             const base = f.file.split("/").pop() ?? f.file;
@@ -554,6 +789,13 @@ function RenderTab(p: Props & { hasReel: boolean }) {
               >
                 <span>
                   <strong>{base}</strong>
+                  {qcMode && (
+                    <small>
+                      {f.file === current
+                        ? "Aktualna wersja"
+                        : "Wersja wcześniejsza"}
+                    </small>
+                  )}
                   <small>
                     {megabytes(f.size)},{" "}
                     {new Date(f.mtime).toLocaleString("pl-PL", {
@@ -575,7 +817,11 @@ function RenderTab(p: Props & { hasReel: boolean }) {
                     Pokaż w Finderze
                   </button>
                   <a className="btn sm" href={api.fileUrl(f.file)} download>
-                    Pobierz
+                    {qcMode
+                      ? f.file === current
+                        ? "Pobierz aktualną wersję"
+                        : "Pobierz wersję wcześniejszą"
+                      : "Pobierz"}
                   </a>
                 </span>
               </li>
@@ -655,13 +901,16 @@ export function JobPanel({
         </div>
       )}
       {job.lines.length > 0 && (
-        <ol className="log" ref={log}>
-          {job.lines.map((l, i) => (
-            <li key={i} className={lineClass(l)}>
-              {l}
-            </li>
-          ))}
-        </ol>
+        <details open={job.status === "error"}>
+          <summary>Szczegóły techniczne zadania</summary>
+          <ol className="log" ref={log}>
+            {job.lines.map((l, i) => (
+              <li key={i} className={lineClass(l)}>
+                {l}
+              </li>
+            ))}
+          </ol>
+        </details>
       )}
     </section>
   );

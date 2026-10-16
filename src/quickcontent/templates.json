@@ -1,0 +1,67 @@
+[
+  {
+    "id": "persona",
+    "name": "Persona — ogólny",
+    "styleId": "persona",
+    "clientId": null,
+    "assets": []
+  },
+  {
+    "id": "skyclass",
+    "name": "SkyClass",
+    "styleId": "skyclass",
+    "clientId": "skyclass",
+    "assets": [
+      "public/Brandings/SkyClass/skyclass-logo-2.png"
+    ]
+  },
+  {
+    "id": "herod",
+    "name": "Magdalena Herod",
+    "styleId": "herod",
+    "clientId": "magdalena-herod",
+    "assets": [
+      "klienci/magdalena-herod/okladka1.png"
+    ]
+  },
+  {
+    "id": "bisanz",
+    "name": "Kacper Bisanz",
+    "styleId": "bisanz",
+    "clientId": "kacper-bisanz",
+    "assets": []
+  },
+  {
+    "id": "ameryka",
+    "name": "Świeża Bryka Ameryka",
+    "styleId": "ameryka",
+    "clientId": "swieza-bryka-ameryka",
+    "assets": [
+      "public/Brandings/SwiezaBrykaAmeryka/logo-swieza-bryka.png"
+    ]
+  },
+  {
+    "id": "glowup",
+    "name": "GlowUp Nutrition",
+    "styleId": "glowup",
+    "clientId": "glowup-nutrition",
+    "assets": [
+      "klienci/glowup-nutrition/logo/logo-white.png",
+      "klienci/glowup-nutrition/produkty/produkty.json"
+    ]
+  },
+  {
+    "id": "vital",
+    "name": "Vital Hormone",
+    "styleId": "vital",
+    "clientId": "vital-hormone",
+    "assets": []
+  },
+  {
+    "id": "happynews",
+    "name": "Happy News",
+    "styleId": "happynews",
+    "clientId": "happy-news",
+    "assets": []
+  }
+]

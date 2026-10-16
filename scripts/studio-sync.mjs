@@ -253,6 +253,7 @@ function defaultsOf(source) {
 export function syncStudio(root = project) {
   const reels = path.join(root, "public/reels"),
     studio = path.join(root, "src/studio");
+  fs.mkdirSync(reels, { recursive: true });
   const names = fs
     .readdirSync(reels, { withFileTypes: true })
     .filter(
@@ -293,11 +294,11 @@ export const StudioReel: React.FC<ReelProps> = (props) => <Reel {...props} timel
 `,
     );
   });
-  if (JSON.stringify(Object.keys(defaults).sort()) === JSON.stringify(names))
+  if (rootSource.includes("<MotionCompositions />") && rootSource.includes("<QuickContentRenderCompositions />") && JSON.stringify(Object.keys(defaults).sort()) === JSON.stringify(names))
     return names;
   write(
     path.join(root, "src/Root.tsx"),
-    `// Rejestr synchronizowany automatycznie; defaultProps zapisuje także Studio.\nimport "./index.css";\nimport { Composition } from "remotion";\nimport { calculateReelMetadata } from "./Reel";\n${names.map((name, i) => `import { StudioReel as Reel${i} } from "./studio/${name}";`).join("\n")}\n\nexport const RemotionRoot: React.FC = () => (\n  <>\n${names.map((name, i) => `    <Composition id="${name}" component={Reel${i}} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={${JSON.stringify(defaults[name] ?? { reel: name })}} />`).join("\n")}\n  </>\n);\n`,
+    `// Rejestr synchronizowany automatycznie; defaultProps zapisuje także Studio.\nimport "./index.css";\n${names.length ? 'import { Composition } from "remotion";\nimport { calculateReelMetadata } from "./Reel";\n' : ""}import { MotionCompositions } from "./motion/Compositions";\nimport { QuickContentRenderCompositions } from "./quickcontent/RenderComposition";\n${names.map((name, i) => `import { StudioReel as Reel${i} } from "./studio/${name}";`).join("\n")}\n\nexport const RemotionRoot: React.FC = () => (\n  <>\n    <MotionCompositions />\n    <QuickContentRenderCompositions />\n${names.map((name, i) => `    <Composition id="${name}" component={Reel${i}} calculateMetadata={calculateReelMetadata} width={1080} height={1920} fps={30} durationInFrames={1} defaultProps={${JSON.stringify(defaults[name] ?? { reel: name })}} />`).join("\n")}\n  </>\n);\n`,
   );
   return names;
 }

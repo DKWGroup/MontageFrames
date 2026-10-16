@@ -1,0 +1,109 @@
+{
+  "publication": {
+    "status": "ready",
+    "contentHash": "30c3517debd7c8fcb86a31fa86b54c07b3fcf0bd84cce1e2ebfdf1bdcd4ea24f",
+    "model": "gpt-6-luna",
+    "promptVersion": 1,
+    "usage": [
+      {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "responseId": "resp_02ad41cd280f0752016ad10b43d59087d29a359878bcab41d7",
+        "inputTokens": 5302,
+        "outputTokens": 136,
+        "cachedTokens": 0,
+        "cacheWriteTokens": 5299,
+        "costMicroUsd": 730.675,
+        "pricingDate": "2026-10-15",
+        "priceSource": "https://developers.openai.com/api/docs/pricing",
+        "at": "2026-10-15T17:20:06.424Z",
+        "purpose": "description"
+      },
+      {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "responseId": "resp_0316f48b24842ae1016ad10b48f63c87d2a95d2bfd1f56935b",
+        "inputTokens": 5302,
+        "outputTokens": 152,
+        "cachedTokens": 5299,
+        "cacheWriteTokens": 0,
+        "costMicroUsd": 129.29,
+        "pricingDate": "2026-10-15",
+        "priceSource": "https://developers.openai.com/api/docs/pricing",
+        "at": "2026-10-15T17:20:11.786Z",
+        "purpose": "description"
+      }
+    ],
+    "updatedAt": "2026-10-15T17:20:11.796Z",
+    "hook": "Auto za 150 tysięcy, żeby nie spóźnić się do pracy?",
+    "body": "Czy naprawdę potrzebujesz drogiego auta na kredyt, żeby dojeżdżać do pracy? Kacper bez owijania w bawełnę mówi o różnicy między potrzebą a przekonaniem, że samochód nie może się zepsuć. Posłuchaj, dlaczego awaria i spóźnienie nie muszą oznaczać końca świata.",
+    "hashtags": [
+      "#kredytSamochodowy",
+      "#zakupAuta",
+      "#finanseOsobiste",
+      "#samochód",
+      "#rozsądneFinanse"
+    ],
+    "text": "Auto za 150 tysięcy, żeby nie spóźnić się do pracy?\n\nCzy naprawdę potrzebujesz drogiego auta na kredyt, żeby dojeżdżać do pracy? Kacper bez owijania w bawełnę mówi o różnicy między potrzebą a przekonaniem, że samochód nie może się zepsuć. Posłuchaj, dlaczego awaria i spóźnienie nie muszą oznaczać końca świata.\n\n#kredytSamochodowy #zakupAuta #finanseOsobiste #samochód #rozsądneFinanse"
+  },
+  "verifiedAt": "2026-10-15T17:20:13.919Z",
+  "jobId": "job-e04a764c-370b-4257-ab80-35432d1e9446",
+  "status": "completed",
+  "file": "klienci/kacper-bisanz/Render/qc-c310ad37c2e34aed-56c8858e0acc6c3d-v005.mp4",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "side_data_list": [
+          {}
+        ]
+      },
+      {
+        "codec_name": "aac"
+      }
+    ],
+    "format": {
+      "duration": "42.581000"
+    }
+  },
+  "isCurrent": true,
+  "editRevision": 9,
+  "download": {
+    "status": 200,
+    "bytes": 43821225
+  },
+  "usage": [
+    {
+      "provider": "openai",
+      "model": "gpt-6-luna",
+      "responseId": "resp_02ad41cd280f0752016ad10b43d59087d29a359878bcab41d7",
+      "inputTokens": 5302,
+      "outputTokens": 136,
+      "cachedTokens": 0,
+      "cacheWriteTokens": 5299,
+      "costMicroUsd": 730.675,
+      "purpose": "description",
+      "pricingDate": "2026-10-15",
+      "priceSource": "https://developers.openai.com/api/docs/pricing",
+      "at": "2026-10-15T17:20:06.424Z"
+    }
+  ],
+  "trackingPoints": 45,
+  "hook": {
+    "type": "title",
+    "start": 0,
+    "end": 3,
+    "text": "Auto za 150 tysięcy?",
+    "hl": "150 tysięcy",
+    "y": 0.72,
+    "size": 58
+  },
+  "client": "kacper-bisanz",
+  "style": "bisanz",
+  "selectedCount": 8,
+  "fullAudioListening": false
+}

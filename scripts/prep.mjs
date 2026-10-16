@@ -8,8 +8,8 @@ import { pathToFileURL } from "node:url";
 
 // Cięcie ciszy: próg głośności i minimalna długość pauzy do wycięcia.
 // Głośne tło (ulica, wiatr) -> podnieś NOISE_DB do -30.
-const NOISE_DB = -35;
-const MIN_SILENCE = 0.4;
+export const NOISE_DB = -35;
+export const MIN_SILENCE = 0.4;
 const PAD = 0.08; // zapas audio zostawiany po obu stronach cięcia
 
 // Słowa, które nie mogą kończyć grupy (lepią się do następnego) i nie są słowem-kluczem.
@@ -74,7 +74,7 @@ export function buildReel({ source, words, silences, duration, style = "persona"
   let dir = 0;
   const pauses = silences.map((s) => s.start);
   // glowup: 2–5 słów, przecinek/pauza tnie dopiero od 3 słów — napisy dłużej na ekranie (klienci/glowup-nutrition)
-  const opts = style === "glowup" ? { maxWords: 5, minSoft: 3 } : {};
+  const opts = style === "bisanz" ? { maxWords: 6, maxChars: 42, minSoft: 4 } : style === "glowup" || style === "vital" ? { maxWords: 5, minSoft: 3 } : {};
   const captions = groupWords(words, { pauses, ...opts }).map((g, i) => {
     const group = {
       words: g.map(({ text, start, end }) => ({ text, start, end })),
@@ -85,7 +85,7 @@ export function buildReel({ source, words, silences, duration, style = "persona"
     if (/[.!?]$/.test(g.at(-1).text)) dir++; // nowe zdanie = nowy kierunek wjazdu
     return group;
   });
-  return { source, style, ...(client && { client }), fps: 30, ...(style === "glowup" && { hold: 0.7 }), segments, captions, overlays: [] };
+  return { source, style, ...(client && { client }), fps: 30, ...((style === "glowup" || style === "vital") && { hold: 0.7 }), segments, captions, overlays: [] };
 }
 
 // Katalog produktów klienta (klienci/<klient>/produkty/produkty.json): ASR myli nazwy („szild” zamiast SHIELD),
@@ -144,7 +144,11 @@ export const styleOf = (input) =>
           ? "ameryka"
           : /glowup/i.test(input)
             ? "glowup"
-            : "persona";
+            : /vital-?hormone/i.test(input)
+              ? "vital"
+              : /happy-?news/i.test(input)
+                ? "happynews"
+                : "persona";
 
 // Nazwa rolki/klienta: małe litery, bez polskich znaków, myślniki zamiast reszty.
 export const slug = (s) =>
@@ -156,10 +160,10 @@ export const slug = (s) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-function detectSilences(file) {
+export function detectSilences(file, noiseDb = NOISE_DB, minSilence = MIN_SILENCE) {
   const { stderr } = spawnSync(
     "ffmpeg",
-    ["-hide_banner", "-i", file, "-af", `silencedetect=noise=${NOISE_DB}dB:d=${MIN_SILENCE}`, "-f", "null", "-"],
+    ["-hide_banner", "-i", file, "-af", `silencedetect=noise=${noiseDb}dB:d=${minSilence}`, "-f", "null", "-"],
     { encoding: "utf8" },
   );
   const out = [];

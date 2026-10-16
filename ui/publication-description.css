@@ -1,0 +1,56 @@
+.publication-description {
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+  padding-top: 16px;
+  min-width: 0;
+}
+.publication-description h3 {
+  margin: 0 0 8px;
+}
+.publication-description-meta {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.publication-description-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  user-select: text;
+}
+.publication-description-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+.publication-description-actions .btn {
+  min-height: 44px;
+}
+.publication-description-field {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0;
+}
+.publication-description-field label {
+  display: grid;
+  gap: 8px;
+}
+.publication-description-field textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  resize: vertical;
+  min-height: 96px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  line-height: 1.5;
+}
+.publication-description-field .btn {
+  min-height: 44px;
+  justify-self: start;
+}

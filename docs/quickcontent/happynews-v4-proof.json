@@ -1,0 +1,145 @@
+{
+  "verifiedAt": "2026-10-16T13:13:25.094Z",
+  "projectId": "qc-42b2386b-063f-4787-ad94-55571385e7ed",
+  "films": [
+    {
+      "title": "Zarzuty o rozprzedaż Polski i cisza przy zakupach",
+      "reelName": "qc-bcf526f4a6fe12de-0e9b4d28d3f4f096",
+      "candidateId": "c-fd4d3d67-9909-491f-99f1-02fe8325d655",
+      "revision": 6,
+      "isCurrent": true,
+      "render": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-0e9b4d28d3f4f096-v007.mp4",
+        "renderRevision": 6,
+        "signature": "631ca7290e4da493db7d7347719e00a253c923c698d558d43cd2e1d0612ec920",
+        "verified": true,
+        "createdAt": "2026-10-16T13:07:46.259Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-3c550447-2f4e-4b33-8561-51ef64f079d6/input.json"
+      },
+      "jobId": "job-3c550447-2f4e-4b33-8561-51ef64f079d6",
+      "newUsage": [
+        {
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "responseId": "resp_01c83052d53cf02c016ad221a389e887d1b22d8647cb4e7463",
+          "inputTokens": 2556,
+          "outputTokens": 123,
+          "cachedTokens": 0,
+          "cacheWriteTokens": 2553,
+          "costMicroUsd": 380.925,
+          "purpose": "description",
+          "pricingDate": "2026-10-15",
+          "priceSource": "https://developers.openai.com/api/docs/pricing",
+          "at": "2026-10-16T13:07:49.991Z"
+        }
+      ],
+      "montageUsage": [],
+      "descriptionCostMicroUsd": 380.925,
+      "layoutKinds": [
+        "speaker",
+        "duo"
+      ],
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "33.003000"
+        }
+      }
+    },
+    {
+      "title": "Trzmiel nie zdążył wrócić? Śpi w kwiatku",
+      "reelName": "qc-bcf526f4a6fe12de-90b068b31a1788b9",
+      "candidateId": "c-485bb458-6fa4-4c07-8fc0-e45c1acb9388",
+      "revision": 6,
+      "isCurrent": true,
+      "render": {
+        "filePath": "klienci/happy-news/Render/qc-bcf526f4a6fe12de-90b068b31a1788b9-v004.mp4",
+        "renderRevision": 6,
+        "signature": "21563a0a1c2d0c5591641af233b1be0a1b00566f8373b3cc296cc9a89335dd5e",
+        "verified": true,
+        "createdAt": "2026-10-16T13:12:41.697Z",
+        "snapshotPath": ".quickcontent/render-snapshots/job-70fd3483-3c2e-41de-8a8b-39c0b99d8746/input.json"
+      },
+      "jobId": "job-70fd3483-3c2e-41de-8a8b-39c0b99d8746",
+      "newUsage": [
+        {
+          "provider": "openai",
+          "model": "gpt-6-luna",
+          "responseId": "resp_042b4846c1babfcc016ad222cca09887d18fdbb27a60516132",
+          "inputTokens": 2671,
+          "outputTokens": 114,
+          "cachedTokens": 0,
+          "cacheWriteTokens": 2668,
+          "costMicroUsd": 390.8,
+          "purpose": "description",
+          "pricingDate": "2026-10-15",
+          "priceSource": "https://developers.openai.com/api/docs/pricing",
+          "at": "2026-10-16T13:12:47.906Z"
+        }
+      ],
+      "montageUsage": [],
+      "descriptionCostMicroUsd": 390.8,
+      "layoutKinds": [
+        "speaker",
+        "duo-media",
+        "duo"
+      ],
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "57.344000"
+        }
+      }
+    }
+  ],
+  "renderedCandidates": 2,
+  "asrRepeated": false,
+  "montageAiRepeated": false,
+  "tests": {
+    "passed": 343,
+    "failed": 0
+  },
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 24
+  },
+  "notes": [
+    "Single-host captions override old stored y values; duo caption positions preserved.",
+    "Single-host scale fixed at .735, approved 0:24 framing retained.",
+    "Credit initial capital, 20% larger (27.6/31.2 px), raised to y220.",
+    "Word emoji 1.5em capped150px, persistent tilt7degrees, pop; country flags supported."
+  ],
+  "fullListeningCheck": false
+}

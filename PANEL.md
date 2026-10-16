@@ -2,6 +2,41 @@
 
 Wrzucasz nagranie, operator AI montuje je według zasad klienta, poprawiasz szczegóły w podglądzie i renderujesz do `klienci/<klient>/Render/`.
 
+## QuickContent — moduł w odbiorze *(2026-10-15)*
+
+W bocznym menu wybierz **QuickContent → Nowy projekt** (`http://127.0.0.1:3100/#qc`). Wklej YouTube albo wgraj film, wybierz klienta lub przestrzeń roboczą, szablon, Auto/tematy i długość. „Przetwarzaj” zapisuje źródło, uruchamia Whisper i analizę; dopiero „Zmontuj zaznaczone” montuje wybrane propozycje. Postęp pokazuje etap i rzeczywisty pomiar; partia liczy aktualne rendery. Rolka otwiera istniejący edytor z napisami, kadrem, czatem i wersjami MP4.
+
+Narzędzia: Node≥22, FFmpeg/ffprobe, yt-dlp z EJS oraz Whisper Python CLI i lokalny model `large-v3-turbo` w `~/.cache/whisper/`. Model nie pobiera się w ukryciu. Materiał źródłowy i ASR są lokalne; tekst analizy trafia do wybranego dostawcy AI.
+
+QuickContent domyślnie używa **Codex CLI zalogowanego kontem ChatGPT**. W formularzu i projekcie wybierasz Codex, Claude Code (konto terminalowe) albo jawnie płatne OpenAI API. Tryby konta nie przełączają się automatycznie na klucz API; wykorzystują subskrypcję i jej limity. Codex jest tutaj zalogowany; Claude wymaga `claude auth login`. Klucze z lokalnego `.env` pozostają wyłącznie po stronie serwera i są używane tylko po wyborze API. Wskaźnik Claude w bocznym menu dotyczy starszych rolek; QuickContent ma własny status operatora.
+
+QuickContent działa także bez GUI. Terminal uruchamia tę samą kolejkę i zapisuje te same projekty; jeśli działa panel tego repozytorium, łączy się z nim. W przeciwnym razie uruchamia własny worker na czas polecenia:
+
+```bash
+npm run quickcontent -- list
+npm run quickcontent -- status <projekt-lub-job>
+npm run quickcontent -- import 'https://youtu.be/VIDEO_ID' --operator codex
+npm run quickcontent -- import '/ścieżka/film.mp4' --operator claude
+npm run quickcontent -- montage <projekt> --operator codex
+npm run quickcontent -- retry <job> --operator codex
+```
+
+`montage` bez listy ID montuje zapisane zaznaczenia. Można podać po ID projektu listę ID propozycji rozdzielonych przecinkami. Polecenia `process` i `more` uruchamiają analizę; same nie montują. `--help` pokazuje opcje. Przerwanie nie usuwa źródeł i ukończonych wersji.
+
+Naprawa montażu2026-10-15: model dostaje samowystarczalny kontrakt JSON zmian zamiast poleceń edycji plików. `data:null` jest odrzucane przed zapisem, a metadane, czasy i efekty klienta są zachowywane. Potwierdzono pełny montaż42,581s przez konto Codex i krótki test kontraktu API. [Dowód i ograniczenia](docs/quickcontent/terminal-operator-plan.md).
+
+Whisper pokazuje procent z liczby przetworzonych ramek audio, rozpoznany czas / długość nagrania, czas trwania etapu i oszacowanie pozostałego czasu z procesu. Ładowanie modelu ma osobny komunikat bez wymyślonego procentu. Postęp zmienia się po ukończeniu fragmentu;100% pojawia się dopiero po kontroli i zapisie transkrypcji. Zapisany wynik jest używany ponownie przy retry analizy AI.
+
+**Pion i koszty (2026-10-15):** rozdzielczość rolki9:16 wybierasz w formularzu lub nad propozycjami:720×1280,1080×1920 (domyślna),2160×3840. Jakość pobrania YouTube jest oddzielna. Propozycje pokazują surowy zakres źródła; dopiero kliknięcie „Zmontuj zaznaczone” wycina i montuje wybrane pozycje. Domyślne kadrowanie wypełnia pion. NaMac lokalny detektor próbuje wykryć twarz co sekundę; kadr płynnie podąża za jej pozycją. Mocne zbliżenia źródła mogą być lekko oddalone na rozmytym tle, żeby zostawić miejsce na twarz i napisy. Brak detekcji utrzymuje ostatnią pozycję, a całkowity brak detektora daje jawne wyśrodkowanie. Ręczna korekta w zakładceKadr wyłącza śledzenie; nie gwarantujemy automatycznego wyboru aktualnego mówcy w rozmowie wielu osób.
+
+Karta „Koszty projektu” rozdziela analizę/znajdowanie, montaż i czat. KwotyUSD wynikają z zapisanych tokenów odpowiedzi i jawnego cennika, bez podatków; brak pomiaru nie oznacza0. Dawnej analizy nie powtarzamy dla odzyskania kosztu. Whisper, wycinanie, kadrowanie i render mają0USD opłatyAPI — wykorzystują lokalny komputer. Wybranie checkboxa nie uruchamiaAI. Orientacyjny koszt kolejnej odpowiedzi montażu pojawia się po pierwszym zmierzonym montażu; nie jest gwarantowaną ceną rolki. Zmiana rozdzielczości i retry po błędzie renderu używają ukończonego montażu bez nowegoAI, zachowując ręczne poprawki i czat. Wcześniejsze MP4 pozostają w wersjach.
+
+Po zmianie tekstu dotychczasowy MP4 staje się archiwalny; wyrenderuj nową wersję, aby dostać aktualny plik i badge. Konflikt zapisu zachowuje draft. Master jest w `klienci/<klient>/QuickContent/<projekt>/` albo `.quickcontent/workspace/<projekt>/`; rendery w folderze klienta `Render/` lub `out/`, z numerem wersji.
+
+**Gotowe filmy:** otwórz projekt QuickContent i wybierz zakładkę **Zmontowane (N)** tuż pod tytułem źródła. Każda aktualna rolka ma odtwarzacz, **Obejrzyj i popraw** oraz **Pobierz**. Opcje techniczne, koszt i zakończone zadania są w **Ustawieniach**. Napisy poprawiasz w edytorze; po zmianie wyrenderuj poprawki. W zakładceKadr możesz wyłączyć **Podążaj za twarzą** lub przesunąć obraz ręcznie. Śledzenie bazuje na lokalnej detekcji co sekundę i wygładzonym ruchu; na komputerze bez detektora pokazujemy fallback.
+
+**Pełny odbiór nadal trwa.** [Raport sprawdzeń i ograniczeń](docs/quickcontent/acceptance.md), [założenia](zalozenia-funkcji-QuickContent.md), [plan wdrożenia](plan-wdrozenia-QuickContent.md), [ekrany GUI](docs/quickcontent/gui.md), [research OpusClip](docs/quickcontent/opusclip-research.md). Dalsza instrukcja opisuje także dotychczasowy montaż rolek.
+
 ## Uruchomienie
 
 ```bash
@@ -60,3 +95,14 @@ Czat z Claude'em w Claude Code działa jak dotąd, na tych samych plikach.
 Bloki ujęć, grafik i napisów pozostają na osi czasu przez całą rolkę. Kliknięcie wybiera konkretny blok i otwiera jego inspektor. Podstawowe ustawienia czasu i wyglądu zapisują się automatycznie; synchronizator przenosi je do sekcji `studio` w `reel.json`, którą uwzględniają również panel i render.
 
 `npm run dev` synchronizuje definicje bloków i uruchamia obserwowanie zmian. `npm run studio:sync` służy do synchronizacji ręcznej. Definicje w `src/studio/<rolka>/` mają osobny plik dla każdego bloku, aby edycja nie zmieniała lokalizacji pozostałych ścieżek. Właściwości domyślne kompozycji zapisuje Studio w `src/Root.tsx`.
+
+
+## Opis do publikacji (globalnie, 2026-10-15)
+
+Po ukończeniu filmu panel tworzy przezGPT‑6LunaAPI krótki opis z jego transkrypcji: hook, puenta ze słowami kluczowymi i5hashtagów. Znajdziesz go przy gotowym filmie wZmontowane lub wRender edytora. PrzyciskKopiujopis kopiuje całość. Koszt jest osobny od montażu przez kontoCLI. BłądAPI nie usuwa filmu; Ponówtylkoopis nie renderuje go ponownie. Dawna biblioteka nie jest automatycznie wysyłana doAPI przy oglądaniu.
+
+KacperBisanz ma wyłączone zoomy kamery; tracking w poziomie pozostaje. Poprzednie plikiMP4 zostają wwersjach. Opis zapisuje się również w `public/reels/<rolka>/publication.txt` iJSONz pomiaremkosztu. Bezpośredni eksportCLI kończ poleceniem `node scripts/reel-description.mjs <rolka>`.
+
+### Własne wytyczne i poprawianie opisów (2026-10-15)
+
+QuickContent → projekt → **Ustawienia**: pole wskazówek do opisu przed pierwszym montażem. Przy konkretnej rolce można zapisać inne wskazówki. Opisy powstają w pierwszej osobie autora. Przy gotowym opisie zmień tekst w polu i kliknij **Zapisz opis bez AI**; zapis jest bezpłatny, nie uruchamia renderu. **Kopiuj opis** kopiuje aktualnie widoczny tekst. Ponowne generowanie korzysta zAPI i jest rozliczane oddzielnie.

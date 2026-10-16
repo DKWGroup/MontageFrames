@@ -163,3 +163,15 @@ Gdy pada kraj, miasto, wyspa albo region, pokazuję **najbardziej rozpoznawalną
 - Przejścia przebitek: 10–12 klatek, ruch zawsze z jednym kierunkiem lotu w obrębie rolki (lewo → prawo).
 - Odliczanie kwot: ~0,8 s, ostatnie cyfry zwalniają.
 - Bez ciągłego migania, pulsowania i wiecznie sypiących się dolarów: każdy efekt gra raz.
+
+## Motion overlay Warszawa–Alicante *(2026-10-14)*
+
+- Przygotować 5-sekundową animację pionową 1080×1920 z przezroczystym tłem do nałożenia na nagranie: samolot leci z Warszawy do Alicante, trasa rysuje się w czasie lotu, następnie pojawia się cena 199 zł. Paleta SkyClass i Poppins, kwota w zielonym neonie. Jeden ciągły ruch w duchu OneTake.
+
+- Użytkowniczka potwierdziła, że SkyClass jest projektem niekomercyjnym, i zezwoliła na korzystanie z OneTake w tym projekcie (licencja PolyForm Noncommercial). *(2026-10-14)*
+
+## Korekta stylu animacji OneTake *(2026-10-14)*
+
+- „W stylu OneTake” oznacza widoczny, płynny ruch kamery między sceneriami: najazd na samolot, zmiana scenerii i przejście do przebitki plaży. Sam animowany bilet z rysowaną trasą nie realizuje tej intencji. Kolejne etapy mają wynikać z poprzednich przez zoom, wspólny element i ciągły ruch, bez slajdowych przeskoków.
+
+- Użytkowniczka zatwierdziła przebitkę Pexels „Drone Footage of a Beach in Alicante, Spain” (www.EPiC VIDEO.es, video 14627392) do animacji OneTake. *(2026-10-14)*

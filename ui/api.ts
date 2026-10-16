@@ -1,5 +1,40 @@
 // Klient API panelu w przeglądarce (strona serwera: ui/server.mjs).
 import type { ReelData } from "../src/Reel";
+import type { QCCandidate, QCProvider } from "./quickcontent-api";
+
+export type QuickContentReelInfo = {
+  projectId: string;
+  candidateId: string;
+  candidate: QCCandidate;
+  projectTitle?: string;
+  aiProvider?: QCProvider;
+};
+export type PublicationDescriptionData = {
+  status: "ready" | "failed" | "stale" | "missing" | "generating";
+  instructions?: string;
+  canGenerate?: boolean;
+  hook?: string;
+  body?: string;
+  hashtags?: string[];
+  text?: string;
+  model?: string;
+  usage?: {
+    costMicroUsd?: number | null;
+    inputTokens?: number;
+    outputTokens?: number;
+  }[];
+  error?: string;
+  isCurrent?: boolean;
+};
+export type SaveResult = { ok: true; editRevision?: number };
+export class PanelError extends Error {
+  constructor(
+    message: string,
+    public status: number,
+  ) {
+    super(message);
+  }
+}
 
 export type RenderFile = { file: string; size: number; mtime: number };
 export type JobKind = "render" | "montage" | "chat";
@@ -47,6 +82,7 @@ async function call<T>(
   method: string,
   url: string,
   body?: unknown,
+  headers?: Record<string, string>,
 ): Promise<T> {
   const res = await fetch(`/api${url}`, {
     method,
@@ -54,19 +90,73 @@ async function call<T>(
     headers:
       method === "GET"
         ? {}
-        : { "X-Panel": "1", "Content-Type": "application/json" },
+        : { "X-Panel": "1", "Content-Type": "application/json", ...headers },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error ?? `Błąd serwera (${res.status})`);
+  if (!res.ok)
+    throw new PanelError(
+      data.error ?? `Błąd serwera (${res.status})`,
+      res.status,
+    );
   return data as T;
 }
 
 export const api = {
+  description: (name: string) =>
+    call<PublicationDescriptionData>(
+      "GET",
+      `/description/${encodeURIComponent(name)}`,
+    ),
+  saveDescription: (
+    name: string,
+    body: { instructions: string } | { text: string },
+  ) =>
+    call<PublicationDescriptionData>(
+      "PUT",
+      `/description/${encodeURIComponent(name)}`,
+      body,
+    ),
+  generateDescription: (name: string) =>
+    call<PublicationDescriptionData>(
+      "POST",
+      `/description/${encodeURIComponent(name)}`,
+      {},
+    ),
   library: () => call<Library>("GET", "/library"),
   reel: (name: string) => call<ReelData>("GET", `/reel/${name}`),
-  save: (name: string, data: ReelData) =>
-    call<{ ok: true }>("PUT", `/reel/${name}`, data),
+  reelState: async (
+    name: string,
+  ): Promise<{ data: ReelData; editRevision?: number }> => {
+    const response = await fetch(`/api/reel/${encodeURIComponent(name)}`);
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok)
+      throw new PanelError(
+        data.error ?? `Błąd serwera (${response.status})`,
+        response.status,
+      );
+    const value = response.headers.get("X-Edit-Revision");
+    return {
+      data,
+      ...(value !== null && /^\d+$/.test(value)
+        ? { editRevision: Number(value) }
+        : {}),
+    };
+  },
+  quickContentReel: (name: string) =>
+    call<QuickContentReelInfo | null>(
+      "GET",
+      `/quickcontent/reels/${encodeURIComponent(name)}`,
+    ),
+  save: (name: string, data: ReelData, expectedEditRevision?: number) =>
+    call<SaveResult>(
+      "PUT",
+      `/reel/${encodeURIComponent(name)}`,
+      data,
+      expectedEditRevision === undefined
+        ? undefined
+        : { "X-Edit-Revision": String(expectedEditRevision) },
+    ),
   start: (
     name: string,
     body: { kind: JobKind; input?: string; message?: string; render?: boolean },

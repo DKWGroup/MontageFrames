@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-15",
+  "engine": "installed Whisper large-v3-turbo CPU, word_timestamps=true",
+  "source": "12.12-second excerpt from cNONgIqtjU0",
+  "elapsedSeconds": 19.941,
+  "audioSeconds": 12.12,
+  "words": 30,
+  "measuredReports": 3,
+  "finalProgress": 1,
+  "observedProgress": [
+    0,
+    0.99,
+    1
+  ],
+  "notes": [
+    "Percent derived from actual Whisper frame counters",
+    "100% only after validating and saving transcript",
+    "No full source retranscription was performed"
+  ]
+}

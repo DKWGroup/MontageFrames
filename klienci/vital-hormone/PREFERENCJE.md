@@ -1,6 +1,6 @@
 # Vital Hormone — preferencje montażu klienta
 
-Zapisano: **2026-10-09**. Strona: [vital-hormone.pl](https://vital-hormone.pl) (WordPress + Tailwind). Centrum medyczne online: diagnostyka hormonalna i terapia testosteronem (TRT) dla mężczyzn. Styl w silniku: **`vital`** (jeszcze niezbudowany). Plan: czwarty motyw silnika ruchu Bisanza (`kineticCaptions(T)` / `kineticOverlay(T)` z `src/styles/bisanz.tsx`, jak `AMERYKA` i `glowup`), własne grafiki `VitalOverlay`, wpis w `STYLES` (`src/Reel.tsx`) i wykrywanie po „vital-hormone” w ścieżce (`styleOf` w `scripts/prep.mjs`). Dopóki styl nie powstanie, ten plik służy jako profil montażowy.
+Zapisano: **2026-10-09**. Strona: [vital-hormone.pl](https://vital-hormone.pl) (WordPress + Tailwind). Centrum medyczne online: diagnostyka hormonalna i terapia testosteronem (TRT) dla mężczyzn. Styl w silniku: **`vital`** (`src/styles/vital.tsx`, zbudowany 2026-10-09 przy rolce 17: napisy + grafiki `title`, `labs`, `steps`, `process`, `mythfact`, `quote`, `cta`; `range`, `checklist`, `price` i ikony Material Symbols jeszcze czekają). Czwarty motyw silnika ruchu Bisanza (`kineticCaptions(T)` / `kineticOverlay(T)` z `src/styles/bisanz.tsx`, jak `AMERYKA` i `glowup`), własne grafiki `VitalOverlay`, wpis w `STYLES` (`src/Reel.tsx`) i wykrywanie po „vital-hormone” w ścieżce (`styleOf` w `scripts/prep.mjs`). Dopóki styl nie powstanie, ten plik służy jako profil montażowy.
 
 Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się różnią. Pozostałe zasady ogólne obowiązują: hook na starcie, 2–6 słów w grupie, zwarte bloki, bez wiszących spójników i przyimków, odsłonięta twarz, bez dublowania tekstu, logo przy wzmiance o marce, SFX 10 dB pod oryginałem, strefa bezpieczna IG + TikTok. Każdą poprawkę dla tego klienta dopisuję **tutaj** (z datą), dopiero potem zmieniam kod lub rolkę.
 
@@ -76,6 +76,8 @@ Klient jest podmiotem medycznym, a temat to lek na receptę. To surowszy rejestr
   - liczba i wynik badania w napisie: jak klucz (limonka). Kwota pakietu: `#D9F99D` na `#230C4A`;
   - `effect: "stamp"` tylko przy puencie typu „badaniem, nie na oko” (maks. raz na ~5 s).
 - **Małe słowa:** Plus Jakarta 700, `#F8F9FA`, cień z `#1A1C1D`.
+- **Mniej „pop out”, więcej różnych wejść *(2026-10-09, poprawka do rolki 17)*:** wejścia słów mieszam i dobieram do sensu: `color` (kontur zalewa się kolorem), `slide`, `bounce`, `wiggle`, `rise`/`drop`, `letters`; bez dwóch takich samych pod rząd. `pop` i `stamp` tylko przy puencie (w rolce 17 raz: „regularnie”). Zakreślacz `hl` przejeżdża od lewej (`hlPop` wyłączony w motywie).
+- **Pod twarzą *(2026-10-09, poprawka do rolki 17)*:** napisy, hook i karty zawsze poniżej brody. W `reel.json` wpisuję `face.bottom` (rolka 17: 0,40), napis nad kartą startuje 0,02 niżej i jest zmniejszony (`raisedScale` 0,8), a karty są niskie (do ~0,24 kadru), żeby oba zmieściły się nad 0,75. Hook stoi na 0,5.
 - **Pozycja:** środek bloku y = 0,73, a przy karcie na dole napis stoi nad nią (dolna krawędź jak w GlowUp: `yRaised` 0,5, karta do 0,75). Cięcie ciszy włączone.
 
 ## Grafiki „jak sekcje strony” (`VitalOverlay`, do zbudowania)

@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-15",
+  "purpose": "Tiny real API response verifying durable token/cost measurement; not a reel montage cost",
+  "receipt": {
+    "provider": "openai",
+    "model": "gpt-6-luna",
+    "responseId": "resp_0e6eae7c337e832b016ad0b3cf1fe087d2afd83d3e29cdea15",
+    "inputTokens": 35,
+    "outputTokens": 14,
+    "cachedTokens": 0,
+    "cacheWriteTokens": 0,
+    "costMicroUsd": 10.5,
+    "pricingDate": "2026-10-15",
+    "priceSource": "https://developers.openai.com/api/docs/pricing",
+    "at": "2026-10-15T11:06:56.285Z"
+  }
+}

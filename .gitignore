@@ -2,6 +2,8 @@ node_modules
 dist
 .DS_Store
 .env
+.env.*
+!.env.example
 
 # Wygenerowane: rendery bez klienta, bundle Remotion, brudnopisy
 out/
@@ -25,3 +27,28 @@ public/reels/*/source.*
 
 # Ustawienia panelu (npm run ui) — mogą zawierać klucz API
 .panel.json
+
+# QuickContent — prywatne źródła, projekty i kolejka
+.quickcontent/
+klienci/*/QuickContent/
+
+# Lokalny pełny zestaw Apple Emoji skopiowany z macOS
+public/fonts/AppleColorEmoji.ttc
+
+# Prywatne projekty i wygenerowany rejestr; lokalne pliki pozostają na dysku
+.longform/
+.superpowers/
+motion-projects/*
+!motion-projects/.gitkeep
+public/reels/*
+!public/reels/.gitkeep
+public/motion-assets/
+src/studio/
+src/Root.tsx
+*.log
+*.tmp
+*.otio
+*.prproj
+*.pem
+*.key
+/-
