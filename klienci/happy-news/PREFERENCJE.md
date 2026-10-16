@@ -67,3 +67,8 @@ Program newsowy (Happy News, projekt Kacpra Bisanza i Damiana Abramowicza). Ten 
 
 - Automatyczne emotki, flagi i pop za słowem są preferencją wyłącznie Happy News, nie regułą globalną innych klientów.
 - Dobierać do konkretnego znaczenia w wypowiedzi. Bez ozdabiania słów funkcyjnych, wieloznacznych dopasowań ze słownika i podobnych rdzeni. Nie używać chińskich/japońskich ideogramów ani przycisków CJK, znaków technicznych lub nieczytelnych symboli. Jeśli skojarzenie jest niepewne, pominąć emotkę.
+
+## Spokojne cięcia i centrowanie metki — 2026-10-17
+
+- Usunąć gwałtowne dodatkowe przeskoki kadrowania i krótkie zmiany układu przy cięciach; zachować prawdziwe cięcia kamer, stabilną skalę i spokojny tracking.
+- Metkę „Pełny materiał dostępny na / @ONLYHAPPYNEWS” wycentrować względem całej szerokości rolki, pomijając dla tej metki globalne boczne safe zone.

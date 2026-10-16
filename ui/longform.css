@@ -41,7 +41,7 @@
 .lf-card {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 16px;
   padding: 20px;
 }
 .lf-card h2 {
@@ -67,7 +67,7 @@
 
 .lf-list {
   display: grid;
-  grid-template-columns: minmax(320px, 440px) 1fr;
+  grid-template-columns: minmax(280px, 440px) minmax(0, 1fr);
   gap: 20px;
   padding: 20px;
   align-items: start;
@@ -210,7 +210,11 @@
   background: var(--danger);
 }
 .lf-timeline .undecided {
-  background: repeating-linear-gradient(45deg, var(--hot) 0 3px, transparent 3px 6px);
+  background: repeating-linear-gradient(
+    45deg,
+    var(--hot) 0 3px,
+    transparent 3px 6px
+  );
 }
 .lf-stats {
   margin: 0;
@@ -249,7 +253,7 @@
 .lf-words {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 16px;
   padding: 16px 18px;
   font-size: 16px;
   line-height: 2.1;
@@ -341,7 +345,37 @@
 }
 
 /* Plan i wynik (LongFormPlan.tsx) */
-.lf-plan { display: grid; gap: 12px; }
-.lf-hook { display: block; margin: 0 0 10px; }
-.lf-removed { opacity: 0.45; text-decoration: line-through; }
-.lf-plan .lf-list input { min-width: min(32ch, 100%); }
+.lf-plan {
+  display: grid;
+  gap: 12px;
+}
+.lf-hook {
+  display: block;
+  margin: 0 0 10px;
+}
+.lf-removed {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+.lf-plan .lf-list input {
+  min-width: min(32ch, 100%);
+}
+
+.lf-list > *,
+.lf-cuts > * {
+  min-width: 0;
+}
+.lf {
+  overflow-wrap: anywhere;
+}
+.lf-projects a {
+  flex-wrap: wrap;
+}
+.lf-top h1 {
+  font-size: 28px;
+  letter-spacing: -0.025em;
+}
+.lf-stepper .current {
+  color: var(--accent);
+  background: var(--accent-soft);
+}

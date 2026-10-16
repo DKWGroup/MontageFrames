@@ -1,3 +1,13 @@
+## Landing: iPhone i prostota edycji — 2026-10-17
+
+- Zamiast obracanego panelu: trwały mockup iPhone’a w 3D, który obraca się podczas przewijania. Najpierw trudny montaż ręczny, następnie AI wykonujące montaż, z gwiazdkami i emotkami.
+- Sekcja ma być czytelna i bardziej wizualna: oś czasu inspirowana Premiere Pro, widoczna edycja napisów i jasny przekaz, że obsługa jest banalnie prosta.
+
+## Landing page — ruch i publikacja kodu — 2026-10-17
+
+- Dodać automatyczny motion design do istniejącego landingu: animowane sekcje, przejścia stanów, wyróżnienia i subtelną perspektywę 3D. Zachować czytelność i obsługę ograniczonego ruchu.
+- Po sprawdzeniu wysłać zmiany kodu na GitHub bez filmów, plików env i prywatnej historii montażu.
+
 ## LongForm: napisy i typografia tylko we wstępie — 2026-10-17
 
 - Bazowo w filmie poziomym **poza wstępem nie robimy napisów ani typografii**. Wyjątek: podkreślenie konkretnego słowa albo dokładniejsze wytłumaczenie danego fragmentu (wtedy napisy/typografia tylko na tym fragmencie, z powodem w planie). Wstęp (hook, napisy, typografia) bez zmian.
@@ -197,3 +207,13 @@ Kadr 1080×1920. Napisy, grafiki, logo i CTA trzymam tam, gdzie nie zasłoni ich
 - Odświeżenie całego panelu MontageFrames: białe/jasne powierzchnie i niebieski akcent, intuicyjna i prosta obsługa. Główne zadanie oraz wyniki na wierzchu; szczegóły i dodatkowe opcje pod „Szczegóły” / „Więcej ustawień”.
 - Kierunek projektowy z pomocą skilla `gpt-taste`, podporządkowany prostocie aplikacji roboczej. Na tym etapie użytkowniczka zamówiła plan do wdrożenia, bez implementacji UI.
 - Po akceptacji: najpierw opublikować na GitHub aktualną bazę programu z klientami i preferencjami, bez filmów, sekretów i lokalnych projektów; następnie wdrażać zaakceptowany plan panelu. Zgoda na wdrożenie: 2026-10-17.
+- Rozszerzenie 2026-10-17: README ma prowadzić osobę instalującą projekt przez pełne wymagania i konfigurację. Aplikacja ma okresowo sprawdzać przez internet nowe wersje z repo GitHub i umożliwiać aktualizację. Własnych klientów i zmodyfikowanych szablonów nie nadpisywać; aktualizować wyłącznie pliki zarządzane w paczce autora, z zachowaniem lokalnych danych.
+
+## Instalacja na subskrypcji CLI — 2026-10-17
+
+- Osoby pobierające repo mają dostać pełną instrukcję używania Claude Code / Codexa na własnej subskrypcji zamiast API. Dodano jawny tryb account-only oraz wybór operatora opisu publikacji; wcześniejsze API GPT-6 Luna pozostaje domyślne dla dotychczasowej konfiguracji, a tryb konta może generować także opisy przez CLI. Nie przedstawiać limitów subskrypcji jako nieograniczonego użycia. Zwykły panel rolek i Motion Studio obecnie mają operatora Claude Code; Codex jest dostępny w QuickContent/LongForm oraz jako agent terminalowy repo.
+
+## Landing i oferta MontageFrames — 2026-10-17
+
+- Landing dla twórców i małych agencji, ceny w PLN miesięcznie, pakiety liczby rolek i tokenów poprawek. Porównanie z Submagic, Captions i dodatkową konkurencją; aktualne źródła. Akcent na oszczędność ręcznej pracy, proces od wgrania do podglądu i eksportu, wejście do panelu na górze. Właścicielka wybrała budowę bezpośrednio w kodzie i zaakceptowała połączenie osi procesu, demonstracji przed/po oraz kalkulatora czasu.
+- Deklaracja właścicielki: 96% trafności polskich napisów przy dźwięku wyraźnym i zrozumiałym dla ludzkich uszu. Nie przedstawiać jako benchmark wykonanego badania. Własne konta Claude Code/Codex bez wymogu API; Hermes, agent głosowy i Dysk Google jako funkcja w przygotowaniu, nie gotowa integracja.

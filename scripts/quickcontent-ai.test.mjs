@@ -250,3 +250,8 @@ test("CLI resolver finds an executable outside server PATH", async (t) => {
     file,
   );
 });
+
+test('account-only odrzuca płatne API jeszcze przed fetch i nie robi fallbacku', async(t)=>{
+  const root=await fixture(t,'MONTAGEFRAMES_ACCOUNT_ONLY=1\nOPENAI_API_KEY=test-key\n');
+  await assert.rejects(requestQuickContentAI({prompt:'JSON',schema},{root,aiProvider:'openai',fetch(){throw Error('fetch must never run');}}),/tylko.*kont|account-only/i);
+});

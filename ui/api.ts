@@ -18,6 +18,7 @@ export type PublicationDescriptionData = {
   hashtags?: string[];
   text?: string;
   model?: string;
+  provider?: "openai" | "codex" | "claude";
   usage?: {
     costMicroUsd?: number | null;
     inputTokens?: number;
@@ -36,6 +37,19 @@ export class PanelError extends Error {
   }
 }
 
+export type UpdateInfo = {
+  status: string;
+  checkedAt: number | null;
+  current: { version: string; revision: number } | null;
+  available: { version: string; revision: number } | null;
+  pending: {
+    version: string;
+    changes: number;
+    preserved: string[];
+    conflicts: string[];
+  } | null;
+  error: string | null;
+};
 export type RenderFile = { file: string; size: number; mtime: number };
 export type JobKind = "render" | "montage" | "chat";
 export type JobStatus = "running" | "done" | "error" | "stopped";
@@ -65,6 +79,7 @@ export type JobPoll =
       result: string | null;
     };
 export type Settings = {
+  accountOnly?: boolean;
   operator: "claude-account" | "claude-api-key";
   apiKey: string;
   model: "" | "opus" | "sonnet";
@@ -103,6 +118,10 @@ async function call<T>(
 }
 
 export const api = {
+  updates: () => call<UpdateInfo>("GET", "/updates"),
+  updateAction: (action: "check" | "download" | "install") =>
+    call<UpdateInfo>("POST", `/updates/${action}`),
+
   description: (name: string) =>
     call<PublicationDescriptionData>(
       "GET",

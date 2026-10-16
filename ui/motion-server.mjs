@@ -1,3 +1,4 @@
+import {readAccountPolicy} from "../scripts/quickcontent-ai.mjs";
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -237,6 +238,7 @@ export async function motionRoute(req, res, url) {
     aiBusy=true;
     try {
       const settings=JSON.parse(await fs.readFile(path.join(root,'.panel.json'),'utf8').catch(()=>'{"operator":"claude-account","model":"opus"}'));
+      if((await readAccountPolicy(root)).accountOnly && settings.operator==='claude-api-key') throw error('Tryb tylko konta CLI blokuje API. Zapisz operatora Claude Code na koncie w Ustawieniach.',400);
       let preferences=await fs.readFile(path.join(root,'PREFERENCJE.md'),'utf8').catch(()=>'');
       if(d.client) {
         const base=await fs.realpath(path.join(root,'klienci'));

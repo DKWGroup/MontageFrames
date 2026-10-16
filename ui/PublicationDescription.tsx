@@ -73,7 +73,9 @@ export function PublicationDescriptionView(p: ViewProps) {
     >
       <h3>Opis do publikacji</h3>
       <p className="publication-description-meta">
-        GPT-6 Luna API · osobny, płatny opis
+        {p.data?.provider === "codex" || p.data?.provider === "claude"
+          ? `${p.data.provider === "codex" ? "Codex" : "Claude Code"} · opis w ramach własnego konta`
+          : "GPT-6 Luna API · osobny, płatny opis"}
       </p>
       <p className="publication-description-meta">
         Koszt opisu API (łącznie z ponowieniami):{" "}
@@ -247,10 +249,12 @@ export function PublicationDescription({
   reelName,
   refreshKey = "",
   canGenerate = true,
+  compact = false,
 }: {
   reelName: string;
   refreshKey?: string;
   canGenerate?: boolean;
+  compact?: boolean;
 }) {
   const [data, setData] = useState<PublicationDescriptionData | null>(null);
   const [busy, setBusy] = useState(false);
@@ -373,21 +377,24 @@ export function PublicationDescription({
       );
     }
   }
-  return (
+  const content = (
     <>
-      <DescriptionInstructions
-        key={reelName}
-        value={data?.instructions ?? ""}
-        disabled={busy || data === null}
-        onDraftChange={(value) => {
-          instructionsDraft.current = value;
-        }}
-        onSave={async (instructions) => {
-          const next = await api.saveDescription(reelName, { instructions });
-          instructionsDraft.current = null;
-          setData(next);
-        }}
-      />
+      <details className="panel-details">
+        <summary>Więcej ustawień opisu</summary>
+        <DescriptionInstructions
+          key={reelName}
+          value={data?.instructions ?? ""}
+          disabled={busy || data === null}
+          onDraftChange={(value) => {
+            instructionsDraft.current = value;
+          }}
+          onSave={async (instructions) => {
+            const next = await api.saveDescription(reelName, { instructions });
+            instructionsDraft.current = null;
+            setData(next);
+          }}
+        />
+      </details>
       <PublicationDescriptionView
         data={data}
         busy={busy}
@@ -409,5 +416,16 @@ export function PublicationDescription({
         onRefresh={() => setReload((value) => value + 1)}
       />
     </>
+  );
+  return compact ? (
+    <details
+      className="panel-details"
+      open={Boolean(error) || data?.status === "failed"}
+    >
+      <summary>Opis do publikacji</summary>
+      {content}
+    </details>
+  ) : (
+    content
   );
 }

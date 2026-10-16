@@ -63,7 +63,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "napisy", label: "Napisy" },
   { id: "kadr", label: "Kadr" },
   { id: "grafiki", label: "Grafiki" },
-  { id: "ai", label: "Operator AI" },
+  { id: "ai", label: "Asystent" },
   { id: "render", label: "Render" },
 ];
 

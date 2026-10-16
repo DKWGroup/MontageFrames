@@ -1,3 +1,7 @@
+import { readAccountPolicy } from "../scripts/quickcontent-ai.mjs";
+import { createUpdateService } from "./update-server.mjs";
+import { recoverInstaller } from "../scripts/app-update-cli.mjs";
+import { safeUpdatePath, updateJson } from "../scripts/app-update.mjs";
 import { recordPublicationRender, publicationRenderCurrent } from "./reel-publication-state.mjs";
 import { generateReelDescription, readReelDescription, saveReelDescriptionInstructions, saveReelDescriptionText } from "../scripts/reel-description.mjs";
 // API panelu — plugin Vite w tym samym procesie co serwer. Kontrakt: docs/superpowers/plans/2026-10-07-panel-etap-1-2.md
@@ -25,6 +29,8 @@ const DEFAULTS = { operator: "claude-account", apiKey: "", model: "opus", render
 const jobs = new Map();
 const quickcontent = createQuickContentService(ROOT, {isBusy: () => [...jobs.values()].some(j => j.status === "running")});
 const longform = createLongFormService(ROOT);
+const updates = createUpdateService(ROOT);
+let restartPanel = null;
 
 const fail = (status, message) => Object.assign(new Error(message), { status });
 const send = (res, status, body) => {
@@ -60,7 +66,11 @@ const reelFile = (name) => {
   if (!isName(name)) throw fail(400, "Zła nazwa rolki");
   return path.join(REELS, name, "reel.json");
 };
-const settings = async () => ({ ...DEFAULTS, ...(await readJson(SETTINGS, {})) });
+const settings = async () => {
+  const saved = { ...DEFAULTS, ...(await readJson(SETTINGS, {})) };
+  const { accountOnly } = await readAccountPolicy(ROOT);
+  return accountOnly ? { ...saved, operator: "claude-account", apiKey: "", accountOnly: true } : saved;
+};
 const publicSettings = (s) => ({ ...s, apiKey: maskKey(s.apiKey) });
 
 async function library() {
@@ -203,7 +213,7 @@ async function describeFinished(name, out, job, renderedData) {
     renderedData=await readJson(reelFile(name),null);
     await recordPublicationRender(ROOT,name,renderedData,out);
   }
-  job.lines.push("Gotowy film zapisany. Opis do publikacji — GPT‑6 Luna API…");
+  job.lines.push("Gotowy film zapisany. Przygotowanie opisu przez wybranego operatora…");
   try {
     const copy=await generateReelDescription(name,{root:ROOT,renderedData});
     job.lines.push(copy.status === "ready" ? "Opis do publikacji gotowy." : "Film gotowy; ponów sam opis w panelu.");
@@ -332,6 +342,7 @@ async function newClient(b) {
 
 async function saveSettings(b) {
   const s = await settings();
+  if (s.accountOnly && b.operator === "claude-api-key") throw fail(400,"Tryb tylko konta CLI blokuje płatne API. Zmień .env, jeśli świadomie chcesz włączyć API.");
   const next = {
     operator: ["claude-account", "claude-api-key"].includes(b.operator) ? b.operator : s.operator,
     // zamaskowany klucz z formularza = bez zmiany
@@ -375,6 +386,29 @@ async function route(req, res) {
   const url = new URL(req.url, "http://panel");
   const [, what, name] = url.pathname.split("/");
   const m = req.method;
+  if (what === "updates") {
+    if (m === "GET" && !name) return send(res,200,await updates.get());
+    if (m === "POST" && name === "check") return send(res,200,await updates.check(true));
+    if (m === "POST" && name === "download") return send(res,200,await updates.download());
+    if (m === "POST" && name === "install") {
+      const release=tryAcquireHeavy("Aktualizacja aplikacji");
+      if(!release)throw fail(409,"Trwa montaż lub render. Zaczekaj na zakończenie pracy.");
+      try {
+        const pkg=await updates.pending();
+        const state=await updates.get();
+        if(state.pending?.conflicts?.length)throw fail(409,"Lokalne zmiany kodu blokują aktualizację. Szczegóły są w Ustawieniach.");
+        if(!restartPanel)throw fail(503,"Restart panelu nie jest dostępny. Użyj npm run update:install po zamknięciu panelu.");
+        const log=await fsp.open(await safeUpdatePath(ROOT,".updates/install.log"),"a");
+        const child=spawn(process.execPath,[path.join(ROOT,"scripts/app-update-cli.mjs"),"install","--wait-for",String(process.pid),"--restart-port",String(restartPanel.port)],{cwd:ROOT,detached:true,stdio:["ignore",log.fd,log.fd]});
+        await new Promise((resolve,reject)=>{child.once("spawn",resolve);child.once("error",reject);});child.unref();await log.close();
+        send(res,200,{ok:true,version:pkg.version});
+        setTimeout(()=>restartPanel.close(),750);
+        // Hold the shared lock until process exit, preventing new heavy work during shutdown.
+        return;
+      }catch(e){release();throw e;}
+    }
+    throw fail(404,"Nie ma takiej trasy aktualizatora.");
+  }
   if (what === "quickcontent") return quickcontent.route(req, res, url);
   if (what === "motion") return motionRoute(req, res, url);
   if (what === "lf") return longform.route(req, res, url);
@@ -464,11 +498,25 @@ export function panelApi() {
   return {
     name: "montage-panel-api",
     configureServer(server) {
-      installQuickContentLifecycle(server,quickcontent);
+      const ready=recoverInstaller(ROOT).then(()=>{
+        installQuickContentLifecycle(server,quickcontent);
+        return updates.get();
+      });
+      void ready.then(()=>updates.check()).catch((e)=>server.config.logger.error(`Aktualizator: ${e.message}. API panelu pozostaje zablokowane do naprawy.`));
+      const timer=setInterval(()=>{void updates.check().catch(()=>{});},6*60*60*1000);
+      timer.unref();
+      server.httpServer?.once("listening",()=>{
+        const address=server.httpServer.address();
+        if(address && typeof address !== "string") {
+          restartPanel={port:address.port,close:async()=>{await server.close();process.exit(0);}};
+          void updateJson(ROOT,".updates/server.json",{pid:process.pid,port:address.port}).catch(()=>{});
+        }
+      });
+      server.httpServer?.once("close",()=>clearInterval(timer));
       server.middlewares.use("/api", (req, res, next) => {
         // Connect montuje „/api” także dla „/api.ts” — to plik klienta, oddaj go Vite
         if (!req.originalUrl?.startsWith("/api/")) return next();
-        route(req, res).catch((e) => {
+        ready.then(()=>route(req, res)).catch((e) => {
           if (!res.headersSent) send(res, e.status ?? 500, { error: e.message });
         });
       });

@@ -41,6 +41,7 @@ import {
 type Client = { id: string; label: string };
 export type QuickContentProps = {
   clients: Client[];
+  active?: boolean;
   onOpenReel: (
     reelName: string,
     projectId: string,
@@ -538,7 +539,22 @@ function ImportForm({
           disabled={Boolean(busy)}
         />
         <details className="qc-settings">
-          <summary>Zaawansowane · operator i jakość</summary>
+          <summary>
+            Więcej ustawień{" "}
+            <small>
+              {aiProvider === "openai"
+                ? "Płatne API"
+                : aiProvider === "claude"
+                  ? "Claude Code"
+                  : "Codex"}{" "}
+              ·{" "}
+              {outputResolution === 2160
+                ? "2160 × 3840"
+                : outputResolution === 720
+                  ? "720 × 1280"
+                  : "1080 × 1920"}
+            </small>
+          </summary>
           <div className="qc-stack">
             <OperatorOptions
               value={aiProvider}
@@ -582,6 +598,11 @@ function ImportForm({
             )}
           </div>
         </details>
+        {aiProvider === "openai" && (
+          <p className="qc-notice" role="status">
+            Wybrano płatne API OpenAI. Analiza i montaż są rozliczane osobno.
+          </p>
+        )}
         {error && (
           <p className="qc-notice qc-error" role="alert">
             {error}
@@ -1072,7 +1093,7 @@ export function FilmCosts({ costs }: { costs?: QCCosts }) {
   return (
     <details className="qc-film-costs">
       <summary>
-        Tokeny i koszt tej rolki
+        Szczegóły kosztów tej rolki
         {costs?.montage.requests
           ? ` · ${new Intl.NumberFormat("pl-PL").format(costs.montage.inputTokens + costs.montage.outputTokens)} tokenów montażu`
           : " · brak pomiaru"}
@@ -1184,9 +1205,9 @@ function CandidateCard({
         {range(candidate)}
         {candidate.kind ? ` · ${candidate.kind}` : ""}
       </p>
+      <p className="qc-candidate-summary">{candidate.summary}</p>
       <details>
-        <summary>Opis i ocena fragmentu</summary>
-        <p>{candidate.summary}</p>
+        <summary>Szczegóły i ocena fragmentu</summary>
         <Score candidate={candidate} />
       </details>
       {candidate.reelName && (
@@ -1205,6 +1226,7 @@ function CandidateCard({
       {candidate.reelName && (
         <PublicationDescription
           key={candidate.reelName}
+          compact
           reelName={candidate.reelName}
           canGenerate={Boolean(availableFilmRender(candidate))}
           refreshKey={publicationRefreshKey(candidate)}
@@ -1550,6 +1572,7 @@ function AnalysisSettings({
 
 export function QuickContent({
   clients,
+  active = true,
   onOpenReel,
   onClose,
 }: QuickContentProps) {
@@ -1724,9 +1747,9 @@ export function QuickContent({
     content.current.scrollTop = savedView.current[projectId]?.scroll ?? 0;
   }, [projectId, route.candidateId, hasLoadedProject]);
   useEffect(() => {
-    if (editorReelName && projectId && editorCandidateId)
+    if (active && editorReelName && projectId && editorCandidateId)
       onOpenReel(editorReelName, projectId, editorCandidateId);
-  }, [editorReelName, projectId, editorCandidateId, onOpenReel]);
+  }, [active, editorReelName, projectId, editorCandidateId, onOpenReel]);
   useEffect(() => {
     if (!selectionBar.current) return;
     const element = selectionBar.current;

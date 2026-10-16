@@ -899,7 +899,15 @@ test("publication drafts survive refresh but reset on reel change and explicit r
     const pending = effects;
     effects = [];
     pending.forEach((effect) => effect());
-    return tree.props.children;
+    const find = (node, prop) => {
+      if (!node) return null;
+      if (node.props?.[prop]) return node;
+      const children = Array.isArray(node.props?.children)
+        ? node.props.children
+        : [node.props?.children];
+      return children.map((child) => find(child, prop)).find(Boolean);
+    };
+    return [find(tree, "onDraftChange"), find(tree, "onTextChange")];
   }
   async function settle(name, refreshKey = "") {
     await new Promise((resolve) => globalThis.setImmediate(resolve));

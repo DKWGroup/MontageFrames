@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+import { revealInvalidField } from "./form-disclosure.mjs";
 // LongForm w panelu: lista projektów, „Nowy film” → Przetwarzaj, ekran „Cięcia” (docs/longform/gui.md §2),
 // a Plan / Montaż / Wynik w ./LongFormPlan.tsx (§3–5).
 import { Player, type PlayerRef } from "@remotion/player";
@@ -278,7 +279,11 @@ function ProjectList() {
   };
   return (
     <main className="lf-list">
-      <form className="lf-card lf-new" onSubmit={submit}>
+      <form
+        onInvalidCapture={revealInvalidField}
+        className="lf-card lf-new"
+        onSubmit={submit}
+      >
         <h2>Nowy film</h2>
         <label>
           Nagranie
@@ -312,20 +317,26 @@ function ProjectList() {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <label>
-          Operator AI (redakcja dubli i falstartów)
-          <select
-            value={aiProvider}
-            onChange={(e) => setAiProvider(e.target.value)}
-          >
-            <option value="">Domyślny — konto z ustawień</option>
-            <option value="claude">Claude Code — konto</option>
-            <option value="codex">Codex — konto</option>
-          </select>
-        </label>
-        <p className="lf-hint">
-          AI LongForm działa tylko na zalogowanym koncie CLI — bez płatnego API.
-        </p>
+        <details className="panel-details">
+          <summary>
+            Więcej ustawień <small>{aiProvider || "Operator z ustawień"}</small>
+          </summary>
+          <label>
+            Operator AI (redakcja dubli i falstartów)
+            <select
+              value={aiProvider}
+              onChange={(e) => setAiProvider(e.target.value)}
+            >
+              <option value="">Domyślny — konto z ustawień</option>
+              <option value="claude">Claude Code — konto</option>
+              <option value="codex">Codex — konto</option>
+            </select>
+          </label>
+          <p className="lf-hint">
+            AI LongForm działa tylko na zalogowanym koncie CLI — bez płatnego
+            API.
+          </p>
+        </details>
         <p className="lf-hint">
           Klienta i styl rozpoznajemy po folderze nagrania. Najpierw dostaniesz
           pocięty materiał do przejrzenia. Montaż ruszy po Twoim zatwierdzeniu.
@@ -480,7 +491,8 @@ function Processing({
       project.failedFrom !== "processing";
     // Nieudany montaż ponawia sam montaż (plan już zaakceptowany) — bez ponownego zapytania AI.
     const retryMontage =
-      !!retryPlan && ["assets", "segment", "render"].includes(project.job?.stage ?? "");
+      !!retryPlan &&
+      ["assets", "segment", "render"].includes(project.job?.stage ?? "");
     return (
       <div className="lf-card lf-pad">
         {project.state === "failed" && (

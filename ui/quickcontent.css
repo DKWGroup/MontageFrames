@@ -1,6 +1,6 @@
 /* QuickContent dziedziczy Fustat i tokeny istniejącego panelu. */
 .app.qc-app {
-  grid-template-columns: 248px minmax(0, 1fr);
+  grid-template-columns: 224px minmax(0, 1fr);
 }
 .qc-editor .bar {
   flex-wrap: wrap;
@@ -504,7 +504,7 @@
   padding: 16px 24px max(16px, env(safe-area-inset-bottom));
   border-top: 1px solid var(--line-strong);
   background: var(--surface);
-  box-shadow: 0 -8px 24px rgb(0 0 0 / 0.12);
+  box-shadow: 0 -8px 24px rgb(23 36 59 / 0.06);
 }
 .qc-selection-bar .qc-stack {
   gap: 4px;
@@ -527,7 +527,7 @@
 }
 @media (max-width: 1180px) {
   .app.qc-app {
-    grid-template-columns: 216px minmax(0, 1fr);
+    grid-template-columns: 200px minmax(0, 1fr);
   }
   .qc-selection-bar {
     flex-wrap: wrap;
@@ -630,7 +630,7 @@
   gap: 8px 20px;
 }
 .qc-costs dt {
-  color: var(--muted, #a8adc2);
+  color: var(--muted, #52627a);
 }
 .qc-costs dd {
   margin: 0;
@@ -639,7 +639,7 @@
 .qc-costs small {
   display: block;
   font-size: 12px;
-  color: var(--muted, #a8adc2);
+  color: var(--muted, #52627a);
 }
 
 .qc-project-tabs {
@@ -666,4 +666,24 @@
   flex: 1;
   text-align: center;
   text-decoration: none;
+}
+
+.qc-card {
+  border-radius: 16px;
+}
+.qc-project-tabs .btn[aria-selected="true"] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.qc-header {
+  background: var(--surface);
+}
+.qc-complete {
+  color: var(--success);
+}
+.qc-candidate {
+  transition: border-color 150ms ease;
+}
+.qc-candidate:hover {
+  border-color: var(--line-strong);
 }

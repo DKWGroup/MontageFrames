@@ -4,6 +4,7 @@ import {
   buildHappyLayouts,
   layoutAt,
   cropForFace,
+  speakerWindowAt as speakerWindowAtForTest,
 } from "../src/quickcontent/layout.mjs";
 import { emojiForWord, titleHighlight } from "../src/caption-decoration.mjs";
 const left = { x: 0.12, y: 0.18, width: 0.12, height: 0.25, mouth: 0.02 };
@@ -356,8 +357,78 @@ test("local topic photos remain valid in lower panels and cannot escape the reel
 test("emoji decoration rejects CJK buttons and fuzzy stem matches", async () => {
   const { emojiForCaptionWord } = await import("../src/caption-decoration.mjs");
   for (const text of ["bezpłatny", "rezerwacja", "akceptowalny"])
-    assert.equal(emojiForCaptionWord({text, start: 1}, [
-      {type: "emoji", label: "word", start: 1, emoji: "🈯"},
-    ]), emojiForWord(text));
+    assert.equal(
+      emojiForCaptionWord({ text, start: 1 }, [
+        { type: "emoji", label: "word", start: 1, emoji: "🈯" },
+      ]),
+      emojiForWord(text),
+    );
   assert.equal(emojiForWord("bezpłatny"), null);
+});
+
+test("camera cut uses the new layout immediately, without a stale quarter-second host flash", () => {
+  const layouts = [
+    { start: 0, end: 1, kind: "duo", people: [left, right] },
+    { start: 1, end: 1.25, kind: "duo", people: [left, right], cut: true },
+    { start: 1.25, end: 1.5, kind: "speaker", people: [right] },
+    { start: 1.5, end: 2, kind: "speaker", people: [right] },
+  ];
+  const framing = { layouts, sourceAspect: 16 / 9 };
+  assert.equal(layoutAt(framing, 0.99).kind, "duo");
+  assert.equal(layoutAt(framing, 1).kind, "speaker");
+  assert.ok(speakerWindowAtForTest(framing, 1));
+  assert.equal(
+    layouts[1].kind,
+    "duo",
+    "stored editorial data remains unchanged",
+  );
+});
+
+test("brief detector flips are bridged, while real cuts and editorial photos survive", () => {
+  const make = (kind, i, extra = {}) => ({
+    start: i / 4,
+    end: (i + 1) / 4,
+    kind,
+    people: kind === "speaker" ? [left] : [left, right],
+    ...(kind === "duo-media" ? { media } : {}),
+    ...extra,
+  });
+  const entries = [
+    make("duo", 0),
+    make("speaker", 1),
+    make("speaker", 2),
+    make("duo", 3),
+    make("duo", 4),
+  ];
+  assert.equal(layoutAt({ layouts: entries }, 0.3).kind, "duo");
+  assert.equal(layoutAt({ layouts: entries }, 0.6).kind, "duo");
+  const cut = entries.map((l, i) => (i === 3 ? { ...l, cut: true } : l));
+  assert.equal(layoutAt({ layouts: cut }, 0.3).kind, "speaker");
+  const photo = {
+    ...make("speaker", 1),
+    kind: "speaker-media",
+    media,
+    mediaSrc: "bee-topic-1.png",
+  };
+  assert.equal(
+    layoutAt({ layouts: [entries[0], photo, entries[3]] }, 0.3).mediaSrc,
+    photo.mediaSrc,
+  );
+});
+
+test("layout switch waits for the precise source cut inside the detector sampling interval", () => {
+  const framing = {
+    layouts: [
+      { start: 0, end: 1, kind: "duo", people: [left, right] },
+      { start: 1, end: 1.25, kind: "duo", people: [left, right], cut: true },
+      { start: 1.25, end: 1.5, kind: "speaker", people: [right] },
+      { start: 1.5, end: 2, kind: "speaker", people: [right] },
+    ],
+    tracking: [
+      { time: 1, cut: true },
+      { time: 1.13, cut: true },
+    ],
+  };
+  assert.equal(layoutAt(framing, 1.1).kind, "duo");
+  assert.equal(layoutAt(framing, 1.13).kind, "speaker");
 });

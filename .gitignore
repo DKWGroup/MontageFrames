@@ -52,3 +52,12 @@ src/Root.tsx
 *.pem
 *.key
 /-
+
+# Aktualizacje i lokalne artefakty projektowe
+.updates/
+.distribution.json
+.impeccable/review/
+.impeccable/mocks/
+
+.venv/
+venv/

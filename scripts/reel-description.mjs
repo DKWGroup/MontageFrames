@@ -1,10 +1,15 @@
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import fs from "node:fs/promises";
 import process from "node:process";
 import { URL } from "node:url";
 import { createHash, randomUUID } from "node:crypto";
 import { z } from "zod";
 import { mediaId, safePath, writeMediaJson } from "./quickcontent-ingest.mjs";
-import { requestQuickContentAI } from "./quickcontent-ai.mjs";
+import {
+  requestQuickContentAI,
+  readAccountPolicy,
+} from "./quickcontent-ai.mjs";
 
 const MODEL = "gpt-6-luna";
 const PROMPT_VERSION = 2;
@@ -271,7 +276,21 @@ export async function generateReelDescription(reelName, ctx) {
 
 async function generateDescription(reelName, ctx) {
   let input, file, textFile, state;
+  let provider = "openai";
+  let model = MODEL;
   try {
+    const policy = await readAccountPolicy(ctx.root);
+    provider =
+      policy.descriptionProvider || (policy.accountOnly ? "codex" : "openai");
+    if (
+      !["codex", "claude", "openai"].includes(provider) ||
+      (policy.accountOnly && provider === "openai")
+    )
+      throw new Error(
+        "Nieprawidłowy operator opisu lub płatne API w trybie account-only.",
+      );
+    model = provider === "openai" ? MODEL : `${provider}-account`;
+
     if (ctx.descriptionInstructions !== undefined) {
       const settings = await descriptionSettings(reelName, ctx.root);
       await writeMediaJson(
@@ -294,7 +313,7 @@ async function generateDescription(reelName, ctx) {
     ) {
       return {
         status: "stale",
-        model: MODEL,
+        model,
         contentHash: input.contentHash,
         error:
           "Treść filmu zmieniła się podczas renderu. Opis wymaga aktualnej wersji filmu.",
@@ -316,7 +335,8 @@ async function generateDescription(reelName, ctx) {
       error: "Generowanie opisu nie zostało ukończone. Ponów sam opis.",
       contentHash: input.contentHash,
       instructions: input.instructions,
-      model: MODEL,
+      model,
+      provider,
       promptVersion: PROMPT_VERSION,
       usage: old?.usage ?? [],
       updatedAt: new Date().toISOString(),
@@ -339,8 +359,18 @@ async function generateDescription(reelName, ctx) {
       },
       {
         ...ctx,
-        aiProvider: "openai",
-        aiModel: MODEL,
+        runTool:
+          ctx.runTool ??
+          ((exe, args, options) =>
+            promisify(execFile)(exe, args, {
+              cwd: options.cwd,
+              env: { ...process.env, ...options.env },
+              signal: ctx.signal,
+              timeout: 180000,
+              maxBuffer: options.maxOutputBytes ?? 16 * 1024 * 1024,
+            })),
+        aiProvider: provider,
+        aiModel: provider === "openai" ? MODEL : undefined,
         recordUsage: async (receipt) => {
           const recorded = { ...receipt, purpose: "description" };
           state.usage = [...state.usage, recorded];
@@ -372,7 +402,7 @@ async function generateDescription(reelName, ctx) {
       status: "failed",
       error:
         "Nie udało się przygotować poprawnego opisu. Gotowy film zachowano; ponów sam opis.",
-      model: MODEL,
+      model,
       updatedAt: new Date().toISOString(),
     };
     delete failed.hook;
