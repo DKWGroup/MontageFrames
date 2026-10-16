@@ -199,3 +199,13 @@ Po push na **main** workflow `.github/workflows/release.yml` wykonuje testy i li
 Pierwszą instalację zrób przez `git clone` albo przez **MontageFrames.zip z Releases**, następnie `npm ci`. ZIP źródeł generowany automatycznie przez GitHub nie zawiera manifestu instalacji; bez Git lub manifestu aktualizator nie zgaduje własności istniejących plików i blokuje instalację. Repo deweloperskie z lokalną zmianą kodu może wymagać ręcznego połączenia wersji.
 
 Workflow trzeba raz wdrożyć na main i sprawdzić jego pierwszy rzeczywisty run. Testy fixture potwierdzają ochronę plików i transakcję, ale nie zastępują sprawdzenia publikacji paczki oraz aktualizacji na drugim komputerze.
+
+### Starsza instalacja bez przycisku aktualizacji
+
+Stara wersja nie potrafi sama dodać sobie aktualizatora. Potrzebna jest jednorazowa migracja **po opublikowaniu wersji z aktualizatorem na main i pierwszego kompletnego Release**:
+
+- **Klon Git bez lokalnych zmian kodu:** zatrzymaj panel, wykonaj `git status`, następnie `git pull --ff-only origin main`, `npm ci` i `npm run ui`. Jeśli Git zgłosi konflikt albo brak możliwości fast-forward, zatrzymaj się i połącz zmiany ręcznie; nie używaj resetu ani czyszczenia folderu.
+- **Stary ZIP źródeł bez katalogu .git / manifestu:** rozpakuj oficjalny `MontageFrames.zip` z Releases do nowego folderu. Zachowaj starą instalację jako kopię. Przenieś swoje media, projekty, konfigurację i własne profile zgodnie z instrukcją instalacji; nie nadpisuj całego nowego kodu starą wersją. ZIP z przycisku GitHub „Download ZIP” nadal nie ma manifestu potrzebnego do bezpiecznych aktualizacji.
+- **Lokalnie zmieniony kod:** najpierw wykonaj kopię całego folderu i połącz kod ręcznie. Aktualizator nie zgaduje, które zmiany można odrzucić.
+
+Od tej migracji panel pokazuje powiadomienie o nowym oficjalnym wydaniu, a kolejne aktualizacje wykonujesz w Ustawieniach. Sam push na gałąź roboczą nie wysyła aktualizacji do zainstalowanych kopii.

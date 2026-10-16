@@ -71,15 +71,15 @@ export function Landing() {
         gsap.fromTo(
           ".land-phone",
           {
-            rotationY: -24,
-            rotationX: 8,
-            rotationZ: -5,
-            y: 65,
+            rotationY: -10,
+            rotationX: 3,
+            rotationZ: -2,
+            y: 30,
           },
           {
-            rotationY: 10,
-            rotationX: -3,
-            rotationZ: 3,
+            rotationY: 5,
+            rotationX: 0,
+            rotationZ: 1,
             y: 0,
             ease: "none",
             scrollTrigger: {
@@ -121,21 +121,44 @@ export function Landing() {
             },
           },
         );
+        gsap.from(".land-time-copy > *", {
+          y: 26,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".land-manifesto",
+            start: "top 75%",
+            once: true,
+          },
+        });
         gsap.fromTo(
-          ".land-manifesto .word",
-          { opacity: 0.35 },
+          ".land-time-work",
+          { x: 0, opacity: 1 },
           {
-            opacity: 1,
-            stagger: 0.08,
+            x: -36,
+            opacity: 0.2,
             ease: "none",
             scrollTrigger: {
               trigger: ".land-manifesto",
-              start: "top 82%",
-              end: "bottom 35%",
-              scrub: true,
+              start: "top 70%",
+              end: "bottom 65%",
+              scrub: 0.6,
             },
           },
         );
+        gsap.from(".land-time-done", {
+          y: 22,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".land-manifesto",
+            start: "top 35%",
+            once: true,
+          },
+        });
       });
       return () => mm.revert();
     },
@@ -194,11 +217,13 @@ export function Landing() {
         >
           <div className="land-edit-sticky">
             <div className="land-edit-heading">
-              <span className="land-step">Mniej pracy na osi czasu</span>
+              <span className="land-step">
+                Ten sam materiał. Inny sposób pracy.
+              </span>
               <h2>
-                Ty nagrywasz.
+                Mniej montowania.
                 <br />
-                <span>Montaż robi się sam.</span>
+                <span>Więcej gotowych rolek.</span>
               </h2>
             </div>
             <div className="land-edit-visual">
@@ -212,21 +237,25 @@ export function Landing() {
                       </div>
                       <div className="land-phone-island" />
                       <div className="land-phone-footage">
-                        <div className="land-person-head">
-                          <i />
-                          <b />
-                          <span />
+                        <div className="land-phone-source">
+                          <span>Twoje nagranie</span>
+                          <small>9:16 / 00:12</small>
                         </div>
-                        <div className="land-person-body" />
+                        <div
+                          className="land-phone-composition"
+                          aria-hidden="true"
+                        >
+                          <span>Twój głos.</span>
+                          <span>Twój styl.</span>
+                        </div>
                         <span className="land-phone-raw">
                           No więc… yyy… dzisiaj…
                         </span>
                         <div className="land-phone-finished">
                           Rób {captionWord}
                           <br />
-                          <strong>rolki.</strong> ✨
+                          <strong>rolki.</strong>
                         </div>
-                        <span className="land-phone-emoji">🤩</span>
                       </div>
                       <div className="land-phone-bottom">
                         <span className="land-phone-dot" />
@@ -238,30 +267,30 @@ export function Landing() {
                     </div>
                   </div>
                 </div>
-                <span className="land-phone-spark spark-one">✦</span>
-                <span className="land-phone-spark spark-two">✧</span>
-                <span className="land-phone-spark spark-three">✨</span>
               </div>
               <div className="land-edit-desk">
                 <div className="land-edit-copy">
                   <p className="land-edit-kicker">
-                    {automatic ? "02 / Z MontageFrames" : "01 / Ręcznie"}
+                    {automatic ? "02 / Z MontageFrames" : "01 / Ręczny montaż"}
                   </p>
                   <h3>
                     {automatic ? (
                       <>
-                        Jedno polecenie. <br />I już się montuje.
+                        Wgrywasz film.
+                        <br />
+                        Reszta robi się sama.
                       </>
                     ) : (
                       <>
-                        Jeszcze jedno cięcie. <br />I cały wieczór znika.
+                        Cięcie. Napis. Poprawka.
+                        <br />I tak przez cały wieczór.
                       </>
                     )}
                   </h3>
                   <p>
                     {automatic
-                      ? "Wgraj film. Wybierz styl. AI przygotuje cięcia i napisy — Ty sprawdzasz efekt."
-                      : "Przesuwasz klipy, wycinasz pauzy, poprawiasz każde słowo. Znasz to?"}
+                      ? "Wybierasz styl. Program montuje. Ty sprawdzasz wynik i poprawiasz tylko to, co chcesz."
+                      : "W CapCut wszystko dopinasz osobno: pauzy, timing słów, animacje i kolejne klipy."}
                   </p>
                 </div>
                 <div
@@ -275,14 +304,36 @@ export function Landing() {
                   <div className="land-editor-top">
                     <span>
                       <i />{" "}
-                      {automatic
-                        ? "MontageFrames / Twój montaż"
-                        : "Sekwencja 01 / Montaż ręczny"}
+                      {automatic ? "MontageFrames" : "CapCut · montaż ręczny"}
                     </span>
-                    <span>9:16</span>
+                    <span>
+                      {automatic
+                        ? "Montaż gotowy do sprawdzenia"
+                        : "Projekt bez tytułu"}
+                    </span>
+                  </div>
+                  <div className="land-editor-tools" aria-hidden="true">
+                    {automatic ? (
+                      <>
+                        <span>✓ Cięcia</span>
+                        <span>✓ Napisy</span>
+                        <span>✓ Twój styl</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Podziel klip</span>
+                        <span>Usuń pauzę</span>
+                        <span>Animacja</span>
+                        <span>Timing</span>
+                      </>
+                    )}
                   </div>
                   <div className="land-editor-caption">
-                    <span>Napisy</span>
+                    <span>
+                      {automatic
+                        ? "Popraw, jeśli chcesz"
+                        : "Każde słowo osobno"}
+                    </span>
                     <div className="land-edit-words">
                       <span>No więc…</span>
                       <span>yyy…</span>
@@ -308,7 +359,7 @@ export function Landing() {
                     <small>
                       {automatic
                         ? "Zmień podświetlone słowo. Od razu widać efekt."
-                        : "Popraw tekst · Dopasuj czas · Ustaw animację"}
+                        : "Popraw tekst. Dopasuj czas. Ustaw animację. Powtórz."}
                     </small>
                   </div>
                   <div className="land-editor-timeline">
@@ -319,19 +370,19 @@ export function Landing() {
                       <span>00:15</span>
                     </div>
                     <div className="land-editor-track subtitles">
-                      <small>T</small>
+                      <small>Tekst</small>
                       <span>Rób</span>
                       <span>{automatic ? captionWord : "lepsze"}</span>
                       <span>rolki.</span>
                     </div>
                     <div className="land-editor-track video">
-                      <small>V1</small>
+                      <small>Film</small>
                       {[0, 1, 2, 3, 4, 5].map((i) => (
                         <span key={i} />
                       ))}
                     </div>
                     <div className="land-editor-track audio">
-                      <small>A1</small>
+                      <small>Głos</small>
                       <Wave quiet={!automatic} />
                     </div>
                     <div className="land-editor-playhead" />
@@ -340,34 +391,88 @@ export function Landing() {
                     </div>
                   </div>
                   <div className="land-editor-result">
-                    <span aria-hidden="true">{automatic ? "✦" : "✂"}</span>
+                    <span aria-hidden="true">{automatic ? "✓" : "↖"}</span>
                     {automatic
-                      ? "Cięcia, napisy, oprawa. Zrobione przez AI."
-                      : "Wszystko na Twojej głowie."}
+                      ? "Cięcia i napisy przygotowane. Ty masz ostatnie słowo."
+                      : "Każda zmiana to kolejne kliknięcia."}
                   </div>
                 </div>
                 <p className="land-edit-proof">
-                  Schemat działania · przykładowe nagranie i napisy
+                  Interaktywny schemat · układ ręcznego edytora inspirowany
+                  CapCutem
                 </p>
               </div>
             </div>
-            <div className="land-edit-progress" aria-hidden="true">
-              <span className={!automatic ? "active" : ""}>Montaż ręczny</span>
-              <i />
-              <span className={automatic ? "active" : ""}>Montaż AI ✦</span>
+            <div
+              className="land-edit-progress"
+              role="group"
+              aria-label="Porównaj sposoby montażu"
+            >
+              <button
+                type="button"
+                aria-pressed={!automatic}
+                onClick={() => setAutomatic(false)}
+              >
+                Ręcznie w CapCut
+              </button>
+              <span aria-hidden="true">→</span>
+              <button
+                type="button"
+                aria-pressed={automatic}
+                onClick={() => setAutomatic(true)}
+              >
+                Z MontageFrames
+              </button>
             </div>
           </div>
         </section>
-        <section className="land-manifesto">
-          <p>
-            {"Mniej wieczorów nad napisami. Więcej miejsca na pomysły, klientów i życie poza osią czasu."
-              .split(" ")
-              .map((word, i) => (
-                <span className="word" key={i}>
-                  {word}{" "}
-                </span>
-              ))}
-          </p>
+        <section className="land-manifesto" aria-labelledby="land-time-title">
+          <div className="land-time-layout">
+            <div className="land-time-copy">
+              <p className="land-time-before">
+                Mniej wieczorów
+                <br />
+                nad napisami.
+              </p>
+              <h2 id="land-time-title">
+                Więcej miejsca
+                <br />
+                na pomysły.
+              </h2>
+              <p className="land-time-after">
+                Na klientów. Na życie
+                <br />
+                poza osią czasu.
+              </p>
+            </div>
+            <div
+              className="land-time-edit"
+              data-ui="true"
+              aria-label="Powtarzalny montaż przejmuje program"
+            >
+              <div className="land-time-work" aria-hidden="true">
+                <div className="land-time-fragments">
+                  <span>przytnij</span>
+                  <span>przesuń</span>
+                  <span>popraw</span>
+                </div>
+                <div className="land-time-fragments">
+                  <span>napisy</span>
+                  <span>timing</span>
+                  <span>animacja</span>
+                </div>
+                <Wave quiet />
+              </div>
+              <div className="land-time-done">
+                <span aria-hidden="true">✓</span>
+                <p>
+                  Montaż po naszej stronie.
+                  <br />
+                  <strong>Wieczór po Twojej.</strong>
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
         <section className="land-section land-calculator" id="czas">
           <div>

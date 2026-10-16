@@ -15,3 +15,9 @@ API lokalne: GET /api/updates (cache), POST /api/updates/check, POST /api/update
 Odbiór: fixture kilku wersji: zmieniony szablon, nowy klient, niezmieniony klient autora, własny klient, usunięcie czystego pliku, lokalna zmiana kodu, uszkodzona paczka, symlink, traversal, brak internetu, ten sam numer wersji, równoległe pobranie/instalacja, błąd zależności, rollback po awarii i ponowne uruchomienie. Test fixture nie potwierdza pierwszej publikacji w GitHub Actions.
 
 Referencja protokołu: https://docs.github.com/en/rest/releases/assets — digest SHA-256 i browser_download_url.
+
+## Dostępność dla starych wersji — 2026-10-17
+
+Kod GUI, serwera, paczkowania i migracji baseline jest w repo; sprawdzone testami fixture. Weryfikacja GitHub Releases w dniu 2026-10-17: brak opublikowanych wydań. Publikacja i aktualizacja z prawdziwego wydania na drugiej instalacji nadal nieodebrane. Push na codex/panel-ui-ux nie uruchamia wydania dla użytkowników; workflow jest ograniczony do main.
+
+Instalacja bez tego kodu nie otrzyma powiadomienia. Jednorazowa migracja: czysty klon Git aktualizuje main po wydaniu, a stary ZIP źródeł przechodzi do nowego folderu z oficjalnym MontageFrames.zip, zachowując starą kopię. Lokalne zmiany kodu wymagają ręcznego połączenia. Szczegóły i ograniczenia w README.md, sekcja „Starsza instalacja bez przycisku aktualizacji”.

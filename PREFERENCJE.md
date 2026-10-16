@@ -1,3 +1,16 @@
+## Landing: nagłówek sekcji montażu — 2026-10-17
+
+- Nagłówek „Ten sam materiał. Inny sposób pracy. / Mniej montowania. Więcej gotowych rolek.” nie może znikać pod hero ani być ucinany przez przypięty kontener. Na niskich ekranach zachować czytelność całej sekcji.
+
+## Landing: sekcja odzyskanego czasu — 2026-10-17
+
+- Przebudować sekcję „Mniej wieczorów nad napisami…”: bardziej estetyczna, wizualna kompozycja zamiast dużego jednolitego akapitu. Zachować przekaz o czasie na pomysły, klientów i życie poza osią czasu.
+
+## Landing: CapCut → MontageFrames, bez infantylnych dekoracji — 2026-10-17
+
+- iPhone może zostać jako podgląd, ale bez rysunkowej osoby w ekranie, emotek i infantylnych dekoracji.
+- Najpierw pokazać ręczny montaż w UI inspirowanym CapCutem i dużą liczbę czynności, potem ten sam materiał montowany w MontageFrames: prosto i bezproblemowo, z łatwą edycją napisów. Spokojniejsza, bardziej estetyczna sekcja i czytelna oś czasu; bez wymyślonych pomiarów szybkości.
+
 ## Landing: iPhone i prostota edycji — 2026-10-17
 
 - Zamiast obracanego panelu: trwały mockup iPhone’a w 3D, który obraca się podczas przewijania. Najpierw trudny montaż ręczny, następnie AI wykonujące montaż, z gwiazdkami i emotkami.

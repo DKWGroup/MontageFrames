@@ -947,14 +947,11 @@
   color: var(--land-blue);
 }
 .land-edit-story {
-  height: 240svh;
   position: relative;
-  background: #f2f5fb;
 }
 .land-edit-sticky {
   position: sticky;
   top: 0;
-  min-height: 760px;
   height: 100svh;
   max-height: 1080px;
   display: flex;
@@ -965,13 +962,11 @@
 }
 .land-edit-heading {
   text-align: center;
-  margin-bottom: 24px;
 }
 .land-edit-heading .land-step {
   margin-bottom: 12px;
 }
 .land-edit-heading h2 {
-  font-size: clamp(32px, 3.8vw, 54px);
   margin: 0;
 }
 .land-edit-heading h2 span {
@@ -979,9 +974,7 @@
 }
 .land-edit-visual {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
   align-items: center;
-  gap: 64px;
 }
 .land-phone-space {
   perspective: 1300px;
@@ -1004,10 +997,6 @@
     #595f6a 60%,
     #20242c
   );
-  box-shadow:
-    3px 0 0 #686e78,
-    7px 3px 0 #30343e,
-    24px 28px 45px -14px #10285145;
   transform-style: preserve-3d;
 }
 .land-phone::before,
@@ -1071,12 +1060,6 @@
 .land-phone-footage {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 25% 20%,
-    #8a9cbb 0%,
-    #475b7a 42%,
-    #1d2a3f 85%
-  );
   overflow: hidden;
 }
 .land-phone-footage::before {
@@ -1090,87 +1073,15 @@
   filter: blur(20px);
   transform: rotate(20deg);
 }
-.land-person-head {
-  position: absolute;
-  top: 98px;
-  left: calc(50% - 43px);
-  width: 86px;
-  height: 116px;
-  border-radius: 42% 42% 45% 45%;
-  background: linear-gradient(110deg, #e5b393, #c68a70);
-  box-shadow: inset -12px -3px 0 #9b5c4225;
-  z-index: 1;
-}
-.land-person-head::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: -3px;
-  width: 92px;
-  height: 45px;
-  border-radius: 50% 60% 20% 20%;
-  background: #2b2528;
-  transform: rotate(-7deg);
-}
-.land-person-head i,
-.land-person-head b {
-  position: absolute;
-  top: 52px;
-  width: 6px;
-  height: 5px;
-  border-radius: 50%;
-  background: #3b2a2d;
-}
-.land-person-head i {
-  left: 22px;
-}
-.land-person-head b {
-  right: 22px;
-}
-.land-person-head > span {
-  position: absolute;
-  top: 81px;
-  left: 32px;
-  width: 24px;
-  height: 8px;
-  border-bottom: 2px solid #754e47;
-  border-radius: 0;
-  transition:
-    border-radius 600ms,
-    height 600ms;
-}
-.land-person-body {
-  position: absolute;
-  width: 216px;
-  height: 250px;
-  top: 205px;
-  left: calc(50% - 108px);
-  border-radius: 70px 70px 0 0;
-  background: linear-gradient(90deg, #1b2540, #30456c, #15223c);
-}
-.land-person-body::before {
-  content: "";
-  position: absolute;
-  width: 32px;
-  height: 26px;
-  background: #c48b70;
-  top: -12px;
-  left: 92px;
-  border-radius: 0 0 16px 16px;
-}
 .land-phone-raw {
   position: absolute;
-  top: 300px;
   left: 18px;
   right: 18px;
   text-align: center;
-  font-size: 14px;
-  color: #fff;
   transition: opacity 400ms;
 }
 .land-phone-finished {
   position: absolute;
-  top: 285px;
   left: 12px;
   right: 12px;
   text-align: center;
@@ -1185,21 +1096,8 @@
 }
 .land-phone-finished strong {
   display: inline-block;
-  background: #d8e7ff;
   color: #153a7d;
   padding: 0 8px;
-  font-size: 37px;
-}
-.land-phone-emoji {
-  position: absolute;
-  top: 65px;
-  right: 22px;
-  font-size: 38px;
-  opacity: 0;
-  transform: scale(0.5) rotate(-15deg);
-  transition:
-    opacity 500ms,
-    transform 800ms cubic-bezier(0.2, 1.6, 0.4, 1);
 }
 .land-phone-bottom {
   position: absolute;
@@ -1207,8 +1105,6 @@
   left: 0;
   right: 0;
   text-align: center;
-  font-size: 10px;
-  color: #e1e9f7;
 }
 .land-phone-dot {
   display: inline-block;
@@ -1228,33 +1124,6 @@
   transform: translateX(-50%);
   border-radius: 4px;
 }
-.land-phone-spark {
-  position: absolute;
-  color: var(--land-blue);
-  opacity: 0;
-  transform: scale(0.2) rotate(-25deg);
-  transition:
-    opacity 500ms,
-    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-.spark-one {
-  left: 12%;
-  top: 16%;
-  font-size: 66px;
-}
-.spark-two {
-  right: 5%;
-  top: 48%;
-  font-size: 85px;
-  transition-delay: 150ms;
-}
-.spark-three {
-  left: 12%;
-  bottom: 14%;
-  font-size: 38px;
-  transition-delay: 300ms;
-}
 .land-edit-copy {
   margin-bottom: 22px;
 }
@@ -1267,31 +1136,23 @@
   font-weight: 700;
 }
 .land-edit-copy h3 {
-  font-size: clamp(30px, 3.4vw, 44px);
   margin: 0 0 12px;
 }
 .land-edit-copy > p:last-child {
-  max-width: 42ch;
   font-size: 15px;
   color: var(--land-muted);
   margin: 0;
 }
 .land-editor {
-  background: #171b25;
   border: 1px solid #3e4557;
-  border-radius: 12px;
   color: #dce2f1;
-  box-shadow: 0 18px 45px -28px #10285170;
   overflow: hidden;
   text-align: left;
 }
 .land-editor-top {
-  padding: 12px 16px;
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  background: #222735;
-  font-size: 11px;
   border-bottom: 1px solid #333b4e;
 }
 .land-editor-top i {
@@ -1304,22 +1165,16 @@
   transition: background 400ms;
 }
 .land-editor-caption {
-  padding: 16px;
   border-bottom: 1px solid #343b4e;
 }
 .land-editor-caption > span {
-  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #aab6cb;
 }
 .land-edit-words {
-  margin: 10px 0;
   display: flex;
-  gap: 6px;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 30px;
 }
 .land-edit-words > span,
 .land-edit-words > b {
@@ -1344,10 +1199,8 @@
 }
 .land-editor-caption small {
   color: #a5b1c8;
-  font-size: 10px;
 }
 .land-editor-timeline {
-  padding: 8px 16px 12px;
   position: relative;
 }
 .land-editor-ruler {
@@ -1360,13 +1213,9 @@
 .land-editor-track {
   display: flex;
   align-items: center;
-  gap: 5px;
-  height: 31px;
   margin: 5px 0;
 }
 .land-editor-track > small {
-  width: 20px;
-  font-size: 9px;
   color: #a5b1c8;
   flex: none;
 }
@@ -1383,22 +1232,14 @@
 }
 .land-editor-track.video > span:nth-child(3n) {
   flex: 0.3;
-  background: #a0746c;
-  border-color: #be8d82;
 }
 .land-editor-track.subtitles > span {
   height: 22px;
   padding: 2px 7px;
-  background: #8f6c34;
-  border-color: #a78851;
-  color: #f5e4c4;
-  font-size: 11px;
 }
 .land-editor-track.audio .land-wave {
   flex: 1;
   height: 25px;
-  fill: #80b6a5;
-  background: #263b38;
   border: 1px solid #517c6f;
   border-radius: 3px;
 }
@@ -1422,10 +1263,8 @@
 }
 .land-editor-cursor {
   position: absolute;
-  top: 64px;
   left: 52%;
   color: #fff;
-  font-size: 25px;
   transform: rotate(-15deg);
 }
 .land-editor-cursor > span {
@@ -1436,33 +1275,22 @@
   white-space: nowrap;
   border-radius: 4px;
   padding: 4px 6px;
-  background: #45424c;
   transform: rotate(15deg);
 }
 .land-editor-result {
   border-top: 1px solid #343b4e;
-  padding: 10px 16px;
-  font-size: 11px;
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #222735;
   transition: background 600ms;
 }
-.land-editor-result > span {
-  font-size: 20px;
-}
 .land-edit-proof {
-  font-size: 10px;
-  color: var(--land-muted);
   margin: 10px 0 0;
 }
 .land-edit-progress {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  margin-top: 22px;
   font-size: 12px;
   color: #738198;
 }
@@ -1478,18 +1306,9 @@
 .is-ai .land-phone-raw {
   opacity: 0;
 }
-.is-ai .land-phone-finished,
-.is-ai .land-phone-emoji {
+.is-ai .land-phone-finished {
   opacity: 1;
   transform: none;
-}
-.is-ai .land-phone-spark {
-  opacity: 1;
-  transform: scale(1) rotate(8deg);
-}
-.is-ai .land-person-head > span {
-  border-radius: 0 0 50% 50%;
-  height: 13px;
 }
 .is-ai .land-phone-dot,
 .is-ai .land-editor-top i {
@@ -1500,28 +1319,17 @@
 .is-ai .land-editor-cursor {
   display: none;
 }
-.is-ai .land-edit-words > b {
-  background: #b9d0ff;
-  color: #122954;
-}
 .is-ai .land-editor-track.video > span:nth-child(3n) {
   flex: 0;
   border-width: 0;
 }
-.is-ai .land-editor-track.video > span {
-  background: #4565a4;
-  border-color: #738fca;
-}
 .is-ai .land-editor-track.subtitles > span {
-  background: #7c65c0;
-  border-color: #ad97ef;
   color: #fff;
 }
 .is-ai .land-editor-playhead {
   left: 92%;
 }
 .is-ai .land-editor-result {
-  background: #233958;
   color: #d1e2ff;
 }
 @media (max-width: 760px) {
@@ -1529,24 +1337,12 @@
     height: 250svh;
   }
   .land-edit-sticky {
-    padding: 20px;
     height: 100svh;
-    min-height: 660px;
     max-height: 920px;
-  }
-  .land-edit-heading {
-    margin-bottom: 14px;
-  }
-  .land-edit-heading h2 {
-    font-size: 30px;
   }
   .land-edit-heading .land-step {
     font-size: 11px;
     margin-bottom: 8px;
-  }
-  .land-edit-visual {
-    grid-template-columns: 0.7fr 1fr;
-    gap: 16px;
   }
   .land-phone-space {
     padding: 0;
@@ -1558,12 +1354,6 @@
     scale: 0.58;
     margin: -106px -53px;
   }
-  .land-edit-copy h3 {
-    font-size: 23px;
-  }
-  .land-edit-copy > p:last-child {
-    font-size: 12px;
-  }
   .land-edit-kicker {
     font-size: 9px;
     margin-bottom: 8px;
@@ -1571,44 +1361,25 @@
   .land-edit-copy {
     margin-bottom: 12px;
   }
-  .land-editor-top {
-    padding: 8px;
-    font-size: 8px;
-  }
   .land-editor-top > span:last-child {
     display: none;
-  }
-  .land-editor-caption {
-    padding: 8px;
   }
   .land-editor-caption > span,
   .land-editor-caption small {
     font-size: 8px;
-  }
-  .land-edit-words {
-    gap: 3px;
   }
   .land-edit-words > span,
   .land-edit-words > b {
     font-size: 10px;
     padding: 2px 4px;
   }
-  .land-editor-timeline {
-    padding: 8px;
-  }
   .land-editor-ruler {
     font-size: 7px;
-    margin-left: 16px;
   }
   .land-editor-ruler > span:nth-child(2n) {
     display: none;
   }
-  .land-editor-track > small {
-    width: 14px;
-    font-size: 7px;
-  }
   .land-editor-track {
-    height: 22px;
     gap: 3px;
   }
   .land-editor-track.subtitles > span {
@@ -1619,35 +1390,11 @@
   .land-editor-cursor > span {
     display: none;
   }
-  .land-editor-result {
-    font-size: 9px;
-    padding: 8px;
-  }
   .land-edit-proof {
     font-size: 8px;
   }
-  .spark-one {
-    left: -8%;
-    font-size: 38px;
-  }
-  .spark-two {
-    right: -5%;
-    font-size: 42px;
-  }
-  .spark-three {
-    left: 4%;
-    bottom: 4%;
-    font-size: 24px;
-  }
 }
 @media (max-width: 480px) {
-  .land-edit-visual {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .land-phone-space {
-    height: 250px;
-  }
   .land-phone {
     scale: 0.48;
     margin: -131px -65px;
@@ -1655,64 +1402,32 @@
   .land-edit-copy {
     text-align: center;
   }
-  .land-edit-copy h3 {
-    font-size: 22px;
-  }
-  .land-edit-copy h3 br {
-    display: none;
-  }
   .land-edit-copy > p:last-child {
     margin: auto;
-    max-width: 38ch;
-    font-size: 11px;
-  }
-  .land-edit-heading h2 {
-    font-size: 26px;
   }
   .land-edit-heading .land-step {
     display: none;
   }
   .land-edit-progress {
-    margin-top: 12px;
     font-size: 10px;
   }
   .land-editor-caption {
-    display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 8px;
     align-items: center;
-  }
-  .land-edit-words {
-    margin: 0;
   }
   .land-editor-caption small {
     grid-column: 1 / -1;
     margin-top: 6px;
   }
   .land-editor-track {
-    height: 18px;
     margin: 3px 0;
-  }
-  .land-editor-track.audio .land-wave {
-    height: 18px;
   }
   .land-editor-result {
     padding: 5px 8px;
   }
   .land-edit-proof {
     text-align: center;
-  }
-  .spark-one {
-    left: 20%;
-    top: 6%;
-  }
-  .spark-two {
-    right: 20%;
-    top: 42%;
-  }
-  .spark-three {
-    left: 23%;
-    bottom: 8%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1724,11 +1439,8 @@
   min-width: 0;
   max-width: 100%;
   border: 1px solid #b9d0ff;
-  border-radius: 4px;
-  padding: 3px 7px;
   background: #b9d0ff;
   color: #122954;
-  font-size: 13px;
 }
 .land-edit-words > input:focus-visible {
   outline: 2px solid #fff;
@@ -1757,9 +1469,584 @@
     margin: -106px -53px;
   }
 }
-@media (max-width: 480px) {
-  .land-phone-size {
-    scale: 0.48;
-    margin: -131px -65px;
+/* The phone is a restrained preview; the editing interaction is the focal point. */
+.land-edit-story {
+  background: #f5f6f9;
+  height: 210svh;
+}
+.land-edit-sticky {
+  min-height: 700px;
+}
+.land-edit-heading {
+  margin-bottom: 40px;
+}
+.land-edit-heading h2 {
+  font-size: clamp(32px, 3.6vw, 50px);
+}
+.land-edit-visual {
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 72px;
+}
+.land-edit-copy h3 {
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.12;
+}
+.land-edit-copy > p:last-child {
+  max-width: 49ch;
+}
+.land-phone {
+  box-shadow:
+    2px 0 0 #686e78,
+    5px 2px 0 #30343e,
+    18px 24px 45px -18px #10285140;
+}
+.land-phone-footage {
+  background: #1a202c;
+}
+.land-phone-footage::before {
+  display: none;
+}
+.land-phone-source {
+  position: absolute;
+  top: 65px;
+  left: 22px;
+  right: 22px;
+  display: grid;
+  gap: 4px;
+}
+.land-phone-source > span {
+  color: #cad1df;
+  font-size: 11px;
+  font-weight: 500;
+}
+.land-phone-source > small {
+  font: 9px/1.5 monospace;
+  color: #8997ae;
+}
+.land-phone-composition {
+  position: absolute;
+  top: 155px;
+  left: 22px;
+  right: 12px;
+  display: grid;
+  gap: 0;
+  font:
+    650 35px/1.1 Cabinet,
+    sans-serif;
+  letter-spacing: -0.04em;
+  color: #f0f3f9;
+}
+.land-phone-composition > span:last-child {
+  color: #8499bd;
+}
+.land-phone-raw {
+  top: 302px;
+  font-size: 13px;
+  color: #bac5d7;
+}
+.land-phone-finished {
+  top: 290px;
+  font-size: 23px;
+}
+.land-phone-finished strong {
+  font-size: 34px;
+  border-radius: 2px;
+  background: #dce7ff;
+}
+.land-phone-bottom {
+  font-size: 9px;
+  color: #98a8c2;
+}
+.land-phone-dot,
+.is-ai .land-phone-dot {
+  background: #b8cdf7;
+}
+.land-editor {
+  border-color: #303641;
+  background: #191c22;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px -25px #16233c60;
+}
+.land-editor-top {
+  background: #23262e;
+  padding: 14px 18px;
+  font-size: 12px;
+}
+.land-editor-top > span:last-child {
+  color: #a5b1c5;
+  font-size: 10px;
+  align-self: center;
+}
+.land-editor-tools {
+  display: flex;
+  gap: 18px;
+  padding: 13px 18px;
+  border-bottom: 1px solid #303641;
+  color: #a9b4c7;
+  font-size: 11px;
+}
+.is-ai .land-editor-tools {
+  color: #c1d3f8;
+}
+.land-editor-caption {
+  padding: 22px 18px;
+  border-color: #303641;
+}
+.land-editor-caption > span {
+  font-size: 10px;
+  color: #a5b1c5;
+}
+.land-edit-words {
+  min-height: 38px;
+  margin: 12px 0;
+  gap: 8px;
+}
+.land-edit-words > b,
+.land-edit-words > span {
+  font-size: 17px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.land-edit-words > input {
+  font-size: 17px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.is-ai .land-edit-words > b {
+  color: #e1e7f3;
+  background: #303746;
+}
+.land-editor-caption small {
+  font-size: 11px;
+}
+.land-editor-timeline {
+  padding: 12px 18px 16px;
+}
+.land-editor-ruler {
+  margin-left: 40px;
+  font-family: monospace;
+}
+.land-editor-track {
+  gap: 5px;
+  height: 31px;
+}
+.land-editor-track > small {
+  width: 36px;
+  font-size: 10px;
+}
+.land-editor-track.subtitles > span {
+  font-size: 11px;
+}
+.land-editor-track.video > span {
+  background: #435768;
+  border-color: #718291;
+}
+.land-editor-track.video > span:nth-child(3n) {
+  background: #775a57;
+  border-color: #9c7870;
+}
+.land-editor-track.subtitles > span {
+  background: #645378;
+  border-color: #9583a9;
+  color: #ede6f6;
+}
+.land-editor-track.audio .land-wave {
+  fill: #8aaab2;
+  background: #29383d;
+  border-color: #49606b;
+}
+.is-ai .land-editor-track.video > span {
+  background: #425c7c;
+  border-color: #6986aa;
+}
+.is-ai .land-editor-track.subtitles > span {
+  background: #56648a;
+  border-color: #8294bd;
+}
+.land-editor-cursor {
+  font-size: 22px;
+  top: 73px;
+}
+.land-editor-cursor > span {
+  background: #39414e;
+}
+.land-editor-result {
+  background: #22262e;
+  border-color: #303641;
+  padding: 12px 18px;
+  font-size: 11px;
+}
+.is-ai .land-editor-result {
+  background: #26334b;
+}
+.land-editor-result > span {
+  font-size: 15px;
+}
+.land-edit-proof {
+  font-size: 10px;
+  color: #6e7b8e;
+}
+.land-edit-progress {
+  gap: 16px;
+  margin-top: 28px;
+}
+.land-edit-progress > button {
+  background: transparent;
+  padding: 9px 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #66748a;
+  font-size: 12px;
+  cursor: pointer;
+}
+.land-edit-progress > button[aria-pressed="true"] {
+  color: #173e96;
+  border-color: #c4d3ef;
+  background: #edf2fc;
+}
+.land-edit-progress > span {
+  color: #9ba8bb;
+}
+@media (max-width: 760px) {
+  .land-edit-sticky {
+    min-height: 700px;
+    padding: 20px;
   }
+  .land-edit-heading {
+    margin-bottom: 24px;
+  }
+  .land-edit-heading h2 {
+    font-size: 30px;
+  }
+  .land-edit-visual {
+    grid-template-columns: 0.6fr 1fr;
+    gap: 24px;
+  }
+  .land-edit-copy h3 {
+    font-size: 25px;
+  }
+  .land-edit-copy > p:last-child {
+    font-size: 12px;
+  }
+  .land-editor-top {
+    padding: 10px 12px;
+    font-size: 10px;
+  }
+  .land-editor-tools {
+    gap: 12px;
+    padding: 10px 12px;
+    font-size: 9px;
+  }
+  .land-editor-caption {
+    padding: 14px 12px;
+  }
+  .land-edit-words {
+    gap: 5px;
+    min-height: 30px;
+    margin: 10px 0;
+  }
+  .land-edit-words > b,
+  .land-edit-words > span,
+  .land-edit-words > input {
+    font-size: 13px;
+    padding: 3px 5px;
+  }
+  .land-editor-caption small {
+    font-size: 9px;
+  }
+  .land-editor-timeline {
+    padding: 10px 12px;
+  }
+  .land-editor-track {
+    height: 24px;
+  }
+  .land-editor-track > small {
+    width: 28px;
+    font-size: 8px;
+  }
+  .land-editor-ruler {
+    margin-left: 32px;
+  }
+  .land-editor-result {
+    font-size: 10px;
+    padding: 10px 12px;
+  }
+}
+@media (max-width: 480px) {
+  .land-edit-sticky {
+    min-height: 760px;
+  }
+  .land-edit-heading {
+    margin-bottom: 18px;
+  }
+  .land-edit-heading h2 {
+    font-size: 27px;
+  }
+  .land-edit-visual {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .land-phone-space {
+    height: 210px;
+  }
+  .land-phone-size {
+    scale: 0.4;
+    margin: -151px -74px;
+  }
+  .land-edit-copy h3 {
+    font-size: 23px;
+    margin-bottom: 8px;
+  }
+  .land-edit-copy h3 br {
+    display: initial;
+  }
+  .land-edit-copy > p:last-child {
+    font-size: 11px;
+    max-width: 39ch;
+  }
+  .land-editor-caption {
+    display: block;
+    padding: 12px;
+  }
+  .land-editor-tools {
+    gap: 18px;
+    font-size: 9px;
+  }
+  .land-edit-words {
+    margin: 8px 0;
+  }
+  .land-editor-caption small {
+    display: block;
+    margin: 0;
+  }
+  .land-editor-track {
+    height: 22px;
+  }
+  .land-editor-track.audio .land-wave {
+    height: 22px;
+  }
+  .land-edit-progress {
+    margin-top: 16px;
+    gap: 8px;
+  }
+  .land-edit-progress > button {
+    font-size: 10px;
+    padding: 7px 10px;
+  }
+  .land-edit-proof {
+    font-size: 8px;
+    margin-top: 8px;
+  }
+}
+@media (max-height: 760px) and (max-width: 480px) {
+  .land-edit-sticky {
+    min-height: 0;
+    padding-block: 14px;
+  }
+  .land-phone-space {
+    height: 150px;
+  }
+  .land-phone-size {
+    scale: 0.29;
+    margin: -179px -88px;
+  }
+  .land-edit-heading h2 {
+    font-size: 23px;
+  }
+  .land-edit-heading {
+    margin-bottom: 10px;
+  }
+  .land-edit-visual {
+    gap: 10px;
+  }
+  .land-edit-copy h3 {
+    font-size: 20px;
+  }
+  .land-edit-copy > p:last-child {
+    display: none;
+  }
+}
+
+.land-manifesto {
+  padding: 100px max(40px, calc((100vw - 1200px) / 2));
+  background: var(--land-blue);
+  color: #fff;
+  overflow: hidden;
+}
+.land-time-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 100px;
+  align-items: center;
+}
+.land-time-copy > p {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.45;
+  color: #dce6ff;
+}
+.land-time-copy h2 {
+  margin: 28px 0;
+  font-size: clamp(48px, 5.7vw, 82px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 650;
+}
+.land-time-edit {
+  min-width: 0;
+}
+.land-time-work {
+  padding: 0 0 40px;
+}
+.land-time-fragments {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+.land-time-fragments > span {
+  flex: 1;
+  padding: 16px 10px;
+  background: #416beb;
+  color: #e4ecff;
+  font-size: 14px;
+  border-radius: 3px;
+  text-align: center;
+}
+.land-time-fragments:nth-child(2) {
+  margin-left: 30px;
+  margin-right: -30px;
+}
+.land-time-fragments:nth-child(2) > span {
+  background: #345edb;
+}
+.land-time-work .land-wave {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-top: 14px;
+  fill: #84a5ff;
+}
+.land-time-done {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.land-time-done > span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  background: #fff;
+  color: var(--land-blue);
+  font-size: 24px;
+  border-radius: 50%;
+}
+.land-time-done > p {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0;
+  color: #dce6ff;
+}
+.land-time-done strong {
+  color: #fff;
+  font-weight: 650;
+}
+@media (max-width: 1000px) {
+  .land-time-layout {
+    gap: 52px;
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+  .land-time-copy h2 {
+    font-size: 58px;
+  }
+  .land-time-copy > p {
+    font-size: 19px;
+  }
+  .land-time-done > p {
+    font-size: 17px;
+  }
+  .land-time-fragments > span {
+    font-size: 12px;
+    padding: 14px 6px;
+  }
+}
+@media (max-width: 760px) {
+  .land-manifesto {
+    padding: 64px 24px;
+  }
+  .land-time-layout {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .land-time-copy h2 {
+    font-size: clamp(42px, 8vw, 60px);
+    margin: 24px 0;
+  }
+  .land-time-copy > p {
+    font-size: 18px;
+  }
+  .land-time-edit {
+    max-width: 400px;
+  }
+  .land-time-work {
+    padding-bottom: 24px;
+  }
+  .land-time-fragments:nth-child(2) {
+    margin-left: 16px;
+    margin-right: 0;
+  }
+  .land-time-done > p {
+    font-size: 18px;
+  }
+}
+
+/* A sticky scene taller than the viewport must never centre its heading above its clip. */
+.land-edit-sticky {
+  height: auto;
+  min-height: 100svh;
+  max-height: none;
+  overflow: visible;
+  justify-content: flex-start;
+  padding-top: 32px;
+  padding-bottom: 24px;
+}
+.land-edit-heading {
+  margin-bottom: 24px;
+}
+.land-edit-heading .land-step {
+  margin-bottom: 8px;
+}
+.land-edit-heading h2 {
+  font-size: clamp(30px, 3.4vw, 46px);
+}
+.land-edit-progress {
+  margin-top: 22px;
+}
+@media (max-width: 480px) {
+  .land-edit-sticky {
+    padding-top: 24px;
+  }
+  .land-edit-heading h2 {
+    font-size: 27px;
+  }
+  .land-phone-space {
+    height: 170px;
+  }
+  .land-phone-size {
+    scale: 0.33;
+    margin: -169px -83px;
+  }
+}
+@media (max-height: 780px) {
+  .land-edit-story {
+    height: auto;
+  }
+  .land-edit-sticky {
+    position: relative;
+    min-height: 0;
+  }
+}
+.land-edit-heading .land-step {
+  display: block;
 }
