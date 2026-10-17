@@ -168,7 +168,7 @@ function stableLayouts(framing) {
     i = end;
   }
   // Layout sampling is 4 fps; tracking also retains the exact source cut time.
-  for (let i = 1; i < result.length; i++) {
+  for (let i = 1; !framing.cameraCuts && i < result.length; i++) {
     if (!result[i].cut) continue;
     const precise = (framing.tracking ?? [])
       .filter(
@@ -180,8 +180,50 @@ function stableLayouts(framing) {
       result[i] = { ...result[i], start: precise.time };
     }
   }
-  layoutCache.set(framing, result);
-  return result;
+  let aligned = result;
+  if (framing.cameraCuts) {
+    aligned = result.map((l) => ({ ...l, cut: false }));
+    for (const time of framing.cameraCuts) {
+      // Layout bins may start before the actual cut. Keep the old camera until
+      // that exact source frame; tracking cuts also include speaker switches.
+      const bin = entries.findIndex(
+        (l) => l.cut && l.start <= time && time <= l.end + 0.001,
+      );
+      if (bin > 0 && time > entries[bin].start) {
+        const start = entries[bin].start;
+        const previous = entries[bin - 1];
+        aligned = aligned.flatMap((l) => {
+          if (l.end <= start || l.start >= time) return [l];
+          const before = {
+            ...l,
+            ...(!l.mediaSrc
+              ? { media: previous.media, mediaSrc: previous.mediaSrc }
+              : {}),
+            end: Math.min(l.end, time),
+            people: previous.people,
+            kind: l.mediaSrc
+              ? previous.people.length === 2
+                ? "duo-media"
+                : "speaker-media"
+              : previous.kind,
+            cut: false,
+          };
+          return l.end > time ? [before, { ...l, start: time }] : [before];
+        });
+      }
+      aligned = aligned.flatMap((l) => {
+        if (Math.abs(l.start - time) < 0.000001) return [{ ...l, cut: true }];
+        if (l.start < time && time < l.end)
+          return [
+            { ...l, end: time },
+            { ...l, start: time, cut: true },
+          ];
+        return [l];
+      });
+    }
+  }
+  layoutCache.set(framing, aligned);
+  return aligned;
 }
 export function layoutAt(framing, time) {
   if (framing?.trackingEnabled === false || framing?.mode === "fit")

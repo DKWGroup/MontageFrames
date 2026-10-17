@@ -31,6 +31,19 @@ export function trackingPosition(framing, sourceTime) {
 export function validTracking(framing, duration) {
   if (!validLayouts(framing, duration)) return false;
   if (
+    framing?.cameraCuts !== undefined &&
+    (!Array.isArray(framing.cameraCuts) ||
+      framing.cameraCuts.length > 2400 ||
+      !framing.cameraCuts.every(
+        (t, i, all) =>
+          Number.isFinite(t) &&
+          t >= 0 &&
+          t <= duration &&
+          (!i || t > all[i - 1]),
+      ))
+  )
+    return false;
+  if (
     framing?.trackingEnabled !== undefined &&
     typeof framing.trackingEnabled !== "boolean"
   )

@@ -432,3 +432,109 @@ test("layout switch waits for the precise source cut inside the detector samplin
   assert.equal(layoutAt(framing, 1.1).kind, "duo");
   assert.equal(layoutAt(framing, 1.13).kind, "speaker");
 });
+
+test("source camera cuts override early detector bins and speaker-switch tracking flags", () => {
+  const make = (start, end, kind, cut = false) => ({
+    start,
+    end,
+    kind,
+    people: kind === "speaker" ? [right] : [left, right],
+    cut,
+  });
+  const f = {
+    cameraCuts: [0.4],
+    tracking: [{ time: 0.25, cut: true }],
+    layouts: [
+      make(0, 0.25, "speaker"),
+      make(0.25, 0.5, "speaker", true),
+      make(0.5, 0.75, "duo"),
+      make(0.75, 1, "duo"),
+    ],
+  };
+  assert.equal(layoutAt(f, 0.3).kind, "speaker");
+  assert.equal(layoutAt(f, 0.4).kind, "duo");
+  assert.equal(layoutAt(f, 0.5).kind, "duo");
+});
+
+test("same-camera speaker flags cannot reset the steady single-host window", () => {
+  const f = {
+    cameraCuts: [],
+    layouts: Array.from({ length: 12 }, (_, i) => ({
+      start: i / 4,
+      end: (i + 1) / 4,
+      kind: "speaker",
+      cut: i === 6,
+      people: [{ ...right, x: i < 6 ? 0.4 : 0.5 }],
+    })),
+  };
+  const a = speakerWindowAtForTest(f, 1.49),
+    b = speakerWindowAtForTest(f, 1.5);
+  assert.equal(b.shotStart, 0);
+  assert.ok(Math.abs(b.videoLeft - a.videoLeft) < 2);
+});
+
+test("an editorial photo keeps its timing while its camera geometry waits for the source cut", () => {
+  const f = {
+    cameraCuts: [1.13],
+    layouts: [
+      { start: 0, end: 1, kind: "speaker", people: [right] },
+      {
+        start: 1,
+        end: 1.13,
+        kind: "speaker-media",
+        people: [right],
+        media,
+        mediaSrc: "bee-1.png",
+        cut: true,
+      },
+      {
+        start: 1.13,
+        end: 1.25,
+        kind: "duo-media",
+        people: [left, right],
+        media,
+        mediaSrc: "bee-1.png",
+      },
+      {
+        start: 1.25,
+        end: 1.5,
+        kind: "duo-media",
+        people: [left, right],
+        media,
+        mediaSrc: "bee-1.png",
+      },
+    ],
+  };
+  assert.equal(layoutAt(f, 1.1).kind, "speaker-media");
+  assert.equal(layoutAt(f, 1.13).kind, "duo-media");
+  assert.ok(layoutAt(f, 1.13).cut);
+});
+
+test("source cut validation rejects malformed, duplicate and unordered camera times", async () => {
+  const { validTracking } = await import("../src/quickcontent/framing.mjs");
+  assert.ok(validTracking({ cameraCuts: [0.4, 1.13] }, 2));
+  for (const cameraCuts of [null, [NaN], [-1], [3], [1, 1], [1, 0.4]])
+    assert.equal(validTracking({ cameraCuts }, 2), false);
+});
+
+test("delaying a camera cut preserves the previous embedded media rectangle", () => {
+  const f = {
+    cameraCuts: [1.13],
+    layouts: [
+      { start: 0, end: 1, kind: "duo-media", people: [left, right], media },
+      {
+        start: 1,
+        end: 1.25,
+        kind: "duo-media",
+        people: [left, right],
+        media,
+        cut: true,
+      },
+      { start: 1.25, end: 1.5, kind: "speaker", people: [right] },
+      { start: 1.5, end: 2, kind: "speaker", people: [right] },
+    ],
+  };
+  assert.equal(layoutAt(f, 1.1).kind, "duo-media");
+  assert.deepEqual(layoutAt(f, 1.1).media, media);
+  assert.equal(layoutAt(f, 1.13).kind, "speaker");
+});

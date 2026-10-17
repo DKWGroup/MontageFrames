@@ -7,6 +7,7 @@ export type TrackingPoint = {
   cut?: boolean; // cięcie kamery / zmiana mówcy: skok bez przejazdu
 };
 export type Framing = {
+  cameraCuts?: number[]; // exact source cuts, independent of speaker switches
   sourceAspect?: number;
   layouts?: import("./layout.mjs").NewsLayout[];
   mode: "fit" | "crop";
