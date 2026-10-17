@@ -229,7 +229,10 @@ export function layoutAt(framing, time) {
   if (framing?.trackingEnabled === false || framing?.mode === "fit")
     return null;
   const entries = stableLayouts(framing);
-  const i = entries.findIndex((e) => e.start <= time && time < e.end);
+  // FFmpeg reports six decimals; match the source frame without shifting the pan.
+  const i = entries.findIndex(
+    (e) => e.start <= time + 0.000001 && time + 0.000001 < e.end,
+  );
   if (i < 0) return null;
   const a = entries[i],
     b = entries[i + 1];
@@ -316,7 +319,10 @@ export function happyHookY(kind, storedY = 0.69) {
 export function speakerWindowAt(framing, time) {
   const entries = stableLayouts(framing);
   const index = entries.findIndex(
-    (l) => l.kind === "speaker" && l.start <= time && time < l.end,
+    (l) =>
+      l.kind === "speaker" &&
+      l.start <= time + 0.000001 &&
+      time + 0.000001 < l.end,
   );
   if (index < 0) return null;
   let first = index;

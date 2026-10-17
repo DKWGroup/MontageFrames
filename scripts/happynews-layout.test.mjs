@@ -538,3 +538,30 @@ test("delaying a camera cut preserves the previous embedded media rectangle", ()
   assert.deepEqual(layoutAt(f, 1.1).media, media);
   assert.equal(layoutAt(f, 1.13).kind, "speaker");
 });
+
+test("six-decimal source cut timestamps switch on the matching video frame", () => {
+  const layouts = Array.from({ length: 8 }, (_, i) => ({
+    start: i / 4,
+    end: (i + 1) / 4,
+    kind: "speaker",
+    cut: i === 1,
+    people: [{ ...right, x: i < 2 ? 0.2 : 0.6 }],
+  }));
+  const f = { cameraCuts: [0.466667], layouts };
+  const before = speakerWindowAtForTest(f, 13 / 30);
+  const onCut = speakerWindowAtForTest(f, 14 / 30);
+  assert.equal(onCut.shotStart, 0.466667);
+  assert.ok(Math.abs(onCut.videoLeft - before.videoLeft) > 300);
+  const split = {
+    cameraCuts: [0.466667],
+    layouts: [
+      { ...layouts[0] },
+      { ...layouts[1] },
+      ...layouts
+        .slice(2)
+        .map((l) => ({ ...l, kind: "duo", people: [left, right] })),
+    ],
+  };
+  assert.equal(layoutAt(split, 13 / 30).kind, "speaker");
+  assert.equal(layoutAt(split, 14 / 30).kind, "duo");
+});
