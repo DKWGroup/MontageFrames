@@ -12,6 +12,14 @@ export type ProfileResponse = {
   revision: number;
   ready: boolean;
   issues: unknown[];
+  established: {
+    profile: BrandingProfile;
+    description: string;
+    fonts: string[];
+    colors: string[];
+  } | null;
+  preferences: { content: string; path: string } | null;
+  materials: Array<{ file: string; label: string; available: boolean }>;
 };
 export type FontChoice = {
   id: string;
@@ -58,6 +66,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 const clientPath = (id: string) => `/clients/${encodeURIComponent(id)}`;
 export const brandingApi = {
+  materialUrl: (id: string, file: string) =>
+    `/api/branding${clientPath(id)}/materials?file=${encodeURIComponent(file)}`,
   get: (id: string) => request<ProfileResponse>(clientPath(id)),
   save: (id: string, profile: BrandingProfile, revision: number) =>
     request<ProfileResponse>(clientPath(id), {

@@ -1,3 +1,5 @@
+import { establishedStyles } from "./established-styles.mjs";
+
 export function brandAppearance(branding) {
   const c = branding.captions;
   const color = (role, fallback) =>
@@ -15,7 +17,11 @@ export function brandAppearance(branding) {
 }
 export function brandingRenderFiles(branding) {
   if (!branding) return [];
-  const files = [branding.fonts.primary?.file, branding.fonts.emphasis?.file];
+  const files = [
+    ...(establishedStyles[branding.styleId]?.requiredFonts ?? []),
+    branding.fonts.primary?.file,
+    branding.fonts.emphasis?.file,
+  ];
   if (branding.logo.enabled)
     files.push(
       branding.assets.find((a) => a.id === branding.logo.assetId)?.file,

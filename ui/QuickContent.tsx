@@ -324,6 +324,7 @@ function ImportForm({
   const [templateId, setTemplateId] = useState("");
   const selectedTemplate =
     compatible.find((template) => template.id === templateId) ??
+    compatible.find((template) => template.ready && template.brandingRevision) ??
     compatible.find((template) => template.ready);
   const [focus, setFocus] = useState<QCFocus>({ mode: "auto" });
   const [duration, setDuration] = useState<QCDuration>({ min: 30, max: 60 });

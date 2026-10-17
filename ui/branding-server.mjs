@@ -1,4 +1,6 @@
 import fs from "node:fs/promises";
+import path from "node:path";
+import { serveMedia } from "./media-response.mjs";
 import {
   createBrandingStore,
   snapshotBranding,
@@ -11,6 +13,7 @@ import {
   importFont,
   importUploadedFont,
 } from "../scripts/branding-fonts.mjs";
+import { getEstablishedBranding } from "../scripts/branding-established.mjs";
 import { importBrandAsset } from "../scripts/branding-assets.mjs";
 import {
   startBrandScan,
@@ -71,6 +74,35 @@ async function routeBranding(root, req, res, url) {
   if (section !== "clients")
     throw brandingError(404, "Nie ma takiej trasy brandingu");
   const store = createBrandingStore(root);
+  const extras = await getEstablishedBranding(root, id);
+  if (action === "materials" && !item && ["GET", "HEAD"].includes(req.method)) {
+    const relative = url.searchParams.get("file");
+    if (
+      !extras.materials.some(
+        (material) => material.file === relative && material.available,
+      )
+    )
+      throw brandingError(
+        403,
+        "Materiał nie należy do tego klienta lub jest niedostępny",
+      );
+    const types = {
+      ".png": "image/png",
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".webp": "image/webp",
+      ".mp4": "video/mp4",
+      ".mov": "video/quicktime",
+      ".webm": "video/webm",
+      ".json": "application/json; charset=utf-8",
+    };
+    const type = types[path.extname(relative).toLowerCase()];
+    if (!type) throw brandingError(403, "Ten typ materiału nie jest dostępny");
+    const file = await brandingPath(root, relative);
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Cache-Control", "no-store");
+    return serveMedia(req, res, file, type);
+  }
   const replyProfile = async (profile) => {
     let issues = [];
     if (!profile.revision) issues = ["Zapisz branding przed montażem."];
@@ -83,20 +115,21 @@ async function routeBranding(root, req, res, url) {
     res.setHeader("ETag", `"${profile.revision}"`);
     send(res, {
       profile,
+      ...extras,
       revision: profile.revision,
       ready: issues.length === 0,
       issues,
     });
   };
   if (!action && req.method === "GET") {
-    const title = await fs
-      .readFile(
-        await brandingPath(root, `klienci/${id}/PREFERENCJE.md`),
-        "utf8",
-      )
-      .catch(() => id);
-    const label = title.match(/^#\s*(.+?)(?:\s+[—–-]\s.*)?$/m)?.[1] ?? id;
-    return replyProfile((await store.get(id)) ?? defaultBranding(id, label));
+    const label =
+      extras.preferences?.content.match(/^#\s*(.+?)(?:\s+[—–-]\s.*)?$/m)?.[1] ??
+      id;
+    return replyProfile(
+      (await store.get(id)) ??
+        extras.established?.profile ??
+        defaultBranding(id, label),
+    );
   }
   if (!action && req.method === "PUT") {
     const match = /^"?(\d+)"?$/.exec(req.headers["if-match"] ?? "");

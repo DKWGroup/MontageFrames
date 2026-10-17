@@ -20,6 +20,7 @@ export type AssetRef = {
 };
 export type BrandingSnapshot = {
   schemaVersion: 1;
+  styleId?: "brand" | "persona" | "skyclass" | "herod" | "bisanz" | "ameryka" | "glowup" | "vital" | "happynews";
   clientId: string;
   revision: number;
   palette: {

@@ -68,6 +68,7 @@ export function buildCandidateReel({
   silences = [],
   catalog = [],
 }) {
+  if (branding) styleId = branding.styleId ?? "brand";
   if (!styleId || typeof styleId !== "string")
     throw new Error("Brak jawnego stylu szablonu QuickContent.");
   // Product aliases may merge words, so SkyClass always retains the original speech 1:1.

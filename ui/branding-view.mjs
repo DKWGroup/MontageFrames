@@ -52,3 +52,15 @@ export function applyBrandSuggestions(profile, suggestions, fields) {
 export function brandingSaveFailure(draft, revision, status) {
   return { draft, revision, conflict: status === 409 };
 }
+
+export function selectBrandStyle(profile, styleId, established) {
+  if (styleId === "brand") return { ...profile, styleId };
+  if (!established || established.styleId !== styleId) return profile;
+  return {
+    ...profile,
+    styleId,
+    palette: JSON.parse(JSON.stringify(established.palette)),
+    fonts: JSON.parse(JSON.stringify(established.fonts)),
+    captions: JSON.parse(JSON.stringify(established.captions)),
+  };
+}

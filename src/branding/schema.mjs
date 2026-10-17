@@ -57,6 +57,7 @@ export const assetRefSchema = z
 export const brandingProfileSchema = z
   .object({
     schemaVersion: z.literal(1),
+    styleId: z.enum(["brand", "persona", "skyclass", "herod", "bisanz", "ameryka", "glowup", "vital", "happynews"]).optional(),
     clientId: clientIdSchema,
     revision: z.number().int().nonnegative(),
     name: z.string().min(1).max(120),

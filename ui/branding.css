@@ -579,3 +579,58 @@
   color: var(--danger);
   grid-column: 1/-1;
 }
+
+.branding-style-selector {
+  display: grid;
+  gap: 8px;
+  padding: 18px 20px;
+  margin: 16px 0;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+}
+.branding-style-selector label {
+  max-width: 480px;
+}
+.branding-preferences {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  line-height: 1.6;
+  color: var(--text);
+}
+.branding-materials {
+  display: grid;
+  gap: 12px;
+  overflow-wrap: anywhere;
+}
+.branding-materials small {
+  display: block;
+  color: var(--muted);
+}
+.branding-native-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+}
+.branding-native-colors li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.branding-native-colors span {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+}
+.branding-native-captions {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+}
+.branding-native-captions dd {
+  margin: 0;
+}

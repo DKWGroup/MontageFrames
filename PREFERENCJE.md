@@ -237,6 +237,7 @@ Kadr 1080×1920. Napisy, grafiki, logo i CTA trzymam tam, gdzie nie zasłoni ich
 
 ## Panel brandingu klientów — 2026-10-17
 
+- Korekta 2026-10-17: panel ma obejmować rzeczywiste, wcześniej ustalone style klientów i ich PREFERENCJE.md, z zgodnym podglądem oraz wyborem w zwykłych rolkach i QuickContent. Nie podstawiać ogólnego stylu w miejsce Bisanza, SkyClass ani innych uzgodnionych opraw. Przed wdrożeniem tej korekty wysłać bieżące zmiany aplikacji na GitHuba.
 - Wdrożyć przygotowany plan brandingu; równolegle przygotować instrukcję publikacji projektu na Vercelu, dopasowaną do importu repo GitHub.
 - Potwierdzone: jeden wspólny profil brandingu dla zwykłych rolek i QuickContent; zmiany wyglądu dotyczą nowych montaży, wcześniejsze filmy zachowują swoją wersję.
 - Dodać osobny panel do tworzenia i edycji brandingu klienta oraz wyglądu rolek; najpierw research techniczny i projekt funkcji.

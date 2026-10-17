@@ -111,7 +111,7 @@ export type StyleProps = {
   minTop?: number; // najwyższa dozwolona górna krawędź napisu (pod twarzą, po zoomie ujęcia)
 };
 
-const STYLES: Record<string, React.FC<StyleProps>> = {
+export const STYLES: Record<string, React.FC<StyleProps>> = {
   brand: Brand,
   persona: Persona,
   skyclass: SkyClass,
@@ -255,7 +255,9 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
   const currentFrame = useCurrentFrame();
   const { delayRender, continueRender, cancelRender } = useDelayRender();
   const [ready, setReady] = useState(false);
-  const brandFonts = data?.branding?.fonts;
+  const brandFonts = !data?.branding?.styleId || data.branding.styleId === "brand"
+    ? data?.branding?.fonts
+    : undefined;
   useEffect(() => {
     let active = true;
     setReady(false);
@@ -374,7 +376,7 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
         );
       })}
       {data.style === "happynews" && <HappyNewsCredit />}
-      {data.style === "brand" && ready && <BrandLogo branding={data.branding} />}
+      {data.branding && ready && <BrandLogo branding={data.branding} />}
       {(data.overlays ?? []).map((o, i) => {
         if (o.type === "emoji" && o.label === "word") return null;
         const from = frame(o.start);

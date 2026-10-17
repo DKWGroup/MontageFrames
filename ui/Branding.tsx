@@ -9,17 +9,33 @@ import {
   uploadBrandFile,
   type FontChoice,
   type ScanJob,
+  type ProfileResponse,
 } from "./branding-api";
 import {
   applyBrandSuggestions,
   brandingSaveFailure,
   brandingHash,
   parseBrandingHash,
+  selectBrandStyle,
 } from "./branding-view.mjs";
+import { establishedStyles } from "../src/branding/established-styles.mjs";
 import "./branding.css";
 
-type Section = "Marka" | "Materiały" | "Kolory" | "Fonty" | "Napisy";
-const SECTIONS: Section[] = ["Marka", "Materiały", "Kolory", "Fonty", "Napisy"];
+type Section =
+  | "Marka"
+  | "Preferencje"
+  | "Materiały"
+  | "Kolory"
+  | "Fonty"
+  | "Napisy";
+const SECTIONS: Section[] = [
+  "Marka",
+  "Preferencje",
+  "Materiały",
+  "Kolory",
+  "Fonty",
+  "Napisy",
+];
 const fieldNames: Record<string, string> = {
   name: "Nazwa marki",
   websiteUrl: "Strona WWW",
@@ -61,11 +77,19 @@ export function Branding({
     () => parseBrandingHash(location.hash)?.clientId || null,
   );
   const [profile, setProfile] = useState<BrandingProfile | null>(null);
+  const [established, setEstablished] =
+    useState<ProfileResponse["established"]>(null);
+  const [preferences, setPreferences] =
+    useState<ProfileResponse["preferences"]>(null);
+  const [materials, setMaterials] = useState<ProfileResponse["materials"]>([]);
+  const styleId = profile?.styleId || "brand";
+  const nativeStyle = styleId === "brand" ? null : establishedStyles[styleId];
   const [baseline, setBaseline] = useState("");
   const [revision, setRevision] = useState(0);
   const [ready, setReady] = useState(false);
   const [issues, setIssues] = useState<unknown[]>([]);
   const [section, setSection] = useState<Section>("Marka");
+  const browsingFonts = !!profile && section === "Fonty" && styleId === "brand";
   const [mobilePreview, setMobilePreview] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -158,6 +182,9 @@ export function Branding({
   useEffect(() => {
     const generation = ++loadGeneration.current;
     setProfile(null);
+    setEstablished(null);
+    setPreferences(null);
+    setMaterials([]);
     setBaseline("");
     setError("");
     setStatus("");
@@ -183,6 +210,9 @@ export function Branding({
       .then((result) => {
         if (generation !== loadGeneration.current) return;
         setProfile(result.profile);
+        setEstablished(result.established);
+        setPreferences(result.preferences);
+        setMaterials(result.materials || []);
         setBaseline(JSON.stringify(result.profile));
         setRevision(result.revision);
         setReady(result.ready);
@@ -196,7 +226,7 @@ export function Branding({
       });
   }, [clientId]);
   useEffect(() => {
-    if (section !== "Fonty") return;
+    if (!browsingFonts) return;
     let cancelled = false;
     setFontLoading(true);
     const timer = setTimeout(() => {
@@ -221,7 +251,7 @@ export function Branding({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [section, fontSource, fontQuery]);
+  }, [browsingFonts, fontSource, fontQuery]);
   useEffect(() => {
     const scanId = scan?.scanId || scan?.id;
     if (!clientId || !scanId || !activeScan(scan)) return;
@@ -305,6 +335,9 @@ export function Branding({
               }
             : current,
       );
+      setEstablished(result.established);
+      setPreferences(result.preferences);
+      setMaterials(result.materials || []);
       setReady(result.ready);
       setIssues(result.issues || []);
       setConflict(false);
@@ -333,20 +366,25 @@ export function Branding({
     )
       return;
     if (!clientId) return;
+    const generation = loadGeneration.current;
     setLoading(true);
     try {
       const result = await brandingApi.get(clientId);
+      if (generation !== loadGeneration.current) return;
       setProfile(result.profile);
       setBaseline(JSON.stringify(result.profile));
       setRevision(result.revision);
+      setEstablished(result.established);
+      setPreferences(result.preferences);
+      setMaterials(result.materials || []);
       setReady(result.ready);
       setIssues(result.issues || []);
       setConflict(false);
       setError("");
     } catch (e) {
-      setError(message(e));
+      if (generation === loadGeneration.current) setError(message(e));
     } finally {
-      setLoading(false);
+      if (generation === loadGeneration.current) setLoading(false);
     }
   }
   async function upload(
@@ -453,7 +491,7 @@ export function Branding({
         {profile && (
           <button
             className="btn primary"
-            disabled={busy || !dirty || conflict}
+            disabled={busy || (!dirty && revision > 0) || conflict}
             onClick={save}
           >
             {saving ? "Zapisywanie…" : "Zapisz branding"}
@@ -551,11 +589,62 @@ export function Branding({
                 ? "Niezapisane zmiany"
                 : revision
                   ? `Zapisana wersja ${revision}`
-                  : "Nowy profil"}
+                  : nativeStyle
+                    ? "Ustalony styl klienta"
+                    : "Nowy profil"}
             </span>
             <span>
-              {ready && !dirty ? "Gotowy do montażu" : "Podgląd draftu"}
+              {revision === 0 && nativeStyle
+                ? "Zapisz wersję do nowych montaży"
+                : ready && !dirty
+                  ? "Gotowy do montażu"
+                  : "Podgląd draftu"}
             </span>
+          </div>
+          <div className="branding-style-selector">
+            <label>
+              Styl montażu
+              <select
+                value={styleId}
+                disabled={busy}
+                onChange={(event) =>
+                  edit((draft) =>
+                    selectBrandStyle(
+                      draft,
+                      event.target.value as NonNullable<
+                        BrandingProfile["styleId"]
+                      >,
+                      established?.profile,
+                    ),
+                  )
+                }
+              >
+                {established?.profile.styleId &&
+                  established.profile.styleId !== "brand" && (
+                    <option value={established.profile.styleId}>
+                      Ustalony styl klienta · {established.profile.styleId}
+                    </option>
+                  )}
+                {styleId !== "brand" &&
+                  styleId !== established?.profile.styleId && (
+                    <option value={styleId}>
+                      Zapisany ustalony styl · {styleId}
+                    </option>
+                  )}
+                <option value="brand">Własny styl</option>
+              </select>
+            </label>
+            <p>
+              {nativeStyle
+                ? nativeStyle.description
+                : "Własny styl korzysta z kolorów, fontów i ustawień napisów zapisanych w tym profilu."}
+            </p>
+            {nativeStyle && (
+              <p className="branding-hint">
+                Ustalony styl ma parametry zapisane w silniku. Wybierz „Własny
+                styl”, aby edytować kolory, fonty i napisy.
+              </p>
+            )}
           </div>
           {issues.length > 0 && (
             <details className="branding-readiness">
@@ -614,7 +703,9 @@ export function Branding({
                     <h2>Marka i wiedza</h2>
                     <p>
                       Te informacje pomagają agentowi zrozumieć klienta. Nie są
-                      częścią publicznych materiałów renderu.
+                      częścią publicznych materiałów renderu. Zasady montażu
+                      klienta pochodzą z pliku w zakładce Preferencje; zapis
+                      tego profilu nie zmienia tego pliku.
                     </p>
                     <label>
                       Nazwa marki
@@ -697,7 +788,11 @@ export function Branding({
                           <>
                             <h3>Propozycje ze strony</h3>
                             {Object.entries(scan.suggestions)
-                              .filter(([field]) => field in fieldNames)
+                              .filter(
+                                ([field]) =>
+                                  field in fieldNames &&
+                                  (!nativeStyle || field !== "palette"),
+                              )
                               .map(([field, suggestion]) => (
                                 <label
                                   className="branding-suggestion"
@@ -734,7 +829,11 @@ export function Branding({
                                   applyBrandSuggestions(
                                     d,
                                     scan.suggestions!,
-                                    scanFields,
+                                    nativeStyle
+                                      ? scanFields.filter(
+                                          (field) => field !== "palette",
+                                        )
+                                      : scanFields,
                                   ),
                                 );
                                 setScanFields([]);
@@ -803,6 +902,75 @@ export function Branding({
                     ))}
                   </>
                 )}
+                {section === "Preferencje" && (
+                  <>
+                    <h2>Preferencje klienta</h2>
+                    {preferences ? (
+                      <>
+                        <p>
+                          Źródło zasad montażu: <code>{preferences.path}</code>
+                        </p>
+                        <p>
+                          Pełna treść pliku. Zapis wyglądu marki nie zmienia
+                          preferencji.
+                        </p>
+                        <pre className="branding-preferences">
+                          {preferences.content}
+                        </pre>
+                      </>
+                    ) : (
+                      <p>Brak pliku PREFERENCJE.md dla tego klienta.</p>
+                    )}
+                  </>
+                )}
+                {nativeStyle &&
+                  ["Kolory", "Fonty", "Napisy"].includes(section) && (
+                    <>
+                      <h2>{section} ustalonego stylu</h2>
+                      <p>{nativeStyle.description}</p>
+                      <p>
+                        Parametry silnika są tylko do odczytu. Wybierz „Własny
+                        styl”, aby używać edytowalnych ustawień.
+                      </p>
+                      {section === "Kolory" && (
+                        <ul className="branding-native-colors">
+                          {nativeStyle.colors.map((color) => (
+                            <li key={color}>
+                              <span
+                                style={{ backgroundColor: color }}
+                                aria-hidden="true"
+                              />
+                              {color}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {section === "Fonty" && (
+                        <ul>
+                          {nativeStyle.fonts.map((font) => (
+                            <li key={font}>{font}</li>
+                          ))}
+                        </ul>
+                      )}
+                      {section === "Napisy" && (
+                        <dl className="branding-native-captions">
+                          <dt>Pozycja napisów</dt>
+                          <dd>
+                            {Math.round(nativeStyle.position * 100)}% wysokości
+                            kadru
+                          </dd>
+                          <dt>Wielkość</dt>
+                          <dd>{nativeStyle.size}px</dd>
+                          <dt>Emotki</dt>
+                          <dd>
+                            {nativeStyle.emojiEnabled
+                              ? "Włączone"
+                              : "Wyłączone"}
+                          </dd>
+                        </dl>
+                      )}
+                    </>
+                  )}
                 {section === "Materiały" && (
                   <>
                     <h2>Materiały klienta</h2>
@@ -810,6 +978,32 @@ export function Branding({
                       Dodaj logo, zdjęcia i przebitki. Opis pomaga agentowi
                       dobrać materiał do treści.
                     </p>
+                    {materials.length > 0 && (
+                      <>
+                        <h3>Istniejące materiały klienta</h3>
+                        <ul className="branding-materials">
+                          {materials.map((material) => (
+                            <li key={material.file}>
+                              {material.available ? (
+                                <a
+                                  href={brandingApi.materialUrl(
+                                    clientId!,
+                                    material.file,
+                                  )}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {material.label}
+                                </a>
+                              ) : (
+                                <span>{material.label} — brak pliku</span>
+                              )}
+                              <small>{material.file}</small>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
                     <div className="branding-uploads">
                       {(["logo", "image", "video"] as const).map((kind) => (
                         <label className="btn" key={kind}>
@@ -846,7 +1040,7 @@ export function Branding({
                         <progress max={100} value={uploadProgress} />
                       </div>
                     )}
-                    {profile.assets.length === 0 && (
+                    {profile.assets.length === 0 && materials.length === 0 && (
                       <p className="branding-empty-inline">
                         Nie dodano jeszcze materiałów. Logo i zdjęcia są
                         opcjonalne.
@@ -985,7 +1179,7 @@ export function Branding({
                     </label>
                   </>
                 )}
-                {section === "Kolory" && (
+                {section === "Kolory" && !nativeStyle && (
                   <>
                     <h2>Paleta marki</h2>
                     <p>
@@ -1152,7 +1346,7 @@ export function Branding({
                     </button>
                   </>
                 )}
-                {section === "Fonty" && (
+                {section === "Fonty" && !nativeStyle && (
                   <>
                     <h2>Fonty do napisów</h2>
                     <p>
@@ -1257,7 +1451,7 @@ export function Branding({
                     )}
                   </>
                 )}
-                {section === "Napisy" && (
+                {section === "Napisy" && !nativeStyle && (
                   <>
                     <h2>Styl napisów</h2>
                     <p>
@@ -1400,7 +1594,7 @@ export function Branding({
                   samego silnika co render.
                 </p>
               </div>
-              {!profile.fonts.primary && (
+              {!nativeStyle && !profile.fonts.primary && (
                 <p className="branding-hint">
                   Wybierz font w sekcji Fonty. Do tego czasu podgląd używa fontu
                   zastępczego.

@@ -108,7 +108,7 @@ export function NewReelDialog({
   useEffect(()=>{
     let active=true;
     setBranding(null);setUseBranding(false);
-    if(client!==NEW)brandingApi.get(client).then(value=>{if(active)setBranding(value);},()=>{});
+    if(client!==NEW)brandingApi.get(client).then(value=>{if(active){setBranding(value);setUseBranding(value.ready && value.revision > 0);}},()=>{});
     return ()=>{active=false;};
   },[client]);
   const [main, setMain] = useState<File[]>([]);
@@ -175,7 +175,7 @@ export function NewReelDialog({
             <option value={NEW}>Nowy klient…</option>
           </select>
         </label>
-        {client !== NEW && <label className="field"><span>Wygląd rolki</span><select value={useBranding?"branding":"legacy"} onChange={e=>setUseBranding(e.target.value==="branding")}><option value="legacy">Dotychczasowy styl klienta</option><option value="branding" disabled={!branding?.ready}>Branding z panelu{branding?.revision?` — wersja ${branding.revision}`:" — wymaga uzupełnienia"}</option></select><small>Wybór wersji dotyczy tej nowej rolki. Profil ustawisz w „Branding klientów”.</small></label>}
+        {client !== NEW && <label className="field"><span>Wygląd rolki</span><select value={useBranding?"branding":"legacy"} onChange={e=>setUseBranding(e.target.value==="branding")}><option value="legacy">Ustalony styl klienta</option><option value="branding" disabled={!branding?.ready}>Branding z panelu{branding?.revision?` — wersja ${branding.revision}`:" — wymaga uzupełnienia"}</option></select><small>Wybór wersji dotyczy tej nowej rolki. Profil ustawisz w „Branding klientów”.</small></label>}
         {client === NEW && (
           <label className="field">
             <span>Nazwa nowego klienta</span>

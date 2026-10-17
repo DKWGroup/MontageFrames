@@ -4,6 +4,8 @@
 
 ## Potwierdzone
 
+- Korekta po wdrożeniu: [integracja ustalonych stylów i preferencji](established-integration.md). Siedem natywnych opraw, preferencje i istniejące materiały, rzeczywisty styleId zachowany w obu przepływach. Aktualna weryfikacja poprawki:442 testy /441 pass /1 skip, lint/typy, siedem klatek, niezależny przegląd oraz GUI formularzy. To nie jest nowy pełny odbiór montażu AI.
+
 - Panel `/panel#branding` oraz bezpośredni adres klienta. Sekcje Marka, Materiały, Kolory, Fonty, Napisy; podgląd z tego samego komponentu styli Remotion co render.
 - GUI: utworzenie testowego klienta, import rzeczywistego Poppins Medium, upload PNG, opis materiału, włączanie/wyłączanie logo, zapis wersji1–4, zmiana Kinetic→Pop-out i podkreślenie, odczyt po odświeżeniu. Wersja1 zachowała Kinetic po utworzeniu wersji2 Pop-out.
 - CoreText: lokalne fonty, poprawne wagi i polskie glify, odrzucenie brakujących glifów oraz jawnie niedostępne TTC/dfont. Rzeczywisty import Google Poppins z licencją, weryfikacja Git blob SHA; szczegóły [spike fontów](spike.md).

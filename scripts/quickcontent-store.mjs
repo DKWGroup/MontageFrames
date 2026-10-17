@@ -155,7 +155,7 @@ export function createStore(root) {
       await safePath(`src/styles/${template.styleId}.tsx`, { mustExist: true }),
     );
     const now = new Date().toISOString();
-    const branding = template.styleId === "brand"
+    const branding = template.brandingRevision
       ? await snapshotBranding(root, valid.clientId, template.brandingRevision)
       : null;
     const brandProfile = branding ? await createBrandingStore(root).version(valid.clientId, branding.revision) : null;

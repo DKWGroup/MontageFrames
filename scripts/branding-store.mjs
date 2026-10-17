@@ -6,6 +6,7 @@ import {
   brandingProfileSchema,
   clientIdSchema,
 } from "../src/branding/schema.mjs";
+import { establishedStyles } from "../src/branding/established-styles.mjs";
 export const brandingError = (status, message) =>
   Object.assign(new Error(message), { status });
 export async function brandingPath(root, relative, { create = false } = {}) {
@@ -178,8 +179,8 @@ export function createBrandingStore(root) {
         items.push({
           id: `brand-${id}-v${profile.revision}`,
           clientId: id,
-          name: profile.name,
-          styleId: "brand",
+          name: `${profile.name} — wersja ${profile.revision}`,
+          styleId: profile.styleId ?? "brand",
           brandingRevision: profile.revision,
           ready: !reason,
           ...(reason ? { reason } : {}),
@@ -196,11 +197,33 @@ export async function snapshotBranding(root, clientId, revision) {
     ? await store.version(clientId, revision)
     : await store.get(clientId);
   if (!p) throw brandingError(404, "Brak zapisanej wersji brandingu");
-  if (!p.fonts.primary)
-    throw brandingError(400, "Wybierz i zaimportuj font przed montażem");
+  const styleId = p.styleId ?? "brand";
+  if (styleId === "brand") {
+    if (!p.fonts.primary)
+      throw brandingError(400, "Wybierz i zaimportuj font przed montażem");
+  } else {
+    const metadata = establishedStyles[styleId];
+    if (!metadata) throw brandingError(400, "Nieznany ustalony styl");
+    for (const relative of [
+      `src/styles/${styleId}.tsx`,
+      ...metadata.requiredFonts.map((file) => `public/${file}`),
+    ]) {
+      const file = await brandingPath(root, relative);
+      try {
+        if (!(await fs.stat(file)).isFile()) throw new Error("not a file");
+        await fs.access(file, fs.constants.R_OK);
+      } catch {
+        throw brandingError(
+          400,
+          `Brak dostępnego pliku ustalonego stylu: ${relative}`,
+        );
+      }
+    }
+  }
   await verifyReferences(root, p);
   return {
     schemaVersion: 1,
+    ...(p.styleId !== undefined ? { styleId: p.styleId } : {}),
     clientId: p.clientId,
     revision: p.revision,
     palette: p.palette,

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Player } from "@remotion/player";
 import { AbsoluteFill, useDelayRender, OffthreadVideo } from "remotion";
 import type { BrandingSnapshot } from "./types";
-import { Brand } from "../styles/brand";
+import { STYLES } from "../Reel";
+import { loadFonts } from "../fonts";
 import { BrandLogo } from "./BrandLogo";
 import { loadBrandFonts } from "./fonts";
 
@@ -11,15 +12,18 @@ export const BrandPreviewScene: React.FC<{
   branding: BrandingSnapshot;
   source?: string;
 }> = ({ branding, source }) => {
+  const styleId = branding.styleId ?? "brand";
+  const CaptionStyle = STYLES[styleId];
   const [ready, setReady] = useState(false);
   const { delayRender, continueRender, cancelRender } = useDelayRender();
   useEffect(() => {
     let active = true;
     setReady(false);
     const handle = delayRender("Fonty brandingu");
-    const pending = branding.fonts.primary
-      ? loadBrandFonts(branding)
-      : Promise.resolve();
+    const pending = Promise.all([
+      styleId !== "brand" ? loadFonts() : Promise.resolve(),
+      styleId === "brand" && branding.fonts.primary ? loadBrandFonts(branding) : Promise.resolve(),
+    ]);
     pending
       .then(() => {
         if (active) setReady(true);
@@ -32,7 +36,7 @@ export const BrandPreviewScene: React.FC<{
     return () => {
       active = false;
     };
-  }, [branding, delayRender, continueRender, cancelRender]);
+  }, [branding, styleId, delayRender, continueRender, cancelRender]);
   const words = SAMPLE.map((text, i) => ({
     text,
     start: i * 0.4,
@@ -70,7 +74,7 @@ export const BrandPreviewScene: React.FC<{
       {ready && (
         <>
           <BrandLogo branding={branding} />
-          <Brand
+          <CaptionStyle
             branding={branding}
             group={{ words, key: 1 }}
             words={words}

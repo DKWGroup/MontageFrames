@@ -7,6 +7,7 @@ export type QCOperators = {
 export type QCFocus = { mode: "auto" | "prompt"; prompt?: string };
 export type QCDuration = { min: number; max: number };
 export type QCTemplate = {
+  brandingRevision?: number;
   id: string;
   label?: string;
   name?: string;

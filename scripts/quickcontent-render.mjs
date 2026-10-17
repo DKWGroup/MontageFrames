@@ -70,7 +70,7 @@ async function inputFiles(root, reelName, data) {
         `public/reels/${reelName}`,
         ...(data?.branding ? [] : ["public/fonts"]),
         "public/sfx",
-        ...(data?.branding ? [] : ["public/Brandings"]),
+        ...(data?.branding && (!data.branding.styleId || data.branding.styleId === "brand") ? [] : ["public/Brandings"]),
       ].map((dir) => filesUnder(root, dir)),
     )
   )

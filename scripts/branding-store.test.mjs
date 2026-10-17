@@ -98,3 +98,37 @@ test("failed active publication removes only its unpublished version so retry wo
     1,
   );
 });
+test("native snapshots validate renderer/fonts and preserve styleId; legacy snapshots omit it", async (t) => {
+  const root = await fixture(t);
+  const store = createBrandingStore(root);
+  const native = { ...defaultBranding("acme", "Acme"), styleId: "bisanz" };
+  await store.save("acme", native, 0);
+  await assert.rejects(snapshotBranding(root, "acme", 1), /styl|render|plik/i);
+  await fs.mkdir(path.join(root, "src/styles"), { recursive: true });
+  await fs.writeFile(path.join(root, "src/styles/bisanz.tsx"), "renderer");
+  await assert.rejects(snapshotBranding(root, "acme", 1), /font/i);
+  await fs.mkdir(path.join(root, "public/fonts"), { recursive: true });
+  await fs.writeFile(path.join(root, "public/fonts/Inter.ttf"), "font");
+  await fs.writeFile(path.join(root, "public/fonts/Inter-Italic.ttf"), "font");
+  const snapshot = await snapshotBranding(root, "acme", 1);
+  assert.equal(snapshot.styleId, "bisanz");
+  assert.equal(snapshot.fonts.primary, null);
+  assert.equal((await store.templates("acme"))[0].styleId, "bisanz");
+  assert.equal((await store.templates("acme"))[0].ready, true);
+  const { createHash } = await import("node:crypto");
+  const font = {
+    id: "inter",
+    family: "Inter",
+    file: "fonts/Inter.ttf",
+    weight: "100 900",
+    style: "normal",
+    source: "bundled",
+    sha256: createHash("sha256").update("font").digest("hex"),
+  };
+  await store.save(
+    "acme",
+    { ...defaultBranding("acme", "Acme"), fonts: { primary: font } },
+    1,
+  );
+  assert(!Object.hasOwn(await snapshotBranding(root, "acme", 2), "styleId"));
+});

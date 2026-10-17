@@ -13,3 +13,9 @@ export function brandingSaveFailure<T>(
   revision: number,
   status: number,
 ): { draft: T; revision: number; conflict: boolean };
+
+export function selectBrandStyle(
+  profile: BrandingProfile,
+  styleId: NonNullable<BrandingProfile["styleId"]>,
+  established?: BrandingProfile | null,
+): BrandingProfile;

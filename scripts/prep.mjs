@@ -70,6 +70,7 @@ export function keepRanges(silences, duration, pad = PAD) {
 }
 
 export function buildReel({ source, words, silences, duration, style = "persona", client = null, branding }) {
+  if (branding) style = branding.styleId ?? "brand";
   const ranges = style === "skyclass" || client === "skyclass" ? [{ start: 0, end: duration }] : keepRanges(silences, duration);
   const segments = ranges.map((s, i) => ({ ...s, zoom: client === "kacper-bisanz" ? 1 : i % 2 ? 1.1 : 1, ...(client === "kacper-bisanz" ? {zoomTo:1} : {}) }));
   let dir = 0;
@@ -187,7 +188,7 @@ async function main() {
   const requestedRevision = args.find(a => a.startsWith("--branding-revision="))?.slice(20);
   if (requestedRevision !== undefined && (!client || !/^[1-9]\d*$/.test(requestedRevision))) throw new Error("Nieprawidłowa wersja brandingu lub brak klienta.");
   const branding = requestedRevision ? await snapshotBranding(process.cwd(), client, Number(requestedRevision)) : undefined;
-  const style = branding ? "brand" : args.find((a) => a.startsWith("--style="))?.slice(8) ?? styleOf(input);
+  const style = branding ? branding.styleId ?? "brand" : args.find((a) => a.startsWith("--style="))?.slice(8) ?? styleOf(input);
   const name = slug(rawName ?? path.parse(input).name);
   if (!name) {
     console.error("Nazwa rolki jest pusta po oczyszczeniu — podaj ją jako drugi argument.");

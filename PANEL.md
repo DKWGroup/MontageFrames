@@ -117,11 +117,13 @@ QuickContent → projekt → **Ustawienia**: pole wskazówek do opisu przed pier
 
 ## Branding klientów (2026-10-17)
 
+Istniejący klienci otwierają się z ustalonym stylem: Bisanz, SkyClass, Herod, Ameryka, GlowUp, Vital lub Happy News. Panel pokazuje jego rzeczywiste kolory/fonty i natywny podgląd. Zakładka **Preferencje** zawiera aktualny plik klienta, a **Materiały** udostępnia wcześniejsze logo, zdjęcia i przebitki. Parametry ustalonej oprawy są tylko do odczytu; wybierz **Własny styl**, aby używać edytowalnego presetu. Zapis profilu tworzy wersję z właściwym styleId, domyślnie wybieraną przy nowych zleceniach. Starsze zapisane własne profile nie są automatycznie migrowane. [Szczegóły integracji](docs/branding/established-integration.md).
+
 Wybierz **Branding klientów** w menu (`/panel#branding`), klienta albo „Dodaj klienta”. W sekcjach dodasz wiedzę i adres strony, logo/zdjęcia/przebitki z opisami, paletę z limitem4/5/6, fonty i styl napisów. Fonty domyślnie pochodzą z lokalnego Maca; dostępne są również fonty aplikacji, Google Fonts i własny plik. Importowane są konkretne pliki z polskimi znakami; TTC/dfont wymagają osobnego TTF/OTF. Sam upload nie instaluje fontu w systemie.
 
 Podgląd9:16 używa tego samego komponentu napisów co render. „Odtwórz od początku” uruchamia próbkę. Na telefonie przełączysz Ustawienia/Podgląd rolki. Zmiany utrwala **Zapisz branding** — każda wersja zostaje zachowana. Konflikt zapisu409 zachowuje draft i pozwala go pobrać. Nie nadpisuj ręcznych PREFERENCJE klienta formularzem.
 
-W **Nowej rolce** pole „Wygląd rolki” pozwala wybrać zapisany branding zamiast dotychczasowego stylu. W **QuickContent** zapisany profil pojawia się jako wersjonowany szablon klienta. Profil bez zaimportowanego fontu można zapisać jako draft, ale nie użyć do montażu. Zmiana profilu wpływa na nowe zlecenia; wcześniejsze projekty zachowują snapshot.
+W **Nowej rolce** pole „Wygląd rolki” pozwala wybrać zapisany branding zamiast dotychczasowego stylu. W **QuickContent** zapisany profil pojawia się jako wersjonowany szablon klienta. Własny profil bez zaimportowanego fontu można zapisać jako draft, ale nie użyć do montażu; ustalony styl wymaga swoich fontów aplikacji. Zmiana profilu wpływa na nowe zlecenia; wcześniejsze projekty zachowują snapshot.
 
 Analiza strony działa na publicznym URL, bez logowania. Najpierw otrzymujesz propozycje i źródła; dopiero **Zastosuj wybrane dane** zmienia draft. Gdy konto AI nie może uporządkować wiedzy, odczytane treści i style pozostają dostępne, z ograniczeniem w panelu. Nie wszystkie strony oparte na XHR/workerach można odczytać. [Dowody i ograniczenia](docs/branding/acceptance.md).
 
