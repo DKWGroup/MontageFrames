@@ -5,6 +5,7 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from
 import path from "node:path";
 import { syncStudio } from "./studio-sync.mjs";
 import { pathToFileURL } from "node:url";
+import { snapshotBranding } from "./branding-store.mjs";
 
 // Cięcie ciszy: próg głośności i minimalna długość pauzy do wycięcia.
 // Głośne tło (ulica, wiatr) -> podnieś NOISE_DB do -30.
@@ -68,9 +69,10 @@ export function keepRanges(silences, duration, pad = PAD) {
   return keep.map((k) => ({ start: +k.start.toFixed(3), end: +k.end.toFixed(3) }));
 }
 
-export function buildReel({ source, words, silences, duration, style = "persona", client = null }) {
-  const ranges = style === "skyclass" ? [{ start: 0, end: duration }] : keepRanges(silences, duration);
-  const segments = ranges.map((s, i) => ({ ...s, zoom: i % 2 ? 1.1 : 1 }));
+export function buildReel({ source, words, silences, duration, style = "persona", client = null, branding }) {
+  if (branding) style = branding.styleId ?? "brand";
+  const ranges = style === "skyclass" || client === "skyclass" ? [{ start: 0, end: duration }] : keepRanges(silences, duration);
+  const segments = ranges.map((s, i) => ({ ...s, zoom: client === "kacper-bisanz" ? 1 : i % 2 ? 1.1 : 1, ...(client === "kacper-bisanz" ? {zoomTo:1} : {}) }));
   let dir = 0;
   const pauses = silences.map((s) => s.start);
   // glowup: 2–5 słów, przecinek/pauza tnie dopiero od 3 słów — napisy dłużej na ekranie (klienci/glowup-nutrition)
@@ -85,7 +87,7 @@ export function buildReel({ source, words, silences, duration, style = "persona"
     if (/[.!?]$/.test(g.at(-1).text)) dir++; // nowe zdanie = nowy kierunek wjazdu
     return group;
   });
-  return { source, style, ...(client && { client }), fps: 30, ...((style === "glowup" || style === "vital") && { hold: 0.7 }), segments, captions, overlays: [] };
+  return { source, style, ...(branding && { branding }), ...(client && { client }), fps: 30, ...((style === "glowup" || style === "vital") && { hold: 0.7 }), segments, captions, overlays: [] };
 }
 
 // Katalog produktów klienta (klienci/<klient>/produkty/produkty.json): ASR myli nazwy („szild” zamiast SHIELD),
@@ -134,7 +136,7 @@ export const renderPath = (client, name) => (client ? `klienci/${client}/Render/
 
 // Styl napisów z folderu klienta w ścieżce nagrania (--style= ma pierwszeństwo).
 export const styleOf = (input) =>
-  /(^|[\/])skyclass([\/]|$)/i.test(input)
+  /(^|[/])skyclass([/]|$)/i.test(input)
     ? "skyclass"
     : /bisanz/i.test(input)
       ? "bisanz"
@@ -174,7 +176,7 @@ export function detectSilences(file, noiseDb = NOISE_DB, minSilence = MIN_SILENC
   return out;
 }
 
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   const force = args.includes("--force");
   const [input, rawName] = args.filter((a) => !a.startsWith("--"));
@@ -182,8 +184,11 @@ function main() {
     console.error("Użycie: node scripts/prep.mjs <plik-wideo> [nazwa] [--force] [--style=skyclass]");
     process.exit(1);
   }
-  const style = args.find((a) => a.startsWith("--style="))?.slice(8) ?? styleOf(input);
   const client = clientOf(input);
+  const requestedRevision = args.find(a => a.startsWith("--branding-revision="))?.slice(20);
+  if (requestedRevision !== undefined && (!client || !/^[1-9]\d*$/.test(requestedRevision))) throw new Error("Nieprawidłowa wersja brandingu lub brak klienta.");
+  const branding = requestedRevision ? await snapshotBranding(process.cwd(), client, Number(requestedRevision)) : undefined;
+  const style = branding ? branding.styleId ?? "brand" : args.find((a) => a.startsWith("--style="))?.slice(8) ?? styleOf(input);
   const name = slug(rawName ?? path.parse(input).name);
   if (!name) {
     console.error("Nazwa rolki jest pusta po oczyszczeniu — podaj ją jako drugi argument.");
@@ -215,7 +220,7 @@ function main() {
     console.log(`Produkty: ${products.length} kart (${[...new Set(products.map((o) => o.text))].join(", ") || "brak wzmianek"})`);
   }
 
-  const reel = buildReel({ source, words, silences: style === "skyclass" ? [] : detectSilences(src), duration, style, client });
+  const reel = buildReel({ source, words, silences: style === "skyclass" ? [] : detectSilences(src), duration, style, client, branding });
   reel.overlays.push(...products);
   writeFileSync(path.join(dir, "reel.json"), JSON.stringify(reel, null, 2));
   syncStudio();
@@ -226,4 +231,4 @@ function main() {
   console.log(`Podgląd: npm run dev  |  Render: npx remotion render ${name} "${renderPath(client, name)}"`);
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main().catch(e=>{console.error(e.message);process.exitCode=1;});

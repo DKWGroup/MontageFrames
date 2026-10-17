@@ -55,8 +55,6 @@ test("store isolates projects, validates paths and protects production gate", as
 
 test("renderer offers three compositions; UI additive navigation survives Studio sync", async () => {
   const { readFile } = await import("node:fs/promises");
-  const { renderToStaticMarkup } = await import("react-dom/server");
-  const React = await import("react");
   const ts = (await import("typescript")).default;
   const source = await readFile(
     new URL("../src/motion/Motion.tsx", import.meta.url),
@@ -124,7 +122,7 @@ test("manual review needs a rendered preview and content changes invalidate appr
   await mkdir(dir, { recursive: true });
   await writeFile(
     dir + "/9x16-preview-evidence.json",
-    JSON.stringify({ hash: await renderSignature(root,d), format: "9:16" }),
+    JSON.stringify({ hash: await renderSignature(root, d), format: "9:16" }),
   );
   await store.save(d.name, { ...d, reviews: [r] });
   const changed = await store.save(d.name, {
@@ -133,4 +131,36 @@ test("manual review needs a rendered preview and content changes invalidate appr
     reviews: [r],
   });
   assert.equal(changed.reviews.length, 0);
+});
+
+test("Motion reserves distinct artifact versions without replacing legacy exports", async (t) => {
+  const fs = await import("node:fs/promises");
+  const { reserveMotionVersion, outputDir } =
+    await import("./motion-server.mjs");
+  const { buildMotion } = await import("../src/motion/schema.mjs");
+  const root = await fs.mkdtemp("/tmp/motion-versions-");
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  const d = buildMotion({ name: "versions" });
+  const dir = outputDir(root, d);
+  await fs.mkdir(dir, { recursive: true });
+  await fs.writeFile(dir + "/9x16-draft.mp4", "legacy");
+  const prefixes = await Promise.all([
+    reserveMotionVersion(root, d, "9:16", "draft"),
+    reserveMotionVersion(root, d, "9:16", "draft"),
+  ]);
+  assert.equal(new Set(prefixes).size, 2);
+  assert.ok(prefixes.every((p) => /^9x16-draft-v\d{3}$/.test(p)));
+  assert.equal(await fs.readFile(dir + "/9x16-draft.mp4", "utf8"), "legacy");
+});
+
+test("read-only Motion HEAD is not rejected by mutation protection", async () => {
+  const { motionRoute } = await import("./motion-server.mjs");
+  await assert.rejects(
+    motionRoute(
+      { method: "HEAD", headers: {} },
+      {},
+      new URL("http://127.0.0.1/motion/test/unknown"),
+    ),
+    (e) => e.status === 404,
+  );
 });

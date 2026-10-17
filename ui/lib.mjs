@@ -129,6 +129,6 @@ export function chatPrompt({ reel, client, message }) {
     `Poprawka do rolki „${reel}”${client ? ` (klient ${client})` : ""}, plik public/reels/${reel}/reel.json:`,
     message,
     "Jeśli to zasada na przyszłość, najpierw dopisz ją do PREFERENCJE.md (albo do pliku klienta) zgodnie z CLAUDE.md.",
-    "Nie renderuj, chyba że o to poproszono — podgląd jest w panelu. Nie commituj. Odpowiedz krótko po polsku.",
+    "Nie uruchamiaj renderera ani nie nadpisuj MP4 — wersjonowany render uruchamia osobny krok panelu. Podgląd jest w panelu. Nie commituj. Odpowiedz krótko po polsku.",
   ].join("\n");
 }

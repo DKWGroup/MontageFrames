@@ -34,3 +34,39 @@ test("a later MP4 mtime never makes edited speech match an older rendered snapsh
     false,
   );
 });
+
+test("versioned receipt resolves newest output and detects renderer changes", async (t) => {
+  const { publicationOutput } = await import("./reel-publication-state.mjs");
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "publication-version-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(root + "/public/reels/demo", { recursive: true });
+  await fs.mkdir(root + "/out");
+  await fs.mkdir(root + "/src/styles", { recursive: true });
+  const data = {
+    source: "source.mp4",
+    style: "persona",
+    segments: [],
+    captions: [],
+  };
+  await fs.writeFile(
+    root + "/public/reels/demo/reel.json",
+    JSON.stringify(data),
+  );
+  await fs.writeFile(root + "/src/styles/persona.tsx", "v1");
+  await fs.writeFile(root + "/out/demo-v001.mp4", "old");
+  await recordPublicationRender(root, "demo", data, "out/demo-v001.mp4");
+  assert.equal(
+    await publicationOutput(root, "demo", "out/demo.mp4"),
+    "out/demo-v001.mp4",
+  );
+  assert.equal(
+    await publicationRenderCurrent(root, "demo", data, "out/demo-v001.mp4"),
+    true,
+  );
+  await fs.writeFile(root + "/src/styles/persona.tsx", "v2");
+  assert.equal(
+    await publicationRenderCurrent(root, "demo", data, "out/demo-v001.mp4"),
+    false,
+  );
+  assert.equal(await fs.readFile(root + "/out/demo-v001.mp4", "utf8"), "old");
+});

@@ -1,3 +1,4 @@
+import { revealInvalidField } from "./form-disclosure.mjs";
 import { useEffect, useRef, useState } from "react";
 import { Player, type PlayerRef } from "@remotion/player";
 import { Motion } from "../src/motion/Motion";
@@ -40,7 +41,7 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
     [format, setFormat] = useState("9:16"),
     [job, setJob] = useState<Job>({ status: "idle", lines: [], files: [] }),
     [busy, setBusy] = useState(false);
-  const [filesVersion,setFilesVersion] = useState(0);
+  const [filesVersion, setFilesVersion] = useState(0);
   const [brief, setBrief] = useState({
     name: "nowy-motion",
     brand: "MontageFrames",
@@ -60,15 +61,27 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
   });
   const player = useRef<PlayerRef>(null);
   const latestData = useRef(data);
-  useEffect(() => {latestData.current = data;}, [data]);
-  const planWithAi = () => run(async () => {
-    if (!data) return;
-    const sent = data;
-    const proposed = await request<MotionData>(`/${data.name}/ai-plan`, 'POST', {data});
-    if (latestData.current !== sent) throw new Error('Brief zmienił się podczas pracy AI. Propozycję odrzucono, Twoje zmiany pozostają.');
-    edit(validateMotion(proposed));
-    setStatus('AI proponuje tekst ujęć. Sprawdź storyboard i kliknij Zapisz projekt, jeśli akceptujesz.');
-  });
+  useEffect(() => {
+    latestData.current = data;
+  }, [data]);
+  const planWithAi = () =>
+    run(async () => {
+      if (!data) return;
+      const sent = data;
+      const proposed = await request<MotionData>(
+        `/${data.name}/ai-plan`,
+        "POST",
+        { data },
+      );
+      if (latestData.current !== sent)
+        throw new Error(
+          "Brief zmienił się podczas pracy AI. Propozycję odrzucono, Twoje zmiany pozostają.",
+        );
+      edit(validateMotion(proposed));
+      setStatus(
+        "AI proponuje tekst ujęć. Sprawdź storyboard i kliknij Zapisz projekt, jeśli akceptujesz.",
+      );
+    });
   const [raw, setRaw] = useState("");
   const run = async (fn: () => Promise<unknown>) => {
     setError("");
@@ -84,18 +97,21 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     request<string[]>("").then(setNames, (e) => setError(e.message));
   }, []);
-  useEffect(() => {if(job.status !== 'running') setFilesVersion(v=>v+1);}, [job.status,data?.name]);
   useEffect(() => {
-    if (!data) return;
+    if (job.status !== "running") setFilesVersion((v) => v + 1);
+  }, [job.status, data?.name]);
+  const projectName=data?.name;
+  useEffect(() => {
+    if (!projectName) return;
     const id = setInterval(
       () =>
-        request<Job>(`/${data.name}/job`).then(setJob, (e) =>
+        request<Job>(`/${projectName}/job`).then(setJob, (e) =>
           setError(e.message),
         ),
       1000,
     );
     return () => clearInterval(id);
-  }, [data?.name]);
+  }, [projectName]);
   const edit = (d: MotionData) => {
     setData({ ...d, reviews: [] });
     setStatus("Niezapisane zmiany • recenzje wymagają powtórzenia");
@@ -171,6 +187,7 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
           </select>
           <h2>Nowy film</h2>
           <form
+            onInvalidCapture={revealInvalidField}
             onSubmit={(e) => {
               e.preventDefault();
               void run(async () => {
@@ -181,16 +198,7 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
               });
             }}
           >
-            {(
-              [
-                "name",
-                "brand",
-                "product",
-                "url",
-                "client",
-                "reference",
-              ] as const
-            ).map((k) => (
+            {(["brand", "product", "client"] as const).map((k) => (
               <label key={k}>
                 {
                   {
@@ -203,7 +211,7 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
                   }[k]
                 }
                 <input
-                  required={k === "name" || k === "brand"}
+                  required={k === "brand"}
                   value={brief[k]}
                   onChange={(e) => setBrief({ ...brief, [k]: e.target.value })}
                 />
@@ -221,25 +229,48 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
                 }
               />
             </label>
-            <label>
-              BPM (siatka szacowana)
-              <input
-                type="number"
-                min="40"
-                max="240"
-                value={brief.bpm}
-                onChange={(e) =>
-                  setBrief({ ...brief, bpm: Number(e.target.value) })
-                }
-              />
-            </label>
+            <details className="panel-details">
+              <summary>
+                Więcej ustawień <small>Nazwa, referencja i rytm</small>
+              </summary>
+              {(["name", "url", "reference"] as const).map((k) => (
+                <label key={k}>
+                  {
+                    {
+                      name: "Nazwa pliku (slug)",
+                      url: "URL produktu (bez pobierania)",
+                      reference: "Referencja ruchu",
+                    }[k]
+                  }
+                  <input
+                    required={k === "name"}
+                    value={brief[k]}
+                    onChange={(e) =>
+                      setBrief({ ...brief, [k]: e.target.value })
+                    }
+                  />
+                </label>
+              ))}
+              <label>
+                BPM (siatka szacowana)
+                <input
+                  type="number"
+                  min="40"
+                  max="240"
+                  value={brief.bpm}
+                  onChange={(e) =>
+                    setBrief({ ...brief, bpm: Number(e.target.value) })
+                  }
+                />
+              </label>
+            </details>
             <button className="btn primary" disabled={busy}>
               Utwórz storyboard
             </button>
           </form>
           <p className="note">
-            Montaż i render bez płatnych usług. AI wyłącznie po kliknięciu,
-            z konta/operatora wybranego w Ustawieniach. Tylko własne, prawdziwe
+            Montaż i render bez płatnych usług. AI wyłącznie po kliknięciu, z
+            konta/operatora wybranego w Ustawieniach. Tylko własne, prawdziwe
             materiały; nie tworzymy atrap produktu ani danych. Siatka BPM nie
             wykrywa downbeatów.
           </p>
@@ -334,8 +365,19 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
               </section>
               <section>
                 <h2>Storyboard / lista stanów</h2>
-                <button type="button" disabled={busy || job.status === 'running'} onClick={planWithAi}>Zaproponuj tekst ujęć z AI</button>
-                <p>Opcjonalne: używa operatora z Ustawień, tylko po kliknięciu. Tryb API: limit 2 USD na próbę i 120 s. AI proponuje tekst, nie generuje ocen ani ekranów produktu; zapis wymaga Twojej akceptacji.</p>
+                <button
+                  type="button"
+                  disabled={busy || job.status === "running"}
+                  onClick={planWithAi}
+                >
+                  Zaproponuj tekst ujęć z AI
+                </button>
+                <p>
+                  Opcjonalne: używa operatora z Ustawień, tylko po kliknięciu.
+                  Tryb API: limit 2 USD na próbę i 120 s. AI proponuje tekst,
+                  nie generuje ocen ani ekranów produktu; zapis wymaga Twojej
+                  akceptacji.
+                </p>
                 <p>
                   Siatka {data.beatGrid.bpm} BPM — szacowana. Każde ujęcie 2–4
                   s. Kliknij czas, aby przewinąć.

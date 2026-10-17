@@ -1,0 +1,36 @@
+name: Application update package
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: application-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run build:panel
+      - run: node scripts/app-update-release.mjs out/release
+      - name: Publish complete immutable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(git rev-parse HEAD)
+          gh release create "app-$version" out/release/montageframes-version.json out/release/montageframes-update.json.gz out/release/MontageFrames.zip --target "$version" --title "MontageFrames ${version:0:7}" --notes "Baza programu z profilami klientów, bez nagrań i lokalnych projektów. Aktualizator zachowuje własne profile i szablony." --latest

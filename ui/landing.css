@@ -1,0 +1,2076 @@
+@font-face {
+  font-family: Cabinet;
+  src: url("/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+.landing {
+  --land-blue: #164beb;
+  --land-ink: #112b50;
+  --land-muted: #52627a;
+  --land-line: #dce5f0;
+  --land-paper: #f4f7fd;
+  background: #fff;
+  color: var(--land-ink);
+  width: 100%;
+  font:
+    400 16px/1.6 Fustat,
+    system-ui,
+    sans-serif;
+  overflow-x: clip;
+}
+.landing * {
+  box-sizing: border-box;
+}
+.landing ::selection {
+  background: #c6d7ff;
+  color: #112b50;
+}
+.landing a {
+  color: inherit;
+  text-underline-offset: 5px;
+}
+.landing button,
+.landing input {
+  font: inherit;
+  caret-color: var(--land-blue);
+}
+.landing :focus-visible {
+  outline: 3px solid var(--land-blue);
+  outline-offset: 5px;
+}
+.landing h1,
+.landing h2,
+.landing h3 {
+  font-family: Cabinet, Fustat, sans-serif;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+.landing p {
+  max-width: 68ch;
+}
+.landing svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+.land-skip {
+  position: fixed;
+  top: -80px;
+  left: 20px;
+  z-index: 40;
+  background: #fff;
+  padding: 12px;
+}
+.land-skip:focus {
+  top: 12px;
+}
+.land-nav {
+  max-width: 1376px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 40px;
+  border-bottom: 1px solid var(--land-line);
+}
+.land-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font:
+    800 21px/1.2 Cabinet,
+    Fustat,
+    sans-serif;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.land-mark {
+  width: 15px;
+  height: 23px;
+  border: 2px solid var(--land-blue);
+  border-radius: 3px;
+  position: relative;
+}
+.land-mark:before {
+  content: "";
+  position: absolute;
+  inset: -6px -6px 3px 3px;
+  border: 2px solid var(--land-blue);
+  border-radius: 3px;
+  background: #fff;
+  z-index: 0;
+}
+.land-nav nav {
+  display: flex;
+  gap: 32px;
+}
+.land-nav nav a {
+  font-size: 14px;
+  text-decoration: none;
+}
+.land-nav nav a:hover {
+  color: var(--land-blue);
+}
+.land-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  font-weight: 650;
+  font-size: 14px;
+  text-decoration: none;
+}
+.land-panel svg {
+  width: 18px;
+}
+.land-panel:hover {
+  color: var(--land-blue);
+}
+.land-hero {
+  text-align: center;
+  padding: 60px 40px 0;
+  max-width: 1376px;
+  margin: auto;
+}
+.land-hero h1 {
+  font-size: clamp(48px, 6.5vw, 94px);
+  max-width: 1120px;
+  margin: 0 auto 22px;
+}
+.land-hero h1 span {
+  color: var(--land-blue);
+}
+.land-hero > p {
+  font-size: 18px;
+  color: var(--land-muted);
+  max-width: 670px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+.land-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.land-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 52px;
+  padding: 12px 24px;
+  border: 1px solid #7a8ca6;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--land-ink);
+  font-size: 15px;
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    background-color 160ms,
+    color 160ms,
+    transform 160ms;
+}
+.land-button.solid {
+  background: var(--land-blue);
+  color: #fff;
+  border-color: transparent;
+}
+.land-button:hover {
+  background: #eaf0ff;
+  transform: translateY(-2px);
+}
+.land-button.solid:hover {
+  background: #1039b6;
+}
+.land-button:active {
+  transform: translateY(0);
+}
+.land-workflow-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  font-size: 13px;
+  color: #d5e1ff;
+}
+.land-workflow-top > span:first-child {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+.land-wave {
+  height: 100%;
+  width: 100%;
+  fill: #a9c0ff;
+}
+.land-wave.quiet {
+  fill: #c5d5ff;
+}
+.land-section {
+  max-width: 1280px;
+  margin: auto;
+  padding: 128px 40px;
+}
+.land-section h2,
+.land-language h2,
+.land-roadmap h2 {
+  font-size: clamp(36px, 4vw, 60px);
+  max-width: 850px;
+  margin-bottom: 28px;
+}
+.land-section > h2 {
+  margin-bottom: 56px;
+}
+.land-step {
+  display: block;
+  font-size: 15px;
+  color: var(--land-blue);
+  margin-bottom: 16px;
+}
+.land-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  margin-top: 24px;
+  color: var(--land-blue) !important;
+  text-decoration: none;
+}
+.land-text-link:hover {
+  text-decoration: underline;
+}
+.land-note {
+  font-size: 13px !important;
+  color: var(--land-muted);
+  line-height: 1.6;
+}
+.land-section > .land-note {
+  margin-top: 40px;
+}
+.land-manifesto {
+  background: #eef3fd;
+  padding: 88px 40px;
+}
+.land-manifesto > p {
+  font:
+    650 clamp(32px, 4vw, 56px)/1.2 Cabinet,
+    Fustat,
+    sans-serif;
+  max-width: 1000px;
+  margin: auto;
+  letter-spacing: -0.025em;
+}
+.land-calculator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+.land-calculator > div:first-child > p {
+  color: var(--land-muted);
+}
+.land-calculator .land-note {
+  margin-top: 20px;
+}
+.land-calc-tool {
+  border-top: 2px solid var(--land-blue);
+  padding-top: 24px;
+}
+.land-calc-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.land-calc-inputs label {
+  font-size: 14px;
+  display: grid;
+  gap: 8px;
+  color: var(--land-muted);
+}
+.land-calc-inputs label > span {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.land-calc-inputs input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #7a8ca6;
+  background: #fff;
+  min-height: 48px;
+  padding: 8px 48px 8px 12px;
+  border-radius: 8px;
+  font-size: 18px;
+  color: var(--land-ink);
+}
+.land-calc-inputs small {
+  position: absolute;
+  right: 12px;
+  font-size: 13px;
+  pointer-events: none;
+}
+.land-calc-tool output {
+  display: flex;
+  flex-direction: column;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--land-line);
+}
+.land-calc-tool output strong {
+  font:
+    750 64px/1.1 Cabinet,
+    sans-serif;
+  letter-spacing: -0.04em;
+  color: var(--land-blue);
+  font-variant-numeric: tabular-nums;
+}
+.land-calc-tool output > span {
+  font-size: 18px;
+  margin: 8px 0;
+}
+.land-calc-tool output small {
+  font-size: 13px;
+  color: var(--land-muted);
+}
+.land-language {
+  background: var(--land-blue);
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  padding: 80px max(40px, calc((100vw - 1200px) / 2));
+  align-items: center;
+}
+.land-language p {
+  color: #d9e4ff;
+  max-width: 45ch;
+}
+.land-accuracy strong {
+  font:
+    750 112px/1 Cabinet,
+    sans-serif;
+  letter-spacing: -0.04em;
+}
+.land-accuracy strong span {
+  font-size: 56px;
+}
+.land-accuracy > p {
+  margin: 12px 0;
+  font-size: 18px;
+}
+.land-accuracy details {
+  max-width: 470px;
+}
+.land-accuracy summary {
+  color: #fff;
+  font-size: 14px;
+}
+.land-accuracy details p {
+  font-size: 13px;
+}
+.land-operators {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 100px;
+}
+.land-operators h2 span {
+  color: var(--land-blue);
+}
+.land-operators p {
+  color: var(--land-muted);
+}
+.land-operator-details article {
+  border-bottom: 1px solid var(--land-line);
+  padding: 24px 0;
+}
+.land-operator-details article:first-child {
+  padding-top: 8px;
+}
+.land-operator-details h3 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.land-operator-details details {
+  margin-top: 16px;
+}
+.land-operator-details summary {
+  color: var(--land-ink);
+}
+.land-roadmap {
+  margin: 0 40px;
+  max-width: 1280px;
+  background: #f0f5fc;
+  border-radius: 16px;
+  padding: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  align-items: center;
+}
+.land-roadmap p {
+  color: var(--land-muted);
+}
+.land-roadmap .land-coming {
+  color: var(--land-blue);
+  margin: 0 0 14px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.land-roadmap h2 {
+  font-size: 48px;
+}
+.land-roadmap .land-note {
+  margin-top: 20px;
+}
+.land-voice-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 220px;
+}
+.land-voice-symbol span {
+  display: block;
+  width: 16px;
+  height: 60px;
+  border-radius: 8px;
+  background: var(--land-blue);
+}
+.land-voice-symbol span:nth-child(2),
+.land-voice-symbol span:nth-child(4) {
+  height: 120px;
+}
+.land-voice-symbol span:nth-child(3) {
+  height: 180px;
+}
+.land-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 64px;
+  margin-bottom: 48px;
+}
+.land-section-heading h2 {
+  margin: 0;
+  flex: 1.2;
+}
+.land-section-heading > p {
+  flex: 1;
+  color: var(--land-muted);
+  max-width: 430px;
+}
+.land-table-scroll {
+  overflow: auto;
+  border-block: 1px solid var(--land-line);
+}
+.land-comparison {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 680px;
+}
+.land-comparison caption {
+  text-align: left;
+  padding: 16px 0;
+  font-size: 13px;
+  color: var(--land-muted);
+}
+.land-comparison th,
+.land-comparison td {
+  padding: 24px 18px;
+  vertical-align: top;
+  border-top: 1px solid var(--land-line);
+  font-size: 14px;
+}
+.land-comparison th:first-child {
+  width: 22%;
+}
+.land-comparison th {
+  font-weight: 650;
+}
+.land-comparison th > a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.land-comparison th > a:hover {
+  color: var(--land-blue);
+}
+.land-comparison th svg {
+  width: 17px;
+  height: 17px;
+}
+.land-comparison td > span {
+  display: block;
+  color: var(--land-muted);
+  margin-top: 8px;
+}
+.land-comparison td:nth-child(2) {
+  width: 42%;
+}
+.land-our-row {
+  background: #edf3ff;
+  color: #113cb9;
+}
+.land-pricing {
+  background: var(--land-paper);
+  max-width: none;
+  padding-inline: max(40px, calc((100vw - 1200px) / 2));
+}
+.land-plans {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  grid-auto-flow: dense;
+}
+.land-plan {
+  border: 1px solid var(--land-line);
+  border-radius: 16px;
+  background: #fff;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.land-plan.featured {
+  border: 2px solid var(--land-blue);
+  padding: 31px 23px;
+}
+.land-plan h3 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+.land-plan > p {
+  font-size: 14px;
+  color: var(--land-muted);
+  min-height: 46px;
+}
+.land-price {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin: 32px 0 24px;
+}
+.land-price strong {
+  font:
+    750 64px/1 Cabinet,
+    sans-serif;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.land-price span {
+  font-size: 13px;
+  color: var(--land-muted);
+}
+.land-plan ul {
+  padding: 0;
+  margin: 0 0 28px;
+  list-style: none;
+  font-size: 14px;
+}
+.land-plan li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--land-line);
+}
+.land-plan .land-button {
+  margin-top: auto;
+  padding-inline: 14px;
+  font-size: 13px;
+  gap: 10px;
+}
+.land-plan > small {
+  font-size: 13px;
+  color: var(--land-muted);
+  margin-top: 16px;
+}
+.land-pricing-disclosure {
+  font-size: 14px;
+  color: var(--land-muted);
+  max-width: 950px !important;
+  margin-top: 28px;
+}
+.land-pricing-faq {
+  margin-top: 20px;
+  max-width: 950px;
+}
+.land-pricing-faq summary {
+  font-size: 14px;
+  color: var(--land-ink);
+}
+.land-pricing-faq p {
+  font-size: 14px;
+  color: var(--land-muted);
+}
+.land-faq {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+}
+.land-faq details {
+  border-bottom: 1px solid var(--land-line);
+  padding: 12px 0;
+}
+.land-faq summary {
+  color: var(--land-ink);
+  font-weight: 600;
+  font-size: 16px;
+  padding-block: 14px;
+}
+.land-faq details p {
+  color: var(--land-muted);
+  font-size: 15px;
+  padding: 0 0 20px;
+}
+.land-final {
+  background: var(--land-blue);
+  color: #fff;
+  padding: 88px 40px;
+  text-align: center;
+}
+.land-final h2 {
+  font-size: clamp(38px, 5vw, 72px);
+  margin-bottom: 32px;
+}
+.land-final p {
+  color: #d5e1ff;
+  margin: 22px auto 0;
+  font-size: 14px;
+}
+.land-final .land-button {
+  color: var(--land-blue);
+  border-color: #fff;
+  min-height: 56px;
+}
+.land-footer {
+  max-width: 1376px;
+  margin: auto;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.land-footer > p {
+  color: var(--land-muted);
+  font-size: 13px;
+}
+.land-footer > div {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+}
+.land-footer > div > a {
+  text-decoration: none;
+}
+.land-footer > div > a:hover {
+  text-decoration: underline;
+}
+@media (min-width: 1360px) {
+  .land-roadmap {
+    margin-inline: auto;
+  }
+}
+@media (max-width: 1100px) {
+  .land-calculator,
+  .land-operators {
+    gap: 48px;
+  }
+  .land-section {
+    padding-block: 96px;
+  }
+  .land-nav nav {
+    gap: 18px;
+  }
+  .land-plan {
+    padding: 24px 18px;
+  }
+  .land-plan.featured {
+    padding: 23px 17px;
+  }
+  .land-plan .land-button {
+    font-size: 13px;
+  }
+  .land-price {
+    flex-wrap: wrap;
+  }
+  .land-roadmap {
+    padding: 48px;
+    gap: 40px;
+  }
+  .land-section-heading {
+    gap: 40px;
+  }
+  .land-language {
+    gap: 40px;
+  }
+  .land-faq {
+    gap: 40px;
+  }
+}
+@media (max-width: 760px) {
+  .land-nav {
+    padding: 16px 20px;
+    gap: 14px;
+  }
+  .land-nav nav {
+    display: none;
+  }
+  .land-brand {
+    font-size: 18px;
+  }
+  .land-panel {
+    font-size: 13px;
+    gap: 6px;
+  }
+  .land-hero {
+    padding: 48px 20px 0;
+  }
+  .land-hero h1 {
+    font-size: clamp(39px, 7.3vw, 56px);
+    letter-spacing: -0.035em;
+    margin-bottom: 20px;
+  }
+  .land-hero > p {
+    font-size: 16px;
+    max-width: 36ch;
+  }
+  .land-hero-actions {
+    gap: 10px;
+  }
+  .land-button {
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 14px;
+    gap: 12px;
+  }
+  .land-workflow-top {
+    font-size: 13px;
+    gap: 8px;
+  }
+  .land-workflow-top > span:first-child {
+    font-size: 13px;
+  }
+  .land-section {
+    padding: 80px 20px;
+  }
+  .land-section h2,
+  .land-language h2 {
+    font-size: 39px;
+    letter-spacing: -0.03em;
+  }
+  .land-section > h2 {
+    margin-bottom: 32px;
+  }
+  .land-calculator,
+  .land-language,
+  .land-operators,
+  .land-roadmap,
+  .land-faq {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+  .land-step {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  .land-manifesto {
+    padding: 56px 24px;
+  }
+  .land-manifesto > p {
+    font-size: 35px;
+  }
+  .land-calc-inputs {
+    gap: 20px 16px;
+  }
+  .land-calc-inputs label {
+    font-size: 13px;
+  }
+  .land-calc-tool output strong {
+    font-size: 60px;
+  }
+  .land-language {
+    padding: 64px 24px;
+  }
+  .land-accuracy strong {
+    font-size: 96px;
+  }
+  .land-operators {
+    gap: 32px;
+  }
+  .land-roadmap {
+    margin: 0 20px;
+    padding: 32px 24px;
+    gap: 24px;
+  }
+  .land-voice-symbol {
+    min-height: 130px;
+    gap: 12px;
+  }
+  .land-voice-symbol span {
+    width: 12px;
+    height: 40px;
+  }
+  .land-voice-symbol span:nth-child(2),
+  .land-voice-symbol span:nth-child(4) {
+    height: 75px;
+  }
+  .land-voice-symbol span:nth-child(3) {
+    height: 110px;
+  }
+  .land-roadmap h2 {
+    font-size: 37px;
+  }
+  .land-section-heading {
+    display: block;
+    margin-bottom: 32px;
+  }
+  .land-section-heading > p {
+    margin-top: 20px;
+  }
+  .land-plans {
+    grid-template-columns: 1fr;
+  }
+  .land-plan,
+  .land-plan.featured {
+    padding: 28px 24px;
+  }
+  .land-plan > p {
+    min-height: 0;
+  }
+  .land-plan .land-button {
+    font-size: 14px;
+  }
+  .land-price {
+    margin: 24px 0;
+  }
+  .land-pricing {
+    padding-inline: 20px;
+  }
+  .land-comparison th,
+  .land-comparison td {
+    padding: 18px 12px;
+  }
+  .land-final {
+    padding: 64px 20px;
+  }
+  .land-final h2 {
+    font-size: 42px;
+  }
+  .land-footer {
+    padding: 32px 20px;
+    display: grid;
+    gap: 16px;
+  }
+  .land-footer > div {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing *,
+  .landing *:before,
+  .landing *:after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .land-manifesto .word {
+    opacity: 1 !important;
+  }
+}
+
+.landing svg.land-wave {
+  width: 100%;
+  height: 100%;
+}
+.loading-page {
+  padding: 32px;
+  color: var(--muted);
+}
+
+/* Motion stays inside the existing product illustration, never over the controls. */
+@media (prefers-reduced-motion: no-preference) {
+  .land-hero h1 span {
+    position: relative;
+  }
+  .land-hero h1 span::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 -5px;
+    height: 3px;
+    background: currentColor;
+    transform-origin: left;
+    animation: land-marker 1s 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .land-plan {
+    transition:
+      transform 300ms,
+      box-shadow 300ms;
+  }
+  .land-plan:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px -25px #164beb60;
+  }
+}
+@keyframes land-marker {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/* One persistent phone; scrolling hands the same edit from manual work to AI. */
+.land-hero {
+  padding-bottom: 30px;
+}
+.land-scroll-cue {
+  display: inline-flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 32px;
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--land-muted) !important;
+}
+.land-scroll-cue span {
+  font-size: 24px;
+  color: var(--land-blue);
+}
+.land-edit-story {
+  position: relative;
+}
+.land-edit-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  max-height: 1080px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 36px max(32px, calc((100vw - 1200px) / 2));
+  overflow: hidden;
+}
+.land-edit-heading {
+  text-align: center;
+}
+.land-edit-heading .land-step {
+  margin-bottom: 12px;
+}
+.land-edit-heading h2 {
+  margin: 0;
+}
+.land-edit-heading h2 span {
+  color: var(--land-blue);
+}
+.land-edit-visual {
+  display: grid;
+  align-items: center;
+}
+.land-phone-space {
+  perspective: 1300px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 12px 36px;
+}
+.land-phone {
+  position: relative;
+  width: 248px;
+  height: 504px;
+  border: 2px solid #92969e;
+  border-radius: 46px;
+  padding: 8px;
+  background: linear-gradient(
+    120deg,
+    #555a63,
+    #13161d 32%,
+    #595f6a 60%,
+    #20242c
+  );
+  transform-style: preserve-3d;
+}
+.land-phone::before,
+.land-phone::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  width: 3px;
+  border-radius: 3px;
+  background: #50555e;
+}
+.land-phone::before {
+  top: 95px;
+  height: 30px;
+}
+.land-phone::after {
+  top: 140px;
+  height: 48px;
+}
+.land-phone-screen {
+  position: relative;
+  height: 100%;
+  border: 3px solid #080b11;
+  border-radius: 36px;
+  background: #172437;
+  color: white;
+  overflow: hidden;
+  isolation: isolate;
+}
+.land-phone-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 23px;
+  border-radius: 20px;
+  background: #07090d;
+  z-index: 4;
+}
+.land-phone-island::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #13233d;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  box-shadow: inset 1px 1px 2px #4972a5;
+}
+.land-phone-status {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 16px;
+  font: 600 10px/1 sans-serif;
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 3;
+}
+.land-phone-footage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.land-phone-footage::before {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 220px;
+  left: -35px;
+  top: 30px;
+  background: #d9ccad50;
+  filter: blur(20px);
+  transform: rotate(20deg);
+}
+.land-phone-raw {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  text-align: center;
+  transition: opacity 400ms;
+}
+.land-phone-finished {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  text-align: center;
+  font:
+    700 24px/1.3 Cabinet,
+    sans-serif;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 500ms,
+    transform 600ms;
+}
+.land-phone-finished strong {
+  display: inline-block;
+  color: #153a7d;
+  padding: 0 8px;
+}
+.land-phone-bottom {
+  position: absolute;
+  bottom: 35px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.land-phone-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #99acc8;
+  margin-right: 4px;
+}
+.land-phone-home {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 75px;
+  height: 4px;
+  background: #fff;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+.land-edit-copy {
+  margin-bottom: 22px;
+}
+.land-edit-kicker {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--land-blue);
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+.land-edit-copy h3 {
+  margin: 0 0 12px;
+}
+.land-edit-copy > p:last-child {
+  font-size: 15px;
+  color: var(--land-muted);
+  margin: 0;
+}
+.land-editor {
+  border: 1px solid #3e4557;
+  color: #dce2f1;
+  overflow: hidden;
+  text-align: left;
+}
+.land-editor-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid #333b4e;
+}
+.land-editor-top i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #a0acc4;
+  border-radius: 50%;
+  margin-right: 6px;
+  transition: background 400ms;
+}
+.land-editor-caption {
+  border-bottom: 1px solid #343b4e;
+}
+.land-editor-caption > span {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.land-edit-words {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.land-edit-words > span,
+.land-edit-words > b {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: #343b4e;
+  transition:
+    background 500ms,
+    color 500ms;
+}
+.land-edit-words > span {
+  color: #d7b6ac;
+  text-decoration: underline wavy #b68372;
+  text-underline-offset: 4px;
+}
+.land-editor-caret {
+  width: 1px;
+  height: 20px;
+  background: #c7d8ff;
+}
+.land-editor-caption small {
+  color: #a5b1c8;
+}
+.land-editor-timeline {
+  position: relative;
+}
+.land-editor-ruler {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 10px 25px;
+  color: #8f9db6;
+  font-size: 13px;
+}
+.land-editor-track {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+.land-editor-track > small {
+  color: #a5b1c8;
+  flex: none;
+}
+.land-editor-track > span {
+  height: 100%;
+  border-radius: 3px;
+  flex: 1;
+  border: 1px solid #8f80ca;
+  background: #5f5086;
+  transition:
+    flex 900ms,
+    background 600ms,
+    border-color 600ms;
+}
+.land-editor-track.video > span:nth-child(3n) {
+  flex: 0.3;
+}
+.land-editor-track.subtitles > span {
+  height: 22px;
+  padding: 2px 7px;
+}
+.land-editor-track.audio .land-wave {
+  flex: 1;
+  height: 25px;
+  border: 1px solid #517c6f;
+  border-radius: 3px;
+}
+.land-editor-playhead {
+  position: absolute;
+  left: 43%;
+  top: 18px;
+  bottom: 10px;
+  width: 1px;
+  background: #7cafff;
+  transition: left 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.land-editor-playhead::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 7px;
+  height: 7px;
+  background: #7cafff;
+}
+.land-editor-cursor {
+  position: absolute;
+  left: 52%;
+  color: #fff;
+  transform: rotate(-15deg);
+}
+.land-editor-cursor > span {
+  position: absolute;
+  left: 19px;
+  top: 23px;
+  font-size: 13px;
+  white-space: nowrap;
+  border-radius: 4px;
+  padding: 4px 6px;
+  transform: rotate(15deg);
+}
+.land-editor-result {
+  border-top: 1px solid #343b4e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 600ms;
+}
+.land-edit-proof {
+  margin: 10px 0 0;
+}
+.land-edit-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  color: #738198;
+}
+.land-edit-progress > i {
+  width: 70px;
+  height: 2px;
+  background: #c9d5e8;
+}
+.land-edit-progress .active {
+  color: var(--land-blue);
+  font-weight: 700;
+}
+.is-ai .land-phone-raw {
+  opacity: 0;
+}
+.is-ai .land-phone-finished {
+  opacity: 1;
+  transform: none;
+}
+.is-ai .land-phone-dot,
+.is-ai .land-editor-top i {
+  background: #90edbf;
+}
+.is-ai .land-edit-words > span,
+.is-ai .land-editor-caret,
+.is-ai .land-editor-cursor {
+  display: none;
+}
+.is-ai .land-editor-track.video > span:nth-child(3n) {
+  flex: 0;
+  border-width: 0;
+}
+.is-ai .land-editor-track.subtitles > span {
+  color: #fff;
+}
+.is-ai .land-editor-playhead {
+  left: 92%;
+}
+.is-ai .land-editor-result {
+  color: #d1e2ff;
+}
+@media (max-width: 760px) {
+  .land-edit-story {
+    height: 250svh;
+  }
+  .land-edit-sticky {
+    height: 100svh;
+    max-height: 920px;
+  }
+  .land-edit-heading .land-step {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .land-phone-space {
+    padding: 0;
+    min-width: 0;
+  }
+  .land-phone {
+    width: 248px;
+    height: 504px;
+    scale: 0.58;
+    margin: -106px -53px;
+  }
+  .land-edit-kicker {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .land-edit-copy {
+    margin-bottom: 12px;
+  }
+  .land-editor-top > span:last-child {
+    display: none;
+  }
+  .land-editor-caption > span,
+  .land-editor-caption small {
+    font-size: 8px;
+  }
+  .land-edit-words > span,
+  .land-edit-words > b {
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+  .land-editor-ruler {
+    font-size: 7px;
+  }
+  .land-editor-ruler > span:nth-child(2n) {
+    display: none;
+  }
+  .land-editor-track {
+    gap: 3px;
+  }
+  .land-editor-track.subtitles > span {
+    font-size: 8px;
+    padding: 3px;
+    height: 20px;
+  }
+  .land-editor-cursor > span {
+    display: none;
+  }
+  .land-edit-proof {
+    font-size: 8px;
+  }
+}
+@media (max-width: 480px) {
+  .land-phone {
+    scale: 0.48;
+    margin: -131px -65px;
+  }
+  .land-edit-copy {
+    text-align: center;
+  }
+  .land-edit-copy > p:last-child {
+    margin: auto;
+  }
+  .land-edit-heading .land-step {
+    display: none;
+  }
+  .land-edit-progress {
+    font-size: 13px;
+  }
+  .land-editor-caption {
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+    align-items: center;
+  }
+  .land-editor-caption small {
+    grid-column: 1 / -1;
+    margin-top: 6px;
+  }
+  .land-editor-track {
+    margin: 3px 0;
+  }
+  .land-editor-result {
+    padding: 5px 8px;
+  }
+  .land-edit-proof {
+    text-align: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .land-phone {
+    transform: none !important;
+  }
+}
+.land-edit-words > input {
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid #b9d0ff;
+  background: #b9d0ff;
+  color: #122954;
+}
+.land-edit-words > input:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.land-phone-finished {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 760px) {
+  .land-edit-words > input {
+    font-size: 13px;
+    padding: 2px 4px;
+  }
+}
+.land-phone-size {
+  width: 248px;
+  height: 504px;
+}
+.land-phone {
+  scale: 1 !important;
+  margin: 0;
+}
+@media (max-width: 760px) {
+  .land-phone-size {
+    scale: 0.58;
+    margin: -106px -53px;
+  }
+}
+/* The phone is a restrained preview; the editing interaction is the focal point. */
+.land-edit-story {
+  background: #f5f6f9;
+  height: 210svh;
+}
+.land-edit-sticky {
+  min-height: 700px;
+}
+.land-edit-heading {
+  margin-bottom: 40px;
+}
+.land-edit-heading h2 {
+  font-size: clamp(32px, 3.6vw, 50px);
+}
+.land-edit-visual {
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 72px;
+}
+.land-edit-copy h3 {
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.12;
+}
+.land-edit-copy > p:last-child {
+  max-width: 49ch;
+}
+.land-phone {
+  box-shadow:
+    2px 0 0 #686e78,
+    5px 2px 0 #30343e,
+    18px 24px 45px -18px #10285140;
+}
+.land-phone-footage {
+  background: #1a202c;
+}
+.land-phone-footage::before {
+  display: none;
+}
+.land-phone-source {
+  position: absolute;
+  top: 65px;
+  left: 22px;
+  right: 22px;
+  display: grid;
+  gap: 4px;
+}
+.land-phone-source > span {
+  color: #cad1df;
+  font-size: 13px;
+  font-weight: 500;
+}
+.land-phone-source > small {
+  font: 9px/1.5 monospace;
+  color: #8997ae;
+}
+.land-phone-composition {
+  position: absolute;
+  top: 155px;
+  left: 22px;
+  right: 12px;
+  display: grid;
+  gap: 0;
+  font:
+    650 35px/1.1 Cabinet,
+    sans-serif;
+  letter-spacing: -0.04em;
+  color: #f0f3f9;
+}
+.land-phone-composition > span:last-child {
+  color: #8499bd;
+}
+.land-phone-raw {
+  top: 302px;
+  font-size: 13px;
+  color: #bac5d7;
+}
+.land-phone-finished {
+  top: 290px;
+  font-size: 23px;
+}
+.land-phone-finished strong {
+  font-size: 34px;
+  border-radius: 2px;
+  background: #dce7ff;
+}
+.land-phone-bottom {
+  font-size: 13px;
+  color: #98a8c2;
+}
+.land-phone-dot,
+.is-ai .land-phone-dot {
+  background: #b8cdf7;
+}
+.land-editor {
+  border-color: #303641;
+  background: #191c22;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px -25px #16233c60;
+}
+.land-editor-top {
+  background: #23262e;
+  padding: 14px 18px;
+  font-size: 13px;
+}
+.land-editor-top > span:last-child {
+  color: #a5b1c5;
+  font-size: 13px;
+  align-self: center;
+}
+.land-editor-tools {
+  display: flex;
+  gap: 18px;
+  padding: 13px 18px;
+  border-bottom: 1px solid #303641;
+  color: #a9b4c7;
+  font-size: 13px;
+}
+.is-ai .land-editor-tools {
+  color: #c1d3f8;
+}
+.land-editor-caption {
+  padding: 22px 18px;
+  border-color: #303641;
+}
+.land-editor-caption > span {
+  font-size: 13px;
+  color: #a5b1c5;
+}
+.land-edit-words {
+  min-height: 38px;
+  margin: 12px 0;
+  gap: 8px;
+}
+.land-edit-words > b,
+.land-edit-words > span {
+  font-size: 17px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.land-edit-words > input {
+  font-size: 17px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.is-ai .land-edit-words > b {
+  color: #e1e7f3;
+  background: #303746;
+}
+.land-editor-caption small {
+  font-size: 13px;
+}
+.land-editor-timeline {
+  padding: 12px 18px 16px;
+}
+.land-editor-ruler {
+  margin-left: 40px;
+  font-family: monospace;
+}
+.land-editor-track {
+  gap: 5px;
+  height: 31px;
+}
+.land-editor-track > small {
+  width: 36px;
+  font-size: 13px;
+}
+.land-editor-track.subtitles > span {
+  font-size: 13px;
+}
+.land-editor-track.video > span {
+  background: #435768;
+  border-color: #718291;
+}
+.land-editor-track.video > span:nth-child(3n) {
+  background: #775a57;
+  border-color: #9c7870;
+}
+.land-editor-track.subtitles > span {
+  background: #645378;
+  border-color: #9583a9;
+  color: #ede6f6;
+}
+.land-editor-track.audio .land-wave {
+  fill: #8aaab2;
+  background: #29383d;
+  border-color: #49606b;
+}
+.is-ai .land-editor-track.video > span {
+  background: #425c7c;
+  border-color: #6986aa;
+}
+.is-ai .land-editor-track.subtitles > span {
+  background: #56648a;
+  border-color: #8294bd;
+}
+.land-editor-cursor {
+  font-size: 22px;
+  top: 73px;
+}
+.land-editor-cursor > span {
+  background: #39414e;
+}
+.land-editor-result {
+  background: #22262e;
+  border-color: #303641;
+  padding: 12px 18px;
+  font-size: 13px;
+}
+.is-ai .land-editor-result {
+  background: #26334b;
+}
+.land-editor-result > span {
+  font-size: 15px;
+}
+.land-edit-proof {
+  font-size: 13px;
+  color: #6e7b8e;
+}
+.land-edit-progress {
+  gap: 16px;
+  margin-top: 28px;
+}
+.land-edit-progress > button {
+  background: transparent;
+  padding: 9px 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #66748a;
+  font-size: 13px;
+  cursor: pointer;
+}
+.land-edit-progress > button[aria-pressed="true"] {
+  color: #173e96;
+  border-color: #c4d3ef;
+  background: #edf2fc;
+}
+.land-edit-progress > span {
+  color: #9ba8bb;
+}
+@media (max-width: 760px) {
+  .land-edit-sticky {
+    min-height: 700px;
+    padding: 20px;
+  }
+  .land-edit-heading {
+    margin-bottom: 24px;
+  }
+  .land-edit-heading h2 {
+    font-size: 30px;
+  }
+  .land-edit-visual {
+    grid-template-columns: 0.6fr 1fr;
+    gap: 24px;
+  }
+  .land-edit-copy h3 {
+    font-size: 25px;
+  }
+  .land-edit-copy > p:last-child {
+    font-size: 13px;
+  }
+  .land-editor-top {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .land-editor-tools {
+    gap: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .land-editor-caption {
+    padding: 14px 12px;
+  }
+  .land-edit-words {
+    gap: 5px;
+    min-height: 30px;
+    margin: 10px 0;
+  }
+  .land-edit-words > b,
+  .land-edit-words > span,
+  .land-edit-words > input {
+    font-size: 13px;
+    padding: 3px 5px;
+  }
+  .land-editor-caption small {
+    font-size: 13px;
+  }
+  .land-editor-timeline {
+    padding: 10px 12px;
+  }
+  .land-editor-track {
+    height: 24px;
+  }
+  .land-editor-track > small {
+    width: 28px;
+    font-size: 8px;
+  }
+  .land-editor-ruler {
+    margin-left: 32px;
+  }
+  .land-editor-result {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+}
+@media (max-width: 480px) {
+  .land-edit-sticky {
+    min-height: 760px;
+  }
+  .land-edit-heading {
+    margin-bottom: 18px;
+  }
+  .land-edit-heading h2 {
+    font-size: 27px;
+  }
+  .land-edit-visual {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .land-phone-space {
+    height: 210px;
+  }
+  .land-phone-size {
+    scale: 0.4;
+    margin: -151px -74px;
+  }
+  .land-edit-copy h3 {
+    font-size: 23px;
+    margin-bottom: 8px;
+  }
+  .land-edit-copy h3 br {
+    display: initial;
+  }
+  .land-edit-copy > p:last-child {
+    font-size: 13px;
+    max-width: 39ch;
+  }
+  .land-editor-caption {
+    display: block;
+    padding: 12px;
+  }
+  .land-editor-tools {
+    gap: 18px;
+    font-size: 13px;
+  }
+  .land-edit-words {
+    margin: 8px 0;
+  }
+  .land-editor-caption small {
+    display: block;
+    margin: 0;
+  }
+  .land-editor-track {
+    height: 22px;
+  }
+  .land-editor-track.audio .land-wave {
+    height: 22px;
+  }
+  .land-edit-progress {
+    margin-top: 16px;
+    gap: 8px;
+  }
+  .land-edit-progress > button {
+    font-size: 13px;
+    padding: 7px 10px;
+  }
+  .land-edit-proof {
+    font-size: 8px;
+    margin-top: 8px;
+  }
+}
+@media (max-height: 760px) and (max-width: 480px) {
+  .land-edit-sticky {
+    min-height: 0;
+    padding-block: 14px;
+  }
+  .land-phone-space {
+    height: 150px;
+  }
+  .land-phone-size {
+    scale: 0.29;
+    margin: -179px -88px;
+  }
+  .land-edit-heading h2 {
+    font-size: 23px;
+  }
+  .land-edit-heading {
+    margin-bottom: 10px;
+  }
+  .land-edit-visual {
+    gap: 10px;
+  }
+  .land-edit-copy h3 {
+    font-size: 20px;
+  }
+  .land-edit-copy > p:last-child {
+    display: none;
+  }
+}
+
+.land-manifesto {
+  padding: 100px max(40px, calc((100vw - 1200px) / 2));
+  background: var(--land-blue);
+  color: #fff;
+  overflow: hidden;
+}
+.land-time-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 100px;
+  align-items: center;
+}
+.land-time-copy > p {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.45;
+  color: #dce6ff;
+}
+.land-time-copy h2 {
+  margin: 28px 0;
+  font-size: clamp(48px, 5.7vw, 82px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 650;
+}
+.land-time-edit {
+  min-width: 0;
+}
+.land-time-work {
+  padding: 0 0 40px;
+}
+.land-time-fragments {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+.land-time-fragments > span {
+  flex: 1;
+  padding: 16px 10px;
+  background: #416beb;
+  color: #e4ecff;
+  font-size: 14px;
+  border-radius: 3px;
+  text-align: center;
+}
+.land-time-fragments:nth-child(2) {
+  margin-left: 30px;
+  margin-right: -30px;
+}
+.land-time-fragments:nth-child(2) > span {
+  background: #345edb;
+}
+.land-time-work .land-wave {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-top: 14px;
+  fill: #84a5ff;
+}
+.land-time-done {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.land-time-done > span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  background: #fff;
+  color: var(--land-blue);
+  font-size: 24px;
+  border-radius: 50%;
+}
+.land-time-done > p {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0;
+  color: #dce6ff;
+}
+.land-time-done strong {
+  color: #fff;
+  font-weight: 650;
+}
+@media (max-width: 1000px) {
+  .land-time-layout {
+    gap: 52px;
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+  .land-time-copy h2 {
+    font-size: 58px;
+  }
+  .land-time-copy > p {
+    font-size: 19px;
+  }
+  .land-time-done > p {
+    font-size: 17px;
+  }
+  .land-time-fragments > span {
+    font-size: 13px;
+    padding: 14px 6px;
+  }
+}
+@media (max-width: 760px) {
+  .land-manifesto {
+    padding: 64px 24px;
+  }
+  .land-time-layout {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .land-time-copy h2 {
+    font-size: clamp(42px, 8vw, 60px);
+    margin: 24px 0;
+  }
+  .land-time-copy > p {
+    font-size: 18px;
+  }
+  .land-time-edit {
+    max-width: 400px;
+  }
+  .land-time-work {
+    padding-bottom: 24px;
+  }
+  .land-time-fragments:nth-child(2) {
+    margin-left: 16px;
+    margin-right: 0;
+  }
+  .land-time-done > p {
+    font-size: 18px;
+  }
+}
+
+/* A sticky scene taller than the viewport must never centre its heading above its clip. */
+.land-edit-sticky {
+  height: auto;
+  min-height: 100svh;
+  max-height: none;
+  overflow: visible;
+  justify-content: flex-start;
+  padding-top: 32px;
+  padding-bottom: 24px;
+}
+.land-edit-heading {
+  margin-bottom: 24px;
+}
+.land-edit-heading .land-step {
+  margin-bottom: 8px;
+}
+.land-edit-heading h2 {
+  font-size: clamp(30px, 3.4vw, 46px);
+}
+.land-edit-progress {
+  margin-top: 22px;
+}
+@media (max-width: 480px) {
+  .land-edit-sticky {
+    padding-top: 24px;
+  }
+  .land-edit-heading h2 {
+    font-size: 27px;
+  }
+  .land-phone-space {
+    height: 170px;
+  }
+  .land-phone-size {
+    scale: 0.33;
+    margin: -169px -83px;
+  }
+}
+@media (max-height: 780px) {
+  .land-edit-story {
+    height: auto;
+  }
+  .land-edit-sticky {
+    position: relative;
+    min-height: 0;
+  }
+}
+.land-edit-heading .land-step {
+  display: block;
+}
+
+/* Readable comparison records on phones; keep the actual table and its headers. */
+.land-section h2, .land-roadmap h2, .land-final h2 { text-wrap:balance; }
+.land-edit-hint, .land-editor-finish, .land-editor-label { color:var(--land-ink); }
+@media (max-width:900px) {
+  .land-operators { grid-template-columns:1fr; }
+  .land-roadmap { grid-template-columns:140px minmax(0,1fr); gap:28px; padding:36px; }
+  .land-roadmap h2 { font-size:clamp(32px,4.6vw,44px); }
+}
+@media (max-width:600px) {
+  .land-table-scroll { overflow:visible; border:0; }
+  .land-comparison { min-width:0; width:100%; }
+  .land-comparison thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .land-comparison tbody,.land-comparison tr { display:block; }
+  .land-comparison tr { padding:22px 18px; margin-bottom:16px; background:var(--land-paper); }
+  .land-comparison tr.land-our-row { background:#edf3ff; }
+  .land-comparison th,.land-comparison td,.land-comparison th:first-child,.land-comparison td:nth-child(2) { display:block; width:auto; padding:8px 0; border:0; font-size:15px; }
+  .land-comparison th { font-size:20px; }
+  .land-comparison td::before { content:attr(data-label); display:block; margin-bottom:5px; color:var(--land-ink); font-size:13px; font-weight:650; }
+  .land-comparison caption { display:block; }
+  .land-roadmap { grid-template-columns:1fr; }
+  .land-roadmap .land-voice-symbol { display:none; }
+  .land-final h2 { font-size:clamp(30px,7.8vw,40px); }
+}

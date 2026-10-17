@@ -1,9 +1,11 @@
+import { serveMedia } from "./media-response.mjs";
+import { readAccountPolicy } from "../scripts/quickcontent-ai.mjs";
 import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
-import {tryAcquireHeavy} from './process-resource.mjs';
-import {generateMotionPlan} from './motion-ai.mjs';
+import { tryAcquireHeavy } from "./process-resource.mjs";
+import { generateMotionPlan } from "./motion-ai.mjs";
 let aiBusy = false;
 import {
   buildMotion,
@@ -18,41 +20,84 @@ const valid = (n) => {
   return n;
 };
 export function contentHash(d) {
-  const { reviews, ...content } = validateMotion(d);
+  const { reviews: _reviews, ...content } = validateMotion(d);
   return createHash("sha256").update(JSON.stringify(content)).digest("hex");
 }
-export async function renderSignature(root,d) {
-  const hash=createHash('sha256').update(contentHash(d));
-  const sources=['src/motion/Motion.tsx','src/motion/Compositions.tsx','src/motion/schema.mjs','src/fonts.ts','scripts/motion-render.mjs','package.json'];
-  for(const f of sources) {
+export async function renderSignature(root, d) {
+  const hash = createHash("sha256").update(contentHash(d));
+  const sources = [
+    "src/motion/Motion.tsx",
+    "src/motion/Compositions.tsx",
+    "src/motion/schema.mjs",
+    "src/fonts.ts",
+    "scripts/motion-render.mjs",
+    "package.json",
+  ];
+  for (const f of sources) {
     hash.update(f);
-    hash.update(await fs.readFile(path.join(root,f)).catch(() => Buffer.from('missing')));
+    hash.update(
+      await fs.readFile(path.join(root, f)).catch(() => Buffer.from("missing")),
+    );
   }
-  const pub=await fs.realpath(path.join(root,'public')).catch(() => path.join(root,'public'));
-  const assets=new Set([d.logo,d.font,d.music,...d.shots.map(s=>s.asset)].filter(Boolean));
-  for(const a of assets) {
-    const real=await fs.realpath(path.join(pub,a));
-    if(!real.startsWith(pub+path.sep)) throw error('Asset poza public');
-    hash.update(a); hash.update(await fs.readFile(real));
+  const pub = await fs
+    .realpath(path.join(root, "public"))
+    .catch(() => path.join(root, "public"));
+  const assets = new Set(
+    [d.logo, d.font, d.music, ...d.shots.map((s) => s.asset)].filter(Boolean),
+  );
+  for (const a of assets) {
+    const real = await fs.realpath(path.join(pub, a));
+    if (!real.startsWith(pub + path.sep)) throw error("Asset poza public");
+    hash.update(a);
+    hash.update(await fs.readFile(real));
   }
-  if(!d.font) hash.update(await fs.readFile(path.join(pub,'fonts/Nunito.ttf')).catch(() => Buffer.from('missing-default-font')));
-  return hash.digest('hex');
+  if (!d.font)
+    hash.update(
+      await fs
+        .readFile(path.join(pub, "fonts/Nunito.ttf"))
+        .catch(() => Buffer.from("missing-default-font")),
+    );
+  return hash.digest("hex");
+}
+export async function reserveMotionVersion(root, d, format, mode) {
+  const dir = outputDir(root, d),
+    prefix = `${format.replace(":", "x")}-${mode}`;
+  await fs.mkdir(dir, { recursive: true });
+  const names = await fs.readdir(dir);
+  let version = 1;
+  for (const name of names) {
+    const m = name.match(new RegExp(`^${prefix}-v(\\d+)-`));
+    if (m) version = Math.max(version, Number(m[1]) + 1);
+  }
+  while (true) {
+    const name = `${prefix}-v${String(version).padStart(3, "0")}`;
+    try {
+      const h = await fs.open(path.join(dir, name + "-reservation.json"), "wx");
+      await h.close();
+      return name;
+    } catch (e) {
+      if (e.code !== "EEXIST") throw e;
+      version++;
+    }
+  }
 }
 export async function previewEvidence(root, d, format) {
-  const dir = outputDir(root, d);
-  for (const mode of ["preview", "draft"]) {
+  const dir = outputDir(root, d),
+    prefix = format.replace(":", "x");
+  const names = await fs.readdir(dir).catch(() => []);
+  const signature = await renderSignature(root, d);
+  for (const name of names.filter((n) =>
+    new RegExp(`^${prefix}-(preview|draft)(-v\\d+)?-evidence\\.json$`).test(n),
+  )) {
     try {
-      const e = JSON.parse(
-        await fs.readFile(
-          path.join(
-            dir,
-            format.replace(":", "x") + "-" + mode + "-evidence.json",
-          ),
-          "utf8",
-        ),
-      );
-      if (e.hash === await renderSignature(root,d)) return true;
-    } catch {}
+      if (
+        JSON.parse(await fs.readFile(path.join(dir, name), "utf8")).hash ===
+        signature
+      )
+        return true;
+    } catch {
+      /* Ignore invalid evidence; a new preview is required. */
+    }
   }
   return false;
 }
@@ -61,10 +106,10 @@ export function createMotionStore(root) {
     jobs = new Map();
   const file = (n) => path.join(projects, valid(n) + ".json");
   const get = async (n) => {
-    const d=validateMotion(JSON.parse(await fs.readFile(file(n),'utf8')));
-    if(d.reviews.length) {
-      const sig=await renderSignature(root,d);
-      if(d.reviews.some(r=>r.hash!==sig)) d.reviews=[];
+    const d = validateMotion(JSON.parse(await fs.readFile(file(n), "utf8")));
+    if (d.reviews.length) {
+      const sig = await renderSignature(root, d);
+      if (d.reviews.some((r) => r.hash !== sig)) d.reviews = [];
     }
     return d;
   };
@@ -105,9 +150,9 @@ export function createMotionStore(root) {
       if (!c.startsWith(path.join(root, "klienci") + path.sep))
         throw error("Klient poza repo");
     }
-    if(d.reviews.length) {
-      const sig=await renderSignature(root,d);
-      d.reviews=d.reviews.map(r=>({...r,hash:sig}));
+    if (d.reviews.length) {
+      const sig = await renderSignature(root, d);
+      d.reviews = d.reviews.map((r) => ({ ...r, hash: sig }));
     }
     await fs.mkdir(projects, { recursive: true });
     await fs.writeFile(file(n) + ".tmp", JSON.stringify(d, null, 2));
@@ -143,8 +188,12 @@ export function createMotionStore(root) {
       [...jobs.values()].some((j) => j.status === "running")
     )
       throw error("Inny render trwa", 409);
-    const release=tryAcquireHeavy(`Motion ${n}`);
-    if(!release) throw error('Inny montaż, analiza lub render jest w toku',409);
+    const release = tryAcquireHeavy(`Motion ${n}`);
+    if (!release)
+      throw error("Inny montaż, analiza lub render jest w toku", 409);
+    const previousFiles = new Set(
+      await fs.readdir(outputDir(root, d)).catch(() => []),
+    );
     const j = { status: "running", lines: [], files: [], mode, format };
     jobs.set(n, j);
     const child = spawn(
@@ -153,8 +202,8 @@ export function createMotionStore(root) {
       { cwd: root, stdio: ["ignore", "pipe", "pipe"] },
     );
     j.pid = child.pid;
-    child.once('close',release);
-    child.once('error',release);
+    child.once("close", release);
+    child.once("error", release);
     const collect = (b) => {
       j.lines.push(b.toString().slice(-2000));
       if (j.lines.length > 100) j.lines.shift();
@@ -170,7 +219,12 @@ export function createMotionStore(root) {
       if (code === 0) {
         const dir = outputDir(root, d);
         j.files = (await fs.readdir(dir))
-          .filter((f) => f.startsWith(format.replace(":", "x") + "-" + mode))
+          .filter(
+            (f) =>
+              !previousFiles.has(f) &&
+              !f.endsWith("-reservation.json") &&
+              f.startsWith(format.replace(":", "x") + "-" + mode),
+          )
           .map((f) => f);
       }
     });
@@ -207,10 +261,10 @@ export async function motionRoute(req, res, url) {
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(d));
   };
-  if (req.method !== "GET" && req.headers["x-panel"] !== "1")
+  if (!["GET", "HEAD"].includes(req.method) && req.headers["x-panel"] !== "1")
     throw error("Brak X-Panel", 403);
   if (
-    req.method !== "GET" &&
+    !["GET", "HEAD"].includes(req.method) &&
     req.headers.origin !== undefined &&
     req.headers.origin !== `http://${req.headers.host}`
   )
@@ -224,27 +278,53 @@ export async function motionRoute(req, res, url) {
     );
   if (action === "render" && req.method === "POST")
     return send(await store.start(n, await json(req)));
-  if (action === 'ai-plan' && req.method === 'POST') {
-    if (aiBusy || [...store.jobs.values()].some(j=>j.status==='running')) throw error('Operator albo render jest zajęty',409);
-    const body=await json(req);
+  if (action === "ai-plan" && req.method === "POST") {
+    if (aiBusy || [...store.jobs.values()].some((j) => j.status === "running"))
+      throw error("Operator albo render jest zajęty", 409);
+    const body = await json(req);
     let d;
-    try {d=validateMotion(body.data);} catch {throw error('Najpierw uzupełnij i zapisz poprawny brief Motion Studio');}
-    if(d.name!==valid(n)) throw error('Nazwa projektu nie zgadza się');
-    await store.get(n);
-    if(d.client) valid(d.client);
-    const release=tryAcquireHeavy(`Motion AI ${n}`);
-    if(!release) throw error('Inny montaż, analiza lub render jest w toku',409);
-    aiBusy=true;
     try {
-      const settings=JSON.parse(await fs.readFile(path.join(root,'.panel.json'),'utf8').catch(()=>'{"operator":"claude-account","model":"opus"}'));
-      let preferences=await fs.readFile(path.join(root,'PREFERENCJE.md'),'utf8').catch(()=>'');
-      if(d.client) {
-        const base=await fs.realpath(path.join(root,'klienci'));
-        const pref=await fs.realpath(path.join(base,d.client,'PREFERENCJE.md')).catch(()=>null);
-        if(pref && pref.startsWith(base+path.sep)) preferences+='\n'+await fs.readFile(pref,'utf8');
+      d = validateMotion(body.data);
+    } catch {
+      throw error("Najpierw uzupełnij i zapisz poprawny brief Motion Studio");
+    }
+    if (d.name !== valid(n)) throw error("Nazwa projektu nie zgadza się");
+    await store.get(n);
+    if (d.client) valid(d.client);
+    const release = tryAcquireHeavy(`Motion AI ${n}`);
+    if (!release)
+      throw error("Inny montaż, analiza lub render jest w toku", 409);
+    aiBusy = true;
+    try {
+      const settings = JSON.parse(
+        await fs
+          .readFile(path.join(root, ".panel.json"), "utf8")
+          .catch(() => '{"operator":"claude-account","model":"opus"}'),
+      );
+      if (
+        (await readAccountPolicy(root)).accountOnly &&
+        settings.operator === "claude-api-key"
+      )
+        throw error(
+          "Tryb tylko konta CLI blokuje API. Zapisz operatora Claude Code na koncie w Ustawieniach.",
+          400,
+        );
+      let preferences = await fs
+        .readFile(path.join(root, "PREFERENCJE.md"), "utf8")
+        .catch(() => "");
+      if (d.client) {
+        const base = await fs.realpath(path.join(root, "klienci"));
+        const pref = await fs
+          .realpath(path.join(base, d.client, "PREFERENCJE.md"))
+          .catch(() => null);
+        if (pref && pref.startsWith(base + path.sep))
+          preferences += "\n" + (await fs.readFile(pref, "utf8"));
       }
-      return send(await generateMotionPlan(d,settings,preferences,root));
-    } finally {aiBusy=false;release();}
+      return send(await generateMotionPlan(d, settings, preferences, root));
+    } finally {
+      aiBusy = false;
+      release();
+    }
   }
   if (action === "asset" && req.method === "POST") {
     valid(n);
@@ -275,7 +355,7 @@ export async function motionRoute(req, res, url) {
     }
     return send({ asset: `motion-assets/${n}/${filename}` });
   }
-  if (action === "artifact" && req.method === "GET") {
+  if (action === "artifact" && ["GET", "HEAD"].includes(req.method)) {
     const d = await store.get(n);
     const f = url.searchParams.get("file");
     if (
@@ -296,7 +376,16 @@ export async function motionRoute(req, res, url) {
           ? "video/mp4"
           : "application/octet-stream",
     );
-    res.end(await fs.readFile(real));
+    await serveMedia(
+      req,
+      res,
+      real,
+      f.endsWith(".png")
+        ? "image/png"
+        : f.endsWith(".mp4")
+          ? "video/mp4"
+          : "application/octet-stream",
+    );
     return;
   }
   if (!action && req.method === "GET") return send(await store.get(n));

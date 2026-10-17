@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "npm ci --ignore-scripts",
+  "buildCommand": "npm run build:site",
+  "outputDirectory": "dist-site",
+  "rewrites": [
+    { "source": "/panel", "destination": "/index.html" },
+    { "source": "/panel/:path*", "destination": "/index.html" }
+  ]
+}

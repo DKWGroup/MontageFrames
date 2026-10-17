@@ -56,11 +56,15 @@ async function loadUI(descriptionMocks = {}) {
           ? descriptionMocks.react
           : nodeRequire(path),
   );
+  const costs={};
+  new Function("exports","require",ts.transpileModule(await readFile(new URL("./QuickContentCosts.tsx",import.meta.url),"utf8"),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText)(costs,nodeRequire);
   const ui = { ...publication };
   const require = (path) =>
     path.endsWith(".css")
       ? {}
-      : path === "./PublicationDescription"
+      : path === "./QuickContentCosts"
+        ? costs
+        : path === "./PublicationDescription"
         ? publication
         : path === "./quickcontent-api"
           ? api
@@ -899,7 +903,15 @@ test("publication drafts survive refresh but reset on reel change and explicit r
     const pending = effects;
     effects = [];
     pending.forEach((effect) => effect());
-    return tree.props.children;
+    const find = (node, prop) => {
+      if (!node) return null;
+      if (node.props?.[prop]) return node;
+      const children = Array.isArray(node.props?.children)
+        ? node.props.children
+        : [node.props?.children];
+      return children.map((child) => find(child, prop)).find(Boolean);
+    };
+    return [find(tree, "onDraftChange"), find(tree, "onTextChange")];
   }
   async function settle(name, refreshKey = "") {
     await new Promise((resolve) => globalThis.setImmediate(resolve));

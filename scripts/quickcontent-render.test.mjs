@@ -17,6 +17,21 @@ const data = {
   captions: [{ words: [{ text: "tekst", start: 0.2, end: 0.5 }] }],
   overlays: [],
 };
+test('brand signature isolates immutable assets from other clients and unused files', async t => {
+  const root=await fs.mkdtemp(path.join(tmpdir(),'brand-signature-'));
+  t.after(()=>fs.rm(root,{recursive:true,force:true}));
+  await fs.mkdir(path.join(root,'public/reels/clip'),{recursive:true});
+  await fs.mkdir(path.join(root,'public/Brandings/test/fonts'),{recursive:true});
+  await fs.writeFile(path.join(root,'public/reels/clip/source.mp4'),'source');
+  await fs.writeFile(path.join(root,'public/Brandings/test/fonts/font.ttf'),'font');
+  const branded={...data,style:'brand',branding:{fonts:{primary:{file:'Brandings/test/fonts/font.ttf'}},logo:{enabled:false},assets:[]}};
+  const initial=await renderInputSignature(root,'clip',branded);
+  await fs.mkdir(path.join(root,'public/Brandings/other/assets'),{recursive:true});
+  await fs.writeFile(path.join(root,'public/Brandings/other/assets/other.png'),'unrelated');
+  assert.equal(await renderInputSignature(root,'clip',branded),initial);
+  await fs.writeFile(path.join(root,'public/Brandings/test/fonts/font.ttf'),'changed');
+  assert.notEqual(await renderInputSignature(root,'clip',branded),initial);
+});
 test("signature follows input data, source, fonts and style changes, but not editor session logs", async (t) => {
   const root = await fs.mkdtemp(path.join(tmpdir(), "qc-signature-"));
   t.after(() => fs.rm(root, { recursive: true, force: true }));
@@ -213,4 +228,74 @@ test("render verification honors selected portrait output resolution", () => {
       { ...data, outputResolution: 720 },
     ),
   );
+});
+
+test("unrelated Motion and other client styles do not invalidate a reel", async (t) => {
+  const root = await fs.mkdtemp(path.join(tmpdir(), "qc-isolated-signature-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(root + "/src/motion", { recursive: true });
+  await fs.mkdir(root + "/src/styles", { recursive: true });
+  await fs.writeFile(root + "/src/styles/persona.tsx", "persona1");
+  await fs.writeFile(root + "/src/styles/skyclass.tsx", "sky1");
+  await fs.writeFile(root + "/src/motion/Motion.tsx", "motion1");
+  const first = await renderInputSignature(root, "clip", data);
+  await fs.writeFile(root + "/src/motion/Motion.tsx", "motion2");
+  await fs.writeFile(root + "/src/styles/skyclass.tsx", "sky2");
+  assert.equal(await renderInputSignature(root, "clip", data), first);
+  await fs.writeFile(root + "/src/styles/persona.tsx", "persona2");
+  assert.notEqual(await renderInputSignature(root, "clip", data), first);
+});
+
+test("shared SkyClass word-layout helpers invalidate dependent Bisanz renders", async (t) => {
+  const root = await fs.mkdtemp(path.join(tmpdir(), "qc-shared-style-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(root + "/src/styles", { recursive: true });
+  await fs.writeFile(root + "/src/styles/bisanz.tsx", "bisanz");
+  await fs.writeFile(root + "/src/styles/skyclass.tsx", "shared1");
+  const first = await renderInputSignature(root, "clip", {
+    ...data,
+    style: "bisanz",
+  });
+  await fs.writeFile(root + "/src/styles/skyclass.tsx", "shared2");
+  assert.notEqual(
+    await renderInputSignature(root, "clip", { ...data, style: "bisanz" }),
+    first,
+  );
+});
+
+test("cancel during snapshot copying never starts renderer or publishes a film", async (t) => {
+  const { renderReelSnapshot } = await import("./quickcontent-render.mjs");
+  const root = await fs.mkdtemp(path.join(tmpdir(), "qc-cancel-snapshot-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(root + "/public/reels/clip", { recursive: true });
+  await fs.writeFile(root + "/public/reels/clip/source.mp4", "fixture");
+  const controller = new AbortController(),
+    copy = fs.copyFile;
+  let runs = 0;
+  fs.copyFile = async (...args) => {
+    await copy(...args);
+    controller.abort(new Error("cancelled during source copy"));
+  };
+  try {
+    await assert.rejects(
+      renderReelSnapshot(
+        { reelName: "clip", data, editRevision: 1 },
+        {
+          root,
+          signal: controller.signal,
+          report: async () => {},
+          checkpoint: async () => {},
+          runTool: async () => {
+            runs++;
+            throw Error("renderer must not run");
+          },
+        },
+      ),
+      /cancelled during source copy/,
+    );
+    assert.equal(runs, 0);
+    assert.deepEqual(await fs.readdir(root + "/out").catch(() => []), []);
+  } finally {
+    fs.copyFile = copy;
+  }
 });

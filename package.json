@@ -9,20 +9,22 @@
     "node": ">=22.12.0"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@remotion/animation-utils": "4.0.532",
+    "@remotion/bundler": "4.0.532",
     "@remotion/cli": "4.0.532",
     "@remotion/layout-utils": "4.0.532",
     "@remotion/media-utils": "4.0.532",
     "@remotion/player": "4.0.532",
+    "@remotion/renderer": "4.0.532",
     "@remotion/tailwind-v4": "4.0.532",
     "@remotion/zod-types": "4.0.532",
+    "gsap": "^3.15.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.532",
     "tailwindcss": "4.0.0",
-    "zod": "4.5.4",
-    "@remotion/bundler": "4.0.532",
-    "@remotion/renderer": "4.0.532"
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.532",
@@ -35,19 +37,24 @@
     "vite": "8.3.3"
   },
   "scripts": {
-    "postinstall": "node scripts/studio-sync.mjs",
+    "postinstall": "node scripts/studio-sync.mjs && node scripts/app-update-cli.mjs init",
     "preui": "npm run studio:sync",
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src ui/App.tsx ui/Inspector.tsx ui/api.ts ui/QuickContent.tsx ui/LongForm.tsx ui/longform-*.mjs ui/quickcontent-*.mjs ui/quickcontent-api.ts ui/process-resource*.mjs scripts/quickcontent-*.mjs scripts/longform-*.mjs scripts/reel-description*.mjs ui/PublicationDescription.tsx ui/reel-publication-state*.mjs && tsc",
+    "lint": "eslint src ui scripts && tsc",
     "reel": "node scripts/prep.mjs",
     "test": "node --test scripts/*.test.mjs ui/*.test.mjs tests/motion-*.test.mjs",
     "ui": "vite --config vite.config.mjs",
     "quickcontent": "node scripts/quickcontent-cli.mjs",
     "studio:sync": "node scripts/studio-sync.mjs",
     "predev": "npm run studio:sync",
-    "prebuild": "npm run studio:sync"
+    "prebuild": "npm run studio:sync",
+    "update:install": "node scripts/app-update-cli.mjs install",
+    "update:recover": "node scripts/app-update-cli.mjs recover",
+    "release:package": "node scripts/app-update-release.mjs",
+    "build:panel": "vite build --config vite.config.mjs",
+    "build:site": "vite build --config vite.site.config.mjs"
   },
   "sideEffects": [
     "*.css"

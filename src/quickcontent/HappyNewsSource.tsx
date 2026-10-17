@@ -255,8 +255,8 @@ export const HappyNewsCredit = () => (
     style={{
       position: "absolute",
       top: 220,
-      left: 64,
-      width: 864,
+      left: 0,
+      width: "100%",
       textAlign: "center",
       fontFamily: "Poppins",
       fontSize: 27.6,

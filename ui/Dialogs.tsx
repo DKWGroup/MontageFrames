@@ -1,3 +1,6 @@
+import { Updates } from "./Updates";
+import { brandingApi, type ProfileResponse } from "./branding-api";
+import { revealInvalidField } from "./form-disclosure.mjs";
 // Okna: „Nowa rolka” (wrzuć nagranie → operator montuje) i „Ustawienia” (operator AI).
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
@@ -100,6 +103,14 @@ export function NewReelDialog({
 }) {
   const [client, setClient] = useState(lib.clients[0]?.id ?? NEW);
   const [clientName, setClientName] = useState("");
+  const [branding, setBranding] = useState<ProfileResponse|null>(null);
+  const [useBranding, setUseBranding] = useState(false);
+  useEffect(()=>{
+    let active=true;
+    setBranding(null);setUseBranding(false);
+    if(client!==NEW)brandingApi.get(client).then(value=>{if(active){setBranding(value);setUseBranding(value.ready && value.revision > 0);}},()=>{});
+    return ()=>{active=false;};
+  },[client]);
   const [main, setMain] = useState<File[]>([]);
   const [broll, setBroll] = useState<File[]>([]);
   const [name, setName] = useState("");
@@ -135,7 +146,7 @@ export function NewReelDialog({
         await upload(id, "przebitki", broll[i], () => {});
       }
       setProgress("Uruchamiam montaż…");
-      await api.start(name, { kind: "montage", input: path, render });
+      await api.start(name, { kind: "montage", input: path, render, ...(useBranding&&branding?.ready?{brandingRevision:branding.revision}:{}) });
       onStarted(name);
     } catch (e) {
       setError((e as Error).message);
@@ -146,6 +157,7 @@ export function NewReelDialog({
   return (
     <Modal title="Nowa rolka" onClose={onClose}>
       <form
+        onInvalidCapture={revealInvalidField}
         className="body"
         onSubmit={(e) => {
           e.preventDefault();
@@ -163,6 +175,7 @@ export function NewReelDialog({
             <option value={NEW}>Nowy klient…</option>
           </select>
         </label>
+        {client !== NEW && <label className="field"><span>Wygląd rolki</span><select value={useBranding?"branding":"legacy"} onChange={e=>setUseBranding(e.target.value==="branding")}><option value="legacy">Ustalony styl klienta</option><option value="branding" disabled={!branding?.ready}>Branding z panelu{branding?.revision?` — wersja ${branding.revision}`:" — wymaga uzupełnienia"}</option></select><small>Wybór wersji dotyczy tej nowej rolki. Profil ustawisz w „Branding klientów”.</small></label>}
         {client === NEW && (
           <label className="field">
             <span>Nazwa nowego klienta</span>
@@ -183,14 +196,6 @@ export function NewReelDialog({
             if (f[0] && !name) setName(slug(f[0].name.replace(/\.[^.]+$/, "")));
           }}
         />
-        <Drop
-          label="Przebitki (opcjonalnie)"
-          hint="zdjęcia lub krótkie filmy, które operator może wstawić"
-          accept="image/*,video/*"
-          multiple
-          files={broll}
-          onFiles={setBroll}
-        />
         <label className="field">
           <span>Nazwa rolki</span>
           <input
@@ -199,14 +204,33 @@ export function NewReelDialog({
             placeholder="np. lot-na-cypr"
           />
         </label>
-        <label className="check">
-          <input
-            type="checkbox"
-            checked={render}
-            onChange={(e) => setRender(e.target.checked)}
-          />{" "}
-          Po montażu od razu wyrenderuj do folderu klienta
-        </label>
+        <details className="panel-details">
+          <summary>
+            Więcej ustawień{" "}
+            <small>
+              {broll.length ? `${broll.length} przebitek · ` : ""}
+              {render ? "Render po montażu" : "Bez automatycznego renderu"}
+            </small>
+          </summary>
+          <div className="stack">
+            <Drop
+              label="Przebitki (opcjonalnie)"
+              hint="zdjęcia lub krótkie filmy, które operator może wstawić"
+              accept="image/*,video/*"
+              multiple
+              files={broll}
+              onFiles={setBroll}
+            />
+            <label className="check">
+              <input
+                type="checkbox"
+                checked={render}
+                onChange={(e) => setRender(e.target.checked)}
+              />{" "}
+              Po montażu od razu wyrenderuj do folderu klienta
+            </label>
+          </div>
+        </details>
         {error && <p className="note warn">{error}</p>}
         <footer>
           <span className="note">
@@ -255,6 +279,7 @@ export function SettingsDialog({
   return (
     <Modal title="Ustawienia" onClose={onClose}>
       <form
+        onInvalidCapture={revealInvalidField}
         className="body"
         onSubmit={(e) => {
           e.preventDefault();
@@ -263,6 +288,11 @@ export function SettingsDialog({
       >
         <fieldset className="choices">
           <legend>Operator AI, który montuje rolki</legend>
+          {s.accountOnly && (
+            <p className="note">
+              Tryb tylko konta CLI. Płatne API jest zablokowane w .env.
+            </p>
+          )}
           <label className="choice">
             <input
               type="radio"
@@ -282,6 +312,7 @@ export function SettingsDialog({
             <input
               type="radio"
               name="operator"
+              disabled={s.accountOnly}
               checked={s.operator === "claude-api-key"}
               onChange={() => setS({ ...s, operator: "claude-api-key" })}
             />
@@ -315,27 +346,34 @@ export function SettingsDialog({
             </small>
           </label>
         )}
-        <label className="field">
-          <span>Model</span>
-          <select
-            value={s.model}
-            onChange={(e) =>
-              setS({ ...s, model: e.target.value as Settings["model"] })
-            }
-          >
-            <option value="opus">Opus: najstaranniejszy montaż</option>
-            <option value="sonnet">Sonnet: szybciej i taniej</option>
-            <option value="">Domyślny z Claude Code</option>
-          </select>
-        </label>
-        <label className="check">
-          <input
-            type="checkbox"
-            checked={s.renderAfter}
-            onChange={(e) => setS({ ...s, renderAfter: e.target.checked })}
-          />{" "}
-          Po montażu od razu renderuj
-        </label>
+        <details className="panel-details">
+          <summary>
+            Więcej ustawień <small>{s.model || "Model domyślny"}</small>
+          </summary>
+          <div className="stack">
+            <label className="field">
+              <span>Model</span>
+              <select
+                value={s.model}
+                onChange={(e) =>
+                  setS({ ...s, model: e.target.value as Settings["model"] })
+                }
+              >
+                <option value="opus">Opus: najstaranniejszy montaż</option>
+                <option value="sonnet">Sonnet: szybciej i taniej</option>
+                <option value="">Domyślny z Claude Code</option>
+              </select>
+            </label>
+            <label className="check">
+              <input
+                type="checkbox"
+                checked={s.renderAfter}
+                onChange={(e) => setS({ ...s, renderAfter: e.target.checked })}
+              />{" "}
+              Po montażu od razu renderuj
+            </label>
+          </div>
+        </details>
         <OperatorNote
           operator={operator}
           settings={{ ...s, apiKey: s.apiKey || settings.apiKey }}
@@ -347,6 +385,7 @@ export function SettingsDialog({
           swoje montaże. Instrukcja: PANEL.md.
         </p>
         {error && <p className="note warn">{error}</p>}
+        <Updates />
         <footer>
           <button type="button" className="btn" onClick={onClose}>
             Anuluj

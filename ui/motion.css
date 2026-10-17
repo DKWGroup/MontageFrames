@@ -1,10 +1,10 @@
 .motion-workspace {
-  height: 100dvh;
+  min-height: 100%;
   overflow: auto;
-  background: var(--bg, #171717);
-  color: var(--text, #eee);
+  background: var(--bg, #f5f8fc);
+  color: var(--text, #17243b);
   padding: 24px;
-  font: 15px/1.5 system-ui;
+  font: inherit;
 }
 .motion-workspace * {
   box-sizing: border-box;
@@ -23,7 +23,7 @@
 }
 .motion-header p {
   margin: 4px 0 20px;
-  color: #bbb;
+  color: var(--muted);
 }
 .motion-layout {
   display: grid;
@@ -33,7 +33,7 @@
   margin: auto;
 }
 .motion-brief {
-  border-right: 1px solid #454545;
+  border-right: 1px solid var(--line);
   padding-right: 24px;
 }
 .motion-workspace label {
@@ -45,11 +45,11 @@
 .motion-workspace input,
 .motion-workspace textarea,
 .motion-workspace select {
-  background: #272727;
-  color: #f4f4f4;
-  border: 1px solid #666;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line-strong);
   padding: 9px;
-  border-radius: 5px;
+  border-radius: 10px;
   width: 100%;
   font: inherit;
 }
@@ -57,7 +57,7 @@
 .motion-workspace textarea:focus-visible,
 .motion-workspace button:focus-visible,
 .motion-workspace select:focus-visible {
-  outline: 3px solid #ff6b1a;
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
 .motion-workspace input[type="color"] {
@@ -68,7 +68,7 @@
   margin: 24px 0 8px;
 }
 .motion-workspace section {
-  border-top: 1px solid #444;
+  border-top: 1px solid var(--line);
   padding: 12px 0;
 }
 .motion-workspace p {
@@ -77,7 +77,7 @@
 .motion-preview {
   display: flex;
   justify-content: center;
-  background: #242424;
+  background: #0b1020;
   border-radius: 12px;
   padding: 24px;
   margin: 20px 0;
@@ -89,10 +89,10 @@
 }
 .motion-shot {
   display: grid;
-  grid-template-columns: 190px 1fr 1fr;
+  grid-template-columns: 190px minmax(0, 1fr) minmax(0, 1fr);
   gap: 16px;
   padding: 16px 0;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid var(--line);
   align-items: start;
 }
 .motion-shot input[type="file"] {
@@ -114,7 +114,7 @@
   flex-direction: column;
   gap: 8px;
   margin: 12px;
-  color: #ff995e;
+  color: var(--accent);
 }
 .motion-artifact img {
   max-width: 650px;
@@ -126,9 +126,9 @@
   left: 20px;
   right: 20px;
   padding: 16px;
-  background: #6c2619;
-  color: #fff;
-  border: 2px solid #ff995e;
+  background: #fef2f2;
+  color: var(--danger);
+  border: 2px solid var(--accent);
 }
 .motion-workspace pre {
   white-space: pre-wrap;
@@ -155,4 +155,27 @@
   .motion-workspace {
     padding: 16px;
   }
+}
+
+.motion-layout > *,
+.motion-shot > * {
+  min-width: 0;
+}
+.motion-workspace {
+  overflow-wrap: anywhere;
+}
+.motion-brief {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.motion-brief h2:first-child {
+  margin-top: 0;
+}
+.motion-workspace .btn {
+  min-height: 44px;
+}
+.motion-workspace summary {
+  font-size: 14px;
 }

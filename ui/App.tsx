@@ -1,3 +1,6 @@
+import { Updates } from "./Updates";
+import { Branding } from "./Branding";
+import { panelModule } from "./panel-navigation.mjs";
 // Panel MontageFrames: biblioteka | podgląd + oś czasu | edycja. Źródłem prawdy są pliki (reel.json), panel tylko je czyta i zapisuje.
 import { MotionStudio } from "./MotionStudio";
 import { LongForm } from "./LongForm";
@@ -33,17 +36,43 @@ const IDLE: JobView = {
   pct: null,
   result: null,
 };
-const hashName = () => reelNameFromHash(location.hash);
+const hashName = () =>
+  panelModule(location.hash) === "reels"
+    ? reelNameFromHash(location.hash)
+    : null;
 const hashIsQuickContent = () =>
   location.hash === "#qc" || location.hash.startsWith("#qc/");
 
 export function App() {
-  const [motion, setMotion] = useState(false);
-  const [longform, setLongform] = useState(() => parseLfHash(location.hash) !== null);
+  const [branding,setBranding]=useState(()=>panelModule(location.hash)==="branding");
+  const [motion, setMotion] = useState(
+    () => panelModule(location.hash) === "motion",
+  );
+  const [longform, setLongform] = useState(
+    () => parseLfHash(location.hash) !== null,
+  );
   const [quickContent, setQuickContent] = useState(hashIsQuickContent);
+  const [visited, setVisited] = useState(
+    () => new Set([panelModule(location.hash)]),
+  );
+  const [editorView, setEditorView] = useState<"preview" | "edit">("preview");
+  const moduleHistory = useRef({ quickcontent: "#qc", longform: "#lf" });
+  const activeModule = branding ? "branding" : motion
+    ? "motion"
+    : longform
+      ? "longform"
+      : quickContent
+        ? "quickcontent"
+        : "reels";
+  useEffect(() => {
+    setVisited((previous) =>
+      previous.has(activeModule)
+        ? previous
+        : new Set([...previous, activeModule]),
+    );
+  }, [activeModule]);
   const [qcInfo, setQcInfo] = useState<QuickContentReelInfo | null>(null);
   const [qcInfoLoading, setQcInfoLoading] = useState(false);
-  const [qcRevisionKnown, setQcRevisionKnown] = useState(false);
   const [lib, setLib] = useState<Library | null>(null);
   const [sel, setSel] = useState<string | null>(() =>
     parseLfHash(location.hash) ? null : hashName(),
@@ -67,6 +96,11 @@ export function App() {
   const [dialog, setDialog] = useState<"new" | "settings" | null>(null);
   const [operator, setOperator] = useState<OperatorStatus | null>(null);
   const [settings, setSettings] = useState<Settings | null>(null);
+  useEffect(() => {
+    const openSettings = () => setDialog("settings");
+    window.addEventListener("open-app-settings", openSettings);
+    return () => window.removeEventListener("open-app-settings", openSettings);
+  }, []);
   const player = useRef<PlayerRef>(null);
   const since = useRef(0);
   const saves = useMemo(() => createReelSaveQueue(api.save), []);
@@ -135,9 +169,18 @@ export function App() {
     api.settings().then(setSettings, () => {});
     const onHash = () => {
       // #lf… = moduł LongForm (ma własną nawigację w ui/LongForm.tsx)
-      const lf = parseLfHash(location.hash) !== null;
+      const current = panelModule(location.hash);
+      setBranding(current === "branding");
+      const lf = current === "longform";
       setLongform(lf);
-      if (lf) return;
+      setMotion(current === "motion");
+      if (lf) moduleHistory.current.longform = location.hash;
+      if (current === "quickcontent")
+        moduleHistory.current.quickcontent = location.hash;
+      if (lf || current === "motion" || current === "branding") {
+        setQuickContent(false);
+        return;
+      }
       if (hashIsQuickContent()) {
         const route = parseQuickContentHash(location.hash);
         const context = qcEditor.current;
@@ -167,7 +210,6 @@ export function App() {
   useEffect(() => {
     setData(null);
     setQcInfo(null);
-    setQcRevisionKnown(false);
     setQcInfoLoading(Boolean(sel));
     saveFailed.current = false;
     setSaveError(null);
@@ -186,7 +228,6 @@ export function App() {
       .then(
         (state) => {
           if (!live) return;
-          setQcRevisionKnown(state.editRevision !== undefined);
           const draft = drafts.current.get(sel);
           if (draft) {
             setData(draft.data);
@@ -288,17 +329,36 @@ export function App() {
     qcInfoLoading || (job.status === "running" && job.kind !== "render");
   const persist = (name: string, next: ReelData) => {
     setSaving("saving");
+    setLib((previous) =>
+      previous
+        ? {
+            ...previous,
+            reels: previous.reels.map((r) =>
+              r.name === name
+                ? {
+                    ...r,
+                    renderState:
+                      r.renderState === "missing" ? "missing" : "stale",
+                  }
+                : r,
+            ),
+          }
+        : previous,
+    );
     pendingSaves.current++;
-    const isQC = Boolean(qcInfo || qcEditor.current || qcRevisionKnown);
+    const hasRevision = true;
     void saves
-      .enqueue(name, next, isQC)
+      .enqueue(name, next, hasRevision)
       .then(
         () => {
           drafts.current.delete(name);
           if (activeReel.current === name) {
             saveFailed.current = false;
             setSaveError(null);
-            if (pendingSaves.current === 1) setSaving("saved");
+            if (pendingSaves.current === 1) {
+              setSaving("saved");
+              void loadLib();
+            }
           }
         },
         (e: Error) => {
@@ -306,7 +366,7 @@ export function App() {
             message: e.message,
             conflict: e instanceof PanelError && e.status === 409,
           };
-          if (isQC) drafts.current.set(name, { data: next, error: problem });
+          drafts.current.set(name, { data: next, error: problem });
           if (activeReel.current === name) {
             saveFailed.current = true;
             setSaving("error");
@@ -370,7 +430,7 @@ export function App() {
     if (!sel) return;
     try {
       await saves.idle();
-      if ((qcInfo || qcEditor.current || qcRevisionKnown) && saveFailed.current)
+      if (saveFailed.current)
         throw new Error(
           "Najpierw zapisz poprawki. Nie udało się zapisać ostatniej zmiany.",
         );
@@ -442,54 +502,99 @@ export function App() {
       ? Boolean(settings.apiKey)
       : operator.loggedIn);
 
-  if (motion) return <MotionStudio onClose={() => setMotion(false)} />;
-  if (longform)
-    return (
-      <LongForm
-        onClose={() => {
-          setLongform(false);
-          location.hash = "";
-        }}
-      />
-    );
   return (
     <div
-      className={`app${quickContent ? " qc-app" : qcInfo ? " qc-editor" : ""}`}
+      className={`app${activeModule !== "reels" ? " module-app" : sel ? ` editor-app view-${editorView}` : " library-app"}${quickContent ? " qc-app" : qcInfo ? " qc-editor" : ""}`}
     >
       <Sidebar
-        onMotion={() => setMotion(true)}
-        onLongForm={() => {
-          location.hash = "lf";
+        active={activeModule}
+        onReels={() => {
+          location.hash = "";
+          setSel(null);
+          setQuickContent(false);
+          setMotion(false);
+          setLongform(false);
         }}
-        onQuickContent={() => openQuickContent()}
-        quickContent={quickContent}
-        compactNavigation={
-          quickContent || Boolean(qcInfo || qcEditor.current) || qcRevisionKnown
-        }
-        lib={lib}
-        sel={sel}
-        onSelect={selectReel}
-        onNew={() => setDialog("new")}
+        onMotion={() => {
+          location.hash = "motion";
+        }}
+        onLongForm={() => {
+          location.hash = moduleHistory.current.longform;
+        }}
+        onQuickContent={() => {
+          location.hash = moduleHistory.current.quickcontent;
+        }}
         onSettings={() => setDialog("settings")}
+        onBranding={() => { location.hash="branding"; }}
         operatorOk={operatorOk}
       />
+      {(visited.has("branding") || branding) && <div className="module-content" hidden={!branding}><Branding clients={lib?.clients??[]} onClientsChanged={loadLib}/></div>}
+      {(visited.has("motion") || motion) && (
+        <div className="module-content" hidden={!motion}>
+          <MotionStudio
+            onClose={() => {
+              location.hash = "";
+            }}
+          />
+        </div>
+      )}
+      {(visited.has("longform") || longform) && (
+        <div className="module-content" hidden={!longform}>
+          <LongForm
+            onClose={() => {
+              location.hash = "";
+            }}
+          />
+        </div>
+      )}
+      {activeModule === "reels" && sel && (
+        <div className="editor-view-toggle" aria-label="Widok edytora">
+          <button
+            className="btn"
+            aria-pressed={editorView === "preview"}
+            onClick={() => setEditorView("preview")}
+          >
+            Podgląd
+          </button>
+          <button
+            className="btn"
+            aria-pressed={editorView === "edit"}
+            onClick={() => setEditorView("edit")}
+          >
+            Edycja
+          </button>
+        </div>
+      )}
 
-      {quickContent ? (
-        <QuickContent
-          clients={lib?.clients ?? []}
-          onOpenReel={openQcReel}
-          onClose={() => {
-            setQuickContent(false);
-            qcEditor.current = null;
-            setSel(null);
-            location.hash = "";
-          }}
-        />
-      ) : (
-        <main className="center">
+      {(visited.has("quickcontent") || quickContent) && (
+        <div className="module-content qc-module-host" hidden={!quickContent}>
+          <QuickContent
+            active={quickContent}
+            clients={lib?.clients ?? []}
+            onOpenReel={openQcReel}
+            onClose={() => {
+              setQuickContent(false);
+              qcEditor.current = null;
+              setSel(null);
+              location.hash = "";
+            }}
+          />
+        </div>
+      )}
+      {activeModule === "reels" && (
+        <main className={sel ? "center" : "library-page"}>
           {sel ? (
             <>
               <header className="bar">
+                <button
+                  className="btn ghost"
+                  onClick={() => {
+                    setSel(null);
+                    location.hash = "";
+                  }}
+                >
+                  Rolki
+                </button>
                 <div className="title">
                   <h1>{qcInfo?.candidate?.title ?? sel}</h1>
                   <p className="meta">
@@ -624,32 +729,36 @@ export function App() {
                   focus={focus}
                   onPick={(lane, index) => {
                     setFocus({ lane, index });
-                    if (lane !== "shots")
+                    if (lane !== "shots") {
+                      setEditorView("edit");
                       setTab(lane === "captions" ? "napisy" : "grafiki");
+                    }
                   }}
                 />
               )}
             </>
           ) : (
-            <div className="empty">
-              <h1>Wybierz rolkę albo wrzuć nowe nagranie</h1>
-              <p>
-                Operator AI zmontuje je według zasad klienta, a Ty poprawisz
-                szczegóły tutaj.
-              </p>
-              <button
-                type="button"
-                className="btn primary"
-                onClick={() => setDialog("new")}
-              >
-                Nowa rolka
-              </button>
-            </div>
+            <>
+              <header className="library-header">
+                <div>
+                  <h1>Twoje rolki</h1>
+                  <p>Otwórz montaż albo zacznij od nowego nagrania.</p>
+                </div>
+                <button
+                  type="button"
+                  className="btn primary"
+                  onClick={() => setDialog("new")}
+                >
+                  Nowa rolka
+                </button>
+              </header>
+              <ReelLibrary lib={lib} sel={sel} onSelect={selectReel} />
+            </>
           )}
         </main>
       )}
 
-      {!quickContent && sel && lib && (
+      {activeModule === "reels" && sel && lib && (
         <Inspector
           tab={tab}
           setTab={setTab}
@@ -658,6 +767,7 @@ export function App() {
           lanes={lanes}
           out={out}
           files={files}
+          currentRender={reel?.renderState === "current" ? reel.out : null}
           job={job}
           quickContent={
             qcInfo
@@ -674,9 +784,7 @@ export function App() {
               : null
           }
           quickContentLoading={qcInfoLoading}
-          isQuickContent={Boolean(
-            qcInfo || qcEditor.current || qcRevisionKnown,
-          )}
+          isQuickContent={Boolean(qcInfo || qcEditor.current)}
           pendingSave={saving === "saving" || saving === "error"}
           readOnly={readOnly}
           operator={operator}
@@ -728,32 +836,17 @@ export function App() {
   );
 }
 
-function Sidebar({
-  onMotion,
-  onLongForm,
-  onQuickContent,
-  quickContent,
-  compactNavigation,
+function ReelLibrary({
   lib,
   sel,
   onSelect,
-  onNew,
-  onSettings,
-  operatorOk,
 }: {
-  onMotion: () => void;
-  onLongForm: () => void;
-  onQuickContent: () => void;
-  quickContent: boolean;
-  compactNavigation: boolean;
   lib: Library | null;
   sel: string | null;
   onSelect: (name: string) => void;
-  onNew: () => void;
-  onSettings: () => void;
-  operatorOk: boolean | undefined;
 }) {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [stateFilter, setStateFilter] = useState("all");
   const groups = useMemo(() => {
     if (!lib) return [];
     // rolki w przygotowaniu (prep jeszcze nie zapisał reel.json) też widać na liście
@@ -762,8 +855,23 @@ function Sidebar({
         ([name, j]) =>
           j.status === "running" && !lib.reels.some((r) => r.name === name),
       )
-      .map(([name, j]) => ({ name, client: j.client, seconds: 0 }));
-    const all = [...lib.reels, ...pending];
+      .map(([name, j]) => ({
+        name,
+        title: name.replace(/-/g, " "),
+        client: j.client,
+        seconds: 0,
+        renderState: "missing" as const,
+        thumbnail: null,
+      }));
+    const search = query.toLocaleLowerCase("pl").trim();
+    const all = [...lib.reels, ...pending].filter(
+      (r) =>
+        (!search ||
+          `${r.title ?? r.name} ${lib.clients.find((c) => c.id === r.client)?.label ?? ""}`
+            .toLocaleLowerCase("pl")
+            .includes(search)) &&
+        (stateFilter === "all" || r.renderState === stateFilter),
+    );
     const list = lib.clients.map((c) => ({
       id: c.id as string | null,
       label: c.label,
@@ -773,15 +881,155 @@ function Sidebar({
       (r) => !r.client || !lib.clients.some((c) => c.id === r.client),
     );
     return loose.length
-      ? [...list, { id: null, label: "Bez klienta", reels: loose }]
-      : list;
-  }, [lib]);
-
+      ? [...list, { id: null, label: "Bez klienta", reels: loose }].filter(
+          (g) => g.reels.length,
+        )
+      : list.filter((g) => g.reels.length);
+  }, [lib, query, stateFilter]);
   return (
-    <nav
-      className={`sidebar${compactNavigation ? " qc-sidebar" : ""}`}
-      aria-label="Klienci i rolki"
+    <div className="library-results">
+      <div className="library-filters">
+        <label>
+          Szukaj filmu lub klienta
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Wpisz temat filmu…"
+          />
+        </label>
+        <label>
+          Wynik
+          <select
+            value={stateFilter}
+            onChange={(e) => setStateFilter(e.target.value)}
+          >
+            <option value="all">Wszystkie filmy</option>
+            <option value="current">Aktualny render</option>
+            <option value="stale">Do odświeżenia</option>
+            <option value="missing">Bez renderu</option>
+          </select>
+        </label>
+      </div>
+      <div className="library-grid">
+        {lib && !groups.length && (
+          <p className="note" role="status">
+            Nie znaleziono filmów dla tego wyszukiwania.
+          </p>
+        )}
+        {!lib && <p className="note">Wczytuję…</p>}
+        {groups.map((g) => (
+          <section key={g.id ?? "_"} className="client">
+            <h2>{g.label}</h2>
+            {g.reels.length ? (
+              <ul>
+                {g.reels.map((r) => {
+                  const j = lib?.jobs[r.name];
+                  return (
+                    <li key={r.name}>
+                      <button
+                        type="button"
+                        className="reel"
+                        aria-current={sel === r.name}
+                        onClick={() => {
+                          onSelect(r.name);
+                        }}
+                      >
+                        {r.thumbnail && (
+                          <img
+                            className="reel-thumb"
+                            src={r.thumbnail}
+                            alt=""
+                            loading="lazy"
+                            onError={(e) => {
+                              e.currentTarget.style.display = "none";
+                            }}
+                          />
+                        )}
+                        <span className="reel-copy">
+                          <strong>{r.title ?? r.name}</strong>
+                          <small>
+                            {r.renderState === "current"
+                              ? "Aktualny render"
+                              : r.renderState === "stale"
+                                ? "Wymaga aktualnego renderu"
+                                : "Bez renderu"}
+                          </small>
+                        </span>
+                        {j?.status === "running" ? (
+                          <i className="dot run" aria-label="trwa praca" />
+                        ) : j?.status === "error" ? (
+                          <i className="dot err" aria-label="błąd" />
+                        ) : (
+                          <small>{r.seconds ? fmt(r.seconds) : ""}</small>
+                        )}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="note small">Brak rolek</p>
+            )}
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function NavigationIcon({ kind }: { kind: string }) {
+  const paths: Record<string, string> = {
+    reels: "M4 4h16v16H4z M4 9h16 M9 9v11 M7 4v5 M13 4v5",
+    quickcontent: "M13 3 5 13h6l-1 8 9-12h-6z",
+    longform: "M3 5h18v14H3z M10 9l5 3-5 3z",
+    motion: "m12 3 9 5-9 5-9-5z M3 12l9 5 9-5 M3 16l9 5 9-5",
+    branding: "M4 4h16v16H4z M8 16l4-8 4 8 M10 13h4",
+  };
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
     >
+      <path d={paths[kind]} />
+    </svg>
+  );
+}
+
+function Sidebar({
+  active,
+  onReels,
+  onMotion,
+  onLongForm,
+  onQuickContent,
+  onBranding,
+  onSettings,
+  operatorOk,
+}: {
+  active: string;
+  onReels: () => void;
+  onMotion: () => void;
+  onLongForm: () => void;
+  onQuickContent: () => void;
+  onBranding: () => void;
+  onSettings: () => void;
+  operatorOk: boolean | undefined;
+}) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const items = [
+    { id: "reels", label: "Rolki", action: onReels },
+    { id: "quickcontent", label: "QuickContent", action: onQuickContent },
+    { id: "longform", label: "Film poziomy", action: onLongForm },
+    { id: "motion", label: "Motion Studio", action: onMotion },
+    { id: "branding", label: "Branding klientów", action: onBranding },
+  ];
+  return (
+    <nav className="sidebar qc-sidebar" aria-label="Nawigacja główna">
       <div className="brand">
         <i aria-hidden="true" />
         MontageFrames
@@ -790,7 +1038,7 @@ function Sidebar({
           className="btn qc-menu-toggle"
           aria-expanded={menuOpen}
           aria-controls="panel-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? "Zamknij menu" : "Menu"}
         </button>
@@ -800,87 +1048,23 @@ function Sidebar({
         className={`panel-navigation${menuOpen ? " is-open" : ""}`}
       >
         <div className="side-actions">
-          <button
-            type="button"
-            className="btn wide"
-            aria-pressed={quickContent}
-            onClick={() => {
-              setMenuOpen(false);
-              onQuickContent();
-            }}
-          >
-            QuickContent
-          </button>
-          <button
-            type="button"
-            className="btn wide"
-            onClick={() => {
-              setMenuOpen(false);
-              onMotion();
-            }}
-          >
-            Motion Studio
-          </button>
-          <button
-            type="button"
-            className="btn wide"
-            onClick={() => {
-              setMenuOpen(false);
-              onLongForm();
-            }}
-          >
-            Film poziomy
-          </button>
-          <button
-            type="button"
-            className="btn primary wide"
-            onClick={() => {
-              setMenuOpen(false);
-              onNew();
-            }}
-          >
-            Nowa rolka
-          </button>
-        </div>
-        <div className="library">
-          {!lib && <p className="note">Wczytuję…</p>}
-          {groups.map((g) => (
-            <section key={g.id ?? "_"} className="client">
-              <h2>{g.label}</h2>
-              {g.reels.length ? (
-                <ul>
-                  {g.reels.map((r) => {
-                    const j = lib?.jobs[r.name];
-                    return (
-                      <li key={r.name}>
-                        <button
-                          type="button"
-                          className="reel"
-                          aria-current={sel === r.name}
-                          onClick={() => {
-                            setMenuOpen(false);
-                            onSelect(r.name);
-                          }}
-                        >
-                          <span>{r.name}</span>
-                          {j?.status === "running" ? (
-                            <i className="dot run" aria-label="trwa praca" />
-                          ) : j?.status === "error" ? (
-                            <i className="dot err" aria-label="błąd" />
-                          ) : (
-                            <small>{r.seconds ? fmt(r.seconds) : ""}</small>
-                          )}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : (
-                <p className="note small">Brak rolek</p>
-              )}
-            </section>
+          {items.map((item) => (
+            <button
+              type="button"
+              key={item.id}
+              className="btn wide"
+              aria-pressed={active === item.id}
+              onClick={() => {
+                setMenuOpen(false);
+                item.action();
+              }}
+            >
+              <NavigationIcon kind={item.id} />
+              {item.label}
+            </button>
           ))}
         </div>
+        <Updates compact />
         <button
           type="button"
           className="side-foot"
@@ -889,13 +1073,14 @@ function Sidebar({
             onSettings();
           }}
         >
-          <i className={`dot ${operatorOk ? "ok" : "err"}`} />
+          <i
+            className={`dot ${operatorOk ? "ok" : "err"}`}
+            aria-hidden="true"
+          />
           <span>
             Ustawienia
             <small>
-              {operatorOk
-                ? "Claude do rolek gotowy"
-                : "Claude do rolek wymaga uwagi"}
+              {operatorOk ? "Operator rolek gotowy" : "Sprawdź operatora rolek"}
             </small>
           </span>
         </button>

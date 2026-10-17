@@ -119,10 +119,74 @@ export function buildHappyLayouts({
   }
   return layouts;
 }
+// Detector samples around cuts can carry the previous camera for one tick.
+// Repair only short, confirmed glitches; editorial photo changes stay intact.
+const layoutCache = new WeakMap();
+function stableLayouts(framing) {
+  const entries = framing?.layouts ?? [];
+  if (!framing) return entries;
+  if (layoutCache.has(framing)) return layoutCache.get(framing);
+  const result = entries.slice();
+  for (let i = 0; i < entries.length; ) {
+    const entry = entries[i];
+    let end = i + 1;
+    while (
+      end < entries.length &&
+      !entries[end].cut &&
+      entries[end].kind === entry.kind &&
+      !entries[end].mediaSrc &&
+      Math.abs(entries[end - 1].end - entries[end].start) < 0.001
+    )
+      end++;
+    const next = entries[end],
+      previous = entries[i - 1],
+      confirmed = entries[end + 1];
+    if (
+      !entry.mediaSrc &&
+      next &&
+      !next.cut &&
+      !next.mediaSrc &&
+      next.start - entry.start <= 0.5 &&
+      Math.abs(entries[end - 1].end - next.start) < 0.001 &&
+      (((entry.cut || i === 0) &&
+        confirmed &&
+        !confirmed.cut &&
+        confirmed.kind === next.kind &&
+        Math.abs(next.end - confirmed.start) < 0.001) ||
+        (!entry.cut &&
+          previous?.kind === next.kind &&
+          Math.abs(previous.end - entry.start) < 0.001))
+    ) {
+      for (let j = i; j < end; j++)
+        result[j] = {
+          ...next,
+          start: entries[j].start,
+          end: entries[j].end,
+          cut: entries[j].cut,
+        };
+    }
+    i = end;
+  }
+  // Layout sampling is 4 fps; tracking also retains the exact source cut time.
+  for (let i = 1; i < result.length; i++) {
+    if (!result[i].cut) continue;
+    const precise = (framing.tracking ?? [])
+      .filter(
+        (p) => p.cut && p.time >= result[i].start && p.time < result[i].end,
+      )
+      .at(-1);
+    if (precise && Math.abs(result[i - 1].end - result[i].start) < 0.001) {
+      result[i - 1] = { ...result[i - 1], end: precise.time };
+      result[i] = { ...result[i], start: precise.time };
+    }
+  }
+  layoutCache.set(framing, result);
+  return result;
+}
 export function layoutAt(framing, time) {
   if (framing?.trackingEnabled === false || framing?.mode === "fit")
     return null;
-  const entries = framing?.layouts ?? [];
+  const entries = stableLayouts(framing);
   const i = entries.findIndex((e) => e.start <= time && time < e.end);
   if (i < 0) return null;
   const a = entries[i],
@@ -208,7 +272,7 @@ export function happyHookY(kind, storedY = 0.69) {
 
 // Keep the viewport fixed; only an overscanned source moves behind its clipping edge.
 export function speakerWindowAt(framing, time) {
-  const entries = framing?.layouts ?? [];
+  const entries = stableLayouts(framing);
   const index = entries.findIndex(
     (l) => l.kind === "speaker" && l.start <= time && time < l.end,
   );
@@ -303,7 +367,7 @@ export function speakerWindowAt(framing, time) {
 }
 
 export function steadyFaceRect(framing, layout, person) {
-  const entries = framing.layouts ?? [];
+  const entries = stableLayouts(framing);
   let first = entries.findIndex((l) => l.start === layout.start);
   if (first < 0) return layout.people[person];
   while (first > 0 && !entries[first].cut) first--;

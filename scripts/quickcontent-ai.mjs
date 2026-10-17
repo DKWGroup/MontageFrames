@@ -11,6 +11,19 @@ import { usageReceipt } from "./quickcontent-costs.mjs";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
+export async function readAccountPolicy(root) {
+  const env = parseEnv(
+    await fs.readFile(path.join(root, ".env"), "utf8").catch((e) => {
+      if (e.code === "ENOENT") return "";
+      throw e;
+    }),
+  );
+  return {
+    accountOnly: env.MONTAGEFRAMES_ACCOUNT_ONLY === "1",
+    descriptionProvider: env.REEL_DESCRIPTION_PROVIDER,
+  };
+}
+
 export async function requestQuickContentAI(
   { prompt, schema, name = "quickcontent" },
   ctx,
@@ -27,6 +40,10 @@ export async function requestQuickContentAI(
     env.ANIMAFX_AI_PROVIDER ??
     "claude"
   ).toLowerCase();
+  if (provider === "openai" && env.MONTAGEFRAMES_ACCOUNT_ONLY === "1")
+    throw new Error(
+      "Tryb tylko konta CLI (account-only): płatne API jest zablokowane.",
+    );
   if (provider === "openai") {
     const key = env.OPENAI_API_KEY?.trim();
     if (!key) throw new Error("Brak OPENAI_API_KEY w lokalnym .env");

@@ -1,4 +1,5 @@
-/* eslint-disable @remotion/warn-native-media-tag -- Odtwarzacz i miniatury panelu są natywnym UI przeglądarki, poza osią Remotion. */
+import {FilmCosts,CostCard} from "./QuickContentCosts";
+export {FilmCosts,CostCard} from "./QuickContentCosts";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties, FormEvent, SyntheticEvent } from "react";
 import {
@@ -10,7 +11,6 @@ import {
 } from "./quickcontent-api";
 import type {
   QCProject,
-  QCCosts,
   QCCandidate,
   QCJob,
   QCBatch,
@@ -41,6 +41,7 @@ import {
 type Client = { id: string; label: string };
 export type QuickContentProps = {
   clients: Client[];
+  active?: boolean;
   onOpenReel: (
     reelName: string,
     projectId: string,
@@ -323,6 +324,7 @@ function ImportForm({
   const [templateId, setTemplateId] = useState("");
   const selectedTemplate =
     compatible.find((template) => template.id === templateId) ??
+    compatible.find((template) => template.ready && template.brandingRevision) ??
     compatible.find((template) => template.ready);
   const [focus, setFocus] = useState<QCFocus>({ mode: "auto" });
   const [duration, setDuration] = useState<QCDuration>({ min: 30, max: 60 });
@@ -538,7 +540,22 @@ function ImportForm({
           disabled={Boolean(busy)}
         />
         <details className="qc-settings">
-          <summary>Zaawansowane · operator i jakość</summary>
+          <summary>
+            Więcej ustawień{" "}
+            <small>
+              {aiProvider === "openai"
+                ? "Płatne API"
+                : aiProvider === "claude"
+                  ? "Claude Code"
+                  : "Codex"}{" "}
+              ·{" "}
+              {outputResolution === 2160
+                ? "2160 × 3840"
+                : outputResolution === 720
+                  ? "720 × 1280"
+                  : "1080 × 1920"}
+            </small>
+          </summary>
           <div className="qc-stack">
             <OperatorOptions
               value={aiProvider}
@@ -582,6 +599,11 @@ function ImportForm({
             )}
           </div>
         </details>
+        {aiProvider === "openai" && (
+          <p className="qc-notice" role="status">
+            Wybrano płatne API OpenAI. Analiza i montaż są rozliczane osobno.
+          </p>
+        )}
         {error && (
           <p className="qc-notice qc-error" role="alert">
             {error}
@@ -1068,62 +1090,6 @@ export function FinishedCard({
   );
 }
 
-export function FilmCosts({ costs }: { costs?: QCCosts }) {
-  return (
-    <details className="qc-film-costs">
-      <summary>
-        Tokeny i koszt tej rolki
-        {costs?.montage.requests
-          ? ` · ${new Intl.NumberFormat("pl-PL").format(costs.montage.inputTokens + costs.montage.outputTokens)} tokenów montażu`
-          : " · brak pomiaru"}
-      </summary>
-      <dl className="qc-costs">
-        {(
-          [
-            ["montage", "Montaż"],
-            ["chat", "Poprawki"],
-            ["description", "Opis do publikacji"],
-          ] as const
-        ).map(([key, label]) => {
-          const row = costs?.[key];
-          return (
-            <div key={key}>
-              <dt>{label}</dt>
-              <dd>
-                {row?.requests ? (
-                  <>
-                    {row.inputTokens} tokenów wejścia / {row.outputTokens}{" "}
-                    wyjścia
-                    {row.missingTokenMeasurements
-                      ? " · niepełny pomiar tokenów"
-                      : ""}
-                    <small>
-                      {row.missing
-                        ? `Zapisano ${usd(row.costMicroUsd)} · koszt niepełny`
-                        : `${usd(row.costMicroUsd)} opłat API`}
-                      {Boolean(row.subscriptionRequests) &&
-                        " · użyto konta CLI / subskrypcji"}
-                    </small>
-                  </>
-                ) : row?.missing ? (
-                  "Brak pomiaru historycznego"
-                ) : (
-                  "Brak zapisanego zużycia"
-                )}
-              </dd>
-            </div>
-          );
-        })}
-      </dl>
-      <p className="qc-muted">
-        Kredyty/limit konta: operator nie udostępnia pomiaru dla pojedynczej
-        rolki. Analiza odcinka jest rozliczana osobno w ustawieniach projektu.
-        Render lokalny nie zużywa tokenów.
-      </p>
-    </details>
-  );
-}
-
 function CandidateCard({
   projectId,
   candidate,
@@ -1184,9 +1150,9 @@ function CandidateCard({
         {range(candidate)}
         {candidate.kind ? ` · ${candidate.kind}` : ""}
       </p>
+      <p className="qc-candidate-summary">{candidate.summary}</p>
       <details>
-        <summary>Opis i ocena fragmentu</summary>
-        <p>{candidate.summary}</p>
+        <summary>Szczegóły i ocena fragmentu</summary>
         <Score candidate={candidate} />
       </details>
       {candidate.reelName && (
@@ -1205,6 +1171,7 @@ function CandidateCard({
       {candidate.reelName && (
         <PublicationDescription
           key={candidate.reelName}
+          compact
           reelName={candidate.reelName}
           canGenerate={Boolean(availableFilmRender(candidate))}
           refreshKey={publicationRefreshKey(candidate)}
@@ -1414,86 +1381,6 @@ export function PortraitOptions({
     </label>
   );
 }
-const usd = (micro: number) =>
-  new Intl.NumberFormat("pl-PL", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 6,
-  }).format(micro / 1000000);
-export function CostCard({
-  costs,
-  aiProvider,
-}: {
-  costs?: QCProject["costs"];
-  aiProvider?: QCProvider;
-}) {
-  return (
-    <section className="qc-card qc-stack">
-      <h3>Koszty projektu</h3>
-      <dl className="qc-costs">
-        {(
-          [
-            ["analysis", "Analiza i znajdowanie fragmentów"],
-            ["montage", "Montaż wybranych rolek"],
-            ["chat", "Poprawki przez czat"],
-            ["description", "Opis do publikacji · GPT-6 Luna API"],
-          ] as const
-        ).map(([key, label]) => {
-          const row = costs?.[key];
-          return (
-            <div key={key}>
-              <dt>{label}</dt>
-              <dd>
-                {!row || row.missing
-                  ? row?.costMicroUsd
-                    ? `Zapisano ${usd(row.costMicroUsd)} · niepełny pomiar`
-                    : "Brak pełnego pomiaru"
-                  : row.requests
-                    ? usd(row.costMicroUsd)
-                    : "Jeszcze nie uruchomiono · 0 USD"}
-                {Boolean(row?.subscriptionRequests) && (
-                  <small>
-                    {row?.subscriptionRequests} odpowiedzi w ramach konta CLI ·
-                    bez osobnej opłaty API
-                  </small>
-                )}
-                {Boolean(row?.requests) && (
-                  <small>
-                    {row?.requests} odpowiedzi AI · {row?.inputTokens} tokenów
-                    wejścia / {row?.outputTokens} wyjścia
-                  </small>
-                )}
-              </dd>
-            </div>
-          );
-        })}
-        <div>
-          <dt>Whisper, wycinanie, kadr i render lokalny</dt>
-          <dd>0 USD opłat API</dd>
-        </div>
-      </dl>
-      <p className="qc-muted">
-        Kwoty USD obliczamy ze zmierzonego zużycia i cennika dostawcy, bez
-        podatków. Zużycie komputera nie jest opłatą API. Wcześniejsze zadania
-        bez zapisu tokenów mają brak pomiaru; nie uruchamiamy ich ponownie dla
-        wyceny.
-      </p>
-      <p className="qc-muted">
-        {aiProvider && aiProvider !== "openai"
-          ? "Analiza i montaż przez CLI korzystają z limitów zalogowanego konta, bez osobnej opłaty API. Opisy do publikacji korzystają z płatnego GPT-6 Luna API. Subskrypcja i jej limity nadal obowiązują."
-          : "Koszt kolejnego montażu zależy od tokenów."}{" "}
-        {aiProvider && aiProvider !== "openai"
-          ? ""
-          : costs?.montage.requests && !costs.montage.missing
-            ? `Orientacyjnie ${usd(costs.montage.costMicroUsd / costs.montage.requests)} za odpowiedź AI na podstawie tego projektu.`
-            : "Oszacowanie pojawi się po pierwszym zmierzonym montażu."}{" "}
-        Zaznaczenie propozycji nie nalicza kosztu montażu.
-      </p>
-    </section>
-  );
-}
-
 function AnalysisSettings({
   project,
   busy,
@@ -1550,6 +1437,7 @@ function AnalysisSettings({
 
 export function QuickContent({
   clients,
+  active = true,
   onOpenReel,
   onClose,
 }: QuickContentProps) {
@@ -1724,9 +1612,9 @@ export function QuickContent({
     content.current.scrollTop = savedView.current[projectId]?.scroll ?? 0;
   }, [projectId, route.candidateId, hasLoadedProject]);
   useEffect(() => {
-    if (editorReelName && projectId && editorCandidateId)
+    if (active && editorReelName && projectId && editorCandidateId)
       onOpenReel(editorReelName, projectId, editorCandidateId);
-  }, [editorReelName, projectId, editorCandidateId, onOpenReel]);
+  }, [active, editorReelName, projectId, editorCandidateId, onOpenReel]);
   useEffect(() => {
     if (!selectionBar.current) return;
     const element = selectionBar.current;

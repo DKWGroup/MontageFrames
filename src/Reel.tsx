@@ -26,6 +26,10 @@ import { isMaskEffect, maskBgFilter, MaskLayers, maskScales } from "./longform/m
 export { keptWords, reelFrames, toOut } from "./reel-timing";
 import { TimelineSequence } from "./TimelineSequence";
 import { loadFonts } from "./fonts";
+import type { BrandingSnapshot } from "./branding/types";
+import { loadBrandFonts } from "./branding/fonts";
+import { BrandLogo } from "./branding/BrandLogo";
+import { Brand } from "./styles/brand";
 import { atBottom, Overlay, OverlayView } from "./overlays";
 import { SkyClass } from "./styles/skyclass";
 import { SkyClassOverlay } from "./skyclass-overlays";
@@ -71,6 +75,7 @@ export type Segment = {
   zoomTo?: number;
 };
 export type ReelData = {
+  branding?: BrandingSnapshot;
   source: string;
   outputResolution?: 720 | 1080 | 2160;
   framingNote?: string;
@@ -93,6 +98,7 @@ type Sfx = { id: string; file: string; license: string; source: string; rmsDb?: 
 
 // Napisy dostają słowa z czasem `at` = sekundy od początku grupy na osi wyjściowej.
 export type StyleProps = {
+  branding?: BrandingSnapshot;
   group: CaptionGroup;
   words: (Word & {
     at: number;
@@ -105,7 +111,8 @@ export type StyleProps = {
   minTop?: number; // najwyższa dozwolona górna krawędź napisu (pod twarzą, po zoomie ujęcia)
 };
 
-const STYLES: Record<string, React.FC<StyleProps>> = {
+export const STYLES: Record<string, React.FC<StyleProps>> = {
+  brand: Brand,
   persona: Persona,
   skyclass: SkyClass,
   herod: Herod,
@@ -247,16 +254,23 @@ const SourceShot: React.FC<{
 export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
   const currentFrame = useCurrentFrame();
   const { delayRender, continueRender, cancelRender } = useDelayRender();
-  const [handle] = useState(() => delayRender("fonty"));
   const [ready, setReady] = useState(false);
+  const brandFonts = !data?.branding?.styleId || data.branding.styleId === "brand"
+    ? data?.branding?.fonts
+    : undefined;
   useEffect(() => {
-    loadFonts()
+    let active = true;
+    setReady(false);
+    const handle = delayRender("fonty");
+    Promise.all([loadFonts(), loadBrandFonts(brandFonts ? {fonts:brandFonts} : undefined)])
       .then(() => {
-        setReady(true);
+        if (active) setReady(true);
         continueRender(handle);
       })
-      .catch(cancelRender);
-  }, [handle, continueRender, cancelRender]);
+      .catch((e) => { if (active) cancelRender(e); else continueRender(handle); });
+    return () => { active = false; };
+    // Loading is keyed by the exact manifest; other draft edits need no font reload.
+  }, [brandFonts, delayRender, continueRender, cancelRender]);
 
   if (!data) return null;
   const fps = data.fps ?? 30;
@@ -349,7 +363,7 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
               reel={reel}
               source={data.source}
               framing={data.framing}
-              styleId={data.style}
+              styleId={data.client === "kacper-bisanz" ? "bisanz" : data.style}
               s={s}
               fps={fps}
               dur={clipDuration(`s${i}`, dur)}
@@ -362,6 +376,7 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
         );
       })}
       {data.style === "happynews" && <HappyNewsCredit />}
+      {data.branding && ready && <BrandLogo branding={data.branding} />}
       {(data.overlays ?? []).map((o, i) => {
         if (o.type === "emoji" && o.label === "word") return null;
         const from = frame(o.start);
@@ -410,6 +425,7 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
             >
               {ready && (
                 <Style
+                  branding={data.branding}
                   group={
                     data.style === "happynews"
                       ? {...g, y: happyCaptionY(newsLayout?.kind, g.y)}

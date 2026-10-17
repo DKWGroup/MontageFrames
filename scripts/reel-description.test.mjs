@@ -438,3 +438,11 @@ test("project instructions persist as fallback while explicit reel instructions 
     "ready",
   );
 });
+
+test('opis przez konto CLI: jawny wybór nie uruchamia API ani nie wymusza modelu API', async(t)=>{
+  for(const provider of ['codex','claude']) {
+    const f=await fixture(t);await fs.writeFile(path.join(f.root,'.env'),`REEL_DESCRIPTION_PROVIDER=${provider}\nMONTAGEFRAMES_ACCOUNT_ONLY=1\n`);
+    const result=await generateReelDescription('demo',{root:f.root,requestAI:async(_input,ctx)=>{assert.equal(ctx.aiProvider,provider);assert.equal(ctx.aiModel,undefined);return copy;}});
+    assert.equal(result.status,'ready');assert.equal(result.provider,provider);assert.equal(result.model,`${provider}-account`);
+  }
+});
