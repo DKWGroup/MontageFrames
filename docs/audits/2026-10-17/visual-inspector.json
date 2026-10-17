@@ -1,0 +1,3051 @@
+{
+ "url": "http://127.0.0.1:3100",
+ "at": "2026-10-16T23:31:02.971Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0.67,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 40,
+    "css": 1,
+    "transitions": 16,
+    "scripted": 23,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 8525,
+     "screens": 9.5,
+     "words": 809,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 12,
+     "sections": 11,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 1,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 1,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "✓"
+     ]
+    },
+    "hero": {
+     "text": "Ty nagrywasz. Resztę zmontuje AI.",
+     "words": 5,
+     "chars": 33,
+     "lines": 2,
+     "size": 93.6,
+     "vw": 6.5,
+     "font": "Cabinet",
+     "weight": 750,
+     "tracking": -0.035,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.78,
+     "top": 153,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Ty nagrywasz. Resztę zmontuje AI.",
+     "words": 5,
+     "lines": 2,
+     "size": 93.6,
+     "font": "Cabinet"
+    },
+    "headings": [
+     {
+      "text": "Ty nagrywasz. Resztę zmontuje AI.",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 93.6,
+      "vw": 6.5,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 153,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Mniej montowania. Więcej gotowych rolek.",
+      "words": 5,
+      "chars": 40,
+      "lines": 2,
+      "size": 46,
+      "vw": 3.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 672,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Cięcie. Napis. Poprawka. I tak przez cały wieczór.",
+      "words": 8,
+      "chars": 50,
+      "lines": 2,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.51,
+      "top": 822,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Twój głos. Twój styl.",
+      "words": 4,
+      "chars": 21,
+      "lines": 2,
+      "size": 35,
+      "vw": 2.4,
+      "font": "Cabinet",
+      "weight": 650,
+      "tracking": -0.04,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.13,
+      "top": 1074,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "rolki.",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Cabinet",
+      "weight": 900,
+      "tracking": 0,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "left",
+      "widthRatio": 0.07,
+      "top": 1253,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Więcej miejsca na pomysły.",
+      "words": 4,
+      "chars": 26,
+      "lines": 2,
+      "size": 82,
+      "vw": 5.7,
+      "font": "Cabinet",
+      "weight": 650,
+      "tracking": -0.04,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.48,
+      "top": 2689,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Policz czas, który możesz odzyskać.",
+      "words": 5,
+      "chars": 35,
+      "lines": 2,
+      "size": 57.6,
+      "vw": 4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 3176,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "8,3 h",
+      "words": 2,
+      "chars": 5,
+      "lines": 1,
+      "size": 64,
+      "vw": 4.4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.39,
+      "top": 3434,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "96%*",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 112,
+      "vw": 7.8,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.13,
+      "top": 3770,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Polski brzmi tu po polsku.",
+      "words": 5,
+      "chars": 26,
+      "lines": 2,
+      "size": 57.6,
+      "vw": 4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 3818,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Twoje AI. Twoje konto. Twój wybór.",
+      "words": 6,
+      "chars": 34,
+      "lines": 3,
+      "size": 57.6,
+      "vw": 4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 4264,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Claude Code",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.36,
+      "top": 4272,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Codex",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.36,
+      "top": 4414,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Powiedz agentowi. „Zmontuj tę rolkę”.",
+      "words": 5,
+      "chars": 37,
+      "lines": 2,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.45,
+      "top": 4827,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Podobny cel. Różne sposoby pracy.",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 57.6,
+      "vw": 4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 5259,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Więcej rolek. Mniej ręcznej roboty.",
+      "words": 5,
+      "chars": 35,
+      "lines": 2,
+      "size": 57.6,
+      "vw": 4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 6298,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Solo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.24,
+      "top": 6499,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Creator",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.24,
+      "top": 6499,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Studio",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.24,
+      "top": 6499,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "129",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 4.4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.06,
+      "top": 6622,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "299",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 4.4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.07,
+      "top": 6622,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "699",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 4.4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 6622,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Zanim wrzucisz pierwszy film.",
+      "words": 4,
+      "chars": 29,
+      "lines": 2,
+      "size": 57.6,
+      "vw": 4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 7441,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Masz już nagranie. Daj mu wyjść do ludzi.",
+      "words": 8,
+      "chars": 41,
+      "lines": 2,
+      "size": 72,
+      "vw": 5,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 8049,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 24,
+     "maxLines": 3,
+     "over2Lines": 1,
+     "statements": 0,
+     "centered": 4,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Fustat",
+       "share": 0.92,
+       "mono": false
+      },
+      {
+       "family": "Cabinet",
+       "share": 0.08,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": false
+      },
+      {
+       "family": "sans-serif",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 4,
+     "sizes": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      21,
+      22,
+      23,
+      24,
+      28,
+      32,
+      34,
+      35,
+      38,
+      46,
+      48,
+      56,
+      58,
+      64,
+      72,
+      82,
+      94,
+      112
+     ],
+     "sizeCount": 28,
+     "notLoaded": [],
+     "body": {
+      "font": "Fustat",
+      "size": 16,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.2
+     },
+     "measureChars": 87,
+     "max": {
+      "size": 112,
+      "vw": 7.8,
+      "font": "Cabinet",
+      "text": "96"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [
+      "9:16 / 00:12",
+      "00:00",
+      "00:05",
+      "00:10",
+      "00:15"
+     ],
+     "microLabels": 2,
+     "microLabelShare": 0.005,
+     "microSamples": [
+      "01 / Ręczny montaż",
+      "Każde słowo osobno"
+     ],
+     "upperShare": 0.01,
+     "centerShare": 0.08,
+     "smallText": 17
+    },
+    "eyebrows": [
+     {
+      "text": "Przegląd i poprawki z AI",
+      "above": "8,3 h",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 3304
+     },
+     {
+      "text": "Wkrótce",
+      "above": "Powiedz agentowi. „Zmontuj tę rolkę”.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 4790
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01 / Ręczny montaż",
+      "size": 12,
+      "top": 791
+     }
+    ],
+    "color": {
+     "bodyBg": "#f5f8fc",
+     "bodyBgHsl": {
+      "h": 214,
+      "s": 0.54,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#f5f6f9",
+       "top": 608,
+       "hsl": {
+        "h": 225,
+        "s": 0.25,
+        "l": 0.97
+       }
+      },
+      {
+       "color": "#164beb",
+       "top": 2498,
+       "hsl": {
+        "h": 225,
+        "s": 0.84,
+        "l": 0.5
+       }
+      },
+      {
+       "color": "#f0f5fc",
+       "top": 4726,
+       "hsl": {
+        "h": 215,
+        "s": 0.67,
+        "l": 0.96
+       }
+      },
+      {
+       "color": "#f4f7fd",
+       "top": 6170,
+       "hsl": {
+        "h": 220,
+        "s": 0.69,
+        "l": 0.97
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52627a",
+       "share": 0.57
+      },
+      {
+       "color": "#112b50",
+       "share": 0.21
+      },
+      {
+       "color": "#d9e4ff",
+       "share": 0.06
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.03
+      },
+      {
+       "color": "#164beb",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#112b50"
+     },
+     "lowContrast": [
+      {
+       "text": "przytnij",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "przesuń",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "popraw",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "Interaktywny schemat · układ ręcznego ed",
+       "ratio": 4,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#6e7b8e",
+       "bg": "#f5f6f9"
+      },
+      {
+       "text": "Z MontageFrames",
+       "ratio": 4.4,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#66748a",
+       "bg": "#f5f6f9"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 3,
+     "radius": 10,
+     "height": 52,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Przejdź do treści",
+      "Przejdź do montażu",
+      "Zobacz, jak to działa"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 1,
+     "shadowOverlay": 1,
+     "shadowSamples": [
+      "div.land-phone → rgb(104, 110, 120) 2px 0px 0px 0px, rgb(48, 52, 62) 5px 2px 0px 0px, rgba(16, 40"
+     ],
+     "gradients": 1,
+     "scrims": 0,
+     "gradientSamples": [
+      "div.land-phone → linear-gradient(120deg, rgb(85, 90, 99), rgb(19, 22, 29) 32%, rgb(89, 95, 106) 60%, rgb(32, 36, 44))"
+     ],
+     "gradientText": 0,
+     "hairlines": 26,
+     "hairlineSamples": [
+      "header.land-nav 1376px",
+      "div.land-editor-top 731px",
+      "div.land-editor-tools 731px",
+      "div.land-editor-caption 731px",
+      "div.land-editor-result 731px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 7,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 6466
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 5,
+     "fixed": false,
+     "height": 93,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "fustat",
+     "cabinet"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 9,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    0.8,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 40,
+    "css": 1,
+    "transitions": 16,
+    "scripted": 23,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 8682,
+     "screens": 8.5,
+     "words": 809,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 12,
+     "sections": 11,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 1,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "✓"
+     ]
+    },
+    "hero": {
+     "text": "Ty nagrywasz. Resztę zmontuje AI.",
+     "words": 5,
+     "chars": 33,
+     "lines": 2,
+     "size": 49.9,
+     "vw": 6.5,
+     "font": "Cabinet",
+     "weight": 750,
+     "tracking": -0.035,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 153,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Ty nagrywasz. Resztę zmontuje AI.",
+     "words": 5,
+     "lines": 2,
+     "size": 49.9,
+     "font": "Cabinet"
+    },
+    "headings": [
+     {
+      "text": "Ty nagrywasz. Resztę zmontuje AI.",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 49.9,
+      "vw": 6.5,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 153,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Mniej montowania. Więcej gotowych rolek.",
+      "words": 5,
+      "chars": 40,
+      "lines": 2,
+      "size": 30,
+      "vw": 3.9,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 581,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Cięcie. Napis. Poprawka. I tak przez cały wieczór.",
+      "words": 8,
+      "chars": 50,
+      "lines": 2,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.41,
+      "top": 698,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Twój głos. Twój styl.",
+      "words": 4,
+      "chars": 21,
+      "lines": 2,
+      "size": 35,
+      "vw": 4.6,
+      "font": "Cabinet",
+      "weight": 650,
+      "tracking": -0.04,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.24,
+      "top": 965,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "rolki.",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 34,
+      "vw": 4.4,
+      "font": "Cabinet",
+      "weight": 900,
+      "tracking": 0,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "left",
+      "widthRatio": 0.13,
+      "top": 1144,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Więcej miejsca na pomysły.",
+      "words": 4,
+      "chars": 26,
+      "lines": 2,
+      "size": 58,
+      "vw": 7.6,
+      "font": "Cabinet",
+      "weight": 650,
+      "tracking": -0.04,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.48,
+      "top": 2850,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Policz czas, który możesz odzyskać.",
+      "words": 5,
+      "chars": 35,
+      "lines": 3,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 3248,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "8,3 h",
+      "words": 2,
+      "chars": 5,
+      "lines": 1,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.42,
+      "top": 3550,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "96%*",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 112,
+      "vw": 14.6,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.24,
+      "top": 3854,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Polski brzmi tu po polsku.",
+      "words": 5,
+      "chars": 26,
+      "lines": 2,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 3926,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Twoje AI. Twoje konto. Twój wybór.",
+      "words": 6,
+      "chars": 34,
+      "lines": 3,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 4345,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Claude Code",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.4,
+      "top": 4353,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Codex",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.4,
+      "top": 4520,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Powiedz agentowi. „Zmontuj tę rolkę”.",
+      "words": 5,
+      "chars": 37,
+      "lines": 4,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.43,
+      "top": 4930,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Podobny cel. Różne sposoby pracy.",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 5489,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Więcej rolek. Mniej ręcznej roboty.",
+      "words": 5,
+      "chars": 35,
+      "lines": 2,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 6510,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Solo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.24,
+      "top": 6658,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Creator",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.24,
+      "top": 6658,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Studio",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.24,
+      "top": 6658,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "129",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.12,
+      "top": 6781,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "299",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.14,
+      "top": 6781,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "699",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.14,
+      "top": 6781,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Zanim wrzucisz pierwszy film.",
+      "words": 4,
+      "chars": 29,
+      "lines": 2,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 7655,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Masz już nagranie. Daj mu wyjść do ludzi.",
+      "words": 8,
+      "chars": 41,
+      "lines": 2,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8232,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 24,
+     "maxLines": 4,
+     "over2Lines": 3,
+     "statements": 0,
+     "centered": 4,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Fustat",
+       "share": 0.92,
+       "mono": false
+      },
+      {
+       "family": "Cabinet",
+       "share": 0.08,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": false
+      },
+      {
+       "family": "sans-serif",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 4,
+     "sizes": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21,
+      22,
+      23,
+      24,
+      28,
+      30,
+      32,
+      34,
+      35,
+      36,
+      38,
+      48,
+      50,
+      56,
+      58,
+      64,
+      112
+     ],
+     "sizeCount": 28,
+     "notLoaded": [],
+     "body": {
+      "font": "Fustat",
+      "size": 16,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.2
+     },
+     "measureChars": 87,
+     "max": {
+      "size": 112,
+      "vw": 14.6,
+      "font": "Cabinet",
+      "text": "96"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [
+      "9:16 / 00:12",
+      "00:00",
+      "00:05",
+      "00:10",
+      "00:15"
+     ],
+     "microLabels": 2,
+     "microLabelShare": 0.005,
+     "microSamples": [
+      "01 / Ręczny montaż",
+      "Każde słowo osobno"
+     ],
+     "upperShare": 0.01,
+     "centerShare": 0.08,
+     "smallText": 20
+    },
+    "eyebrows": [
+     {
+      "text": "Przegląd i poprawki z AI",
+      "above": "8,3 h",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 3397
+     },
+     {
+      "text": "Wkrótce",
+      "above": "Powiedz agentowi. „Zmontuj tę rolkę”.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 4894
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01 / Ręczny montaż",
+      "size": 12,
+      "top": 667
+     }
+    ],
+    "color": {
+     "bodyBg": "#f5f8fc",
+     "bodyBgHsl": {
+      "h": 214,
+      "s": 0.54,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#f5f6f9",
+       "top": 517,
+       "hsl": {
+        "h": 225,
+        "s": 0.25,
+        "l": 0.97
+       }
+      },
+      {
+       "color": "#164beb",
+       "top": 2667,
+       "hsl": {
+        "h": 225,
+        "s": 0.84,
+        "l": 0.5
+       }
+      },
+      {
+       "color": "#f0f5fc",
+       "top": 4846,
+       "hsl": {
+        "h": 215,
+        "s": 0.67,
+        "l": 0.96
+       }
+      },
+      {
+       "color": "#f4f7fd",
+       "top": 6412,
+       "hsl": {
+        "h": 220,
+        "s": 0.69,
+        "l": 0.97
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52627a",
+       "share": 0.57
+      },
+      {
+       "color": "#112b50",
+       "share": 0.21
+      },
+      {
+       "color": "#d9e4ff",
+       "share": 0.06
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.03
+      },
+      {
+       "color": "#164beb",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#112b50"
+     },
+     "lowContrast": [
+      {
+       "text": "przytnij",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "przesuń",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "popraw",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "Interaktywny schemat · układ ręcznego ed",
+       "ratio": 4,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#6e7b8e",
+       "bg": "#f5f6f9"
+      },
+      {
+       "text": "Z MontageFrames",
+       "ratio": 4.4,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#66748a",
+       "bg": "#f5f6f9"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 3,
+     "radius": 10,
+     "height": 64,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Przejdź do treści",
+      "Przejdź do montażu",
+      "Zobacz, jak to działa"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 1,
+     "shadowOverlay": 1,
+     "shadowSamples": [
+      "div.land-phone → rgb(104, 110, 120) 2px 0px 0px 0px, rgb(48, 52, 62) 5px 2px 0px 0px, rgba(16, 40"
+     ],
+     "gradients": 1,
+     "scrims": 0,
+     "gradientSamples": [
+      "div.land-phone → linear-gradient(120deg, rgb(85, 90, 99), rgb(19, 22, 29) 32%, rgb(89, 95, 106) 60%, rgb(32, 36, 44))"
+     ],
+     "gradientText": 0,
+     "hairlines": 14,
+     "hairlineSamples": [
+      "header.land-nav 768px",
+      "div.land-editor-top 310px",
+      "div.land-editor-tools 310px",
+      "div.land-editor-caption 310px",
+      "div.land-editor-result 310px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 7,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 6633
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 5,
+     "fixed": false,
+     "height": 93,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "fustat",
+     "cabinet"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0.67,
+    1,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 40,
+    "css": 1,
+    "transitions": 16,
+    "scripted": 23,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 10465,
+     "screens": 12.4,
+     "words": 796,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 12,
+     "sections": 11,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 1,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 1,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [
+      "✓"
+     ]
+    },
+    "hero": {
+     "text": "Ty nagrywasz. Resztę zmontuje AI.",
+     "words": 5,
+     "chars": 33,
+     "lines": 2,
+     "size": 39,
+     "vw": 10,
+     "font": "Cabinet",
+     "weight": 750,
+     "tracking": -0.035,
+     "leading": 1.04,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 125,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Ty nagrywasz. Resztę zmontuje AI.",
+     "words": 5,
+     "lines": 2,
+     "size": 39,
+     "font": "Cabinet"
+    },
+    "headings": [
+     {
+      "text": "Ty nagrywasz. Resztę zmontuje AI.",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 39,
+      "vw": 10,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 125,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "↓",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Fustat",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "right",
+      "widthRatio": 0.04,
+      "top": 470,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Mniej montowania. Więcej gotowych rolek.",
+      "words": 5,
+      "chars": 40,
+      "lines": 2,
+      "size": 27,
+      "vw": 6.9,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 588,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Twój głos. Twój styl.",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 35,
+      "vw": 9,
+      "font": "Cabinet",
+      "weight": 650,
+      "tracking": -0.04,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.16,
+      "top": 733,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "rolki.",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 34,
+      "vw": 8.7,
+      "font": "Cabinet",
+      "weight": 900,
+      "tracking": 0,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.08,
+      "top": 792,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Cięcie. Napis. Poprawka. I tak przez cały wieczór.",
+      "words": 8,
+      "chars": 50,
+      "lines": 2,
+      "size": 23,
+      "vw": 5.9,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 878,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "↖",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Fustat",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.05,
+      "top": 1241,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "Więcej miejsca na pomysły.",
+      "words": 4,
+      "chars": 26,
+      "lines": 2,
+      "size": 42,
+      "vw": 10.8,
+      "font": "Cabinet",
+      "weight": 650,
+      "tracking": -0.04,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 2451,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "✓ Montaż po naszej stronie. Wieczór po Twojej.",
+      "words": 8,
+      "chars": 46,
+      "lines": 2,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Fustat",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 2844,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "Policz czas, który możesz odzyskać.",
+      "words": 5,
+      "chars": 35,
+      "lines": 3,
+      "size": 39,
+      "vw": 10,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.03,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3042,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "8,3 h",
+      "words": 2,
+      "chars": 5,
+      "lines": 1,
+      "size": 60,
+      "vw": 15.4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3592,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Polski brzmi tu po polsku.",
+      "words": 5,
+      "chars": 26,
+      "lines": 2,
+      "size": 39,
+      "vw": 10,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.03,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 3868,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "96%*",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 96,
+      "vw": 24.6,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 4082,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Twoje AI. Twoje konto. Twój wybór.",
+      "words": 6,
+      "chars": 34,
+      "lines": 3,
+      "size": 39,
+      "vw": 10,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.03,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4525,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Claude Code",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4866,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Codex",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5033,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Powiedz agentowi. „Zmontuj tę rolkę”.",
+      "words": 5,
+      "chars": 37,
+      "lines": 2,
+      "size": 37,
+      "vw": 9.5,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.77,
+      "top": 5566,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Podobny cel. Różne sposoby pracy.",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 39,
+      "vw": 10,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.03,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5968,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Więcej rolek. Mniej ręcznej roboty.",
+      "words": 5,
+      "chars": 35,
+      "lines": 2,
+      "size": 39,
+      "vw": 10,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.03,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7023,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Solo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.77,
+      "top": 7262,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "129",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 16.4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.23,
+      "top": 7354,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Creator",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 7841,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "299",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 16.4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 7932,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Studio",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.77,
+      "top": 8419,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "699",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 64,
+      "vw": 16.4,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 8510,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "Zanim wrzucisz pierwszy film.",
+      "words": 4,
+      "chars": 29,
+      "lines": 2,
+      "size": 39,
+      "vw": 10,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.03,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 9292,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Masz już nagranie. Daj mu wyjść do ludzi.",
+      "words": 8,
+      "chars": 41,
+      "lines": 3,
+      "size": 42,
+      "vw": 10.8,
+      "font": "Cabinet",
+      "weight": 750,
+      "tracking": -0.035,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 10015,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 27,
+     "maxLines": 3,
+     "over2Lines": 3,
+     "statements": 0,
+     "centered": 6,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Fustat",
+       "share": 0.92,
+       "mono": false
+      },
+      {
+       "family": "Cabinet",
+       "share": 0.08,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": false
+      },
+      {
+       "family": "sans-serif",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 4,
+     "sizes": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      22,
+      23,
+      24,
+      27,
+      28,
+      32,
+      34,
+      35,
+      37,
+      39,
+      42,
+      56,
+      60,
+      64,
+      96
+     ],
+     "sizeCount": 26,
+     "notLoaded": [],
+     "body": {
+      "font": "Fustat",
+      "size": 16,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.2
+     },
+     "measureChars": 50,
+     "max": {
+      "size": 96,
+      "vw": 24.6,
+      "font": "Cabinet",
+      "text": "96"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [
+      "9:16 / 00:12",
+      "00:00",
+      "00:10"
+     ],
+     "microLabels": 2,
+     "microLabelShare": 0.005,
+     "microSamples": [
+      "01 / Ręczny montaż",
+      "Każde słowo osobno"
+     ],
+     "upperShare": 0.01,
+     "centerShare": 0.11,
+     "smallText": 22
+    },
+    "eyebrows": [
+     {
+      "text": "Mniej wieczorównad napisami.",
+      "above": "Więcej miejsca na pomysły.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 18,
+      "top": 2374
+     },
+     {
+      "text": "Przegląd i poprawki z AI",
+      "above": "8,3 h",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 3465
+     },
+     {
+      "text": "Wkrótce",
+      "above": "Powiedz agentowi. „Zmontuj tę rolkę”.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 5529
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01 / Ręczny montaż",
+      "size": 9,
+      "top": 856
+     }
+    ],
+    "color": {
+     "bodyBg": "#f5f8fc",
+     "bodyBgHsl": {
+      "h": 214,
+      "s": 0.54,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#f5f6f9",
+       "top": 538,
+       "hsl": {
+        "h": 225,
+        "s": 0.25,
+        "l": 0.97
+       }
+      },
+      {
+       "color": "#191c22",
+       "top": 985,
+       "hsl": {
+        "h": 220,
+        "s": 0.15,
+        "l": 0.12
+       }
+      },
+      {
+       "color": "#164beb",
+       "top": 2310,
+       "hsl": {
+        "h": 225,
+        "s": 0.84,
+        "l": 0.5
+       }
+      },
+      {
+       "color": "#f0f5fc",
+       "top": 5343,
+       "hsl": {
+        "h": 215,
+        "s": 0.67,
+        "l": 0.96
+       }
+      },
+      {
+       "color": "#f4f7fd",
+       "top": 6943,
+       "hsl": {
+        "h": 220,
+        "s": 0.69,
+        "l": 0.97
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52627a",
+       "share": 0.58
+      },
+      {
+       "color": "#112b50",
+       "share": 0.2
+      },
+      {
+       "color": "#d9e4ff",
+       "share": 0.06
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.03
+      },
+      {
+       "color": "#164beb",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#112b50"
+     },
+     "lowContrast": [
+      {
+       "text": "przytnij",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "przesuń",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "popraw",
+       "ratio": 3.9,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#e4ecff",
+       "bg": "#416beb"
+      },
+      {
+       "text": "Interaktywny schemat · układ ręcznego ed",
+       "ratio": 4,
+       "need": 4.5,
+       "size": 8,
+       "fg": "#6e7b8e",
+       "bg": "#f5f6f9"
+      },
+      {
+       "text": "Z MontageFrames",
+       "ratio": 4.4,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#66748a",
+       "bg": "#f5f6f9"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 3,
+     "radius": 10,
+     "height": 48,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Przejdź do treści",
+      "Przejdź do montażu",
+      "Zobacz, jak to działa"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 1,
+     "shadowOverlay": 1,
+     "shadowSamples": [
+      "div.land-phone → rgb(104, 110, 120) 2px 0px 0px 0px, rgb(48, 52, 62) 5px 2px 0px 0px, rgba(16, 40"
+     ],
+     "gradients": 1,
+     "scrims": 0,
+     "gradientSamples": [
+      "div.land-phone → linear-gradient(120deg, rgb(85, 90, 99), rgb(19, 22, 29) 32%, rgb(89, 95, 106) 60%, rgb(32, 36, 44))"
+     ],
+     "gradientText": 0,
+     "hairlines": 26,
+     "hairlineSamples": [
+      "header.land-nav 390px",
+      "div.land-editor-top 348px",
+      "div.land-editor-tools 348px",
+      "div.land-editor-caption 348px",
+      "div.land-editor-result 348px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 5,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 7233
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 2,
+     "fixed": false,
+     "height": 77,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "fustat",
+     "cabinet"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 1440,
+   "message": "1 headline(s) wrap past two lines at 1440px: \"Twoje AI. Twoje konto. Twój wybór.\" → 3 lines (6 words, 57.6px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "2 eyebrow/kicker label(s) above headings: \"Przegląd i poprawki z AI\" above \"8,3 h\"; \"Wkrótce\" above \"Powiedz agentowi. „Zmontuj tę rolkę”.\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "width": 1440,
+   "message": "Decorative index numbers: \"01 / Ręczny montaż\"",
+   "fix": "Remove them. If order truly matters, write it into the words (\"First, …\") or use a real <ol>.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "2 tiny uppercase letter-spaced label(s): \"01 / Ręczny montaż\", \"Każde słowo osobno\"",
+   "fix": "Prefer sentence case at body size.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "width": 1440,
+   "message": "Emoji in the page: ✓",
+   "fix": "Remove. Use words or real imagery.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "1 gradient fill(s): div.land-phone → linear-gradient(120deg, rgb(85, 90, 99), rgb(19, 22, 29) 32%, rgb(89, 95, 106) 60%, rgb(32, 36, 44))",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "1 box-shadow(s) on elements at rest: div.land-phone → rgb(104, 110, 120) 2px 0px 0px 0px, rgb(48, 52, 62) 5px 2px 0px 0px, rgba(16, 40",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "26 thin rule(s)/divider line(s): header.land-nav 1376px | div.land-editor-top 731px | div.land-editor-tools 731px | div.land-editor-caption 731px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "3 boxes drawn with a 1px outline.",
+   "fix": "Define a surface by its fill (one tone step from the page) or leave the content unboxed.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "icon-cards",
+   "width": 1440,
+   "message": "1 row(s) of identical cards each topped with a small icon (3 cards).",
+   "fix": "Replace with one composed section from the direction: a narrative split, a list set in large type, or real imagery per item.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Low-contrast text: \"przytnij\" 3.9:1 needs 4.5:1; \"przesuń\" 3.9:1 needs 4.5:1; \"popraw\" 3.9:1 needs 4.5:1; \"Interaktywny schemat · układ ręcznego ed\" 4:1 needs 4.5:1",
+   "fix": "Darken or lighten the text colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "28 different font sizes (9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 28, 32, 34, 35, 38, 46, 48, 56, 58, 64, 72, 82, 94, 112).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "grey-body",
+   "width": 1440,
+   "message": "The running text is a soft grey on its ground (6.2:1).",
+   "fix": "Set body copy in the full ink (7:1 or more). Keep the muted ink for secondary notes; pages read thin and unfinished when everything is grey.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 1 picture(s) on the page (0 photographs, footage or raster images, 1 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "small-text",
+   "width": 1440,
+   "message": "17 text blocks under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 768,
+   "message": "3 headline(s) wrap past two lines at 768px: \"Policz czas, który możesz odzyskać.\" → 3 lines (5 words, 36px); \"Twoje AI. Twoje konto. Twój wybór.\" → 3 lines (6 words, 36px); \"Powiedz agentowi. „Zmontuj tę rolkę”.\" → 4 lines (5 words, 48px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "3 headline(s) wrap past two lines at 390px: \"Policz czas, który możesz odzyskać.\" → 3 lines (5 words, 39px); \"Twoje AI. Twoje konto. Twój wybór.\" → 3 lines (6 words, 39px); \"Masz już nagranie. Daj mu wyjść do ludzi.\" → 3 lines (8 words, 42px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "side-scroll",
+   "width": 390,
+   "message": "1 row(s) scroll sideways with content past their edge.",
+   "fix": "Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/desktop-fold.jpg",
+   "pages": [
+    "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/desktop-page-01.jpg",
+    "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/desktop-page-02.jpg",
+    "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/tablet-fold.jpg",
+   "pages": [
+    "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/tablet-page-01.jpg",
+    "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/mobile-fold.jpg",
+   "pages": [
+    "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/mobile-page-01.jpg",
+    "/Users/wskopek/Documents/Github projekty/MontageFrames/.taste-skill/inspect/mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

@@ -190,7 +190,7 @@ test("verified current render gets the default download and saving blocks a prem
   assert.match(pending, /disabled=""/);
 });
 
-test("ordinary reels keep downloads for the whole existing folder", () => {
+test("ordinary reels show only their own versioned downloads", () => {
   const { RenderTab } = inspector();
   const html = renderToStaticMarkup(
     createElement(RenderTab, {
@@ -199,7 +199,9 @@ test("ordinary reels keep downloads for the whole existing folder", () => {
       quickContent: null,
     }),
   );
-  assert.match(html, /other\.mp4/);
+  assert.doesNotMatch(html, /other\.mp4/);
+  assert.match(html, /reel-v001\.mp4/);
+  assert.match(html, /reel-v002\.mp4/);
   assert.doesNotMatch(html, /Wersja wcześniejsza/);
 });
 

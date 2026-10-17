@@ -60,6 +60,7 @@ export function rebaseWords(words, sourceStart, sourceEnd) {
   };
 }
 export function buildCandidateReel({
+  branding,
   words,
   duration,
   styleId,
@@ -74,10 +75,11 @@ export function buildCandidateReel({
     ? matchProducts(words, catalog)
     : { words, overlays: [] };
   const data = buildReel({
+    branding,
     source: "source.mp4",
-    words: styleId === "skyclass" ? words : products.words,
+    words: styleId === "skyclass" || clientId === "skyclass" ? words : products.words,
     duration,
-    silences: styleId === "skyclass" ? [] : silences,
+    silences: styleId === "skyclass" || clientId === "skyclass" ? [] : silences,
     style: styleId,
     client: clientId,
   });
@@ -85,7 +87,7 @@ export function buildCandidateReel({
     ...o,
     end: Math.min(o.end, duration),
   }));
-  if (styleId === "bisanz")
+  if (styleId === "bisanz" || clientId === "kacper-bisanz")
     data.segments = data.segments.map((s) => ({ ...s, zoom: 1, zoomTo: 1 }));
   data.framing = {
     mode: "crop",
@@ -171,6 +173,11 @@ export async function materializeCandidate(
         clientId: project.clientId ?? null,
       },
   };
+  // The public reel contains appearance only; account research stays in the private project.
+  if (origin.templateSnapshot.branding) {
+    const { knowledge: _knowledge, preferences: _preferences, ...appearanceTemplate } = origin.templateSnapshot;
+    origin.templateSnapshot = appearanceTemplate;
+  }
   origin.templateSnapshotHash = templateHash(origin.templateSnapshot);
   const existing = await readFile(directory, "utf8")
     .then(JSON.parse)
@@ -273,7 +280,8 @@ export async function materializeCandidate(
       `klienci/${project.clientId}/PREFERENCJE.md`,
     );
     const preferences = await readFile(prefs, "utf8");
-    await writeFile(path.join(work, "preferences.snapshot.md"), preferences);
+    if (!project.templateSnapshot?.branding)
+      await writeFile(path.join(work, "preferences.snapshot.md"), preferences);
     const catalogFile = await safePath(
       ctx.root,
       `klienci/${project.clientId}/produkty/produkty.json`,
@@ -286,6 +294,7 @@ export async function materializeCandidate(
       });
   }
   const data = buildCandidateReel({
+    branding: project.templateSnapshot?.branding,
     words: rebased.words,
     duration,
     styleId,
@@ -332,7 +341,7 @@ export async function materializeCandidate(
     "source.mp4",
     "origin.json",
     "transcript.json",
-    ...(project.clientId ? ["preferences.snapshot.md"] : []),
+    ...(project.clientId && !project.templateSnapshot?.branding ? ["preferences.snapshot.md"] : []),
   ])
     await rename(
       path.join(work, name),

@@ -11,6 +11,7 @@ import {
   writeMediaJson,
 } from "./quickcontent-ingest.mjs";
 import { outputDimensions } from "./quickcontent-portrait.mjs";
+import { brandingRenderFiles } from "../src/branding/appearance.mjs";
 const digestCache = new Map();
 async function cachedHash(file) {
   const s = await fs.stat(file),
@@ -37,12 +38,29 @@ async function filesUnder(root, relative) {
   }
   return files.sort();
 }
-async function inputFiles(root, reelName) {
+async function inputFiles(root, reelName, data) {
   const media =
     /\.(mp4|mov|m4v|webm|mkv|png|jpg|jpeg|webp|svg|gif|wav|mp3|m4a|ogg|ttf|otf|woff2?)$/i;
+  // Styles import each other for shared tokens; keep that explicit dependency closure.
+  const styleDependencies = {
+    brand: ["brand"],
+    persona: ["persona"],
+    skyclass: ["skyclass"],
+    herod: ["herod"],
+    bisanz: ["bisanz", "skyclass"],
+    ameryka: ["ameryka", "bisanz", "skyclass"],
+    glowup: ["glowup", "ameryka", "bisanz", "skyclass"],
+    vital: ["vital", "ameryka", "bisanz", "skyclass"],
+    happynews: ["happynews", "glowup", "ameryka", "bisanz", "skyclass"],
+  };
+  const styles = styleDependencies[data?.style ?? "persona"];
   const source = (await filesUnder(root, "src")).filter(
     (f) =>
       !f.startsWith("src/studio/") &&
+      !f.startsWith("src/motion/") &&
+      (!styles ||
+        !f.startsWith("src/styles/") ||
+        styles.some((s) => f === `src/styles/${s}.tsx`)) &&
       f !== "src/Root.tsx" &&
       /\.(tsx?|mjs|json|css)$/.test(f),
   );
@@ -50,16 +68,24 @@ async function inputFiles(root, reelName) {
     await Promise.all(
       [
         `public/reels/${reelName}`,
-        "public/fonts",
+        ...(data?.branding ? [] : ["public/fonts"]),
         "public/sfx",
-        "public/Brandings",
+        ...(data?.branding ? [] : ["public/Brandings"]),
       ].map((dir) => filesUnder(root, dir)),
     )
   )
     .flat()
     .filter(
-      (f) => media.test(f) && !/^review-.*\.png$/i.test(path.basename(f)),
+      (f) => media.test(f) && !/^review-.*\.png$/i.test(path.basename(f)) &&
+        // New immutable branding assets cannot affect unrelated legacy styles.
+        !/^public\/Brandings\/[^/]+\/(?:fonts|assets)\/[a-f0-9]{64}\./.test(f),
     );
+  for (const file of brandingRenderFiles(data?.branding)) {
+    const relative = `public/${file}`;
+    const checked = await safePath(root, relative);
+    if (!(await fs.stat(checked)).isFile()) throw new Error("Brak pliku brandingu.");
+    publicFiles.push(relative);
+  }
   const config = [];
   for (const file of ["package.json", "scripts/quickcontent-render.mjs"])
     if (await fs.stat(path.join(root, file)).catch(() => null))
@@ -70,7 +96,7 @@ export async function renderInputSignature(root, reelName, data) {
   if (!/^[a-z0-9][a-z0-9-]{0,79}$/.test(reelName))
     throw new Error("Nieprawidłowa nazwa rolki");
   const hash = createHash("sha256").update(JSON.stringify(data));
-  for (const file of await inputFiles(root, reelName)) {
+  for (const file of await inputFiles(root, reelName, data)) {
     hash.update(file);
     hash.update(await cachedHash(await safePath(root, file)));
   }
@@ -165,8 +191,11 @@ export async function renderReelSnapshot(
   { reelName, data, editRevision, outFile },
   ctx,
 ) {
+  const checkCancelled = () => ctx.signal?.throwIfAborted();
+  checkCancelled();
   const signature = await renderInputSignature(ctx.root, reelName, data),
     id = ctx.jobId ?? randomUUID();
+  checkCancelled();
   const directory = `.quickcontent/render-snapshots/${id}`,
     metadata = await safePath(ctx.root, directory + "/input.json", {
       create: true,
@@ -176,13 +205,15 @@ export async function renderReelSnapshot(
     directory + "/public/placeholder",
     { create: true },
   );
-  for (const file of (await inputFiles(ctx.root, reelName)).filter((f) =>
+  for (const file of (await inputFiles(ctx.root, reelName, data)).filter((f) =>
     f.startsWith("public/"),
   )) {
     const dest = await safePath(ctx.root, `${directory}/${file}`, {
       create: true,
     });
+    checkCancelled();
     await fs.copyFile(await safePath(ctx.root, file), dest);
+    checkCancelled();
   }
   const output =
     outFile ?? (await nextRenderPath(ctx.root, reelName, data.client ?? null));
@@ -212,6 +243,7 @@ export async function renderReelSnapshot(
   reportProgress(0);
   await progressReports;
   if (progressError) throw progressError;
+  checkCancelled();
   await ctx.runTool(
     process.execPath,
     [fileURLToPath(import.meta.url), "--render-snapshot", metadata],
@@ -230,8 +262,10 @@ export async function renderReelSnapshot(
   reportProgress(1);
   await progressReports;
   if (progressError) throw progressError;
+  checkCancelled();
   const tmp = await safePath(ctx.root, temp);
   const info = await probeSource(tmp, ctx);
+  checkCancelled();
   verifyRenderInfo(info, data);
   // Never overwrite an existing numbered output even if an external renderer used it meanwhile.
   await publishVerifiedRender(tmp, out);
@@ -247,6 +281,7 @@ export async function renderReelSnapshot(
     await safePath(ctx.root, directory + "/result.json"),
     record,
   );
+  checkCancelled();
   await ctx.checkpoint("render", [output, directory + "/result.json"]);
   return record;
 }
@@ -288,7 +323,10 @@ async function renderSnapshot(file) {
   reportProgress(1);
 }
 // Tylko gdy ten plik jest uruchomiony wprost — moduł importuje też renderer drugiego trybu (ta sama flaga).
-if (process.argv[2] === "--render-snapshot" && process.argv[1] === fileURLToPath(import.meta.url))
+if (
+  process.argv[2] === "--render-snapshot" &&
+  process.argv[1] === fileURLToPath(import.meta.url)
+)
   renderSnapshot(process.argv[3]).catch((error) => {
     process.stderr.write(error.message + "\n");
     process.exitCode = 1;

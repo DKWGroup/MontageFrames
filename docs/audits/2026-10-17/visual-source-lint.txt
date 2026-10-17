@@ -1,0 +1,40 @@
+TASTESKILL · LINT   2 file(s)
+
+FAIL
+  [eyebrow] Eyebrow / kicker label above a heading.  (1×)
+      ui/Landing.tsx:273  className="land-edit-kicker
+  [emoji] Emoji used as UI.  (5×)
+      ui/Landing.tsx:318  ✓
+      ui/Landing.tsx:319  ✓
+      ui/Landing.tsx:320  ✓
+      ui/Landing.tsx:394  ✓
+      ui/Landing.tsx:467  ✓
+  [hairline] Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields.  (9×)
+      ui/landing.css:78  border-bottom: 1px
+      ui/landing.css:323  border-top: 1px
+      ui/landing.css:389  border-bottom: 1px
+      ui/landing.css:580  border-bottom: 1px
+      ui/landing.css:617  border-bottom: 1px
+      ui/landing.css:1156  border-bottom: 1px
+      … 3 more
+  [shadow] Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may.  (4×)
+      ui/landing.css:920  box-shadow:
+      ui/landing.css:1049  box-shadow:
+      ui/landing.css:1498  box-shadow:
+      ui/landing.css:1568  box-shadow:
+  [gradient] Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception).  (1×)
+      ui/landing.css:993  linear-gradient(
+  [mono] Monospace type. Only literal code may be monospace.  (1×)
+      ui/landing.css:1627  font-family: monospace
+
+WARN
+  [outlined-box] A 1px outlined box. Prefer a filled surface or no box.  (6×)
+      ui/landing.css:168  border: 1px solid
+      ui/landing.css:534  border: 1px solid
+      ui/landing.css:1147  border: 1px solid
+      ui/landing.css:1226  border: 1px solid
+      ui/landing.css:1243  border: 1px solid
+      ui/landing.css:1696  border: 1px solid
+
+RESULT: 21 FAIL, 6 WARN — fix the FAILs before rendering.
+Interface fragments marked data-ui keep their own borders and shadows. Any other line that must keep a flagged pattern for a real reason can carry the comment taste-skill-ignore.

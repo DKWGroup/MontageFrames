@@ -56,11 +56,15 @@ async function loadUI(descriptionMocks = {}) {
           ? descriptionMocks.react
           : nodeRequire(path),
   );
+  const costs={};
+  new Function("exports","require",ts.transpileModule(await readFile(new URL("./QuickContentCosts.tsx",import.meta.url),"utf8"),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText)(costs,nodeRequire);
   const ui = { ...publication };
   const require = (path) =>
     path.endsWith(".css")
       ? {}
-      : path === "./PublicationDescription"
+      : path === "./QuickContentCosts"
+        ? costs
+        : path === "./PublicationDescription"
         ? publication
         : path === "./quickcontent-api"
           ? api

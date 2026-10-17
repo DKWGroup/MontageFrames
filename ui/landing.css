@@ -312,7 +312,7 @@
 .land-calc-inputs small {
   position: absolute;
   right: 12px;
-  font-size: 12px;
+  font-size: 13px;
   pointer-events: none;
 }
 .land-calc-tool output {
@@ -586,7 +586,7 @@
   gap: 10px;
 }
 .land-plan > small {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--land-muted);
   margin-top: 16px;
 }
@@ -696,7 +696,7 @@
     padding: 23px 17px;
   }
   .land-plan .land-button {
-    font-size: 12px;
+    font-size: 13px;
   }
   .land-price {
     flex-wrap: wrap;
@@ -727,7 +727,7 @@
     font-size: 18px;
   }
   .land-panel {
-    font-size: 12px;
+    font-size: 13px;
     gap: 6px;
   }
   .land-hero {
@@ -752,11 +752,11 @@
     gap: 12px;
   }
   .land-workflow-top {
-    font-size: 10px;
+    font-size: 13px;
     gap: 8px;
   }
   .land-workflow-top > span:first-child {
-    font-size: 12px;
+    font-size: 13px;
   }
   .land-section {
     padding: 80px 20px;
@@ -791,7 +791,7 @@
     gap: 20px 16px;
   }
   .land-calc-inputs label {
-    font-size: 12px;
+    font-size: 13px;
   }
   .land-calc-tool output strong {
     font-size: 60px;
@@ -1128,7 +1128,7 @@
   margin-bottom: 22px;
 }
 .land-edit-kicker {
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--land-blue);
@@ -1208,7 +1208,7 @@
   justify-content: space-between;
   margin: 0 0 10px 25px;
   color: #8f9db6;
-  font-size: 9px;
+  font-size: 13px;
 }
 .land-editor-track {
   display: flex;
@@ -1271,7 +1271,7 @@
   position: absolute;
   left: 19px;
   top: 23px;
-  font-size: 9px;
+  font-size: 13px;
   white-space: nowrap;
   border-radius: 4px;
   padding: 4px 6px;
@@ -1291,7 +1291,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: 13px;
   color: #738198;
 }
 .land-edit-progress > i {
@@ -1341,7 +1341,7 @@
     max-height: 920px;
   }
   .land-edit-heading .land-step {
-    font-size: 11px;
+    font-size: 13px;
     margin-bottom: 8px;
   }
   .land-phone-space {
@@ -1355,7 +1355,7 @@
     margin: -106px -53px;
   }
   .land-edit-kicker {
-    font-size: 9px;
+    font-size: 13px;
     margin-bottom: 8px;
   }
   .land-edit-copy {
@@ -1370,7 +1370,7 @@
   }
   .land-edit-words > span,
   .land-edit-words > b {
-    font-size: 10px;
+    font-size: 13px;
     padding: 2px 4px;
   }
   .land-editor-ruler {
@@ -1409,7 +1409,7 @@
     display: none;
   }
   .land-edit-progress {
-    font-size: 10px;
+    font-size: 13px;
   }
   .land-editor-caption {
     grid-template-columns: auto 1fr;
@@ -1451,7 +1451,7 @@
 }
 @media (max-width: 760px) {
   .land-edit-words > input {
-    font-size: 10px;
+    font-size: 13px;
     padding: 2px 4px;
   }
 }
@@ -1516,7 +1516,7 @@
 }
 .land-phone-source > span {
   color: #cad1df;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
 }
 .land-phone-source > small {
@@ -1554,7 +1554,7 @@
   background: #dce7ff;
 }
 .land-phone-bottom {
-  font-size: 9px;
+  font-size: 13px;
   color: #98a8c2;
 }
 .land-phone-dot,
@@ -1570,11 +1570,11 @@
 .land-editor-top {
   background: #23262e;
   padding: 14px 18px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .land-editor-top > span:last-child {
   color: #a5b1c5;
-  font-size: 10px;
+  font-size: 13px;
   align-self: center;
 }
 .land-editor-tools {
@@ -1583,7 +1583,7 @@
   padding: 13px 18px;
   border-bottom: 1px solid #303641;
   color: #a9b4c7;
-  font-size: 11px;
+  font-size: 13px;
 }
 .is-ai .land-editor-tools {
   color: #c1d3f8;
@@ -1593,7 +1593,7 @@
   border-color: #303641;
 }
 .land-editor-caption > span {
-  font-size: 10px;
+  font-size: 13px;
   color: #a5b1c5;
 }
 .land-edit-words {
@@ -1617,7 +1617,7 @@
   background: #303746;
 }
 .land-editor-caption small {
-  font-size: 11px;
+  font-size: 13px;
 }
 .land-editor-timeline {
   padding: 12px 18px 16px;
@@ -1632,10 +1632,10 @@
 }
 .land-editor-track > small {
   width: 36px;
-  font-size: 10px;
+  font-size: 13px;
 }
 .land-editor-track.subtitles > span {
-  font-size: 11px;
+  font-size: 13px;
 }
 .land-editor-track.video > span {
   background: #435768;
@@ -1674,7 +1674,7 @@
   background: #22262e;
   border-color: #303641;
   padding: 12px 18px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .is-ai .land-editor-result {
   background: #26334b;
@@ -1683,7 +1683,7 @@
   font-size: 15px;
 }
 .land-edit-proof {
-  font-size: 10px;
+  font-size: 13px;
   color: #6e7b8e;
 }
 .land-edit-progress {
@@ -1696,7 +1696,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   color: #66748a;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
 }
 .land-edit-progress > button[aria-pressed="true"] {
@@ -1726,16 +1726,16 @@
     font-size: 25px;
   }
   .land-edit-copy > p:last-child {
-    font-size: 12px;
+    font-size: 13px;
   }
   .land-editor-top {
     padding: 10px 12px;
-    font-size: 10px;
+    font-size: 13px;
   }
   .land-editor-tools {
     gap: 12px;
     padding: 10px 12px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .land-editor-caption {
     padding: 14px 12px;
@@ -1752,7 +1752,7 @@
     padding: 3px 5px;
   }
   .land-editor-caption small {
-    font-size: 9px;
+    font-size: 13px;
   }
   .land-editor-timeline {
     padding: 10px 12px;
@@ -1768,7 +1768,7 @@
     margin-left: 32px;
   }
   .land-editor-result {
-    font-size: 10px;
+    font-size: 13px;
     padding: 10px 12px;
   }
 }
@@ -1801,7 +1801,7 @@
     display: initial;
   }
   .land-edit-copy > p:last-child {
-    font-size: 11px;
+    font-size: 13px;
     max-width: 39ch;
   }
   .land-editor-caption {
@@ -1810,7 +1810,7 @@
   }
   .land-editor-tools {
     gap: 18px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .land-edit-words {
     margin: 8px 0;
@@ -1830,7 +1830,7 @@
     gap: 8px;
   }
   .land-edit-progress > button {
-    font-size: 10px;
+    font-size: 13px;
     padding: 7px 10px;
   }
   .land-edit-proof {
@@ -1967,7 +1967,7 @@
     font-size: 17px;
   }
   .land-time-fragments > span {
-    font-size: 12px;
+    font-size: 13px;
     padding: 14px 6px;
   }
 }
@@ -2049,4 +2049,28 @@
 }
 .land-edit-heading .land-step {
   display: block;
+}
+
+/* Readable comparison records on phones; keep the actual table and its headers. */
+.land-section h2, .land-roadmap h2, .land-final h2 { text-wrap:balance; }
+.land-edit-hint, .land-editor-finish, .land-editor-label { color:var(--land-ink); }
+@media (max-width:900px) {
+  .land-operators { grid-template-columns:1fr; }
+  .land-roadmap { grid-template-columns:140px minmax(0,1fr); gap:28px; padding:36px; }
+  .land-roadmap h2 { font-size:clamp(32px,4.6vw,44px); }
+}
+@media (max-width:600px) {
+  .land-table-scroll { overflow:visible; border:0; }
+  .land-comparison { min-width:0; width:100%; }
+  .land-comparison thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .land-comparison tbody,.land-comparison tr { display:block; }
+  .land-comparison tr { padding:22px 18px; margin-bottom:16px; background:var(--land-paper); }
+  .land-comparison tr.land-our-row { background:#edf3ff; }
+  .land-comparison th,.land-comparison td,.land-comparison th:first-child,.land-comparison td:nth-child(2) { display:block; width:auto; padding:8px 0; border:0; font-size:15px; }
+  .land-comparison th { font-size:20px; }
+  .land-comparison td::before { content:attr(data-label); display:block; margin-bottom:5px; color:var(--land-ink); font-size:13px; font-weight:650; }
+  .land-comparison caption { display:block; }
+  .land-roadmap { grid-template-columns:1fr; }
+  .land-roadmap .land-voice-symbol { display:none; }
+  .land-final h2 { font-size:clamp(30px,7.8vw,40px); }
 }

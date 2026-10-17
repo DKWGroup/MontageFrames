@@ -25,6 +25,8 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run lint
+      - run: npm run build
+      - run: npm run build:panel
       - run: node scripts/app-update-release.mjs out/release
       - name: Publish complete immutable release
         env:

@@ -270,9 +270,6 @@ export function Landing() {
               </div>
               <div className="land-edit-desk">
                 <div className="land-edit-copy">
-                  <p className="land-edit-kicker">
-                    {automatic ? "02 / Z MontageFrames" : "01 / Ręczny montaż"}
-                  </p>
                   <h3>
                     {automatic ? (
                       <>
@@ -476,11 +473,7 @@ export function Landing() {
         </section>
         <section className="land-section land-calculator" id="czas">
           <div>
-            <h2>
-              Policz czas,
-              <br />
-              który możesz odzyskać.
-            </h2>
+            <h2>Odzyskaj swój czas.</h2>
             <p>
               Wpisz własne założenia. Liczymy pracę przy montażu i kontroli
               efektu — nie czas, przez który komputer renderuje film.
@@ -594,13 +587,7 @@ export function Landing() {
         </section>
         <section className="land-section land-operators" id="integracje">
           <div>
-            <h2>
-              Twoje AI.
-              <br />
-              Twoje konto.
-              <br />
-              <span>Twój wybór.</span>
-            </h2>
+            <h2>AI na Twoim koncie.</h2>
             <p>
               MontageFrames można połączyć z Claude Code lub Codexem w
               terminalu. Korzystasz z własnej subskrypcji i jej limitów, bez
@@ -646,12 +633,7 @@ export function Landing() {
             <span />
           </div>
           <div>
-            <p className="land-coming">Wkrótce</p>
-            <h2>
-              Powiedz agentowi.
-              <br />
-              „Zmontuj tę rolkę”.
-            </h2>
+            <h2>Montaż na głos.</h2>
             <p>
               Planujemy integrację z agentami AI, takimi jak Hermes. Docelowo
               podłączysz wybrany folder Dysku Google do swojego agenta i zlecisz
@@ -696,23 +678,23 @@ export function Landing() {
                         <Arrow />
                       </a>
                     </th>
-                    <td>
+                    <td data-label="Cena i limit">
                       <strong>{x.price}</strong>
                       <span>{x.limit}</span>
                     </td>
-                    <td>{x.focus}</td>
+                    <td data-label="Główne zastosowanie">{x.focus}</td>
                   </tr>
                 ))}
                 <tr className="land-our-row">
                   <th scope="row">MontageFrames</th>
-                  <td>
+                  <td data-label="Cena i limit">
                     <strong>Plany od 129 zł/mies.</strong>
                     <span>
                       Od 15 rolek i 250 tys. tokenów poprawek. Oferta w
                       przygotowaniu.
                     </span>
                   </td>
-                  <td>
+                  <td data-label="Główne zastosowanie">
                     Profile klientów, automatyczny montaż i własny operator CLI.
                   </td>
                 </tr>
@@ -835,9 +817,9 @@ export function Landing() {
         </section>
         <section className="land-final">
           <h2>
-            Masz już nagranie.
+            Nagranie gotowe.
             <br />
-            Daj mu wyjść do ludzi.
+            Czas na montaż.
           </h2>
           <a className="land-button" href="/panel">
             Otwórz MontageFrames <Arrow />

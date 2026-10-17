@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-17",
+  "head": "f47ae631c16e9a08cb56f1fdd465d8457611fcc1",
+  "tests": {
+    "pass": 385,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 24
+  },
+  "remotionBuild": "passed",
+  "panelBuild": "passed",
+  "visualInspector": {
+    "fail": 13,
+    "warn": 6,
+    "widths": [
+      1440,
+      768,
+      390
+    ]
+  },
+  "reproducedLongformBugs": [
+    "stale-render-after-roughcut-edit",
+    "out-of-source-cut-accepted",
+    "concurrent-same-revision-saves-accepted"
+  ],
+  "implementationChanged": false
+}

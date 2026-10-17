@@ -1,0 +1,68 @@
+TASTESKILL · INSPECT   http://127.0.0.1:3100
+
+MEASURED (first viewport listed)
+  hero headline   "Ty nagrywasz. Resztę zmontuje AI."  5 words · 2 line(s) · 93.6px (6.5vw) · Cabinet 750 · tracking -0.035em · leading 1.04
+  @768px          2 line(s) · 49.9px
+  @390px          2 line(s) · 39px
+  typefaces       Fustat 92%, Cabinet 8%
+  sizes in use    9 / 10 / 11 / 12 / 13 / 14 / 15 / 16 / 17 / 18 / 21 / 22 / 23 / 24 / 28 / 32 / 34 / 35 / 38 / 46 / 48 / 56 / 58 / 64 / 72 / 82 / 94 / 112 px   body 16px / 1.6
+  colour          page #f5f8fc · sections #ffffff #f5f6f9 #164beb #f0f5fc #f4f7fd · button #ffffff
+  page            9.5 screens · 809 words · 0 images · hero media none
+  headings        24 · longest 3 line(s) · median 4 words
+
+FAIL — fix every one of these
+  [headline-lines] @1440px  1 headline(s) wrap past two lines at 1440px: "Twoje AI. Twoje konto. Twój wybór." → 3 lines (6 words, 57.6px)
+      → Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less.
+  [eyebrow] @1440px (+768, 390)  2 eyebrow/kicker label(s) above headings: "Przegląd i poprawki z AI" above "8,3 h"; "Wkrótce" above "Powiedz agentowi. „Zmontuj tę rolkę”."
+      → Delete them. If the label carried real information, fold it into the headline or the supporting sentence.
+  [numbering] @1440px (+768, 390)  Decorative index numbers: "01 / Ręczny montaż"
+      → Remove them. If order truly matters, write it into the words ("First, …") or use a real <ol>.
+  [emoji] @1440px (+768, 390)  Emoji in the page: ✓
+      → Remove. Use words or real imagery.
+  [gradient] @1440px (+768, 390)  1 gradient fill(s): div.land-phone → linear-gradient(120deg, rgb(85, 90, 99), rgb(19, 22, 29) 32%, rgb(89, 95, 106) 60%, rgb(32, 36, 44))
+      → Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.
+  [shadow] @1440px (+768, 390)  1 box-shadow(s) on elements at rest: div.land-phone → rgb(104, 110, 120) 2px 0px 0px 0px, rgb(48, 52, 62) 5px 2px 0px 0px, rgba(16, 40
+      → Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).
+  [hairline] @1440px (+768, 390)  26 thin rule(s)/divider line(s): header.land-nav 1376px | div.land-editor-top 731px | div.land-editor-tools 731px | div.land-editor-caption 731px
+      → Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.
+  [outlined-box] @1440px (+768, 390)  3 boxes drawn with a 1px outline.
+      → Define a surface by its fill (one tone step from the page) or leave the content unboxed.
+  [icon-cards] @1440px (+768, 390)  1 row(s) of identical cards each topped with a small icon (3 cards).
+      → Replace with one composed section from the direction: a narrative split, a list set in large type, or real imagery per item.
+  [few-pictures] @1440px  Only 1 picture(s) on the page (0 photographs, footage or raster images, 1 interface fragments). Drawings in SVG do not count.
+      → Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve.
+  [small-text] @1440px (+768, 390)  17 text blocks under 13px.
+      → Nothing meant to be read goes below 13px.
+  [headline-lines] @768px  3 headline(s) wrap past two lines at 768px: "Policz czas, który możesz odzyskać." → 3 lines (5 words, 36px); "Twoje AI. Twoje konto. Twój wybór." → 3 lines (6 words, 36px); "Powiedz agentowi. „Zmontuj tę rolkę”." → 4 lines (5 words, 48px)
+      → Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less.
+  [headline-lines] @390px  3 headline(s) wrap past two lines at 390px: "Policz czas, który możesz odzyskać." → 3 lines (5 words, 39px); "Twoje AI. Twoje konto. Twój wybór." → 3 lines (6 words, 39px); "Masz już nagranie. Daj mu wyjść do ludzi." → 3 lines (8 words, 42px)
+      → Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less.
+
+WARN — fix, or be able to defend
+  [micro-label] @1440px (+768, 390)  2 tiny uppercase letter-spaced label(s): "01 / Ręczny montaż", "Każde słowo osobno"
+      → Prefer sentence case at body size.
+  [contrast] @1440px (+768, 390)  Low-contrast text: "przytnij" 3.9:1 needs 4.5:1; "przesuń" 3.9:1 needs 4.5:1; "popraw" 3.9:1 needs 4.5:1; "Interaktywny schemat · układ ręcznego ed" 4:1 needs 4.5:1
+      → Darken or lighten the text colour.
+  [size-count] @1440px (+768, 390)  28 different font sizes (9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 28, 32, 34, 35, 38, 46, 48, 56, 58, 64, 72, 82, 94, 112).
+      → A page needs about five: display, heading, lead, body, small.
+  [grey-body] @1440px (+768, 390)  The running text is a soft grey on its ground (6.2:1).
+      → Set body copy in the full ink (7:1 or more). Keep the muted ink for secondary notes; pages read thin and unfinished when everything is grey.
+  [no-footage] @1440px  No video anywhere on the page.
+      → Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject.
+  [side-scroll] @390px  1 row(s) scroll sideways with content past their edge.
+      → Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid.
+
+LOOK AT THE RENDER — open these with your image viewer / Read tool before saying anything about quality:
+  desktop 1440px  .taste-skill/inspect/desktop-fold.jpg
+                  .taste-skill/inspect/desktop-page-01.jpg
+                  .taste-skill/inspect/desktop-page-02.jpg
+                  .taste-skill/inspect/desktop-page-03.jpg
+  tablet 768px    .taste-skill/inspect/tablet-fold.jpg
+                  .taste-skill/inspect/tablet-page-01.jpg
+                  .taste-skill/inspect/tablet-page-02.jpg
+  mobile 390px    .taste-skill/inspect/mobile-fold.jpg
+                  .taste-skill/inspect/mobile-page-01.jpg
+                  .taste-skill/inspect/mobile-page-02.jpg
+
+report: .taste-skill/inspect/report.json
+RESULT: 13 FAIL, 6 WARN — not done.

@@ -10,6 +10,7 @@ import {
 } from "node:fs/promises";
 import path from "node:path";
 import { randomUUID, createHash } from "node:crypto";
+import { createBrandingStore, snapshotBranding } from "./branding-store.mjs";
 import {
   SCHEMA_VERSION,
   IdSchema,
@@ -105,6 +106,8 @@ export function createStore(root) {
     const selected = registry.filter(
       (t) => clientId === undefined || t.clientId === (clientId || null),
     );
+    const brands = await createBrandingStore(root).templates(clientId);
+    selected.push(...brands.map(t => ({...t,assets:[]})));
     return Promise.all(
       selected.map(async (template) => {
         const required = [
@@ -125,7 +128,7 @@ export function createStore(root) {
             else throw e;
           }
         }
-        return { ...template, ready: missing.length === 0, missing };
+        return { ...template, ready: template.ready !== false && missing.length === 0, missing };
       }),
     );
   }
@@ -152,6 +155,10 @@ export function createStore(root) {
       await safePath(`src/styles/${template.styleId}.tsx`, { mustExist: true }),
     );
     const now = new Date().toISOString();
+    const branding = template.styleId === "brand"
+      ? await snapshotBranding(root, valid.clientId, template.brandingRevision)
+      : null;
+    const brandProfile = branding ? await createBrandingStore(root).version(valid.clientId, branding.revision) : null;
     const project = ProjectSchema.parse({
       ...valid,
       schemaVersion: SCHEMA_VERSION,
@@ -165,6 +172,7 @@ export function createStore(root) {
       batchIds: [],
       templateSnapshot: {
         ...template,
+        ...(branding ? {branding,knowledge:{businessDescription:brandProfile.businessDescription,audience:brandProfile.audience,tone:brandProfile.tone,notes:brandProfile.notes,assets:brandProfile.assets}} : {}),
         preferences: { general, client },
         styleHash: createHash("sha256").update(style).digest("hex"),
         snapshotAt: now,

@@ -1,4 +1,5 @@
 import { Updates } from "./Updates";
+import { brandingApi, type ProfileResponse } from "./branding-api";
 import { revealInvalidField } from "./form-disclosure.mjs";
 // Okna: „Nowa rolka” (wrzuć nagranie → operator montuje) i „Ustawienia” (operator AI).
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -102,6 +103,14 @@ export function NewReelDialog({
 }) {
   const [client, setClient] = useState(lib.clients[0]?.id ?? NEW);
   const [clientName, setClientName] = useState("");
+  const [branding, setBranding] = useState<ProfileResponse|null>(null);
+  const [useBranding, setUseBranding] = useState(false);
+  useEffect(()=>{
+    let active=true;
+    setBranding(null);setUseBranding(false);
+    if(client!==NEW)brandingApi.get(client).then(value=>{if(active)setBranding(value);},()=>{});
+    return ()=>{active=false;};
+  },[client]);
   const [main, setMain] = useState<File[]>([]);
   const [broll, setBroll] = useState<File[]>([]);
   const [name, setName] = useState("");
@@ -137,7 +146,7 @@ export function NewReelDialog({
         await upload(id, "przebitki", broll[i], () => {});
       }
       setProgress("Uruchamiam montaż…");
-      await api.start(name, { kind: "montage", input: path, render });
+      await api.start(name, { kind: "montage", input: path, render, ...(useBranding&&branding?.ready?{brandingRevision:branding.revision}:{}) });
       onStarted(name);
     } catch (e) {
       setError((e as Error).message);
@@ -166,6 +175,7 @@ export function NewReelDialog({
             <option value={NEW}>Nowy klient…</option>
           </select>
         </label>
+        {client !== NEW && <label className="field"><span>Wygląd rolki</span><select value={useBranding?"branding":"legacy"} onChange={e=>setUseBranding(e.target.value==="branding")}><option value="legacy">Dotychczasowy styl klienta</option><option value="branding" disabled={!branding?.ready}>Branding z panelu{branding?.revision?` — wersja ${branding.revision}`:" — wymaga uzupełnienia"}</option></select><small>Wybór wersji dotyczy tej nowej rolki. Profil ustawisz w „Branding klientów”.</small></label>}
         {client === NEW && (
           <label className="field">
             <span>Nazwa nowego klienta</span>

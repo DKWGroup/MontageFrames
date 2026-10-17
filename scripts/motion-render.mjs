@@ -4,12 +4,13 @@ import { fileURLToPath } from "node:url";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { validateMotion, productionReady } from "../src/motion/schema.mjs";
-import { packageMotionSource } from './motion-source.mjs';
+import { packageMotionSource } from "./motion-source.mjs";
 import {
   createMotionStore,
   outputDir,
   renderSignature,
   previewEvidence,
+  reserveMotionVersion,
 } from "../ui/motion-server.mjs";
 const exec = promisify(execFile);
 export function renderPlan(data, format, mode) {
@@ -37,7 +38,7 @@ export async function renderMotion(
 ) {
   const store = createMotionStore(root);
   const data = await store.get(name);
-  const signature = await renderSignature(root,data);
+  const signature = await renderSignature(root, data);
   const plan = renderPlan(data, format, mode);
   if (mode === "final" && !productionReady(data))
     throw new Error("Potrzeba 3 recenzji ≥8");
@@ -45,7 +46,10 @@ export async function renderMotion(
     throw new Error("Najpierw wyrenderuj podgląd formatu");
   const dir = outputDir(root, data);
   await fs.mkdir(dir, { recursive: true });
-  const base = path.join(dir, plan.prefix);
+  const base = path.join(
+    dir,
+    await reserveMotionVersion(root, data, format, mode),
+  );
   const props = { data, draft: mode !== "final" };
   await fs.writeFile(base + "-source.json", JSON.stringify(data, null, 2));
   const { bundle } = await import("@remotion/bundler");
@@ -193,6 +197,34 @@ export async function renderMotion(
         { maxBuffer: 10 * 1024 * 1024 },
       );
     }
+    const { stdout } = await exec("ffprobe", [
+      "-v",
+      "error",
+      "-show_streams",
+      "-show_format",
+      "-of",
+      "json",
+      base + ".mp4",
+    ]);
+    const probe = JSON.parse(stdout);
+    const video = probe.streams.find((stream) => stream.codec_type === "video");
+    const info = {
+      width: video?.width,
+      height: video?.height,
+      duration: Number(probe.format?.duration),
+      audioCodec: probe.streams.find((stream) => stream.codec_type === "audio")
+        ?.codec_name,
+    };
+    if (
+      !Number.isFinite(info.duration) ||
+      video?.codec_name !== "h264" ||
+      video?.pix_fmt !== "yuv420p" ||
+      info.width !== composition.width ||
+      info.height !== composition.height ||
+      Math.abs(info.duration - data.duration) > 0.15 ||
+      (data.music && !info.audioCodec)
+    )
+      throw new Error("Nieprawidłowy film Motion: wymiary, czas albo audio.");
     await fs.unlink(output);
   }
   await fs.writeFile(
@@ -213,8 +245,17 @@ export async function renderMotion(
     ),
   );
   // Preserve import paths and only include explicitly used assets.
-  await packageMotionSource(root,data,base+'-clean-source.zip',plan.composition,mode);
-  if(await renderSignature(root,data)!==signature) throw new Error('Źródła lub assety zmieniły się podczas renderu. Wyrenderuj ponownie; kontrola nie została zatwierdzona.');
+  await packageMotionSource(
+    root,
+    data,
+    base + "-clean-source.zip",
+    plan.composition,
+    mode,
+  );
+  if ((await renderSignature(root, data)) !== signature)
+    throw new Error(
+      "Źródła lub assety zmieniły się podczas renderu. Wyrenderuj ponownie; kontrola nie została zatwierdzona.",
+    );
   await fs.writeFile(
     base + "-evidence.json",
     JSON.stringify(

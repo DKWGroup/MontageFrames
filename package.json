@@ -1,7 +1,7 @@
 {
   "name": "MontageFrames",
   "version": "1.0.0",
-  "description": "Monta\u017c rolek: ci\u0119cie ciszy + animowane napisy (Remotion)",
+  "description": "Montaż rolek: cięcie ciszy + animowane napisy (Remotion)",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
@@ -42,7 +42,7 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src ui/App.tsx ui/Inspector.tsx ui/api.ts ui/QuickContent.tsx ui/LongForm.tsx ui/longform-*.mjs ui/quickcontent-*.mjs ui/quickcontent-api.ts ui/process-resource*.mjs scripts/quickcontent-*.mjs scripts/longform-*.mjs scripts/reel-description*.mjs ui/PublicationDescription.tsx ui/reel-publication-state*.mjs scripts/app-update*.mjs ui/update-server*.mjs ui/Updates.tsx ui/panel-navigation*.mjs ui/form-disclosure*.mjs ui/Landing.tsx ui/landing-data*.mjs ui/page-route*.mjs ui/main.tsx && tsc",
+    "lint": "eslint src ui scripts && tsc",
     "reel": "node scripts/prep.mjs",
     "test": "node --test scripts/*.test.mjs ui/*.test.mjs tests/motion-*.test.mjs",
     "ui": "vite --config vite.config.mjs",
@@ -52,7 +52,9 @@
     "prebuild": "npm run studio:sync",
     "update:install": "node scripts/app-update-cli.mjs install",
     "update:recover": "node scripts/app-update-cli.mjs recover",
-    "release:package": "node scripts/app-update-release.mjs"
+    "release:package": "node scripts/app-update-release.mjs",
+    "build:panel": "vite build --config vite.config.mjs",
+    "build:site": "vite build --config vite.site.config.mjs"
   },
   "sideEffects": [
     "*.css"

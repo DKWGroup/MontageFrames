@@ -56,6 +56,10 @@ export type JobStatus = "running" | "done" | "error" | "stopped";
 export type Library = {
   reels: {
     name: string;
+    title?: string;
+    thumbnail?: string | null;
+    module?: "reels" | "quickcontent";
+    renderState?: "current" | "stale" | "missing";
     client: string | null;
     style: string;
     seconds: number;
@@ -178,7 +182,7 @@ export const api = {
     ),
   start: (
     name: string,
-    body: { kind: JobKind; input?: string; message?: string; render?: boolean },
+    body: { kind: JobKind; input?: string; message?: string; render?: boolean; brandingRevision?: number },
   ) => call<{ ok: true }>("POST", `/job/${name}`, body),
   job: (name: string, since: number) =>
     call<JobPoll>("GET", `/job/${name}?since=${since}`),

@@ -1,3 +1,5 @@
+import {serveMedia} from "./media-response.mjs";
+export {parseRange} from "./media-response.mjs";
 import {
   generateReelDescription,
   readReelDescription,
@@ -5,9 +7,7 @@ import {
 import { validTracking } from "../src/quickcontent/framing.mjs";
 import fs from "node:fs/promises";
 import { Buffer } from "node:buffer";
-import { createReadStream } from "node:fs";
 import path from "node:path";
-import { pipeline } from "node:stream/promises";
 import { randomUUID, createHash } from "node:crypto";
 import { createStore, qcError } from "../scripts/quickcontent-store.mjs";
 import { createWorker } from "../scripts/quickcontent-worker.mjs";
@@ -90,57 +90,6 @@ async function jsonBody(req) {
     throw qcError("Niepoprawny JSON");
   }
 }
-export function parseRange(value, size) {
-  const m = String(value ?? "").match(/^bytes=(\d*)-(\d*)$/);
-  if (!m || (!m[1] && !m[2])) throw qcError("Nieprawidłowy zakres filmu", 416);
-  const start = m[1] ? Number(m[1]) : Math.max(0, size - Number(m[2])),
-    end = m[1]
-      ? m[2]
-        ? Math.min(size - 1, Number(m[2]))
-        : size - 1
-      : size - 1;
-  if (
-    !Number.isSafeInteger(start) ||
-    !Number.isSafeInteger(end) ||
-    start < 0 ||
-    start >= size ||
-    end < start
-  )
-    throw qcError("Zakres poza filmem", 416);
-  return { start, end };
-}
-async function serveMedia(req, res, file, type) {
-  const st = await fs.stat(file);
-  res.setHeader("Content-Type", type);
-  res.setHeader("Accept-Ranges", "bytes");
-  let range;
-  if (req.headers.range) {
-    try {
-      range = parseRange(req.headers.range, st.size);
-    } catch {
-      res.statusCode = 416;
-      res.setHeader("Content-Range", `bytes */${st.size}`);
-      res.end();
-      return true;
-    }
-    res.statusCode = 206;
-    res.setHeader(
-      "Content-Range",
-      `bytes ${range.start}-${range.end}/${st.size}`,
-    );
-  }
-  res.setHeader(
-    "Content-Length",
-    range ? range.end - range.start + 1 : st.size,
-  );
-  if (req.method === "HEAD") {
-    res.end();
-    return true;
-  }
-  await pipeline(createReadStream(file, range), res);
-  return true;
-}
-
 export function createQuickContentService(
   root,
   { providers = {}, isBusy = () => false } = {},
@@ -1157,6 +1106,7 @@ function validateEditedData(before, after) {
     after.source !== before.source ||
     after.client !== before.client ||
     after.style !== before.style ||
+    JSON.stringify(after.branding) !== JSON.stringify(before.branding) ||
     !Array.isArray(after.segments) ||
     !Array.isArray(after.captions)
   )
@@ -1240,7 +1190,7 @@ function validateEditedData(before, after) {
   )
     throw qcError("Nieprawidłowa grafika lub ścieżka assetu");
   if (
-    before.style === "skyclass" &&
+    (before.style === "skyclass" || before.client === "skyclass") &&
     (JSON.stringify(before.segments) !== JSON.stringify(after.segments) ||
       JSON.stringify(original.map((w) => [w.start, w.end])) !==
         JSON.stringify(updated.map((w) => [w.start, w.end])))

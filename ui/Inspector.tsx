@@ -40,6 +40,7 @@ type Props = {
   data: ReelData | null;
   lanes: Lanes | null;
   out: string;
+  currentRender?: string | null;
   files: RenderFile[];
   job: JobView;
   quickContent?: QuickContentReelInfo | null;
@@ -654,10 +655,7 @@ function Assistant(p: Props & { hasReel: boolean }) {
             type="submit"
             className="btn primary"
             disabled={
-              running ||
-              !msg.trim() ||
-              !p.hasReel ||
-              Boolean(p.isQuickContent && p.pendingSave)
+              running || !msg.trim() || !p.hasReel || Boolean(p.pendingSave)
             }
           >
             Wyślij poprawkę
@@ -665,11 +663,7 @@ function Assistant(p: Props & { hasReel: boolean }) {
           <button
             type="button"
             className="btn"
-            disabled={
-              running ||
-              !p.hasReel ||
-              Boolean(p.isQuickContent && p.pendingSave)
-            }
+            disabled={running || !p.hasReel || Boolean(p.pendingSave)}
             onClick={() => {
               if (
                 confirm(
@@ -702,11 +696,13 @@ function RenderTab(p: Props & { hasReel: boolean }) {
   const current =
     candidate && currentCandidate(candidate) && !p.pendingSave
       ? candidate.currentRender?.filePath
-      : null;
+      : !qcMode && !p.pendingSave
+        ? (p.currentRender ?? null)
+        : null;
   const files = reelRenderFiles(
     [...p.files].sort((a, b) => b.mtime - a.mtime),
     p.name,
-    qcMode,
+    true,
   );
   return (
     <div className="stack">
@@ -729,9 +725,25 @@ function RenderTab(p: Props & { hasReel: boolean }) {
           )}
         </div>
       ) : (
-        <p className="note">
-          Plik trafi do <code>{p.out}</code>.
-        </p>
+        <div className="note">
+          <p>
+            {p.pendingSave
+              ? "Najpierw zapisz poprawki."
+              : current
+                ? "Aktualny film jest gotowy."
+                : "Brak aktualnego renderu — wyrenderuj bieżące poprawki."}
+          </p>
+          <p>
+            Nowa wersja trafi do folderu{" "}
+            <code>{p.out.split("/").slice(0, -1).join("/")}</code>. Poprzednie
+            filmy pozostają zapisane.
+          </p>
+          {current && (
+            <a className="btn primary" href={api.fileUrl(current)} download>
+              Pobierz aktualny film
+            </a>
+          )}
+        </div>
       )}
       <div className="row">
         <button
@@ -740,7 +752,7 @@ function RenderTab(p: Props & { hasReel: boolean }) {
           disabled={
             running ||
             !p.hasReel ||
-            Boolean(qcMode && (p.pendingSave || p.quickContentLoading))
+            Boolean(p.pendingSave || p.quickContentLoading)
           }
           onClick={() => p.onStart({ kind: "render" })}
         >
@@ -758,13 +770,16 @@ function RenderTab(p: Props & { hasReel: boolean }) {
         <PublicationDescription
           key={p.name}
           reelName={p.name}
-          canGenerate={files.some((file) => {
-            const base = file.file.split("/").pop() ?? "";
-            return (
-              base === `${p.name}.mp4` ||
-              (base.startsWith(`${p.name}-v`) && /-v\d+\.mp4$/.test(base))
-            );
-          })}
+          canGenerate={
+            Boolean(current) &&
+            files.some((file) => {
+              const base = file.file.split("/").pop() ?? "";
+              return (
+                base === `${p.name}.mp4` ||
+                (base.startsWith(`${p.name}-v`) && /-v\d+\.mp4$/.test(base))
+              );
+            })
+          }
           refreshKey={`${p.job.status}:${publicationRefreshKey(candidate)}:${p.pendingSave}:${files
             .filter((file) =>
               (file.file.split("/").pop() ?? "").startsWith(p.name),
@@ -773,9 +788,7 @@ function RenderTab(p: Props & { hasReel: boolean }) {
             .join(",")}`}
         />
       )}
-      <h3 className="sub">
-        {qcMode ? "Wersje tej rolki" : "Gotowe pliki w tym folderze"}
-      </h3>
+      <h3 className="sub">Wersje tej rolki</h3>
       {p.quickContentLoading ? (
         <p className="note">Odczytuję informacje o aktualnej wersji…</p>
       ) : files.length ? (

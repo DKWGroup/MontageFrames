@@ -1,3 +1,7 @@
+## Poprawki po audycie — 2026-10-17
+
+- Wdrożyć pozostałe poprawki audytu z 17 października: ochrona zapisów i uploadów, wersje eksportów, media, QuickContent, biblioteka, landing i kontrola jakości kodu. Temat funkcji LongForm na razie pominąć; nie rozszerzać go ani nie poprawiać jego osobnych ekranów i workflow w tym etapie. Zachować lokalne projekty, źródła i wcześniejsze filmy.
+
 ## Landing: nagłówek sekcji montażu — 2026-10-17
 
 - Nagłówek „Ten sam materiał. Inny sposób pracy. / Mniej montowania. Więcej gotowych rolek.” nie może znikać pod hero ani być ucinany przez przypięty kontener. Na niskich ekranach zachować czytelność całej sekcji.
@@ -230,3 +234,13 @@ Kadr 1080×1920. Napisy, grafiki, logo i CTA trzymam tam, gdzie nie zasłoni ich
 
 - Landing dla twórców i małych agencji, ceny w PLN miesięcznie, pakiety liczby rolek i tokenów poprawek. Porównanie z Submagic, Captions i dodatkową konkurencją; aktualne źródła. Akcent na oszczędność ręcznej pracy, proces od wgrania do podglądu i eksportu, wejście do panelu na górze. Właścicielka wybrała budowę bezpośrednio w kodzie i zaakceptowała połączenie osi procesu, demonstracji przed/po oraz kalkulatora czasu.
 - Deklaracja właścicielki: 96% trafności polskich napisów przy dźwięku wyraźnym i zrozumiałym dla ludzkich uszu. Nie przedstawiać jako benchmark wykonanego badania. Własne konta Claude Code/Codex bez wymogu API; Hermes, agent głosowy i Dysk Google jako funkcja w przygotowaniu, nie gotowa integracja.
+
+## Panel brandingu klientów — 2026-10-17
+
+- Wdrożyć przygotowany plan brandingu; równolegle przygotować instrukcję publikacji projektu na Vercelu, dopasowaną do importu repo GitHub.
+- Potwierdzone: jeden wspólny profil brandingu dla zwykłych rolek i QuickContent; zmiany wyglądu dotyczą nowych montaży, wcześniejsze filmy zachowują swoją wersję.
+- Dodać osobny panel do tworzenia i edycji brandingu klienta oraz wyglądu rolek; najpierw research techniczny i projekt funkcji.
+- Panel: upload logo, zdjęć i przebitek z opisami, adres strony do pozyskania wiedzy i wyglądu, paleta maksymalnie 4–6 kolorów, pole własnych informacji.
+- Fonty: bazowo wybór z lokalnie zainstalowanych, upload własnych oraz wyszukiwarka Google Fonts / pobranie po nazwie.
+- Wygląd napisów: zwykłe, kinetic, pop-out; osobne ustawienia wyróżniania/podkreślania słów i emotek; możliwość późniejszego rozwoju stylów.
+- Przy projektowaniu używać design-taste-frontend w jego zakresie, Ponytail, UI/UX Pro Max i Impeccable. Projekt otworzyć lokalnie w karcie Codex.

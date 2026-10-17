@@ -61,3 +61,12 @@ src/Root.tsx
 
 .venv/
 venv/
+
+# Private branding profiles, research and imported immutable assets
+.branding/
+klienci/*/branding/
+public/Brandings/*/assets/
+public/Brandings/*/fonts/
+dist-site/
+klienci/branding-test-2026/
+klienci/branding-render-check/

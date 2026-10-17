@@ -1,0 +1,57 @@
+edit-after-done { status: 200, body: { revision: 2 } }
+renders-after-edit {
+  status: 200,
+  body: { renders: [ [Object] ], current: 'out/check-v001.mp4' }
+}
+state-after-edit {
+  id: 'check',
+  source: 'source.mp4',
+  duration: 10,
+  state: 'done',
+  roughcutRevision: 2,
+  editRevision: 1,
+  planRevision: 1,
+  planStale: false,
+  renderStale: false,
+  renders: [ { file: 'out/check-v001.mp4', key: '1.1', verified: true } ]
+}
+out-of-source-schema true
+out-of-source-put { status: 200, body: { revision: 3 } }
+out-of-source-approve {
+  status: 200,
+  body: {
+    id: 'check',
+    source: 'source.mp4',
+    duration: 10,
+    state: 'cuts-approved',
+    roughcutRevision: 3,
+    editRevision: 2,
+    planRevision: 1,
+    planStale: true,
+    renderStale: true,
+    renders: [ [Object] ]
+  }
+}
+segments-after-approve [
+  { start: 0, end: 500, zoom: 1 },
+  { start: 501, end: 1000, zoom: 1.1 }
+]
+censor-filter [
+  '-hide_banner',
+  '-v',
+  'error',
+  '-y',
+  '-i',
+  'x.mp4',
+  '-vn',
+  '-af',
+  "volume=enable='between(t,1,2)':volume=0",
+  '-c:a',
+  'pcm_s24le',
+  'x.wav'
+]
+parallel-saves [
+  { status: 200, body: { revision: 6 } },
+  { status: 200, body: { revision: 6 } }
+]
+revision-after-two-saves 6

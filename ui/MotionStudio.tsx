@@ -100,17 +100,18 @@ export function MotionStudio({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     if (job.status !== "running") setFilesVersion((v) => v + 1);
   }, [job.status, data?.name]);
+  const projectName=data?.name;
   useEffect(() => {
-    if (!data) return;
+    if (!projectName) return;
     const id = setInterval(
       () =>
-        request<Job>(`/${data.name}/job`).then(setJob, (e) =>
+        request<Job>(`/${projectName}/job`).then(setJob, (e) =>
           setError(e.message),
         ),
       1000,
     );
     return () => clearInterval(id);
-  }, [data?.name]);
+  }, [projectName]);
   const edit = (d: MotionData) => {
     setData({ ...d, reviews: [] });
     setStatus("Niezapisane zmiany • recenzje wymagają powtórzenia");

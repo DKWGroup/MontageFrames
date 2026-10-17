@@ -2,6 +2,14 @@
 
 Wrzucasz nagranie, operator AI montuje je według zasad klienta, poprawiasz szczegóły w podglądzie i renderujesz do `klienci/<klient>/Render/`.
 
+## Zapis i wersje po audycie (2026-10-17)
+
+Zwykły edytor, podobnie jak QuickContent, sprawdza rewizję przed zapisem. Konflikt zachowuje lokalny szkic; błąd zapisu blokuje montaż i render do czasu rozwiązania problemu. Plik uploadu o istniejącej nazwie daje konflikt — zmień nazwę, zamiast traktować zgodny rozmiar jako identyczny film.
+
+Render zwykłej rolki z panelu tworzy kolejne `<nazwa>-vNNN.mp4` ze snapshotu i weryfikuje wynik. Poprawka oznacza poprzedni film jako wymagający nowego renderu; wcześniejsze pliki pozostają do pobrania. Motion również numeruje preview/draft/final i ich artefakty. Bezpośredni ręczny render CLI używa ścieżki podanej w poleceniu.
+
+Biblioteka pokazuje tytuły propozycji, miniatury i stan wyniku; wyszukiwanie obejmuje tytuł i klienta. Zakładka Render pokazuje wersje wybranej rolki. Aktualny stan i granice odbioru: [macierz](docs/acceptance-matrix.md), [raport napraw](docs/audits/2026-10-17/fixes.md).
+
 ## QuickContent — moduł w odbiorze *(2026-10-15)*
 
 W bocznym menu wybierz **QuickContent → Nowy projekt** (`http://127.0.0.1:3100/#qc`). Wklej YouTube albo wgraj film, wybierz klienta lub przestrzeń roboczą, szablon, Auto/tematy i długość. „Przetwarzaj” zapisuje źródło, uruchamia Whisper i analizę; dopiero „Zmontuj zaznaczone” montuje wybrane propozycje. Postęp pokazuje etap i rzeczywisty pomiar; partia liczy aktualne rendery. Rolka otwiera istniejący edytor z napisami, kadrem, czatem i wersjami MP4.
@@ -106,3 +114,15 @@ KacperBisanz ma wyłączone zoomy kamery; tracking w poziomie pozostaje. Poprzed
 ### Własne wytyczne i poprawianie opisów (2026-10-15)
 
 QuickContent → projekt → **Ustawienia**: pole wskazówek do opisu przed pierwszym montażem. Przy konkretnej rolce można zapisać inne wskazówki. Opisy powstają w pierwszej osobie autora. Przy gotowym opisie zmień tekst w polu i kliknij **Zapisz opis bez AI**; zapis jest bezpłatny, nie uruchamia renderu. **Kopiuj opis** kopiuje aktualnie widoczny tekst. Ponowne generowanie korzysta zAPI i jest rozliczane oddzielnie.
+
+## Branding klientów (2026-10-17)
+
+Wybierz **Branding klientów** w menu (`/panel#branding`), klienta albo „Dodaj klienta”. W sekcjach dodasz wiedzę i adres strony, logo/zdjęcia/przebitki z opisami, paletę z limitem4/5/6, fonty i styl napisów. Fonty domyślnie pochodzą z lokalnego Maca; dostępne są również fonty aplikacji, Google Fonts i własny plik. Importowane są konkretne pliki z polskimi znakami; TTC/dfont wymagają osobnego TTF/OTF. Sam upload nie instaluje fontu w systemie.
+
+Podgląd9:16 używa tego samego komponentu napisów co render. „Odtwórz od początku” uruchamia próbkę. Na telefonie przełączysz Ustawienia/Podgląd rolki. Zmiany utrwala **Zapisz branding** — każda wersja zostaje zachowana. Konflikt zapisu409 zachowuje draft i pozwala go pobrać. Nie nadpisuj ręcznych PREFERENCJE klienta formularzem.
+
+W **Nowej rolce** pole „Wygląd rolki” pozwala wybrać zapisany branding zamiast dotychczasowego stylu. W **QuickContent** zapisany profil pojawia się jako wersjonowany szablon klienta. Profil bez zaimportowanego fontu można zapisać jako draft, ale nie użyć do montażu. Zmiana profilu wpływa na nowe zlecenia; wcześniejsze projekty zachowują snapshot.
+
+Analiza strony działa na publicznym URL, bez logowania. Najpierw otrzymujesz propozycje i źródła; dopiero **Zastosuj wybrane dane** zmienia draft. Gdy konto AI nie może uporządkować wiedzy, odczytane treści i style pozostają dostępne, z ograniczeniem w panelu. Nie wszystkie strony oparte na XHR/workerach można odczytać. [Dowody i ograniczenia](docs/branding/acceptance.md).
+
+Publikacja publicznej strony: [ustawienia Vercela](docs/vercel.md). Użyj `npm run build:site` i `dist-site`; pełny lokalny silnik nie jest automatycznie przenoszony na Vercela.
