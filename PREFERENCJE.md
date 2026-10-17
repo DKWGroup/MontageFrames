@@ -1,3 +1,7 @@
+## Naprawa CI i aktualizacja GitHub — 2026-10-17
+
+- Naprawić błędy testów na runnerze GitHub (FFmpeg/ffprobe i zależność testów AI od lokalnych Claude/Codex CLI), sprawdzić testy, lint i build oraz wysłać aktualny kod aplikacji do repozytorium. Bez prywatnych źródeł, sekretów i lokalnych artefaktów.
+
 ## Poprawki po audycie — 2026-10-17
 
 - Wdrożyć pozostałe poprawki audytu z 17 października: ochrona zapisów i uploadów, wersje eksportów, media, QuickContent, biblioteka, landing i kontrola jakości kodu. Temat funkcji LongForm na razie pominąć; nie rozszerzać go ani nie poprawiać jego osobnych ekranów i workflow w tym etapie. Zachować lokalne projekty, źródła i wcześniejsze filmy.
