@@ -20,6 +20,13 @@ import {
 } from "./quickcontent-ingest.mjs";
 import { detectPortraitFraming } from "./quickcontent-portrait.mjs";
 const local = (t) => Number(t.toFixed(6));
+export function hdrToSdrFilter(transfer, scaleOptions) {
+  // New FFmpeg has native color transfer; Ubuntu's older build uses libzimg.
+  if (scaleOptions.includes("in_primaries"))
+    return `scale=in_color_matrix=bt2020:in_primaries=bt2020:in_transfer=${transfer}:out_primaries=bt709:out_transfer=linear,format=gbrpf32le,tonemap=tonemap=hable:desat=0,scale=in_primaries=bt709:in_transfer=linear:out_color_matrix=bt709:out_primaries=bt709:out_transfer=bt709,format=yuv420p`;
+  return `zscale=matrixin=2020_ncl:primariesin=2020:transferin=${transfer}:primaries=709:transfer=linear:npl=100,format=gbrpf32le,tonemap=tonemap=hable:desat=0,zscale=primariesin=709:transferin=linear:primaries=709:transfer=709:matrix=709,format=yuv420p`;
+}
+
 export function rebaseWords(words, sourceStart, sourceEnd) {
   if (
     !Number.isFinite(sourceStart) ||
@@ -215,9 +222,11 @@ export async function materializeCandidate(
   await mkdir(work);
   const clip = path.join(work, "source.mp4");
   const hdr = ["smpte2084", "arib-std-b67"].includes(info.colorTransfer);
-  const filters = hdr
-    ? `scale=in_color_matrix=bt2020:in_primaries=bt2020:in_transfer=${info.colorTransfer}:out_primaries=bt709:out_transfer=linear,format=gbrpf32le,tonemap=tonemap=hable:desat=0,scale=in_primaries=bt709:in_transfer=linear:out_color_matrix=bt709:out_primaries=bt709:out_transfer=bt709,format=yuv420p`
-    : "format=yuv420p";
+  let filters = "format=yuv420p";
+  if (hdr) {
+    const help = await runMediaTool("ffmpeg", ["-hide_banner", "-h", "filter=scale"], ctx);
+    filters = hdrToSdrFilter(info.colorTransfer, help.stdout ?? "");
+  }
   await runMediaTool(
     "ffmpeg",
     [

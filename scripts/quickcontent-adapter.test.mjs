@@ -453,7 +453,7 @@ test("real local FFmpeg converts PQ HDR with available native filters to SDR", a
       "-i",
       "sine=frequency=440:duration=1",
       "-vf",
-      "scale=in_color_matrix=bt709:in_primaries=bt709:in_transfer=bt709:out_color_matrix=bt2020:out_primaries=bt2020:out_transfer=smpte2084,format=yuv420p10le",
+      "format=yuv420p10le,setparams=color_primaries=bt2020:color_trc=smpte2084:colorspace=bt2020nc",
       "-color_primaries",
       "bt2020",
       "-color_trc",
@@ -507,4 +507,19 @@ test("real local FFmpeg converts PQ HDR with available native filters to SDR", a
   assert.equal(clip.colorPrimaries, "bt709");
   assert.equal(clip.pixelFormat, "yuv420p");
   assert.equal(clip.fps, "30/1");
+});
+
+
+test("HDR conversion selects native scale or legacy zscale capabilities", () => {
+  const native = module.hdrToSdrFilter("smpte2084", "in_primaries out_primaries in_transfer out_transfer");
+  const legacy = module.hdrToSdrFilter("smpte2084", "in_color_matrix out_color_matrix");
+  assert.match(native, /^scale=in_color_matrix=bt2020/);
+  assert.match(native, /in_transfer=smpte2084/);
+  assert.match(legacy, /^zscale=matrixin=2020_ncl/);
+  assert.match(legacy, /transferin=smpte2084/);
+  assert.match(module.hdrToSdrFilter("arib-std-b67", ""), /transferin=arib-std-b67/);
+  for (const filter of [native, legacy]) {
+    assert.match(filter, /format=gbrpf32le,tonemap=tonemap=hable:desat=0,/);
+    assert.match(filter, /format=yuv420p$/);
+  }
 });

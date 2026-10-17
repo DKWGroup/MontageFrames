@@ -1,5 +1,6 @@
 ## Naprawa CI i aktualizacja GitHub — 2026-10-17
 
+- Zachować konwersję HDR→SDR również na starszym FFmpeg z Ubuntu; test HDR nie może wymagać nowych opcji `scale` dostępnych tylko w lokalnej instalacji.
 - Naprawić błędy testów na runnerze GitHub (FFmpeg/ffprobe i zależność testów AI od lokalnych Claude/Codex CLI), sprawdzić testy, lint i build oraz wysłać aktualny kod aplikacji do repozytorium. Bez prywatnych źródeł, sekretów i lokalnych artefaktów.
 
 ## Poprawki po audycie — 2026-10-17
