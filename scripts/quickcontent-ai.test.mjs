@@ -54,12 +54,19 @@ test("copied server env routes structured analysis to OpenAI without spawning Cl
   );
   assert.deepEqual(result, { ok: true });
 });
+function mockCLIResolver(t) {
+  const resolve = t.mock.fn((name) => name);
+  t.after(() => assert.equal(resolve.mock.callCount(), 1));
+  return resolve;
+}
+
 test("Claude fallback uses a valid explicit empty MCP registry", async (t) => {
   const root = await fixture(t);
   const result = await requestQuickContentAI(
     { prompt: "JSON", schema, name: "qc_test" },
     {
       root,
+      resolveCLI: mockCLIResolver(t),
       runTool: async (exe, args) => {
         assert.equal(exe, "claude");
         assert.deepEqual(JSON.parse(args[args.indexOf("--mcp-config") + 1]), {
@@ -180,6 +187,7 @@ test("explicit Codex account never uses API keys and reads structured output fil
       fetch() {
         throw Error("No API");
       },
+      resolveCLI: mockCLIResolver(t),
       runTool: async (exe, args, options) => {
         assert.equal(exe, "codex");
         assert.ok(args.includes("--sandbox"));
@@ -214,6 +222,7 @@ test("explicit Claude account ignores paid panel key and does not fall back to A
       recordUsage: async (r) => {
         receipt = r;
       },
+      resolveCLI: mockCLIResolver(t),
       runTool: async (exe, args, options) => {
         assert.equal(exe, "claude");
         assert.equal(options.env.ANTHROPIC_API_KEY, undefined);
@@ -254,4 +263,28 @@ test("CLI resolver finds an executable outside server PATH", async (t) => {
 test('account-only odrzuca płatne API jeszcze przed fetch i nie robi fallbacku', async(t)=>{
   const root=await fixture(t,'MONTAGEFRAMES_ACCOUNT_ONLY=1\nOPENAI_API_KEY=test-key\n');
   await assert.rejects(requestQuickContentAI({prompt:'JSON',schema},{root,aiProvider:'openai',fetch(){throw Error('fetch must never run');}}),/tylko.*kont|account-only/i);
+});
+
+test("missing account CLI rejects before execution without an API fallback", async (t) => {
+  const { resolveCLI } = await import("./quickcontent-ai.mjs");
+  const root = await fixture(t, "OPENAI_API_KEY=unused-test-key\n");
+  for (const aiProvider of ["claude", "codex"]) {
+    await assert.rejects(
+      requestQuickContentAI(
+        { prompt: "JSON", schema },
+        {
+          root,
+          aiProvider,
+          resolveCLI: (name) => resolveCLI(name, { searchPath: "", fallbacks: [] }),
+          runTool() {
+            assert.fail("Missing CLI must not run");
+          },
+          fetch() {
+            assert.fail("Missing CLI must not use paid API");
+          },
+        },
+      ),
+      (error) => error.code === "ENOENT" && error.message.includes(aiProvider),
+    );
+  }
 });

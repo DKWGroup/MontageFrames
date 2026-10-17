@@ -152,11 +152,15 @@ export async function requestQuickContentAI(
     JSON.stringify({ mcpServers: {} }),
   );
   if (schema) args.push("--json-schema", JSON.stringify(schema));
-  const result = await ctx.runTool(await resolveCLI(command.cmd), args, {
-    cwd: ctx.root,
-    env: { ...command.env, ...accountEnv },
-    maxOutputBytes: 16 * 1024 * 1024,
-  });
+  const result = await ctx.runTool(
+    await (ctx.resolveCLI ?? resolveCLI)(command.cmd),
+    args,
+    {
+      cwd: ctx.root,
+      env: { ...command.env, ...accountEnv },
+      maxOutputBytes: 16 * 1024 * 1024,
+    },
+  );
   if (result.outputTruncated)
     throw new Error("Odpowiedź operatora przekroczyła limit danych");
   await ctx.recordUsage?.({
@@ -276,7 +280,7 @@ async function requestCodex({ prompt, schema }, ctx) {
     runtimeLabel: "Codex · konto ChatGPT",
     progressDetail: "Redakcja przez zalogowane konto Codex",
   });
-  const run = await ctx.runTool(await resolveCLI("codex"), args, {
+  const run = await ctx.runTool(await (ctx.resolveCLI ?? resolveCLI)("codex"), args, {
     cwd: path.dirname(output),
     env: accountEnv,
     maxOutputBytes: 16 * 1024 * 1024,

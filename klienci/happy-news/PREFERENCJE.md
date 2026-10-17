@@ -72,3 +72,8 @@ Program newsowy (Happy News, projekt Kacpra Bisanza i Damiana Abramowicza). Ten 
 
 - Usunąć gwałtowne dodatkowe przeskoki kadrowania i krótkie zmiany układu przy cięciach; zachować prawdziwe cięcia kamer, stabilną skalę i spokojny tracking.
 - Metkę „Pełny materiał dostępny na / @ONLYHAPPYNEWS” wycentrować względem całej szerokości rolki, pomijając dla tej metki globalne boczne safe zone.
+
+## Usunięcie migotania i skoków na cięciach — 2026-10-17
+
+- Zsynchronizować zmianę układu i kadru z dokładną klatką rzeczywistego cięcia kamery. Zmiana wybranego mówcy w trackingu nie jest cięciem źródła i nie może resetować skali ani układu.
+- Wyeliminować krótkie przebłyski poprzedniego kadru, pompowanie skali i drżenie podziałów. Zachować spokojny ruch, zdjęcia w ich kolejności, napisy, hook i metkę. Sprawdzić lokalnie i wysłać poprawkę kodu na GitHub.

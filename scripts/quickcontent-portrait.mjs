@@ -216,6 +216,7 @@ export async function detectPortraitFraming(
     duration,
   });
   if (styleId === "happynews") {
+    framing.cameraCuts = cuts;
     framing.sourceAspect = width / height;
     framing.layouts = buildHappyLayouts({
       samples,
