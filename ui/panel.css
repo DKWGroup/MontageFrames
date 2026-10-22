@@ -1183,3 +1183,38 @@ details[open] > summary {
 .reel-copy strong { font-size:16px; line-height:1.35; font-weight:600; overflow-wrap:anywhere; }
 .reel-copy small { font-size:13px; color:var(--muted); }
 @media(max-width:600px) { .library-filters { align-items:stretch; flex-direction:column; gap:12px; } }
+
+/* Rolka wrzucona na social media: czerwona obramówka (biblioteka i QuickContent). */
+.social-used {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.social-used input {
+  accent-color: #d92d20;
+}
+.social-used small {
+  flex-basis: 100%;
+  color: #d92d20;
+}
+.library-grid li {
+  border: 2px solid transparent;
+  border-radius: 12px;
+}
+.library-grid li:has(.social-used input:checked),
+.qc-card:has(.social-used input:checked),
+.qc-card:has(.social-used input:checked):hover {
+  border-color: #d92d20;
+}
+.qc-card:has(.social-used input:checked) {
+  box-shadow: 0 0 0 1px #d92d20;
+}
+.social-used:has(input:checked) {
+  color: #b42318;
+}
