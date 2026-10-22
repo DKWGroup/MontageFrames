@@ -60,6 +60,7 @@ export type Library = {
     thumbnail?: string | null;
     module?: "reels" | "quickcontent";
     renderState?: "current" | "stale" | "missing";
+    used?: boolean;
     client: string | null;
     style: string;
     seconds: number;
@@ -147,6 +148,12 @@ export const api = {
       {},
     ),
   library: () => call<Library>("GET", "/library"),
+  social: (name: string) =>
+    call<{ used: boolean }>("GET", `/social/${encodeURIComponent(name)}`),
+  setSocial: (name: string, used: boolean) =>
+    call<{ used: boolean }>("PUT", `/social/${encodeURIComponent(name)}`, {
+      used,
+    }),
   reel: (name: string) => call<ReelData>("GET", `/reel/${name}`),
   reelState: async (
     name: string,

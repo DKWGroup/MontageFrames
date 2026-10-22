@@ -6,6 +6,7 @@ import { MotionStudio } from "./MotionStudio";
 import { LongForm } from "./LongForm";
 import { parseLfHash } from "./longform-view.mjs";
 import { QuickContent } from "./QuickContent";
+import { SocialCheckbox } from "./SocialUsed";
 import {
   currentCandidate,
   createReelSaveQueue,
@@ -923,50 +924,15 @@ function ReelLibrary({
             <h2>{g.label}</h2>
             {g.reels.length ? (
               <ul>
-                {g.reels.map((r) => {
-                  const j = lib?.jobs[r.name];
-                  return (
-                    <li key={r.name}>
-                      <button
-                        type="button"
-                        className="reel"
-                        aria-current={sel === r.name}
-                        onClick={() => {
-                          onSelect(r.name);
-                        }}
-                      >
-                        {r.thumbnail && (
-                          <img
-                            className="reel-thumb"
-                            src={r.thumbnail}
-                            alt=""
-                            loading="lazy"
-                            onError={(e) => {
-                              e.currentTarget.style.display = "none";
-                            }}
-                          />
-                        )}
-                        <span className="reel-copy">
-                          <strong>{r.title ?? r.name}</strong>
-                          <small>
-                            {r.renderState === "current"
-                              ? "Aktualny render"
-                              : r.renderState === "stale"
-                                ? "Wymaga aktualnego renderu"
-                                : "Bez renderu"}
-                          </small>
-                        </span>
-                        {j?.status === "running" ? (
-                          <i className="dot run" aria-label="trwa praca" />
-                        ) : j?.status === "error" ? (
-                          <i className="dot err" aria-label="błąd" />
-                        ) : (
-                          <small>{r.seconds ? fmt(r.seconds) : ""}</small>
-                        )}
-                      </button>
-                    </li>
-                  );
-                })}
+                {g.reels.map((r) => (
+                  <LibraryReel
+                    key={r.name}
+                    r={r}
+                    job={lib?.jobs[r.name]}
+                    current={sel === r.name}
+                    onSelect={onSelect}
+                  />
+                ))}
               </ul>
             ) : (
               <p className="note small">Brak rolek</p>
@@ -975,6 +941,71 @@ function ReelLibrary({
         ))}
       </div>
     </div>
+  );
+}
+
+function LibraryReel({
+  r,
+  job,
+  current,
+  onSelect,
+}: {
+  r: Pick<
+    Library["reels"][number],
+    "name" | "title" | "thumbnail" | "renderState" | "seconds" | "used"
+  >;
+  job?: Library["jobs"][string];
+  current: boolean;
+  onSelect: (name: string) => void;
+}) {
+  return (
+    <li>
+      <button
+        type="button"
+        className="reel"
+        aria-current={current}
+        onClick={() => {
+          onSelect(r.name);
+        }}
+      >
+        {r.thumbnail && (
+          <img
+            className="reel-thumb"
+            src={r.thumbnail}
+            alt=""
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        )}
+        <span className="reel-copy">
+          <strong>{r.title ?? r.name}</strong>
+          <small>
+            {r.renderState === "current"
+              ? "Aktualny render"
+              : r.renderState === "stale"
+                ? "Wymaga aktualnego renderu"
+                : "Bez renderu"}
+          </small>
+        </span>
+        {job?.status === "running" ? (
+          <i className="dot run" aria-label="trwa praca" />
+        ) : job?.status === "error" ? (
+          <i className="dot err" aria-label="błąd" />
+        ) : (
+          <small>{r.seconds ? fmt(r.seconds) : ""}</small>
+        )}
+      </button>
+      {/* rolka w przygotowaniu nie ma jeszcze reel.json, więc nie da się jej oznaczyć */}
+      {r.used !== undefined && (
+        <SocialCheckbox
+          name={r.name}
+          title={r.title ?? r.name}
+          initial={r.used}
+        />
+      )}
+    </li>
   );
 }
 

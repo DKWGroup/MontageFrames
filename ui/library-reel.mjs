@@ -21,6 +21,7 @@ export async function libraryReel(root, name, projectForOrigin) {
   const data = await json(`public/reels/${name}/reel.json`);
   if (!data) return null;
   const origin = await json(`public/reels/${name}/origin.json`);
+  const social = await json(`public/reels/${name}/social.json`);
   let candidate = null,
     thumbnail = null;
   if (origin?.kind === "quickcontent" && projectForOrigin) {
@@ -64,5 +65,6 @@ export async function libraryReel(root, name, projectForOrigin) {
     thumbnail,
     module: origin?.kind === "quickcontent" ? "quickcontent" : "reels",
     renderState: current ? "current" : exists ? "stale" : "missing",
+    used: social?.used === true,
   };
 }

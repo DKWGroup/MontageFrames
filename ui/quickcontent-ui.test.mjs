@@ -58,10 +58,14 @@ async function loadUI(descriptionMocks = {}) {
   );
   const costs={};
   new Function("exports","require",ts.transpileModule(await readFile(new URL("./QuickContentCosts.tsx",import.meta.url),"utf8"),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText)(costs,nodeRequire);
+  const social = {};
+  new Function("exports","require",ts.transpileModule(await readFile(new URL("./SocialUsed.tsx",import.meta.url),"utf8"),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText)(social,(path)=>path==="./api"?{api:descriptionMocks.api}:nodeRequire(path));
   const ui = { ...publication };
   const require = (path) =>
     path.endsWith(".css")
       ? {}
+      : path === "./SocialUsed"
+        ? social
       : path === "./QuickContentCosts"
         ? costs
         : path === "./PublicationDescription"
@@ -643,7 +647,8 @@ test("finished film cards play and download the verified render, and open the ex
   assert.match(html, /Jak zacząć prowadzić firmę/);
   assert.match(html, /Obejrzyj i popraw/);
   assert.match(html, /download=""[^>]*>Pobierz/);
-  assert.doesNotMatch(html, /checkbox|Zmontuj zaznaczone|surowy fragment/);
+  assert.doesNotMatch(html, /Wybierz do montażu|Zmontuj zaznaczone|surowy fragment/);
+  assert.match(html, /type="checkbox"[^>]*\/><span>Wrzucona na social media/);
 });
 
 test("finished film keeps the latest verified earlier version accessible after edits", async () => {
