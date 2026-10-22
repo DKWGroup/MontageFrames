@@ -1,3 +1,7 @@
+## Oznaczenie rolki wrzuconej na social media — 2026-10-23
+
+- W bibliotece rolek MontageFrames i w QuickContent (propozycje i zmontowane) każda rolka ma checkbox „Wrzucona na social media”, który można zaznaczyć i odznaczyć. Zaznaczona rolka ma czerwoną obramówkę. Stan zapisuje się trwale przy rolce i nie zmienia montażu ani renderu. Po wdrożeniu wysłać zmiany na GitHub.
+
 ## Naprawa CI i aktualizacja GitHub — 2026-10-17
 
 - Zachować konwersję HDR→SDR również na starszym FFmpeg z Ubuntu; test HDR nie może wymagać nowych opcji `scale` dostępnych tylko w lokalnej instalacji.

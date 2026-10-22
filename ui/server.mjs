@@ -786,6 +786,17 @@ async function route(req, res) {
       }),
     );
   }
+  if (what === "social" && ["GET", "PUT"].includes(m)) {
+    // Znacznik „wrzucona na social media” — osobny plik, żeby nie ruszać rewizji montażu ani renderu.
+    const file = path.join(path.dirname(reelFile(name)), "social.json");
+    if (!fs.existsSync(reelFile(name))) throw fail(404, "Nie ma takiej rolki");
+    if (m === "GET") return send(res, 200, await readJson(file, { used: false }));
+    const { used } = await body(req);
+    if (typeof used !== "boolean") throw fail(400, "Pole used musi być true albo false");
+    const next = { used, at: new Date().toISOString() };
+    await writeJson(file, next);
+    return send(res, 200, next);
+  }
   if (m === "GET" && what === "library") return send(res, 200, await library());
   if (what === "reel" && m === "GET") {
     const state = await quickcontent.readEditedReel(name);
