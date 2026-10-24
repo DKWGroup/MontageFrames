@@ -1,9 +1,12 @@
+import { GeometryScope, GeometryCapture } from "./quality/GeometryCapture";
+import { geometryInventory } from "./quality/geometry-plan.mjs";
 import {
   HappyNewsSource,
   HappyNewsCredit,
 } from "./quickcontent/HappyNewsSource";
 import { happyCaptionY, happyHookY, layoutAt } from "./quickcontent/layout.mjs";
 import { captionEmojis } from "./caption-decoration.mjs";
+import { brandingEmoji } from "./branding/appearance.mjs";
 import { trackingPosition, cameraScale } from "./quickcontent/framing.mjs";
 import type { Framing } from "./quickcontent/framing.mjs";
 import { useEffect, useState, type ReactElement } from "react";
@@ -20,12 +23,31 @@ import {
   type SequenceProps,
 } from "remotion";
 import { overlayLabel } from "./timeline-labels";
-import { captionClips, censorWord, muteGain, reelDimensions, reelFrames, toOut, zoomThroughAt, type Mute } from "./reel-timing";
-import { isLongFormEffect, LongFormEffect, SourceTag } from "./longform/effects";
-import { isMaskEffect, maskBgFilter, MaskLayers, maskScales } from "./longform/mask";
+import {
+  captionClips,
+  censorWord,
+  muteGain,
+  reelDimensions,
+  reelFrames,
+  toOut,
+  zoomThroughAt,
+  type Mute,
+} from "./reel-timing";
+import {
+  isLongFormEffect,
+  LongFormEffect,
+  SourceTag,
+} from "./longform/effects";
+import {
+  isMaskEffect,
+  maskBgFilter,
+  MaskLayers,
+  maskScales,
+} from "./longform/mask";
 export { keptWords, reelFrames, toOut } from "./reel-timing";
 import { TimelineSequence } from "./TimelineSequence";
 import { loadFonts } from "./fonts";
+import type { FontBinding } from "./font-catalog.mjs";
 import type { BrandingSnapshot } from "./branding/types";
 import { loadBrandFonts } from "./branding/fonts";
 import { BrandLogo } from "./branding/BrandLogo";
@@ -75,6 +97,10 @@ export type Segment = {
   zoomTo?: number;
 };
 export type ReelData = {
+  renderAssets?: {
+    fonts?: FontBinding[];
+    decorations?: { wordId: string; emoji: string; src?: string }[];
+  };
   branding?: BrandingSnapshot;
   source: string;
   outputResolution?: 720 | 1080 | 2160;
@@ -91,10 +117,17 @@ export type ReelData = {
   framing?: Framing;
   format?: { width: number; height: number }; // LongForm: np. 1920×1080; brak = pion 1080×1920
   mutes?: Mute[]; // LongForm: cenzura — wyciszenia w czasie źródła + SFX z public/sfx/index.json
+  sfx?: { at: number; src: string; volume?: number }[]; // efekty dźwiękowe w czasie źródła (plik w folderze rolki); volume = mnożnik ≥10 dB pod głosem
 };
 
 // Wpis public/sfx/index.json; rmsDb = zmierzony poziom pliku (do miksu −10 dB względem wypowiedzi).
-type Sfx = { id: string; file: string; license: string; source: string; rmsDb?: number };
+type Sfx = {
+  id: string;
+  file: string;
+  license: string;
+  source: string;
+  rmsDb?: number;
+};
 
 // Napisy dostają słowa z czasem `at` = sekundy od początku grupy na osi wyjściowej.
 export type StyleProps = {
@@ -105,6 +138,8 @@ export type StyleProps = {
     key: boolean;
     hl: boolean;
     emoji?: string | null;
+    emojiSrc?: string;
+    qualityId?: string;
   })[];
   durationInFrames: number;
   raised: boolean; // na dole jest grafika -> napis wyżej, nad nią
@@ -124,6 +159,7 @@ export const STYLES: Record<string, React.FC<StyleProps>> = {
 };
 
 export type ReelProps = {
+  qualityMeasurement?: {manifestSignature:string;rasterTarget?:string};
   reel: string;
   data?: ReelData;
   timeline?: Record<string, ReactElement<SequenceProps>>;
@@ -137,9 +173,13 @@ export async function loadSfx(data: ReelData): Promise<Sfx[]> {
         .then((r) => (r.ok ? r.json() : []))
         .catch(() => [])
     : [];
-  for (const id of new Set((data.mutes ?? []).map((m) => m.sfx).filter(Boolean)))
+  for (const id of new Set(
+    (data.mutes ?? []).map((m) => m.sfx).filter(Boolean),
+  ))
     if (!sfx.some((x) => x.id === id))
-      console.warn(`Brak SFX „${id}” w public/sfx/index.json — cenzura bez dźwięku.`);
+      console.warn(
+        `Brak SFX „${id}” w public/sfx/index.json — cenzura bez dźwięku.`,
+      );
   return sfx;
 }
 
@@ -170,7 +210,19 @@ const SourceShot: React.FC<{
   mutes?: Mute[];
   zoomThrough?: { start: number }[];
   maskFx?: Overlay[];
-}> = ({ reel, source, s, fps, dur, muted, framing, styleId, mutes, zoomThrough, maskFx }) => {
+}> = ({
+  reel,
+  source,
+  s,
+  fps,
+  dur,
+  muted,
+  framing,
+  styleId,
+  mutes,
+  zoomThrough,
+  maskFx,
+}) => {
   const localFrame = useCurrentFrame();
   const zt = zoomThroughAt(s.start + localFrame / fps, zoomThrough);
   const t = s.start + localFrame / fps;
@@ -199,7 +251,10 @@ const SourceShot: React.FC<{
     height: "100%",
     objectFit: fit ? "contain" : "cover",
     objectPosition: `${position.centerX * 100}% ${position.centerY * 100}%`,
-    transformOrigin: styleId !== "bisanz" && position.scale !== undefined ? "50% 25%" : undefined,
+    transformOrigin:
+      styleId !== "bisanz" && position.scale !== undefined
+        ? "50% 25%"
+        : undefined,
     transform: `scale(${cameraScale(styleId, s, fit ? 1 : adaptiveScale, localFrame / dur) * zt.scale})`,
   };
   return (
@@ -241,36 +296,58 @@ const SourceShot: React.FC<{
         style={{
           ...videoStyle,
           transform: `${videoStyle.transform} scale(${fxScale.bg})`,
-          filter: [zt.blur ? `blur(${zt.blur}px)` : "", maskBgFilter(fx, t) ?? ""].join(" ").trim() || undefined,
+          filter:
+            [zt.blur ? `blur(${zt.blur}px)` : "", maskBgFilter(fx, t) ?? ""]
+              .join(" ")
+              .trim() || undefined,
         }}
       />
       {fx && (
-        <MaskLayers o={fx} t={t} reel={reel} shotStart={s.start} fps={fps} videoStyle={videoStyle} personScale={fxScale.person} styleId={styleId} />
+        <MaskLayers
+          o={fx}
+          t={t}
+          reel={reel}
+          shotStart={s.start}
+          fps={fps}
+          videoStyle={videoStyle}
+          personScale={fxScale.person}
+          styleId={styleId}
+        />
       )}
     </AbsoluteFill>
   );
 };
 
-export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
+export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx, qualityMeasurement }) => {
   const currentFrame = useCurrentFrame();
   const { delayRender, continueRender, cancelRender } = useDelayRender();
   const [ready, setReady] = useState(false);
-  const brandFonts = !data?.branding?.styleId || data.branding.styleId === "brand"
-    ? data?.branding?.fonts
-    : undefined;
+  const renderFonts = data?.renderAssets?.fonts;
+  const brandFonts =
+    !data?.branding?.styleId || data.branding.styleId === "brand"
+      ? data?.branding?.fonts
+      : undefined;
   useEffect(() => {
     let active = true;
     setReady(false);
     const handle = delayRender("fonty");
-    Promise.all([loadFonts(), loadBrandFonts(brandFonts ? {fonts:brandFonts} : undefined)])
+    Promise.all([
+      loadFonts(renderFonts),
+      loadBrandFonts(brandFonts ? { fonts: brandFonts } : undefined),
+    ])
       .then(() => {
         if (active) setReady(true);
         continueRender(handle);
       })
-      .catch((e) => { if (active) cancelRender(e); else continueRender(handle); });
-    return () => { active = false; };
+      .catch((e) => {
+        if (active) cancelRender(e);
+        else continueRender(handle);
+      });
+    return () => {
+      active = false;
+    };
     // Loading is keyed by the exact manifest; other draft edits need no font reload.
-  }, [brandFonts, delayRender, continueRender, cancelRender]);
+  }, [brandFonts, renderFonts, delayRender, continueRender, cancelRender]);
 
   if (!data) return null;
   const fps = data.fps ?? 30;
@@ -310,12 +387,20 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
                 : data.style === "happynews"
                   ? HappyNewsOverlay
                   : OverlayView;
-  const bottom = (data.overlays ?? []).filter((o) => atBottom(o) && !isLongFormEffect(o));
-  const zoomThrough = (data.overlays ?? []).filter((o) => o.lf && o.type === "zoom-through");
+  const clips = captionClips(data);
+  const inventory = qualityMeasurement ? geometryInventory(data, clips, toOut) : [];
+  const expected = inventory.filter(i => currentFrame >= i.from && currentFrame < i.from + i.durationInFrames).map(({id,role}) => ({id,role}));
+  const bottom = (data.overlays ?? []).filter(
+    (o) => atBottom(o) && !isLongFormEffect(o),
+  );
+  const zoomThrough = (data.overlays ?? []).filter(
+    (o) => o.lf && o.type === "zoom-through",
+  );
   const maskFx = (data.overlays ?? []).filter(isMaskEffect);
 
   return (
-    <AbsoluteFill showInTimeline={false} style={{ backgroundColor: "black" }}>
+    <AbsoluteFill data-quality-root={qualityMeasurement ? "true" : undefined} showInTimeline={false} style={{ backgroundColor: "black" }}>
+      {qualityMeasurement && <GeometryCapture signature={qualityMeasurement.manifestSignature} expected={expected} ready={ready} rasterTarget={qualityMeasurement.rasterTarget} />}
       {data.style === "skyclass" && (
         <Audio
           name="Dźwięk · pełne nagranie"
@@ -325,7 +410,11 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
       )}
       {(data.mutes ?? []).map((m, i) => {
         const file = sfx?.find((x) => x.id === m.sfx);
-        if (!file || !segments.some((s) => m.start >= s.start && m.start < s.end)) return null;
+        if (
+          !file ||
+          !segments.some((s) => m.start >= s.start && m.start < s.end)
+        )
+          return null;
         // SFX 10 dB pod poziomem wypowiedzi wokół słowa (PREFERENCJE.md → Efekty dźwiękowe)
         const volume =
           m.level != null && file.rmsDb != null
@@ -343,6 +432,19 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
           </Sequence>
         );
       })}
+      {(data.sfx ?? []).map((e, i) =>
+        segments.some((s) => e.at >= s.start && e.at < s.end) ? (
+          <Sequence
+            key={`sfx${i}`}
+            name={`SFX ${i + 1} · ${e.src}`}
+            from={frame(e.at)}
+            durationInFrames={Math.round(3 * fps)}
+            layout="none"
+          >
+            <Audio src={staticFile(`reels/${reel}/${e.src}`)} volume={e.volume ?? 0.316} />
+          </Sequence>
+        ) : null,
+      )}
       {segments.map((s, i) => {
         const from = frame(s.start);
         const dur =
@@ -394,8 +496,14 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
           >
             {ready &&
               (isLongFormEffect(o) ? (
-                <LongFormEffect o={o} dur={clipDuration(`o${i}`, dur)} src={(file) => staticFile(`reels/${reel}/${file}`)} style={data.style} />
+                <LongFormEffect
+                  o={o}
+                  dur={clipDuration(`o${i}`, dur)}
+                  src={(file) => staticFile(`reels/${reel}/${file}`)}
+                  style={data.style}
+                />
               ) : (
+                <GeometryScope enabled={!!qualityMeasurement && ["title","emoji"].includes(o.type)} id={`o${i}`} role={o.type === "title" ? "hook" : "emoji"}>
                 <OverlayComponent
                   o={
                     data.style === "happynews" && o.type === "title"
@@ -406,12 +514,19 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
                   src={(file) => staticFile(`reels/${reel}/${file}`)}
                   at={(t) => toOut(t, segments) - toOut(o.start, segments)}
                 />
+                </GeometryScope>
               ))}
-            {ready && o.lf && o.source && <SourceTag o={o} dur={clipDuration(`o${i}`, dur)} style={data.style} />}
+            {ready && o.lf && o.source && (
+              <SourceTag
+                o={o}
+                dur={clipDuration(`o${i}`, dur)}
+                style={data.style}
+              />
+            )}
           </TimelineSequence>
         );
       })}
-      {captionClips(data).map(
+      {clips.map(
         ({ g, index, words, start, end, from, durationInFrames: dur }) => {
           return (
             <TimelineSequence
@@ -424,21 +539,39 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
               layout="none"
             >
               {ready && (
+                <GeometryScope enabled={!!qualityMeasurement} id={`c${index}`} role="caption">
                 <Style
                   branding={data.branding}
                   group={
                     data.style === "happynews"
-                      ? {...g, y: happyCaptionY(newsLayout?.kind, g.y)}
+                      ? { ...g, y: happyCaptionY(newsLayout?.kind, g.y) }
                       : g
                   }
                   words={words.map((w, wordIndex) => ({
                     ...w,
-                    text: data.mutes?.some((m) => m.start >= w.start && m.start < w.end)
+                    qualityId: qualityMeasurement ? `c${index}w${g.words.indexOf(w)}` : undefined,
+                    text: data.mutes?.some(
+                      (m) => m.start >= w.start && m.start < w.end,
+                    )
                       ? censorWord(w.text)
                       : w.text,
-                    emoji: data.style === "happynews"
-                      ? captionEmojis(words, data.overlays)[wordIndex]
-                      : null,
+                    emoji: data.renderAssets?.decorations
+                      ? (data.renderAssets.decorations.find(
+                          (d) => d.wordId === `c${index}w${g.words.indexOf(w)}`,
+                        )?.emoji ?? null)
+                      : data.style === "happynews"
+                        ? captionEmojis(words, data.overlays)[wordIndex]
+                        : data.style === "brand"
+                          ? brandingEmoji(w.text, data.branding)
+                          : null,
+                    emojiSrc: (() => {
+                      const d = data.renderAssets?.decorations?.find(
+                        (d) => d.wordId === `c${index}w${g.words.indexOf(w)}`,
+                      );
+                      return d?.src
+                        ? staticFile(`reels/${reel}/${d.src}`)
+                        : undefined;
+                    })(),
                     at: toOut(w.start, segments) - start,
                     key: w === g.words[g.key ?? 0],
                     hl: g.hl?.includes(g.words.indexOf(w)) ?? false,
@@ -452,6 +585,7 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx }) => {
                       toOut(o.end, segments) > start,
                   )}
                 />
+                </GeometryScope>
               )}
             </TimelineSequence>
           );

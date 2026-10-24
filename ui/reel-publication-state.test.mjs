@@ -70,3 +70,43 @@ test("versioned receipt resolves newest output and detects renderer changes", as
   );
   assert.equal(await fs.readFile(root + "/out/demo-v001.mp4", "utf8"), "old");
 });
+
+test("QuickContent description accepts a verified revision despite renderer updates and rejects missing or edited films", async (t) => {
+  const { quickContentDescriptionReady } =
+    await import("./reel-publication-state.mjs");
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), "qc-description-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(path.join(root, "out"));
+  await fs.writeFile(path.join(root, "out/film.mp4"), "verified video");
+  const render = {
+    verified: true,
+    renderRevision: 3,
+    signature: "older-engine",
+    filePath: "out/film.mp4",
+  };
+  const candidate = {
+    editRevision: 3,
+    isCurrent: false,
+    currentRender: null,
+    renders: [render],
+  };
+  assert.equal(await quickContentDescriptionReady(root, candidate), true);
+  assert.equal(
+    await quickContentDescriptionReady(root, { ...candidate, editRevision: 4 }),
+    false,
+  );
+  assert.equal(
+    await quickContentDescriptionReady(root, {
+      ...candidate,
+      renders: [{ ...render, verified: false }],
+    }),
+    false,
+  );
+  assert.equal(
+    await quickContentDescriptionReady(root, { ...candidate, renders: [] }),
+    false,
+  );
+  assert.equal(await quickContentDescriptionReady(root, undefined), false);
+  await fs.unlink(path.join(root, "out/film.mp4"));
+  assert.equal(await quickContentDescriptionReady(root, candidate), false);
+});

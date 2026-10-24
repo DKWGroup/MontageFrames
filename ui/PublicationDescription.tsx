@@ -131,8 +131,9 @@ export function PublicationDescriptionView(p: ViewProps) {
       {p.error && <p role="alert">{p.error}</p>}
       {p.canGenerate === false && (
         <p className="publication-description-meta">
-          Wskazówki możesz zapisać teraz. Opis AI będzie dostępny po ukończeniu
-          filmu.
+          Wskazówki możesz zapisać teraz. Opis AI będzie dostępny po
+          wyrenderowaniu aktualnej wersji filmu („Obejrzyj i popraw” →
+          „Renderuj”).
         </p>
       )}
       <div className="publication-description-actions">

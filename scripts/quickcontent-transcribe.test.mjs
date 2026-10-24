@@ -174,3 +174,41 @@ test("ASR publishes real audio progress and awaits reports before committing its
   assert.ok(reports.some((r) => /Ładowanie/.test(r.progressDetail ?? "")));
   assert.equal(reports.at(-1).progress, 1);
 });
+
+test("ignores empty Whisper tail segments with backward timestamps without losing speech", () => {
+  const input = globalThis.structuredClone(raw);
+  input.segments.push(
+    { start: 2.98, end: 2.98, text: "", words: [] },
+    { start: 2.96, end: 2.96, text: "  ", words: [] },
+  );
+  const normalized = module.normalizeWhisper(input, 3);
+  assert.equal(normalized.status, "ready");
+  assert.equal(normalized.segments.length, 1);
+  assert.deepEqual(
+    normalized.words.map(({ text, start, end }) => ({ text, start, end })),
+    module
+      .normalizeWhisper(raw, 3)
+      .words.map(({ text, start, end }) => ({ text, start, end })),
+  );
+});
+test("empty text does not bypass validation of nonempty word timestamps", () => {
+  const input = globalThis.structuredClone(raw);
+  input.segments.push({
+    start: 0.1,
+    end: 0.5,
+    text: "",
+    words: [{ word: "mowa", start: 0.1, end: 0.5 }],
+  });
+  assert.throws(
+    () => module.normalizeWhisper(input, 3),
+    /zakres segmentu Whisper/,
+  );
+  assert.throws(
+    () =>
+      module.normalizeWhisper(
+        { segments: [{ start: 0, end: 1, text: "mowa", words: [] }] },
+        3,
+      ),
+    /bez rzeczywistych słów/,
+  );
+});

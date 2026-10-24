@@ -137,3 +137,22 @@ Przebitka trwa 2–4 s, bez znaków wodnych i obcych napisów, domyślnie bez w�
 - Rolki Kacpra Bisanza zawsze korzystają z klienta kacper-bisanz i stylu bisanz, także tworzone w panelu QuickContent/Studio. Podkreślenia i markery wyłącznie #066FED, białe litery, Inter. Pomarańczowy styl persona jest błędem przypisania i należy go poprawić w istniejących rolkach.
 - Instrukcje częstych automatycznych emotek/flag, dużych naklejek za słowem i popów dotyczyły tylko Happy News. Nie dodawać ich automatycznie do Bisanza. Emotka tylko na konkretne polecenie do danej rolki i przy jednoznacznym znaczeniu; bez przypadkowych skojarzeń, ideogramów i przycisków CJK.
 - Zachować dotychczasowe zasady: tracking pozycji bez zoomów kamery, hook pod napisami przez pierwsze 3 s, czytelne różnorodne animacje. Poprawić istniejące rolki z aktualnego projektu o kredycie, bez ponownej płatnej analizy.
+
+## Kadr zawsze na Kacpra, bez „newsowego” 16:9 — 2026-10-22
+
+- W pionie QuickContent kadr jest **zawsze przycięty na Kacpra**, jak wcześniej. Nigdy nie przełączać na widok 16:9 w środku z rozmytym filmem u góry i na dole (`fit` z Happy News), także gdy detektor na chwilę zgubi twarz (np. Kacper patrzy w telefon). Wtedy kadr zostaje tam, gdzie był w poprzednim ujęciu.
+- Poprawić rolkę „Regularne wpłaty i statystyka w budowaniu kapitału” (`qc-ae470d7074e8f8bc-7b06abfbb7206df8`); poprzedni render zostaje.
+
+## Bliższy kadr: napisy pod twarzą, hook nad twarzą — 2026-10-22
+
+- Gdy kadr jest bliżej na Kacpra (duża twarz w pionie), napisy wypowiedzi **nigdy nie nachodzą na twarz** — stoją pod brodą, z zapasem na ruch głowy, w strefie bezpiecznej (dolna krawędź ≤ 0,75).
+- Hook (pierwsze ~3 s) w takim kadrze stoi **nad twarzą/głową**, nie pod napisami. Dla rolek Kacpra to zastępuje globalną zasadę „hook pod napisami” z 2026-10-15. Hook nie wchodzi na twarz i mieści się od y ≈ 0,13.
+- Sprawdzam to na klatkach każdego ujęcia (kadr zmienia się przy cięciach kamer), nie tylko na jednej.
+
+
+## Obliczenia jako animacja i przebitki — 2026-10-23
+
+- Rolka „Jaka nieruchomość da 6000 zł miesięcznie?” (`qc-ae470d7074e8f8bc-7895785b0fb9ca9a`): dostosować do aktualnego profilu i dodać pasujące przebitki oraz animacje obliczeń. Karta `calc` (silnik bisanz) pokazuje kroki rachunku, gdy padają, a wynik odlicza się w #066FED. Liczby tylko z wypowiedzi. Poprzedni render zostaje.
+- **Kwoty w jednym kawałku (2026-10-23):** „1 200 000”, „1 300 000”, „2,4 mln” nie mogą się łamać ani rozpadać na osobne znaczniki. Grupy cyfr rozbite przez ASR sklejam w jedno słowo ze spacją nierozdzielającą (`mergeNumberGroups` w `scripts/prep.mjs`, robi to też prep). Czasy: start pierwszej grupy, koniec ostatniej.
+- **SFX w rolkach Kacpra (2026-10-23):** krótki **pop** przy wejściu grafiki, przebitki, hooka i pieczątki; **cash register** przy kwotach (gdy pada kwota, wynik obliczenia, licznik dochodzi do wartości). Pop i kasa nie częściej niż co ~0,5 s, głośność ok. 10–13 dB pod szczytami głosu (mnożnik ~0,3). Zapis w `reel.json` → `sfx: [{ at, src, volume }]` (czas źródła, plik w folderze rolki).
+- **Opis do publikacji (2026-10-23):** opis generuje się dopiero z renderu aktualnej rewizji zrobionego przez pipeline QuickContent. Ręczny `npx remotion render` nie rejestruje wersji w panelu, więc po poprawkach rolki QuickContent renderuję przez panel/pipeline.

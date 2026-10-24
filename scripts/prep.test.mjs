@@ -215,3 +215,11 @@ test("Bisanz groups more context while retaining every original timed word", () 
   assert.ok(bisanz.captions.length < old.captions.length);
   assert.ok(bisanz.captions.every((c) => c.words.length <= 6));
 });
+
+test("mergeNumberGroups skleja kwoty rozbite przez ASR", async () => {
+  const { mergeNumberGroups } = await import("./prep.mjs");
+  const w = (text, start) => ({ text, start, end: start + 1 });
+  const out = mergeNumberGroups([w("1", 0), w("200", 1), w("000,", 2), w("8,", 3), w("100", 4), w("2", 5), w(",4", 6)]);
+  assert.deepEqual(out.map((x) => x.text), ["1 200 000,", "8,", "100", "2,4"]);
+  assert.deepEqual([out[0].start, out[0].end], [0, 3]);
+});

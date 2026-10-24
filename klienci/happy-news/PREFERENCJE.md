@@ -77,3 +77,8 @@ Program newsowy (Happy News, projekt Kacpra Bisanza i Damiana Abramowicza). Ten 
 
 - Zsynchronizować zmianę układu i kadru z dokładną klatką rzeczywistego cięcia kamery. Zmiana wybranego mówcy w trackingu nie jest cięciem źródła i nie może resetować skali ani układu.
 - Wyeliminować krótkie przebłyski poprzedniego kadru, pompowanie skali i drżenie podziałów. Zachować spokojny ruch, zdjęcia w ich kolejności, napisy, hook i metkę. Sprawdzić lokalnie i wysłać poprawkę kodu na GitHub.
+
+## Spokojny kadr i przebitka w ujęciu duo — 2026-10-17
+
+- Kadr nie może przeskakiwać szybko między osobami. W szerokim ujęciu dwóch prowadzących z przebitką w tle (ekran/zdjęcie newsa) przez całe to ujęcie pokazuj stały układ: przebitka w całości, tak jak jest w źródle, plus obaj prowadzący. Bez przełączania na mówiącego co chwilę; ruch osób tylko płynnie (wygładzona detekcja twarzy, bez skoków).
+- Gdy kamera przechodzi na ujęcie jednej osoby, przebitki nie pokazuj — sam mówiący. Zmiana układu tylko na prawdziwym cięciu kamery.

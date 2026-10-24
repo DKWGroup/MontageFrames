@@ -9,6 +9,8 @@ test("adresy modułów nie stają się nazwami rolek, także po odświeżeniu i 
     assert.equal(panelModule(hash), "longform");
   for (const hash of ["#qc", "#qc/project/candidate"])
     assert.equal(panelModule(hash), "quickcontent");
-  for (const hash of ["", "#", "#moja-rolka", "#lf-inna", "#motion-demo"])
+  for (const hash of ["#cr", "#cr/odcinek-12"])
+    assert.equal(panelModule(hash), "cutraw");
+  for (const hash of ["", "#", "#moja-rolka", "#lf-inna", "#motion-demo", "#crowd"])
     assert.equal(panelModule(hash), "reels");
 });

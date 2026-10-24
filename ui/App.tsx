@@ -4,8 +4,10 @@ import { panelModule } from "./panel-navigation.mjs";
 // Panel MontageFrames: biblioteka | podgląd + oś czasu | edycja. Źródłem prawdy są pliki (reel.json), panel tylko je czyta i zapisuje.
 import { MotionStudio } from "./MotionStudio";
 import { LongForm } from "./LongForm";
+import { CutRaw } from "./CutRaw";
 import { parseLfHash } from "./longform-view.mjs";
 import { QuickContent } from "./QuickContent";
+import { SocialCheckbox } from "./SocialUsed";
 import {
   currentCandidate,
   createReelSaveQueue,
@@ -44,26 +46,39 @@ const hashIsQuickContent = () =>
   location.hash === "#qc" || location.hash.startsWith("#qc/");
 
 export function App() {
-  const [branding,setBranding]=useState(()=>panelModule(location.hash)==="branding");
+  const [branding, setBranding] = useState(
+    () => panelModule(location.hash) === "branding",
+  );
   const [motion, setMotion] = useState(
     () => panelModule(location.hash) === "motion",
   );
   const [longform, setLongform] = useState(
     () => parseLfHash(location.hash) !== null,
   );
+  const [cutraw, setCutraw] = useState(
+    () => panelModule(location.hash) === "cutraw",
+  );
   const [quickContent, setQuickContent] = useState(hashIsQuickContent);
   const [visited, setVisited] = useState(
     () => new Set([panelModule(location.hash)]),
   );
   const [editorView, setEditorView] = useState<"preview" | "edit">("preview");
-  const moduleHistory = useRef({ quickcontent: "#qc", longform: "#lf" });
-  const activeModule = branding ? "branding" : motion
-    ? "motion"
-    : longform
-      ? "longform"
-      : quickContent
-        ? "quickcontent"
-        : "reels";
+  const moduleHistory = useRef({
+    quickcontent: "#qc",
+    longform: "#lf",
+    cutraw: "#cr",
+  });
+  const activeModule = branding
+    ? "branding"
+    : motion
+      ? "motion"
+      : longform
+        ? "longform"
+        : cutraw
+          ? "cutraw"
+          : quickContent
+            ? "quickcontent"
+            : "reels";
   useEffect(() => {
     setVisited((previous) =>
       previous.has(activeModule)
@@ -173,11 +188,18 @@ export function App() {
       setBranding(current === "branding");
       const lf = current === "longform";
       setLongform(lf);
+      setCutraw(current === "cutraw");
       setMotion(current === "motion");
       if (lf) moduleHistory.current.longform = location.hash;
+      if (current === "cutraw") moduleHistory.current.cutraw = location.hash;
       if (current === "quickcontent")
         moduleHistory.current.quickcontent = location.hash;
-      if (lf || current === "motion" || current === "branding") {
+      if (
+        lf ||
+        current === "cutraw" ||
+        current === "motion" ||
+        current === "branding"
+      ) {
         setQuickContent(false);
         return;
       }
@@ -514,6 +536,7 @@ export function App() {
           setQuickContent(false);
           setMotion(false);
           setLongform(false);
+          setCutraw(false);
         }}
         onMotion={() => {
           location.hash = "motion";
@@ -521,14 +544,23 @@ export function App() {
         onLongForm={() => {
           location.hash = moduleHistory.current.longform;
         }}
+        onCutRaw={() => {
+          location.hash = moduleHistory.current.cutraw;
+        }}
         onQuickContent={() => {
           location.hash = moduleHistory.current.quickcontent;
         }}
         onSettings={() => setDialog("settings")}
-        onBranding={() => { location.hash="branding"; }}
+        onBranding={() => {
+          location.hash = "branding";
+        }}
         operatorOk={operatorOk}
       />
-      {(visited.has("branding") || branding) && <div className="module-content" hidden={!branding}><Branding clients={lib?.clients??[]} onClientsChanged={loadLib}/></div>}
+      {(visited.has("branding") || branding) && (
+        <div className="module-content" hidden={!branding}>
+          <Branding clients={lib?.clients ?? []} onClientsChanged={loadLib} />
+        </div>
+      )}
       {(visited.has("motion") || motion) && (
         <div className="module-content" hidden={!motion}>
           <MotionStudio
@@ -541,6 +573,15 @@ export function App() {
       {(visited.has("longform") || longform) && (
         <div className="module-content" hidden={!longform}>
           <LongForm
+            onClose={() => {
+              location.hash = "";
+            }}
+          />
+        </div>
+      )}
+      {(visited.has("cutraw") || cutraw) && (
+        <div className="module-content" hidden={!cutraw}>
+          <CutRaw
             onClose={() => {
               location.hash = "";
             }}
@@ -923,50 +964,15 @@ function ReelLibrary({
             <h2>{g.label}</h2>
             {g.reels.length ? (
               <ul>
-                {g.reels.map((r) => {
-                  const j = lib?.jobs[r.name];
-                  return (
-                    <li key={r.name}>
-                      <button
-                        type="button"
-                        className="reel"
-                        aria-current={sel === r.name}
-                        onClick={() => {
-                          onSelect(r.name);
-                        }}
-                      >
-                        {r.thumbnail && (
-                          <img
-                            className="reel-thumb"
-                            src={r.thumbnail}
-                            alt=""
-                            loading="lazy"
-                            onError={(e) => {
-                              e.currentTarget.style.display = "none";
-                            }}
-                          />
-                        )}
-                        <span className="reel-copy">
-                          <strong>{r.title ?? r.name}</strong>
-                          <small>
-                            {r.renderState === "current"
-                              ? "Aktualny render"
-                              : r.renderState === "stale"
-                                ? "Wymaga aktualnego renderu"
-                                : "Bez renderu"}
-                          </small>
-                        </span>
-                        {j?.status === "running" ? (
-                          <i className="dot run" aria-label="trwa praca" />
-                        ) : j?.status === "error" ? (
-                          <i className="dot err" aria-label="błąd" />
-                        ) : (
-                          <small>{r.seconds ? fmt(r.seconds) : ""}</small>
-                        )}
-                      </button>
-                    </li>
-                  );
-                })}
+                {g.reels.map((r) => (
+                  <LibraryReel
+                    key={r.name}
+                    r={r}
+                    job={lib?.jobs[r.name]}
+                    current={sel === r.name}
+                    onSelect={onSelect}
+                  />
+                ))}
               </ul>
             ) : (
               <p className="note small">Brak rolek</p>
@@ -978,11 +984,78 @@ function ReelLibrary({
   );
 }
 
+function LibraryReel({
+  r,
+  job,
+  current,
+  onSelect,
+}: {
+  r: Pick<
+    Library["reels"][number],
+    "name" | "title" | "thumbnail" | "renderState" | "seconds" | "used"
+  >;
+  job?: Library["jobs"][string];
+  current: boolean;
+  onSelect: (name: string) => void;
+}) {
+  return (
+    <li>
+      <button
+        type="button"
+        className="reel"
+        aria-current={current}
+        onClick={() => {
+          onSelect(r.name);
+        }}
+      >
+        {r.thumbnail && (
+          <img
+            className="reel-thumb"
+            src={r.thumbnail}
+            alt=""
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        )}
+        <span className="reel-copy">
+          <strong>{r.title ?? r.name}</strong>
+          <small>
+            {r.renderState === "current"
+              ? "Aktualny render"
+              : r.renderState === "stale"
+                ? "Wymaga aktualnego renderu"
+                : "Bez renderu"}
+          </small>
+        </span>
+        {job?.status === "running" ? (
+          <i className="dot run" aria-label="trwa praca" />
+        ) : job?.status === "error" ? (
+          <i className="dot err" aria-label="błąd" />
+        ) : (
+          <small>{r.seconds ? fmt(r.seconds) : ""}</small>
+        )}
+      </button>
+      {/* rolka w przygotowaniu nie ma jeszcze reel.json, więc nie da się jej oznaczyć */}
+      {r.used !== undefined && (
+        <SocialCheckbox
+          name={r.name}
+          title={r.title ?? r.name}
+          initial={r.used}
+        />
+      )}
+    </li>
+  );
+}
+
 function NavigationIcon({ kind }: { kind: string }) {
   const paths: Record<string, string> = {
     reels: "M4 4h16v16H4z M4 9h16 M9 9v11 M7 4v5 M13 4v5",
     quickcontent: "M13 3 5 13h6l-1 8 9-12h-6z",
     longform: "M3 5h18v14H3z M10 9l5 3-5 3z",
+    cutraw:
+      "M6 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M20 4 8.1 15.9 M14.5 14.5 20 20 M8.1 8.1 12 12",
     motion: "m12 3 9 5-9 5-9-5z M3 12l9 5 9-5 M3 16l9 5 9-5",
     branding: "M4 4h16v16H4z M8 16l4-8 4 8 M10 13h4",
   };
@@ -1006,6 +1079,7 @@ function Sidebar({
   onReels,
   onMotion,
   onLongForm,
+  onCutRaw,
   onQuickContent,
   onBranding,
   onSettings,
@@ -1015,6 +1089,7 @@ function Sidebar({
   onReels: () => void;
   onMotion: () => void;
   onLongForm: () => void;
+  onCutRaw: () => void;
   onQuickContent: () => void;
   onBranding: () => void;
   onSettings: () => void;
@@ -1025,6 +1100,7 @@ function Sidebar({
     { id: "reels", label: "Rolki", action: onReels },
     { id: "quickcontent", label: "QuickContent", action: onQuickContent },
     { id: "longform", label: "Film poziomy", action: onLongForm },
+    { id: "cutraw", label: "CutRaw", action: onCutRaw },
     { id: "motion", label: "Motion Studio", action: onMotion },
     { id: "branding", label: "Branding klientów", action: onBranding },
   ];

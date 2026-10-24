@@ -12,6 +12,15 @@ import {
 } from "./quickcontent-ingest.mjs";
 import { outputDimensions } from "./quickcontent-portrait.mjs";
 import { brandingRenderFiles } from "../src/branding/appearance.mjs";
+import {
+  createRenderManifest,
+  verifyRenderManifest,
+} from "./quality/manifest.mjs";
+import { verifyManifestAssets } from "./quality/assets.mjs";
+import {
+  preflightReelAssets,
+  renderRuntime,
+} from "./quality/render-assets.mjs";
 const digestCache = new Map();
 async function cachedHash(file) {
   const s = await fs.stat(file),
@@ -22,7 +31,7 @@ async function cachedHash(file) {
   digestCache.set(file, { key, hash });
   return hash;
 }
-async function filesUnder(root, relative) {
+export async function filesUnder(root, relative) {
   const dir = await safePath(root, relative);
   const items = await fs.readdir(dir, { withFileTypes: true }).catch((e) => {
     if (e.code === "ENOENT") return [];
@@ -38,7 +47,7 @@ async function filesUnder(root, relative) {
   }
   return files.sort();
 }
-async function inputFiles(root, reelName, data) {
+export async function inputFiles(root, reelName, data) {
   const media =
     /\.(mp4|mov|m4v|webm|mkv|png|jpg|jpeg|webp|svg|gif|wav|mp3|m4a|ogg|ttf|otf|woff2?)$/i;
   // Styles import each other for shared tokens; keep that explicit dependency closure.
@@ -68,29 +77,43 @@ async function inputFiles(root, reelName, data) {
     await Promise.all(
       [
         `public/reels/${reelName}`,
-        ...(data?.branding ? [] : ["public/fonts"]),
+        ...(data?.branding && data.style !== "persona" && !(data.overlays??[]).length ? [] : ["public/fonts"]),
         "public/sfx",
-        ...(data?.branding && (!data.branding.styleId || data.branding.styleId === "brand") ? [] : ["public/Brandings"]),
+        ...(data?.branding &&
+        (!data.branding.styleId || data.branding.styleId === "brand")
+          ? []
+          : ["public/Brandings"]),
       ].map((dir) => filesUnder(root, dir)),
     )
   )
     .flat()
     .filter(
-      (f) => media.test(f) && !/^review-.*\.png$/i.test(path.basename(f)) &&
+      (f) =>
+        (media.test(f)||f===`public/reels/${reelName}/framing.observations.json`) &&
+        !/^review-.*\.png$/i.test(path.basename(f)) &&
         // New immutable branding assets cannot affect unrelated legacy styles.
         !/^public\/Brandings\/[^/]+\/(?:fonts|assets)\/[a-f0-9]{64}\./.test(f),
     );
   for (const file of brandingRenderFiles(data?.branding)) {
     const relative = `public/${file}`;
     const checked = await safePath(root, relative);
-    if (!(await fs.stat(checked)).isFile()) throw new Error("Brak pliku brandingu.");
+    if (!(await fs.stat(checked)).isFile())
+      throw new Error("Brak pliku brandingu.");
     publicFiles.push(relative);
   }
   const config = [];
-  for (const file of ["package.json", "scripts/quickcontent-render.mjs"])
+  for (const file of [
+    "package.json",
+    "package-lock.json",
+    "scripts/quickcontent-render.mjs",
+    "scripts/branding-fonts.swift",
+    ...(await filesUnder(root, "scripts/quality")).filter(
+      (f) => /\.(mjs|json)$/.test(f) && !f.endsWith(".test.mjs"),
+    ),
+  ])
     if (await fs.stat(path.join(root, file)).catch(() => null))
       config.push(file);
-  return [...source, ...publicFiles, ...config];
+  return [...new Set([...source, ...publicFiles, ...config])].sort();
 }
 export async function renderInputSignature(root, reelName, data) {
   if (!/^[a-z0-9][a-z0-9-]{0,79}$/.test(reelName))
@@ -193,6 +216,7 @@ export async function renderReelSnapshot(
 ) {
   const checkCancelled = () => ctx.signal?.throwIfAborted();
   checkCancelled();
+  data = globalThis.structuredClone(data);
   const signature = await renderInputSignature(ctx.root, reelName, data),
     id = ctx.jobId ?? randomUUID();
   checkCancelled();
@@ -202,19 +226,79 @@ export async function renderReelSnapshot(
     });
   const publicDir = await safePath(
     ctx.root,
-    directory + "/public/placeholder",
+    directory + "/engine/public/placeholder",
     { create: true },
   );
   for (const file of (await inputFiles(ctx.root, reelName, data)).filter((f) =>
     f.startsWith("public/"),
   )) {
-    const dest = await safePath(ctx.root, `${directory}/${file}`, {
+    const dest = await safePath(ctx.root, `${directory}/engine/${file}`, {
       create: true,
     });
     checkCancelled();
     await fs.copyFile(await safePath(ctx.root, file), dest);
     checkCancelled();
   }
+  const preflight = await preflightReelAssets(ctx.root, reelName, data);
+  checkCancelled();
+  const codeFiles = (await filesUnder(ctx.root, "src")).filter(
+    (f) =>
+      !f.startsWith("src/studio/") &&
+      !f.startsWith("src/motion/") &&
+      f !== "src/Root.tsx",
+  );
+  const frozenFiles = [];
+  for (const file of [
+    ...codeFiles,
+    ...(await inputFiles(ctx.root, reelName, data)).filter(
+      (f) => !f.startsWith("src/"),
+    ),
+  ]) {
+    const relative = `${directory}/engine/${file}`;
+    const dest = await safePath(ctx.root, relative, { create: true });
+    checkCancelled();
+    if (!file.startsWith("public/"))
+      await fs.copyFile(await safePath(ctx.root, file), dest);
+    const bytes = await fs.readFile(dest);
+    frozenFiles.push({
+      id: file,
+      path: file,
+      sha256: createHash("sha256").update(bytes).digest("hex"),
+      byteLength: bytes.length,
+      mime: "application/octet-stream",
+      kind:
+        preflight.assets.find((a) => a.path === file)?.kind ??
+        (file.startsWith("src/") ? "code" : "media"),
+    });
+  }
+  if ((await renderInputSignature(ctx.root, reelName, data)) !== signature)
+    throw new Error(
+      "Źródła zmieniły się podczas przygotowania renderu. Ponów bez AI.",
+    );
+  const runtime = await renderRuntime(ctx.root);
+  const manifest = createRenderManifest({
+    orgId: "local",
+    clientId: data.client ?? data.branding?.clientId ?? null,
+    reelRevision: editRevision,
+    inputs: {
+      data,
+      fontCoverage: preflight.report,
+      renderFonts: preflight.bindings,
+      decorations: preflight.decorations,
+    },
+    contract: data.branding?.qualityContract ?? null,
+    assets: frozenFiles,
+    runtime,
+    output: {
+      ...(({ width, height }) => ({ width, height }))(
+        outputDimensions(data.outputResolution),
+      ),
+      fps: data.fps ?? 30,
+    },
+    seed: 0,
+  });
+  const manifestRelative = directory + "/manifest.json";
+  await writeMediaJson(await safePath(ctx.root, manifestRelative), manifest);
   const output =
     outFile ?? (await nextRenderPath(ctx.root, reelName, data.client ?? null));
   const out = await safePath(ctx.root, output, { create: true });
@@ -229,6 +313,9 @@ export async function renderReelSnapshot(
     temp,
     publicDir: path.dirname(publicDir),
     bundleDir: `${directory}/bundle`,
+    engineRoot: `${directory}/engine`,
+    manifestPath: manifestRelative,
+    manifestSignature: manifest.signature,
   };
   await writeMediaJson(metadata, input);
   let progressReports = Promise.resolve(),
@@ -273,6 +360,8 @@ export async function renderReelSnapshot(
     filePath: output,
     renderRevision: editRevision,
     signature,
+    manifestSignature: manifest.signature,
+    manifestPath: manifestRelative,
     verified: true,
     createdAt: new Date().toISOString(),
     snapshotPath: path.relative(ctx.root, metadata),
@@ -287,21 +376,71 @@ export async function renderReelSnapshot(
 }
 async function renderSnapshot(file) {
   const input = JSON.parse(await fs.readFile(file, "utf8"));
+  const manifest = verifyRenderManifest(
+    JSON.parse(
+      await fs.readFile(await safePath(input.root, input.manifestPath), "utf8"),
+    ),
+  );
+  if (
+    manifest.signature !== input.manifestSignature ||
+    JSON.stringify(manifest.inputs.data) !== JSON.stringify(input.data)
+  )
+    throw new Error("Dane nie odpowiadają manifestowi renderu");
+  const engineRoot = await safePath(input.root, input.engineRoot);
+  if (
+    (await hashFile(manifest.runtime.browserPath)) !==
+    manifest.runtime.browserSha256
+  )
+    throw new Error("Zmieniono Chromium przypięte do renderu");
+  for (const relative of [
+    "package-lock.json",
+    "scripts/quickcontent-render.mjs",
+    ...manifest.assets
+      .filter((a) => a.path.startsWith("scripts/quality/"))
+      .map((a) => a.path),
+  ]) {
+    const expected = manifest.assets.find((a) => a.path === relative);
+    if (
+      expected &&
+      (await hashFile(await safePath(path.resolve(path.dirname(fileURLToPath(import.meta.url)),".."), relative))) !== expected.sha256
+    )
+      throw new Error("Runtime zmienił się od zamrożenia renderu");
+  }
+  const checkAssets = async () => {
+    const checked = await verifyManifestAssets(
+      manifest,
+      (relative) => fs.readFile(path.join(engineRoot, relative)),
+      { inspectFont: async () => ({ status: "pass" }) },
+    );
+    if (checked.status !== "pass")
+      throw new Error("Zmieniono zamrożone zasoby renderu");
+  };
+  await checkAssets();
   const { bundle } = await import("@remotion/bundler");
   const { selectComposition, renderMedia } = await import("@remotion/renderer");
   const outDir = await safePath(input.root, input.bundleDir + "/placeholder", {
     create: true,
   });
   const serveUrl = await bundle({
-    entryPoint: path.join(input.root, "src/quickcontent/index.ts"),
+    entryPoint: path.join(engineRoot, "src/quickcontent/index.ts"),
     outDir: path.dirname(outDir),
-    publicDir: input.publicDir,
+    publicDir: path.join(engineRoot, "public"),
   });
-  const inputProps = { reel: input.reelName, data: input.data };
+  const inputProps = {
+    reel: input.reelName,
+    data: {
+      ...input.data,
+      renderAssets: {
+        fonts: manifest.inputs.renderFonts,
+        decorations: manifest.inputs.decorations,
+      },
+    },
+  };
   const composition = await selectComposition({
     serveUrl,
     id: "QuickContentRender",
     inputProps,
+    browserExecutable: manifest.runtime.browserPath,
   });
   const reportProgress = createProgressThrottle((progress) =>
     process.stdout.write(
@@ -312,6 +451,7 @@ async function renderSnapshot(file) {
     serveUrl,
     composition,
     inputProps,
+    browserExecutable: manifest.runtime.browserPath,
     scale: outputDimensions(input.data.outputResolution).scale,
     codec: "h264",
     crf: 18,
@@ -321,6 +461,7 @@ async function renderSnapshot(file) {
     onProgress: ({ progress }) => reportProgress(progress),
   });
   reportProgress(1);
+  await checkAssets();
 }
 // Tylko gdy ten plik jest uruchomiony wprost — moduł importuje też renderer drugiego trybu (ta sama flaga).
 if (

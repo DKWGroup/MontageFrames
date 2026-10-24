@@ -3,6 +3,7 @@ export function panelModule(hash) {
   if (hash === "#branding" || hash.startsWith("#branding/")) return "branding";
   if (hash === "#motion" || hash === "#motion/") return "motion";
   if (hash === "#lf" || hash.startsWith("#lf/")) return "longform";
+  if (hash === "#cr" || hash.startsWith("#cr/")) return "cutraw";
   if (hash === "#qc" || hash.startsWith("#qc/")) return "quickcontent";
   return "reels";
 }

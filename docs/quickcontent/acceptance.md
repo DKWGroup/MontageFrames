@@ -135,3 +135,17 @@ Automatyczne ozdobniki słów i flagi działają wyłącznie w stylu happynews. 
 Z wcześniejszego zlecenia ukończono wyłącznie rolkę Happy News o trzmielach v006. Od40s do53,57s prawdziwe zdjęcia ze źródła pozostają na dole, także gdy detektor gubi drugą twarz lub oryginał przełącza na zbliżenie. Zmiana drugiego/trzeciego zdjęcia na43,61/46,87s. W szerokim ujęciu obaj prowadzący u góry, w zbliżeniu bieżący prowadzący. Ten sam obraz wypełnia boki pod spodem w powiększeniu i rozmyciu, bez czarnych pasów. Zasadę zapisano również w talking-head-recut/SKILL.md, wyłącznie dla Happy News. Klatki gotowegoMP4: [zdjęcie2](assets/happynews-bee-photos-v006.png), [podtrzymanie zdjęcia przy zbliżeniu](assets/happynews-bee-photo-hold-v006.png).
 
 **4/4 isCurrent=true** przez API panelu; wszystkie1080×1920,H264/AAC. Zadania action=render, bezASR i ponownej redakcjiAI. Opisy generowane osobno:3gotowe; opis rata/wynajem nie przeszedł walidacji także po jednym ponowieniu samego opisu. MP4 jest prawidłowy, koszt prób zachowany. [Raport](client-scope-2026-10-16-proof.json). Testy351/351PASS, lint/typy0błędów i24wcześniejsze ostrzeżenia. Sprawdzono klatki i parametry gotowych MP4, bez pełnego odsłuchu ani odbioru GUI w przeglądarce. Nie stanowi to pełnego odbioru QuickContent.
+
+### Whisper: puste segmenty na końcu nagrania — 2026-10-18
+
+- Przyczyna rzeczywistego błędu projektu `qc-c9aeda06-cf2c-4660-8a54-3511955c1450`: puste segmenty bez tekstu i słów miały końcowe czasy 872,50 → 872,48 s. Kontrola kolejności segmentów odrzucała całą transkrypcję. Normalizator pomija teraz wyłącznie wpisy z pustym tekstem i pustą tablicą słów, przed sprawdzeniem ich czasów; walidacja segmentów zawierających mowę i czasów słów pozostaje ścisła.
+- Test regresji odtworzył komunikat przed zmianą, po poprawce PASS. Pełna regresja: 468 PASS, 1 SKIP, 0 błędów (testy procesów/portów wykonane poza sandboxem); lint i TypeScript PASS; diffcheck PASS.
+- Odzyskano istniejący surowy JSON z katalogu pracy, zachowując oryginał i wszystkie 2567 słów z ich czasami; 211 segmentów mowy, ostatnie słowo kończy się na 872,50 s przy źródle 872,541 s. Cache zweryfikowano przez produkcyjne `transcribeSource`, z zablokowanym uruchomieniem narzędzi. Nie pobierano ani nie transkrybowano źródła ponownie.
+- Wznowiono istniejący job `job-ad7ed633-c5be-4eeb-9e61-c43b56ac8da9` przez API panelu. Próba 2 przeszła do `analyze`, projekt ma transkrypcję `ready`; analiza działa przez konto Codex. To odbiór naprawy transkrypcji, nie potwierdzenie ukończenia analizy, propozycji ani montażu.
+
+
+## Opis do istniejącego renderu — 2026-10-20
+
+- Naprawiono blokadę `/api/description/:name`: QuickContent sprawdza teraz istnienie niepustego, zweryfikowanego MP4 zgodnego z `editRevision`, niezależnie od podpisu aktualnego kodu renderera. Zmiana silnika lub wytycznych opisu nie wymusza renderu dla samego opisu. Kontrola badge i aktualności renderu pozostaje bez zmian; nowsza rewizja montażu nadal blokuje opis do starszego filmu.
+- Regresja: gotowy MP4 ze starszym podpisem silnika, brak pliku, brak renderu, brak weryfikacji oraz nowsza rewizja montażu. Testy opisów i serwera: 38/38 PASS. Pełne `npm test` poza sandboxem (Chromium i lokalne serwery): 544 PASS, 1 SKIP, 0 FAIL; lint/TypeScript i `build:panel` PASS (build zgłasza duży chunk).
+- Lokalna kontrola zapisanych projektów bez AI i zmian mediów: 16 filmów dopuszczonych, 2 nowsze rewizje nadal blokowane. GET istniejącego opisu w działającym panelu: `ready`, bez błędu renderu. Nie uruchamiano płatnej regeneracji opisu ani ponownego renderu.

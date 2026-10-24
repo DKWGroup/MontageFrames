@@ -27,6 +27,13 @@ export type PublicationDescriptionData = {
   error?: string;
   isCurrent?: boolean;
 };
+export type ReelQuality = {
+  status:"pass"|"fail"|"unknown";
+  revisionSignature:string;
+  signatureKind:"draft-and-source";
+  geometry:{findings:{ruleId:string;status:string;evidence:string}[]};
+  media:{findings:{ruleId:string;status:string;evidence:string}[]};
+};
 export type SaveResult = { ok: true; editRevision?: number };
 export class PanelError extends Error {
   constructor(
@@ -60,6 +67,7 @@ export type Library = {
     thumbnail?: string | null;
     module?: "reels" | "quickcontent";
     renderState?: "current" | "stale" | "missing";
+    used?: boolean;
     client: string | null;
     style: string;
     seconds: number;
@@ -147,6 +155,13 @@ export const api = {
       {},
     ),
   library: () => call<Library>("GET", "/library"),
+  social: (name: string) =>
+    call<{ used: boolean }>("GET", `/social/${encodeURIComponent(name)}`),
+  setSocial: (name: string, used: boolean) =>
+    call<{ used: boolean }>("PUT", `/social/${encodeURIComponent(name)}`, {
+      used,
+    }),
+  quality: (name:string)=>call<ReelQuality>("POST",`/reel-quality/${encodeURIComponent(name)}`,{}),
   reel: (name: string) => call<ReelData>("GET", `/reel/${name}`),
   reelState: async (
     name: string,
@@ -182,7 +197,7 @@ export const api = {
     ),
   start: (
     name: string,
-    body: { kind: JobKind; input?: string; message?: string; render?: boolean; brandingRevision?: number },
+    body: { kind: JobKind; input?: string; message?: string; render?: boolean; brandingRevision?: number; editScope?: "full" | "captions" | "operations" },
   ) => call<{ ok: true }>("POST", `/job/${name}`, body),
   job: (name: string, since: number) =>
     call<JobPoll>("GET", `/job/${name}?since=${since}`),

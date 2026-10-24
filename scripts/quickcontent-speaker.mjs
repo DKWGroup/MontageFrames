@@ -1,3 +1,4 @@
+import { shotIntervals } from "../src/quickcontent/shots.mjs";
 import { faceFraming } from "./quickcontent-portrait.mjs";
 
 // Kto mówi, na której kamerze: ujęcia (cięcia kamer) → twarze śledzone w ujęciu → ruch ust w chwilach,
@@ -67,15 +68,14 @@ export function buildSpeakerTracking({
   height,
   duration,
   responsive = false,
+  fitFootage = true,
 }) {
-  const bounds = [
-    0,
-    ...cuts.filter((c) => c > 0.5 && c < duration - 0.5).sort((a, b) => a - b),
-    duration,
-  ];
+  if (!Number.isFinite(fps) || fps <= 0)
+    throw new Error("Nieprawidłowy klatkaż obserwacji");
+  const intervals = shotIntervals(cuts, duration);
   const talking = (a, b) => speech.some(([s, e]) => s < b && e > a);
-  const idx = ([a, b]) => [Math.floor(a * fps), Math.ceil(b * fps)];
-  const point = (time, face, cut) => ({
+  const point = (time, face, cut, shotId) => ({
+    shotId,
     time,
     ...faceFraming([face], width, height),
     mode: undefined,
@@ -84,10 +84,14 @@ export function buildSpeakerTracking({
   });
   const points = [];
   const shots = [];
-  for (let s = 0; s + 1 < bounds.length; s++) {
-    const [start, end] = [bounds[s], bounds[s + 1]];
-    const from = Math.floor(start * fps),
-      to = Math.max(from + 1, Math.floor(end * fps));
+  for (const { start, end, shotId } of intervals) {
+    // Samples belong to their actual resampled timestamp, never the preceding shot.
+    const from = Math.min(samples.length, Math.ceil(start * fps - 1e-9)),
+      to = Math.min(samples.length, Math.ceil(end * fps - 1e-9));
+    const idx = ([a, b]) => [
+      Math.max(from, Math.ceil(a * fps - 1e-9)),
+      Math.min(to, Math.ceil(b * fps - 1e-9)),
+    ];
     const tracks = tracksIn(samples, from, to);
     const windows = [];
     for (let t = start; t < end - 1e-6; t += responsive ? 0.25 : 1)
@@ -122,10 +126,18 @@ export function buildSpeakerTracking({
         : spoken.length && known && score[best] >= MOUTH_ACTIVE
           ? "speaker"
           : "face";
-    shots.push({ start, end, kind, faces: tracks.length });
+    shots.push({
+      shotId,
+      start,
+      end,
+      kind,
+      faces: tracks.length,
+      requiresReview: true,
+    });
     if (kind === "footage") {
       points.push({
         time: start,
+        shotId,
         centerX: 0.5,
         centerY: 0.5,
         fit: true,
@@ -163,7 +175,16 @@ export function buildSpeakerTracking({
           .flat()
           .filter(valid)
           .sort((a, b) => b.width * b.height - a.width * a.height)[0];
-        if (visible) points.push(point(w[0], visible, true));
+        if (visible) points.push(point(w[0], visible, true, shotId));
+        else if (points.at(-1)?.shotId !== shotId)
+          points.push({
+            time: w[0],
+            shotId,
+            centerX: 0.5,
+            centerY: 0.5,
+            fit: true,
+            cut: true,
+          });
         return;
       }
       if (kind === "speaker" && talking(...w)) {
@@ -196,17 +217,33 @@ export function buildSpeakerTracking({
           cut ? w[0] : (w[0] + w[1]) / 2,
           faceAt(tracks[current], ...idx(w)),
           cut,
+          shotId,
         ),
       );
     });
   }
+  // Bisanz: kadr zostaje na mówcy, bez „newsowego” 16:9 z rozmytym tłem
+  if (!fitFootage)
+    points.forEach((p, i) => {
+      if (!p.fit) return;
+      const prev =
+        points.slice(0, i).findLast((q) => !q.fit) ??
+        points.find((q) => !q.fit);
+      delete p.fit;
+      p.centerX = prev?.centerX ?? 0.5;
+      p.centerY = prev?.centerY ?? 0.5;
+      p.scale = prev?.scale ?? 1;
+    });
   // wygładzanie między cięciami: mediana z 3 sąsiadów i ograniczona prędkość
   const raw = points.map((p) => ({ ...p }));
   for (let i = 1; i < points.length; i++) {
     if (points[i].fit || points[i].cut) continue;
     for (const key of ["centerX", "centerY", "scale"]) {
       const near = [raw[i - 1], raw[i], raw[i + 1]]
-        .filter((p, k) => p && !p.fit && !(k === 2 && p.cut))
+        .filter(
+          (p, k) =>
+            p && p.shotId === raw[i].shotId && !p.fit && !(k === 2 && p.cut),
+        )
         .map((p) => p[key])
         .sort((a, b) => a - b);
       const delta = near[Math.floor(near.length / 2)] - points[i - 1][key];

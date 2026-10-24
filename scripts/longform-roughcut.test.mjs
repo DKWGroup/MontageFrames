@@ -26,7 +26,7 @@ test("leksykon wtrąceń: pewne i wieloznaczne", () => {
   assert.ok(fillers.ambiguous.includes("w sensie"));
 });
 
-import { applyDecisions, censorMutes, fillerCuts, isProfane, silenceCuts, speechRms, validateCuts, voicedGaps } from "./longform-roughcut.mjs";
+import { applyDecisions, censorMutes, fillerCuts, isProfane, silenceCuts, snapQuietest, speechRms, validateCuts, voicedGaps } from "./longform-roughcut.mjs";
 
 const POS = ["kurwa", "Kurwa!", "kurwy", "skurwysyn", "wkurwiony", "chuj", "chujowy", "huj", "jebać", "zajebisty", "wyjebane", "pojebany", "jeb...", "pierdolę", "spierdalaj", "zapierdala", "rozpierdol", "pizda", "kutasie", "cipka"];
 const NEG = ["kurek", "kurs", "kurtka", "kurczak", "kurde", "kurczę", "kurier", "cholera", "Kurtyka", "chustka", "huta", "hulajnoga", "jeden", "jedzenie", "pierwszy", "pierogi", "dziwny", "kutia", "Cypr", "Cipriani"];
@@ -152,4 +152,43 @@ test("buildRoughCut: przekleństwa wskazane przez model wyciszane jak z leksykon
   const words = [W("w1", "jesteś", 0, 0.4), W("w2", "je...", 0.5, 1)];
   const { doc } = buildRoughCut({ words, duration: 2, silences: [], lex: { fillers, profanity: lex }, extraProfanity: ["w2"] });
   assert.deepEqual(doc.mutes.map((m) => [m.wordId, m.start, m.end]), [["w2", 0.6, 1.03]]);
+});
+
+test("CutRaw: cenzura zostawia 2 pierwsze litery, opcjonalnie ostatnią, bez kruka; zawsze coś wycisza", () => {
+  const lex2 = { stems: ["kurw", "fuck"], except: [] };
+  const w = [{ id: "w1", text: "kurwa", start: 10, end: 10.5 }];
+  const [m] = censorMutes(w, lex2, { keepHead: 2, sfx: null });
+  assert.deepEqual([m.start, m.end, m.sfx], [10.2, 10.53, null]);
+  const [t] = censorMutes(w, lex2, { keepHead: 2, keepTail: 1, sfx: null });
+  assert.deepEqual([t.start, t.end], [10.2, 10.4]);
+  const [s] = censorMutes([{ id: "w2", text: "Fuck!", start: 1, end: 1.2 }], lex2, { keepHead: 3 });
+  assert.deepEqual([s.start, s.end], [1.09, 1.23]); // maks. 45% słowa słychać
+  const [legacy] = censorMutes(w, lex2, {});
+  assert.deepEqual([legacy.start, legacy.sfx], [10.1, "kruk"]); // LongForm bez zmian
+});
+
+test("CutRaw: krawędź cięcia na najcichszej granicy klatki, nigdy na słowie; za wąsko = do decyzji", () => {
+  const energy = new Float32Array(400).fill(1);
+  energy.fill(0.01, 100, 160);
+  energy.fill(0.0001, 115, 117);
+  const words = [W("w1", "raz", 0.2, 1), W("w2", "dwa", 1.6, 2.4), W("w3", "trzy", 3, 3.5), W("w4", "cztery", 3.52, 4)];
+  const cuts = [
+    { id: "silence-1.12", start: 1.12, end: 1.48, wordIds: [], kind: "silence", reason: "cisza", confidence: 1, auto: true, decision: "cut" },
+    { id: "silence-3.5", start: 3.5, end: 3.52, wordIds: [], kind: "silence", reason: "cisza", confidence: 1, auto: true, decision: "cut" },
+  ];
+  const [a, b] = snapQuietest(cuts, words, energy, { fps: 25 });
+  assert.deepEqual([a.start, a.end, a.decision], [1.16, 1.48, "cut"]);
+  assert.ok(Number.isInteger(Math.round(a.start * 25 * 1e6) / 1e6));
+  assert.equal(b.decision, "undecided");
+  assert.match(b.reason, /za mało miejsca/);
+});
+
+test("CutRaw: wtrącenie między stykającymi się słowami — krawędzie na najcichszych klatkach, najwyżej pół klatki w słowo obok", () => {
+  const energy = new Float32Array(700).fill(1);
+  energy.fill(0.001, 551, 553);
+  energy.fill(0.001, 591, 593);
+  const words = [W("w5", "roku,", 5, 5.52), W("w6", "znaczy", 5.52, 5.94), W("w7", "w", 5.94, 6.1)];
+  const c = { id: "filler-w6", start: 5.52, end: 5.94, wordIds: ["w6"], kind: "filler", reason: "znaczy", confidence: 0.5, auto: false, decision: "cut" };
+  const [s] = snapQuietest([c], words, energy, { fps: 25 });
+  assert.deepEqual([s.start, s.end, s.decision], [5.52, 5.92, "cut"]);
 });

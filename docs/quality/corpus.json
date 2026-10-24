@@ -1,0 +1,816 @@
+{
+  "version": 1,
+  "status": "inventory-not-accepted",
+  "cases": [
+    {
+      "id": "persona-01-baseline",
+      "profile": "persona",
+      "clientId": null,
+      "split": "prompt",
+      "expected": "Poprawny styl, fonty i kolory wybranego profilu; żadnej cichej zamiany.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-02-long-caption",
+      "profile": "persona",
+      "clientId": null,
+      "split": "prompt",
+      "expected": "Długie polskie słowa i krótkie przyimki: czytelna grupa, zachowane czasy.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-03-landscape",
+      "profile": "persona",
+      "clientId": null,
+      "split": "prompt",
+      "expected": "Poziome źródło: czytelny pion i odsłonięta twarz.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-04-silence",
+      "profile": "persona",
+      "clientId": null,
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-05-broll",
+      "profile": "persona",
+      "clientId": null,
+      "split": "tuning",
+      "expected": "Przebitki zgodne z wypowiedzią i regułami tego klienta.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-06-number",
+      "profile": "persona",
+      "clientId": null,
+      "split": "tuning",
+      "expected": "Liczby tylko ze źródła; brak zmyślonych cen lub twierdzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-07-hook",
+      "profile": "persona",
+      "clientId": null,
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-08-emoji",
+      "profile": "persona",
+      "clientId": null,
+      "split": "holdout",
+      "expected": "Brak niezamówionych dekoracji i dublowania emotki.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-09-correction",
+      "profile": "persona",
+      "clientId": null,
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "persona-10-legacy",
+      "profile": "persona",
+      "clientId": null,
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-01-baseline",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "prompt",
+      "expected": "Poprawny styl, fonty i kolory wybranego profilu; żadnej cichej zamiany.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-02-long-caption",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "prompt",
+      "expected": "Długie polskie słowa i krótkie przyimki: czytelna grupa, zachowane czasy.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-03-landscape",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "prompt",
+      "expected": "Poziome źródło: czytelny pion i odsłonięta twarz.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-04-silence",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "tuning",
+      "expected": "Pełna cisza i wypowiedź 1:1; próbka mastera zaczynająca się po 0, odsłuch.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-05-broll",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "tuning",
+      "expected": "Wyliczanie kierunków bez przebłysków osoby; co najmniej jedna przebitka z ludźmi.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-06-number",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "tuning",
+      "expected": "Liczby tylko ze źródła; brak zmyślonych cen lub twierdzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-07-hook",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-08-emoji",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "holdout",
+      "expected": "Brak niezamówionych dekoracji i dublowania emotki.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-09-correction",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "skyclass-10-legacy",
+      "profile": "skyclass",
+      "clientId": "skyclass",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-01-baseline",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "prompt",
+      "expected": "Montserrat400 + Libre Baskerville400/italic; krem, śliwka, złoto.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-02-long-caption",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "prompt",
+      "expected": "Długie polskie słowa i krótkie przyimki: czytelna grupa, zachowane czasy.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-03-landscape",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "prompt",
+      "expected": "Poziome źródło: czytelny pion i odsłonięta twarz.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-04-silence",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-05-broll",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "tuning",
+      "expected": "Spokojne przebitki i ikony; grafika bezpośrednio pod napisami.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-06-number",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "tuning",
+      "expected": "Liczby tylko ze źródła; brak zmyślonych cen lub twierdzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-07-hook",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-08-emoji",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "holdout",
+      "expected": "Brak niezamówionych dekoracji i dublowania emotki.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-09-correction",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "herod-10-legacy",
+      "profile": "herod",
+      "clientId": "magdalena-herod",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-01-baseline",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "prompt",
+      "expected": "Poprawny styl, fonty i kolory wybranego profilu; żadnej cichej zamiany.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-02-long-caption",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "prompt",
+      "expected": "Długie polskie słowa i krótkie przyimki: czytelna grupa, zachowane czasy.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-03-landscape",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "prompt",
+      "expected": "Płynny tracking pozycji bez zmiany skali, zoom/zoomTo=1.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-04-silence",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-05-broll",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "tuning",
+      "expected": "Przebitki zgodne z wypowiedzią i regułami tego klienta.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-06-number",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "tuning",
+      "expected": "Liczby tylko ze źródła; brak zmyślonych cen lub twierdzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-07-hook",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-08-emoji",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "holdout",
+      "expected": "Bez automatycznych emotek Happy News; zachowane Inter i #066FED.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-09-correction",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "bisanz-10-legacy",
+      "profile": "bisanz",
+      "clientId": "kacper-bisanz",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-01-baseline",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "prompt",
+      "expected": "Poprawny styl, fonty i kolory wybranego profilu; żadnej cichej zamiany.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-02-long-caption",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "prompt",
+      "expected": "Modele samochodów i Christoff sprawdzone z nagraniem.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-03-landscape",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "prompt",
+      "expected": "Poziome źródło: czytelny pion i odsłonięta twarz.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-04-silence",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-05-broll",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "tuning",
+      "expected": "Polecenie bez przebitek zachowane; logo i dane mogą pozostać.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-06-number",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "tuning",
+      "expected": "Liczby tylko ze źródła; brak zmyślonych cen lub twierdzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-07-hook",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-08-emoji",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "holdout",
+      "expected": "Brak niezamówionych dekoracji i dublowania emotki.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-09-correction",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "ameryka-10-legacy",
+      "profile": "ameryka",
+      "clientId": "swieza-bryka-ameryka",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-01-baseline",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "prompt",
+      "expected": "Poprawny styl, fonty i kolory wybranego profilu; żadnej cichej zamiany.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-02-long-caption",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "prompt",
+      "expected": "Długie polskie słowa i krótkie przyimki: czytelna grupa, zachowane czasy.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-03-landscape",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "prompt",
+      "expected": "Poziome źródło: czytelny pion i odsłonięta twarz.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-04-silence",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-05-broll",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "tuning",
+      "expected": "Wzmianka produktu: właściwy asset i dostateczna ekspozycja.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-06-number",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "tuning",
+      "expected": "Research i ręczna kontrola źródeł/claimów zgodnie z preferencjami, bez automatycznej gwarancji prawnej.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-07-hook",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-08-emoji",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "holdout",
+      "expected": "Brak niezamówionych dekoracji i dublowania emotki.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-09-correction",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "glowup-10-legacy",
+      "profile": "glowup",
+      "clientId": "glowup-nutrition",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-01-baseline",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "prompt",
+      "expected": "Poprawny styl, fonty i kolory wybranego profilu; żadnej cichej zamiany.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-02-long-caption",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "prompt",
+      "expected": "Długie polskie słowa i krótkie przyimki: czytelna grupa, zachowane czasy.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-03-landscape",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "prompt",
+      "expected": "Napisy, hook i karty pod brodą w safezone.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-04-silence",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-05-broll",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "tuning",
+      "expected": "Przebitki zgodne z wypowiedzią i regułami tego klienta.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-06-number",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "tuning",
+      "expected": "Przegląd twierdzeń medycznych i źródeł według preferencji, bez dopisanych obietnic.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-07-hook",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-08-emoji",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "holdout",
+      "expected": "Brak niezamówionych dekoracji i dublowania emotki.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-09-correction",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "vital-10-legacy",
+      "profile": "vital",
+      "clientId": "vital-hormone",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-01-baseline",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "prompt",
+      "expected": "Poprawny styl, fonty i kolory wybranego profilu; żadnej cichej zamiany.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-02-long-caption",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "prompt",
+      "expected": "Długie polskie słowa i krótkie przyimki: czytelna grupa, zachowane czasy.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-03-landscape",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "prompt",
+      "expected": "Szerokie ujęcie: stałe duo i cała przebitka; zbliżenie: sam prowadzący.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-04-silence",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-05-broll",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "tuning",
+      "expected": "Zdjęcia w kolejności źródła; zmiana układu wyłącznie na cięciu kamery.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-06-number",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "tuning",
+      "expected": "Liczby tylko ze źródła; brak zmyślonych cen lub twierdzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-07-hook",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-08-emoji",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "holdout",
+      "expected": "Emotka po właściwym słowie, poza tłem, bez CJK i niepewnych skojarzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-09-correction",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "happynews-10-legacy",
+      "profile": "happynews",
+      "clientId": "happy-news",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-01-baseline",
+      "profile": "brand",
+      "clientId": null,
+      "split": "prompt",
+      "expected": "Własne fonty/paleta/preset/logotyp, zachowana poprzednia wersja.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-02-long-caption",
+      "profile": "brand",
+      "clientId": null,
+      "split": "prompt",
+      "expected": "Długie polskie słowa i krótkie przyimki: czytelna grupa, zachowane czasy.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-03-landscape",
+      "profile": "brand",
+      "clientId": null,
+      "split": "prompt",
+      "expected": "Poziome źródło: czytelny pion i odsłonięta twarz.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-04-silence",
+      "profile": "brand",
+      "clientId": null,
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-05-broll",
+      "profile": "brand",
+      "clientId": null,
+      "split": "tuning",
+      "expected": "Przebitki zgodne z wypowiedzią i regułami tego klienta.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-06-number",
+      "profile": "brand",
+      "clientId": null,
+      "split": "tuning",
+      "expected": "Liczby tylko ze źródła; brak zmyślonych cen lub twierdzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-07-hook",
+      "profile": "brand",
+      "clientId": null,
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-08-emoji",
+      "profile": "brand",
+      "clientId": null,
+      "split": "holdout",
+      "expected": "Jawnie włączona dekoracja własnego brandingu działa tylko w tym profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-09-correction",
+      "profile": "brand",
+      "clientId": null,
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "brand-10-legacy",
+      "profile": "brand",
+      "clientId": null,
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
+    }
+  ]
+}

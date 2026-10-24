@@ -1,7 +1,11 @@
 import { fitText } from "@remotion/layout-utils";
 import {
+  Audio,
   Easing,
+  Img,
   interpolate,
+  random,
+  Sequence,
   spring,
   useCurrentFrame,
   useVideoConfig,
@@ -21,6 +25,7 @@ const GOLD = "#B79154"; // czarny tekst na złotym 7,1:1
 const BLACK = "#020203";
 const BURGUNDY = "#651E1E"; // kremowy tekst na bordo 10,8:1
 const CREAM = "#F6F3EE"; // tekst ze strony klienta
+const MUTED = "#9D948A"; // podpisy na czarnym 6,95:1
 
 export const AMERYKA: Theme = {
   ...BISANZ,
@@ -48,7 +53,7 @@ export const AMERYKA: Theme = {
   inlineSmall: 54,
   shadow: "0 6px 22px rgba(2,2,3,0.6), 0 2px 4px rgba(2,2,3,0.7)",
   maxWidth: 0.8,
-  y: 0.73,
+  y: 0.62, // 2026-10-20: 0,73 było za nisko
   yRaised: 0.63,
   radius: 24,
   marker: {
@@ -82,15 +87,18 @@ const Star: React.FC<{ size: number; color?: string }> = ({
 
 // Wyliczanka jak pasy flagi USA: pas (czerń/bordo) wjeżdża od lewej, złota gwiazdka wyskakuje
 // z obrotem, numer w złocie, punkt WERSALIKAMI Poppins 900. Bez karty; dolna krawędź w strefie TikToka.
-const FlagList: React.FC<OverlayProps> = ({ o, dur, at }) => {
+// Tabela stawek: punkt z `value` → pasy równej szerokości, `was` się przekreśla, `value` wyskakuje
+// na złotym (czarny na złotym 7,1:1 na obu pasach); `sub` = podpis, `o.source` = źródło pod listą.
+const FlagList: React.FC<OverlayProps> = ({ o, dur, at, src }) => {
   const f = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
   const items = o.items ?? [];
+  const table = items.some((it) => typeof it !== "string" && it.value);
   const exit = interpolate(f, [dur - 9, dur], [0, 1], {
     ...clamp,
     easing: Easing.in(Easing.cubic),
   });
-  const textBox = width * 0.8 - 230;
+  const textBox = width * 0.8 - (table ? 400 : 230);
   return (
     <div
       style={{
@@ -100,7 +108,7 @@ const FlagList: React.FC<OverlayProps> = ({ o, dur, at }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        gap: 14,
+        gap: table ? 10 : 14,
         fontFamily: AMERYKA.font,
         opacity: 1 - exit,
         transform: `translateX(${exit * 80}px)`,
@@ -149,44 +157,27 @@ const FlagList: React.FC<OverlayProps> = ({ o, dur, at }) => {
         )}
       </div>
       {items.map((it, i) => {
-        const text = typeof it === "string" ? it : it.text;
+        const { text, sub, value, was } =
+          typeof it === "string" ? { text: it } : it;
         const t0 =
           typeof it !== "string" && it.at != null ? at(it.at) : 0.3 + i * 0.4;
         const lf = f - Math.round(t0 * fps);
-        const band =
+        const go = (delay: number, damping: number, stiffness: number) =>
           lf < 0
             ? 0
             : spring({
-                frame: lf,
+                frame: lf - delay,
                 fps,
-                config: { damping: 20, stiffness: 170 },
+                config: { damping, stiffness },
               });
-        const star =
-          lf < 0
-            ? 0
-            : spring({
-                frame: lf - 2,
-                fps,
-                config: { damping: 8, stiffness: 190 },
-              });
-        const rise =
-          lf < 0
-            ? 0
-            : spring({
-                frame: lf - 5,
-                fps,
-                config: { damping: 18, stiffness: 210 },
-              });
-        const rule =
-          lf < 0
-            ? 0
-            : spring({
-                frame: lf - 9,
-                fps,
-                config: { damping: 20, stiffness: 140 },
-              });
+        const band = go(0, 20, 170);
+        const star = go(2, 8, 190);
+        const rise = go(5, 18, 210);
+        const rule = go(9, 20, 140);
+        const strike = go(10, 20, 160);
+        const pop = go(was ? 16 : 7, 9, 200);
         const size = Math.min(
-          50,
+          table ? 40 : 50,
           fitText({
             text: text.toUpperCase(),
             withinWidth: textBox,
@@ -202,11 +193,22 @@ const FlagList: React.FC<OverlayProps> = ({ o, dur, at }) => {
               position: "relative",
               display: "flex",
               alignItems: "center",
-              gap: 22,
-              padding: "16px 34px 16px 26px",
+              gap: table ? 18 : 22,
+              padding: table ? "9px 28px 9px 24px" : "16px 34px 16px 26px",
+              width: table ? width * 0.8 : undefined,
+              boxSizing: "border-box",
               opacity: lf < 0 ? 0 : 1,
             }}
           >
+            {o.sfx && (
+              <Sequence
+                from={Math.round(t0 * fps)}
+                layout="none"
+                showInTimeline={false}
+              >
+                <Audio src={src(o.sfx)} volume={o.sfxVolume ?? 0.3} />
+              </Sequence>
+            )}
             {/* pas flagi: skos jak pasy na masce muscle cara */}
             <div
               style={{
@@ -237,7 +239,7 @@ const FlagList: React.FC<OverlayProps> = ({ o, dur, at }) => {
                 transform: `scale(${star}) rotate(${(1 - star) * -144}deg)`,
               }}
             >
-              <Star size={44} />
+              <Star size={table ? 34 : 44} />
             </div>
             <div
               style={{
@@ -251,28 +253,302 @@ const FlagList: React.FC<OverlayProps> = ({ o, dur, at }) => {
             >
               {String(i + 1).padStart(2, "0")}
             </div>
-            <div
-              style={{
-                position: "relative",
-                overflow: "hidden",
-                padding: "0 4px",
-              }}
-            >
+            <div style={{ position: "relative", flex: table ? 1 : undefined }}>
+              <div style={{ overflow: "hidden", padding: "0 4px" }}>
+                <div
+                  style={{
+                    fontWeight: 900,
+                    fontSize: size,
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.01em",
+                    textTransform: "uppercase",
+                    whiteSpace: "nowrap",
+                    color: CREAM,
+                    transform: `translateY(${(1 - rise) * 110}%)`,
+                  }}
+                >
+                  {text}
+                </div>
+              </div>
+              {sub && (
+                <div
+                  style={{
+                    padding: "2px 4px 0",
+                    fontWeight: 400,
+                    fontSize: 24,
+                    lineHeight: 1.2,
+                    color: CREAM,
+                    opacity: 0.88 * rule,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {sub}
+                </div>
+              )}
+            </div>
+            {was && (
               <div
                 style={{
-                  fontWeight: 900,
-                  fontSize: size,
-                  lineHeight: 1.1,
-                  letterSpacing: "-0.01em",
-                  textTransform: "uppercase",
-                  whiteSpace: "nowrap",
+                  position: "relative",
+                  fontWeight: 600,
+                  fontSize: 36,
                   color: CREAM,
-                  transform: `translateY(${(1 - rise) * 110}%)`,
+                  opacity: rise * (1 - 0.45 * strike),
                 }}
               >
-                {text}
+                {was}
+                <div
+                  style={{
+                    position: "absolute",
+                    left: -6,
+                    right: -6,
+                    top: "52%",
+                    height: 4,
+                    background: CREAM,
+                    transform: `rotate(-8deg) scaleX(${strike})`,
+                    transformOrigin: "left",
+                  }}
+                />
               </div>
-            </div>
+            )}
+            {value && (
+              <div
+                style={{
+                  position: "relative",
+                  minWidth: 112,
+                  textAlign: "center",
+                  fontWeight: 900,
+                  fontSize: 46,
+                  lineHeight: 1,
+                  padding: "6px 12px",
+                  borderRadius: 6,
+                  background: GOLD,
+                  color: BLACK,
+                  fontVariantNumeric: "tabular-nums",
+                  transform: `scale(${pop}) rotate(${(1 - pop) * -10}deg)`,
+                }}
+              >
+                {value}
+              </div>
+            )}
+          </div>
+        );
+      })}
+      {o.source && (
+        <div
+          style={{
+            maxWidth: width * 0.8,
+            marginTop: 2,
+            padding: "6px 12px",
+            borderRadius: 6,
+            background: BLACK,
+            fontWeight: 400,
+            fontSize: 22,
+            lineHeight: 1.3,
+            color: MUTED,
+            opacity: interpolate(f, [12, 24], [0, 1], clamp),
+          }}
+        >
+          Źródło: {o.source}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Auto z przebitki (przezroczysty PNG, media `fit: "overlay"`): czarna karta ze złotą krawędzią,
+// auto wjeżdża z prawej z rozmyciem ruchu i hamuje, złota linia drogi, metka `text`; wyjeżdża w lewo.
+const CarCard: React.FC<OverlayProps> = ({ o, dur, src }) => {
+  const f = useCurrentFrame();
+  const { fps, width, height } = useVideoConfig();
+  const h = o.size ?? 280;
+  // karta obejmuje auto (aspect = wysokość/szerokość PNG), bez aspect szerokość karty z napisami
+  const cardW = o.aspect
+    ? Math.min(width * 0.8, h / o.aspect + 140)
+    : width * 0.8;
+  const card = spring({
+    frame: f,
+    fps,
+    config: { damping: 18, stiffness: 150, mass: 0.8 },
+  });
+  // mało tłumienia = auto lekko przejeżdża środek i cofa się jak przy hamowaniu
+  const drive = spring({
+    frame: f - 4,
+    fps,
+    config: { damping: 13, stiffness: 90 },
+  });
+  const away = interpolate(f, [dur - 14, dur - 3], [0, 1], {
+    ...clamp,
+    easing: Easing.in(Easing.cubic),
+  });
+  const fade = interpolate(f, [dur - 8, dur], [1, 0], clamp);
+  const road = spring({
+    frame: f - 10,
+    fps,
+    config: { damping: 20, stiffness: 140 },
+  });
+  const speed = Math.abs(1 - drive) + away;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: (o.x ?? 0.5) * width,
+        top: (o.y ?? 0.23) * height,
+        width: cardW,
+        transform: `translate(-50%, -50%) translateY(${(1 - card) * -40}px) scale(${0.94 + 0.06 * card})`,
+        opacity: Math.min(card, fade),
+        background: BLACK,
+        border: `2px solid ${AMERYKA.cardBorder}`,
+        borderRadius: AMERYKA.radius,
+        boxShadow: "0 24px 60px rgba(2,2,3,0.35)",
+        padding: "24px 28px 20px",
+        boxSizing: "border-box",
+        overflow: "hidden",
+        fontFamily: AMERYKA.font,
+      }}
+    >
+      {o.sfx && <Audio src={src(o.sfx)} volume={o.sfxVolume ?? 0.3} />}
+      {o.text && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            fontWeight: 400,
+            fontSize: 26,
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: GOLD,
+            opacity: card,
+          }}
+        >
+          <Star size={22} />
+          {o.text}
+        </div>
+      )}
+      <div style={{ position: "relative", height: h, marginTop: 10 }}>
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 4,
+            height: 3,
+            background: GOLD,
+            opacity: 0.8,
+            transform: `scaleX(${road})`,
+            transformOrigin: "right",
+          }}
+        />
+        <Img
+          src={src(o.src!)}
+          style={{
+            position: "absolute",
+            left: "50%",
+            bottom: 0,
+            height: h,
+            transform: `translateX(calc(-50% + ${(1 - drive) * cardW * 1.1 - away * cardW * 1.2}px)) skewX(${-(1 - drive) * 10 + away * 8}deg)`,
+            filter: `blur(${Math.min(8, speed * 10)}px) drop-shadow(0 14px 16px rgba(2,2,3,0.7))`,
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+// Subtelny wysyp dolarów przy cenie (`dollars`): banknoty (krem, złota ramka, czarno-złota pieczęć)
+// i złote monety z czarnym „$” wylatują zza napisu z ceną (x, y = start), łukiem opadają i gasną
+// w ~1,3 s. Grafiki leżą pod napisami, więc liczba zostaje czytelna. `size` = liczba sztuk.
+const Bill: React.FC = () => (
+  <div
+    style={{
+      width: 78,
+      height: 38,
+      boxSizing: "border-box",
+      borderRadius: 4,
+      background: CREAM,
+      border: `2px solid ${GOLD}`,
+      boxShadow: "0 6px 14px rgba(2,2,3,0.45)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    <div
+      style={{
+        width: 22,
+        height: 22,
+        borderRadius: 11,
+        background: BLACK,
+        color: GOLD,
+        fontWeight: 900,
+        fontSize: 15,
+        lineHeight: "22px",
+        textAlign: "center",
+      }}
+    >
+      $
+    </div>
+  </div>
+);
+
+const Coin: React.FC<{ flip: number }> = ({ flip }) => (
+  <div
+    style={{
+      width: 44,
+      height: 44,
+      borderRadius: 22,
+      background: GOLD,
+      boxShadow: "inset 0 0 0 3px rgba(2,2,3,0.22), 0 6px 14px rgba(2,2,3,0.45)",
+      color: BLACK,
+      fontWeight: 900,
+      fontSize: 26,
+      lineHeight: "44px",
+      textAlign: "center",
+      transform: `scaleX(${flip})`,
+    }}
+  >
+    $
+  </div>
+);
+
+const Dollars: React.FC<OverlayProps> = ({ o, src }) => {
+  const f = useCurrentFrame();
+  const { fps, width, height } = useVideoConfig();
+  const x0 = (o.x ?? 0.5) * width;
+  const y0 = (o.y ?? AMERYKA.y) * height;
+  return (
+    <div style={{ position: "absolute", inset: 0, fontFamily: AMERYKA.font }}>
+      {o.sfx && <Audio src={src(o.sfx)} volume={o.sfxVolume ?? 0.3} />}
+      {Array.from({ length: o.size ?? 8 }, (_, i) => {
+        const r = (k: string) => random(`${o.start}-${i}-${k}`);
+        const side = i % 2 ? 1 : -1;
+        const delay = Math.floor(r("d") * 6);
+        const t = (f - delay) / fps;
+        if (t < 0) return null;
+        // wybuch na boki z małym podbiciem (≤50 px — twarz nad napisem zostaje czysta), potem opadanie
+        const x = x0 + side * (40 + r("o") * 80 + (220 + r("x") * 300) * t);
+        const y = y0 + r("v") * 40 - (100 + r("y") * 160) * t + 350 * t * t;
+        const life = 1.1 + r("l") * 0.35;
+        const pop = spring({
+          frame: f - delay,
+          fps,
+          config: { damping: 10, stiffness: 220 },
+        });
+        const fade = interpolate(t, [life - 0.35, life], [1, 0], clamp);
+        const bill = i % 3 === 0;
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: x,
+              top: y,
+              transform: `translate(-50%, -50%) rotate(${side * (r("r") * 25 + t * (bill ? 90 : 30))}deg) scale(${pop * (0.8 + r("s") * 0.35)})`,
+              opacity: 0.95 * fade,
+            }}
+          >
+            {bill ? <Bill /> : <Coin flip={Math.cos(t * 9 + r("f") * 6)} />}
           </div>
         );
       })}
@@ -280,5 +556,25 @@ const FlagList: React.FC<OverlayProps> = ({ o, dur, at }) => {
   );
 };
 
+// Pop/kasa przy tytule-haku i CTA (`sfx`); media `card` gra swój `sfx` w silniku Bisanza.
+const WithSfx: React.FC<OverlayProps> = (props) => (
+  <>
+    {props.o.sfx && props.o.type !== "media" && (
+      <Audio src={props.src(props.o.sfx)} volume={props.o.sfxVolume ?? 0.3} />
+    )}
+    <Base {...props} />
+  </>
+);
+
 export const AmerykaOverlay: React.FC<OverlayProps> = (props) =>
-  props.o.type === "list" ? <FlagList {...props} /> : <Base {...props} />;
+  props.o.type === "list" ? (
+    <FlagList {...props} />
+  ) : props.o.type === "dollars" ? (
+    <Dollars {...props} />
+  ) : props.o.type === "media" &&
+    props.o.fit === "overlay" &&
+    /\.(png|webp)$/i.test(props.o.src ?? "") ? (
+    <CarCard {...props} />
+  ) : (
+    <WithSfx {...props} />
+  );

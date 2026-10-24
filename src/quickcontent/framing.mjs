@@ -17,7 +17,7 @@ export function trackingPosition(framing, sourceTime) {
   const a = points[right - 1],
     b = points[right];
   // cięcie kamery / zmiana mówcy: kadr przeskakuje, bez przejazdu; ujęcie `fit` (news) bez śledzenia
-  if (b.cut || a.fit || b.fit) return a;
+  if (b.cut || a.fit || b.fit || (a.shotId!==undefined && b.shotId!==undefined && a.shotId!==b.shotId)) return a;
   const t = clamp((sourceTime - a.time) / (b.time - a.time));
   const ease = t * t * (3 - 2 * t);
   return {
@@ -57,6 +57,7 @@ export function validTracking(framing, duration) {
         p &&
         typeof p === "object" &&
         [p.time, p.centerX, p.centerY].every(Number.isFinite) &&
+        (p.shotId===undefined || (typeof p.shotId==="string"&&p.shotId.length>0&&p.shotId.length<=120)) &&
         p.time >= 0 &&
         p.time <= duration &&
         p.centerX >= 0 &&

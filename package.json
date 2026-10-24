@@ -44,7 +44,9 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src ui scripts && tsc",
     "reel": "node scripts/prep.mjs",
-    "test": "node --test scripts/*.test.mjs ui/*.test.mjs tests/motion-*.test.mjs",
+    "reel:check": "node scripts/reel-check.mjs",
+    "reel:ops": "node scripts/reel-ops.mjs",
+    "test": "node --test scripts/*.test.mjs scripts/quality/*.test.mjs ui/*.test.mjs tests/motion-*.test.mjs",
     "ui": "vite --config vite.config.mjs",
     "quickcontent": "node scripts/quickcontent-cli.mjs",
     "studio:sync": "node scripts/studio-sync.mjs",
@@ -54,7 +56,9 @@
     "update:recover": "node scripts/app-update-cli.mjs recover",
     "release:package": "node scripts/app-update-release.mjs",
     "build:panel": "vite build --config vite.config.mjs",
-    "build:site": "vite build --config vite.site.config.mjs"
+    "build:site": "vite build --config vite.site.config.mjs",
+    "reel:geometry": "node scripts/reel-geometry.mjs",
+    "cutraw": "node scripts/cutraw.mjs"
   },
   "sideEffects": [
     "*.css"

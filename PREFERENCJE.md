@@ -1,3 +1,28 @@
+## CutRaw: projekt z plików przeciągniętych z dysku — 2026-10-24
+
+- W panelu CutRaw nowy projekt można założyć, przeciągając nagrania z dysku (albo „Wybierz z dysku”), bez ręcznego kopiowania do `inbox/`. Pliki trafiają do `inbox/cutraw/`, od razu są zaznaczone i gotowe do synchronizacji. Oryginały na dysku zostają nietknięte.
+
+## CutRaw — cięcie surowego nagrania (podcast, multicam) — 2026-10-23 (plan)
+
+- Nowa usługa w MontageFrames o nazwie **CutRaw**. Wejście: 1, 2 lub więcej kamer i opcjonalnie osobne audio MP3/WAV z 1–2 mikrofonów (podcast). Najczęściej 1–2 kamery z dźwiękiem z kamer.
+- Program synchronizuje źródła po dźwięku, odsłuchuje audio, wykrywa ciszę, „eee/yyy/aaa”, słowa-wtrącenia, falstarty i powtórzenia i je usuwa. Finalny materiał ma mieć ręce i nogi: ciągłość od A do Z, sens zdań bez zmian, bez cięcia na siłę. Cięcia mogą być dość częste.
+- Wycięcia sprawdza **GPT-6 Luna** (jawna decyzja użytkowniczki dla CutRaw; LongForm pozostaje przy operatorze na koncie CLI).
+- Każde cięcie w najcichszym miejscu, bez twardych przejść.
+- Cenzura przekleństw polskich i angielskich przez wyciszenie: słychać kilka pierwszych liter, reszty słowa nie, ewentualnie także ostatnią literę. Bez dźwięku kruka.
+- Finalny eksport: XML do Premiere Pro (import i dalsza praca na osi). Najpierw krótki plan MVP z fazami; założenia w `zalozenia-funkcji-CutRaw.md`, etapy w `plan-wdrozenia-CutRaw.md`, instrukcje w `AGENTS.md`. Przy planowaniu: Ponytail, Impeccable, Apple Design, Design Taste, reverse-skill. Bez kodu na tym etapie.
+
+## Oznaczenie rolki wrzuconej na social media — 2026-10-23
+
+- W bibliotece rolek MontageFrames i w QuickContent (propozycje i zmontowane) każda rolka ma checkbox „Wrzucona na social media”, który można zaznaczyć i odznaczyć. Zaznaczona rolka ma czerwoną obramówkę. Stan zapisuje się trwale przy rolce i nie zmienia montażu ani renderu. Po wdrożeniu wysłać zmiany na GitHub.
+
+## Nowy klient FitnessIQ — 2026-10-22
+
+- Folder `klienci/fitness-iq/`, profil `klienci/fitness-iq/PREFERENCJE.md`, logo w `public/Brandings/FitnessIQ/`. Kolory: `#0B0B0D`, `#C8F134`, `#FFFFFF`, `#808080`. Fonty ze strony fitnessiq.pl/warszawa to Roboto (nagłówki) i Nunito Sans (treść). Informacje o firmie i wydarzeniu są zapisane w pliku klienta.
+
+## QuickContent: błąd zakresu Whisper — 2026-10-18
+
+- Naprawić błąd „Nieprawidłowy zakres segmentu Whisper.” blokujący analizę projektu. Zachować źródło i odzyskać istniejącą transkrypcję, jeśli jest poprawna; puste segmenty bez tekstu i słów nie mogą blokować analizy. Nadal sprawdzać czasy rzeczywistych słów.
+
 ## Naprawa CI i aktualizacja GitHub — 2026-10-17
 
 - Zachować konwersję HDR→SDR również na starszym FFmpeg z Ubuntu; test HDR nie może wymagać nowych opcji `scale` dostępnych tylko w lokalnej instalacji.
@@ -250,3 +275,32 @@ Kadr 1080×1920. Napisy, grafiki, logo i CTA trzymam tam, gdzie nie zasłoni ich
 - Fonty: bazowo wybór z lokalnie zainstalowanych, upload własnych oraz wyszukiwarka Google Fonts / pobranie po nazwie.
 - Wygląd napisów: zwykłe, kinetic, pop-out; osobne ustawienia wyróżniania/podkreślania słów i emotek; możliwość późniejszego rozwoju stylów.
 - Przy projektowaniu używać design-taste-frontend w jego zakresie, Ponytail, UI/UX Pro Max i Impeccable. Projekt otworzyć lokalnie w karcie Codex.
+
+## Powtarzalność montażu i centralna kontrola jakości — 2026-10-18
+
+- Przygotować kompleksowy research i projekt ograniczający błędy słabszych modeli oraz wymuszający wytyczne każdego klienta. Zakres obejmuje wszystkich klientów, również pracę po pobraniu repo przez inną osobę; Happy News jest przykładem, nie jedynym zakresem.
+- Zgłoszone objawy: rozjeżdżający się tracking, skoki obrazu, brak przebitek z kamery ogólnej oraz emotki w innych miejscach. Rozdzielić błędy redakcji AI od błędów silnika, zasobów i środowiska; nie zakładać, że samo wydłużenie instrukcji rozwiąże problem.
+- Docelowy kierunek użytkowniczki: odejście od lokalnego uruchamiania/CLI jako sposobu używania produktu przez odbiorców, na rzecz działania w jednakowy, kontrolowany sposób i kontroli jakości materiałów przez właścicielkę. Niniejsze polecenie obejmuje research i plan; nie wyłączać teraz istniejących instalacji ani nie uruchamiać płatnych usług.
+- Zachować odrębne style i aktualne preferencje klientów. Nie przenosić ustawień Happy News, w tym automatycznych emotek, na inne marki.
+- Doprecyzowanie kosztów 2026-10-18: docelowy montaż przez API ma pozostać tani i oszczędny tokenowo, również przy poprawkach rolek. Plan ma obejmować reużycie wyników, mały zakres zmian i rozdzielenie kosztu AI od kosztu renderu; bez ponownej analizy całego filmu przy drobnej korekcie.
+- Zgoda na rozpoczęcie wdrożenia 2026-10-18 z obowiązkową korektą kierunku: zachować działanie lokalne przez CLI/Terminal i operatorów na kontach subskrypcyjnych, również docelowo do testowania bez płatnego API. Nie usuwać ani nie wyłączać tych ścieżek, nie wymuszać API i nie uruchamiać płatnego fallbacku. Lokalne i usługowe wykonanie mają korzystać z tych samych reguł i walidatorów jakości.
+- Doprecyzowanie 2026-10-18: odbiorcy nadal mogą tworzyć i edytować własny branding oraz definiować wygląd stylu (fonty, kolory, napisy, materiały). Ta funkcja ma być dostępna w odpowiednio droższych pakietach, nie ograniczać produktu do predefiniowanych marek. Lokalny CLI ma pozostać wspieraną ścieżką także dla osób z wewnętrznej struktury firmy do pracy, diagnozy i napraw; nie tylko dla właścicielki. Wspólna walidacja pilnuje wybranego kontraktu, nie zakazuje autoryzowanej edycji profilu.
+- Dokumentacja wdrożenia 2026-10-18: zapisać w repo komplet założeń wersji serwerowej, architekturę, plan podzielony na fazy, kryteria odbioru oraz instrukcje w AGENTS.md. Oznaczać oddzielnie wdrożony fundament lokalny, planowane prace i warunki uruchomienia usługi. Zachować własne brandingi w wyższych pakietach oraz lokalne CLI dla zespołu; samo zapisanie planu nie oznacza zakupu infrastruktury, publikacji ani wdrożenia na serwer.
+- Wykonanie F0 2026-10-18: sprawdzić i domknąć fundament lokalny zgodnie z planem serwera, potwierdzić testy i działanie lokalnej kontroli oraz zapisać odbiór. Nie utożsamiać zakończenia F0 z wdrożeniem serwera ani naprawą całego obrazu/trackingu; pozostałe fazy pozostają oddzielne.
+- Wykonanie kolejnej fazy 2026-10-18: rozpocząć F1 — korpus przypadków i wersjonowane kontrakty reguł klientów, z pierwszeństwem aktualnych zasad oraz zachowaniem wcześniejszych snapshotów i własnych brandingów. Nie oznaczać brakujących nagrań ani nieprzejrzanych materiałów jako zaakceptowanego korpusu.
+- Kontynuacja 2026-10-18: wdrażać następne etapy kolejno w ramach dostępnego usage, bez zatrzymywania się po każdej fazie; po etapie utrwalać odbiór i konkretny zakres następnego. Nie znosi to wcześniejszego zachowania CLI/kont, braku płatnego fallbacku i zakazu niezamówionej publikacji/zakupu infrastruktury. Etap F2 obejmuje zasoby/manifest, potem F3 ograniczone operacje redakcji i oszczędne poprawki.
+
+## Kontynuacja jakości lokalnej bez infrastruktury — 2026-10-19
+
+- Kontynuować kolejne lokalne etapy poprawności montażu i oszczędnych korekt. W tej serii pominąć publikację na Vercelu, uruchamianie backendu oraz integrację Supabase. Nie kupować usług ani nie wdrażać infrastruktury.
+- Zapisać oddzielnie prace potrzebne później do uruchomienia usługi; wybór pozostaje między wykupionym backendem a własnym Maciem mini w celu ograniczenia kosztów. Nie narzucać teraz dostawcy, bazy ani konkretnego modelu sprzętu. Zachować lokalne CLI/Terminal i konta zespołu.
+
+## Kontynuacja F4 — 2026-10-20
+
+- Wykonać kolejny lokalny etap według zapisanego punktu wznowienia: pomiar geometrii animowanych napisów, hooków i emotek oraz kontrola kompletności dowodu. Zachować CLI/konta, własny branding i odłożenie infrastruktury. Nie przeliczać ani nie nadpisywać starych montaży automatycznie.
+
+- Kolejny przyrost F4 — 2026-10-20: kontynuować zapisany etap pomiaru widocznych pikseli tekstu/dekoracji. Pomiar kontrolny ma zachować wygląd eksportu i projekty, działać lokalnie bez LLM; pełne bramki twarzy/mediów pozostają osobne, dopóki nie ma dowodów.
+
+## QuickContent: opis do istniejącego renderu — 2026-10-20
+
+- Naprawić blokadę generowania opisu przy wyrenderowanych filmach. Zmiana kodu silnika lub wskazówek opisu nie może wymuszać ponownego renderu dla samego opisu. Zachować kontrolę zgodności rewizji montażu i istnienia sprawdzonego MP4; opis nie uruchamia montażu ani renderowania.

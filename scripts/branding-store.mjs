@@ -7,6 +7,8 @@ import {
   clientIdSchema,
 } from "../src/branding/schema.mjs";
 import { establishedStyles } from "../src/branding/established-styles.mjs";
+import { contractForBranding } from "./quality/client-rules.mjs";
+import { verifyClientContract } from "./quality/contracts.mjs";
 export const brandingError = (status, message) =>
   Object.assign(new Error(message), { status });
 export async function brandingPath(root, relative, { create = false } = {}) {
@@ -121,10 +123,25 @@ export function createBrandingStore(root) {
             );
           const profile = brandingProfileSchema.parse({
             ...input,
+            qualityContract: undefined,
             clientId: id,
             revision: (current?.revision || 0) + 1,
             updatedAt: new Date().toISOString(),
           });
+          profile.qualityContract = await contractForBranding(
+            profile,
+            async (relative) => {
+              try {
+                return await fs.readFile(
+                  await brandingPath(root, relative),
+                  "utf8",
+                );
+              } catch (error) {
+                if (error.code === "ENOENT") return null;
+                throw error;
+              }
+            },
+          );
           await verifyReferences(root, profile);
           const version = await brandingPath(
             root,
@@ -221,11 +238,13 @@ export async function snapshotBranding(root, clientId, revision) {
     }
   }
   await verifyReferences(root, p);
+  if (p.qualityContract) verifyClientContract(p.qualityContract, p);
   return {
     schemaVersion: 1,
     ...(p.styleId !== undefined ? { styleId: p.styleId } : {}),
     clientId: p.clientId,
     revision: p.revision,
+    ...(p.qualityContract ? { qualityContract: p.qualityContract } : {}),
     palette: p.palette,
     fonts: p.fonts,
     captions: p.captions,

@@ -2,6 +2,12 @@
 
 Lokalna aplikacja do montażu rolek, wybierania fragmentów długich nagrań (QuickContent), pracy nad filmem poziomym i animacji Motion Studio. Panel po polsku, React/Vite + Remotion.
 
+## Plan wersji serwerowej
+
+[Założenia produktu](zalozenia-funkcji-Serwer.md) · [fazy wdrożenia F0–F9](plan-wdrozenia-Serwer.md) · [architektura i procedura](docs/server/wdrozenie.md) · [stan i odbiór](docs/server/acceptance.md).
+
+Usługa serwerowa jest w planie; pierwszy fundament jakości opisuje [raport lokalny](docs/quality/acceptance.md). Własny branding pozostaje funkcją produktu, docelowo w wyższych pakietach. Lokalny panel i CLI na kontach pozostają wspierane dla właścicielki i zespołu wewnętrznego — instrukcja poniżej nadal obowiązuje.
+
 ## Instalacja
 
 Wymagany Node.js **22.12 lub nowszy** i npm. Pełny zestaw lokalnych narzędzi wideo jest rozwijany i sprawdzany na macOS. Detekcja twarzy i maska osoby korzystają z Apple Vision / Swift; na innych systemach nie należy zakładać identycznej obsługi.
@@ -209,3 +215,19 @@ Stara wersja nie potrafi sama dodać sobie aktualizatora. Potrzebna jest jednora
 - **Lokalnie zmieniony kod:** najpierw wykonaj kopię całego folderu i połącz kod ręcznie. Aktualizator nie zgaduje, które zmiany można odrzucić.
 
 Od tej migracji panel pokazuje powiadomienie o nowym oficjalnym wydaniu, a kolejne aktualizacje wykonujesz w Ustawieniach. Sam push na gałąź roboczą nie wysyła aktualizacji do zainstalowanych kopii.
+
+### Ręczna poprawka bez AI
+
+Dla zwykłej rolki `npm run reel:ops -- <nazwa> context` zwraca aktualne referencje słów/hooka. `npm run reel:ops -- <nazwa> apply <operacje.json>` zapisuje ograniczony kontrakt v3 z tej rewizji, bez modelu ani renderu. Rolki QuickContent korzystają z lokalnej trasy operacji panelu, aby zachować blokady zadań. [Zakres, format i ograniczenia F3](docs/quality/f3-acceptance.md).
+
+### Ograniczone poprawki i kontrola kadru
+
+W zwykłych rolkach i QC można wybrać mały zakres poprawki napisów/istniejącego hooka. Ręczna zmiana hooka w Grafiki nie używa AI. Terminal zwykłych rolek: `npm run reel:ops -- <rolka> edit operations "Popraw literówkę" --provider=codex` (konto; dostępny też Claude). `context`/`apply` pozostają ręczne i nie wywołują modelu.
+
+Kadr → „Sprawdź kadr i źródło” albo `npm run reel:check -- <rolka> --quality` wykonuje lokalną kontrolę bez redakcji/renderu. Brak pełnych pomiarów jest jawny i wymaga przeglądu. [Co wdrożono i co dalej](docs/quality/next-stage.md). Publikacja Vercel/backend/Supabase jest odłożona; [lista późniejszych prac, w tym własny Mac mini](docs/server/odlozone-uruchomienie.md).
+
+### Lokalny skan geometrii — 2026-10-20
+
+`npm run reel:geometry -- <nazwa> --frames 0,12,40` sprawdza wybrane klatki w rzeczywistym rendererze i zapisuje PNG do przeglądu. `--all` mierzy wszystkie klatki bez zapisu całej sekwencji obrazów. Bez AI i zmiany rolki; zużywa CPU oraz miejsce na osobny snapshot. To jeszcze pomiar układu, nie pełny obrys pikseli ani potwierdzenie ominięcia twarzy. Szybki test w panelu pozostaje osobny. [Odbiór i ograniczenia](docs/quality/f4-geometry-2026-10-20.md).
+
+Tryb `--pixels` (np. `npm run reel:geometry -- <nazwa> --frames 40 --pixels`) dodaje maski malowanych liter, cieni i emotek, zamiast samego prostokąta układu. Osobne kontrolne rendery zużywają więcej CPU; brak opłat AI. Pełne ominięcie twarzy nadal nie jest potwierdzone. [Odbiór rastra](docs/quality/f4-pixels-2026-10-20.md).

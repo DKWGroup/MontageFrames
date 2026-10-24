@@ -1,9 +1,11 @@
-import { spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { Img, spring, useCurrentFrame, useVideoConfig } from "remotion";
 
-export const WordEmoji: React.FC<{ emoji?: string | null; frame?: number }> = ({
-  emoji,
-  frame,
-}) => {
+export const WordEmoji: React.FC<{
+  emoji?: string | null;
+  frame?: number;
+  src?: string;
+  qualityId?: string;
+}> = ({ emoji, frame, src, qualityId }) => {
   const currentFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
   if (!emoji) return null;
@@ -17,6 +19,8 @@ export const WordEmoji: React.FC<{ emoji?: string | null; frame?: number }> = ({
   const tilt = (glyphs[glyphs.length - 1].codePointAt(0)! % 2 ? -1 : 1) * 7;
   return (
     <span
+      data-quality-id={qualityId}
+      data-quality-role={qualityId ? "emoji" : undefined}
       aria-hidden
       style={{
         display: "inline-block",
@@ -35,7 +39,19 @@ export const WordEmoji: React.FC<{ emoji?: string | null; frame?: number }> = ({
         transformOrigin: "50% 70%",
       }}
     >
-      {emoji}
+      {src ? (
+        <Img
+          src={src}
+          style={{
+            width: "1em",
+            height: "1em",
+            display: "block",
+            objectFit: "contain",
+          }}
+        />
+      ) : (
+        emoji
+      )}
     </span>
   );
 };

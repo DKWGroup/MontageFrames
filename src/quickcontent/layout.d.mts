@@ -1,5 +1,6 @@
 export type Rect = { x: number; y: number; width: number; height: number };
 export type NewsLayout = {
+  shotId?:string;
   start: number;
   end: number;
   kind: "speaker" | "duo" | "duo-media" | "speaker-media";

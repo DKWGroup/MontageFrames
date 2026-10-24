@@ -1,3 +1,4 @@
+import { shotIntervals } from "../src/quickcontent/shots.mjs";
 import { buildHappyLayouts } from "../src/quickcontent/layout.mjs";
 import process from "node:process";
 import path from "node:path";
@@ -121,8 +122,25 @@ export async function detectPortraitFraming(
   words = [],
   styleId,
 ) {
+  if (styleId === "happynews" && width <= height)
+    return {
+      framing: { mode: "fit", centerX: 0.5, centerY: 0.5 },
+      framingNote:
+        "Źródło pionowe Happy News — zachowany pełny obraz, bez automatycznego trackingu.",
+      observations: {
+        version: 1,
+        status: "not-applicable",
+        duration,
+        sampleFps: 0,
+        shots: [],
+        samples: [],
+        requiresReview: true,
+      },
+    };
   let samples = [],
-    panels = [];
+    panels = [],
+    cutScanComplete = false,
+    detectorStatus = "unavailable";
   const cuts = [];
   const fps = Math.min(SAMPLE_FPS, MAX_FRAMES / Math.max(1, duration));
   if (process.platform === "darwin") {
@@ -153,6 +171,7 @@ export async function detectPortraitFraming(
           },
         },
       );
+      cutScanComplete = true;
       await ctx.runTool("ffmpeg", [
         "-hide_banner",
         "-v",
@@ -194,43 +213,80 @@ export async function detectPortraitFraming(
         const detected = JSON.parse(result.stdout);
         samples = Array.isArray(detected) ? detected : detected.samples;
         panels = detected.panels ?? [];
+        if (!Array.isArray(samples) || samples.some((f) => !Array.isArray(f)))
+          throw new Error("Nieprawidłowe obserwacje detektora");
+        detectorStatus = "measured";
       }
     } catch (error) {
       if (ctx.signal?.aborted) throw error;
+      samples = [];
+      panels = [];
+      detectorStatus = "unavailable";
     }
   }
+  const normalizedCuts = shotIntervals(cuts, duration)
+    .slice(1)
+    .map((s) => s.start);
+  const observationBase = {
+    version: 1,
+    status: detectorStatus,
+    duration,
+    sampleFps: fps,
+    cutScanComplete,
+    sourceTimeMapping: "resampled-seconds",
+    requiresReview: true,
+  };
   if (!samples.some((faces) => faces.length))
     return {
-      framing: faceFraming([], width, height),
+      framing:
+        detectorStatus === "measured" && styleId !== "bisanz"
+          ? { mode: "fit", centerX: 0.5, centerY: 0.5 }
+          : faceFraming([], width, height),
+      observations: { ...observationBase, shots: [], samples: [] },
       framingNote:
         "Kadr9:16 wyśrodkowany — detektor nie znalazł twarzy lub jest niedostępny. Ustaw pozycję ręcznie.",
     };
   const { framing, shots } = buildSpeakerTracking({
     responsive: styleId === "happynews",
+    fitFootage: styleId !== "bisanz",
     samples,
     fps,
-    cuts,
+    cuts: normalizedCuts,
     speech: words.map((w) => [w.start, w.end]),
     width,
     height,
     duration,
   });
+  if (cutScanComplete) framing.cameraCuts = normalizedCuts;
   if (styleId === "happynews") {
-    framing.cameraCuts = cuts;
     framing.sourceAspect = width / height;
     framing.layouts = buildHappyLayouts({
       samples,
       panels,
       fps,
       duration,
-      cuts,
+      cuts: normalizedCuts,
       speech: words.map((w) => [w.start, w.end]),
     });
   }
   return {
     framing,
+    observations: {
+      ...observationBase,
+      shots,
+      samples: samples.map((faces, i) => ({
+        sampleIndex: i,
+        time: i / fps,
+        shotId:
+          shots.find((s) => s.start <= i / fps && i / fps < s.end)?.shotId ??
+          null,
+        faces,
+        panels: panels[i] ?? [],
+      })),
+    },
     framingNote:
       speakerNote(shots) +
+      " To analiza heurystyczna — sprawdź przełączenia kamer i przebitki w podglądzie." +
       (framing.layouts?.length
         ? " Układy Happy News: osobne kadry prowadzących i widocznego ekranu z przebitką, synchronicznie ze źródłem."
         : ""),

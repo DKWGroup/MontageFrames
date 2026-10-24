@@ -2,6 +2,8 @@
 
 Konfiguracja z 2026-10-17. `vercel.json` ustawia osobny build publicznej strony.
 
+Pełna wersja serwerowa ma oddzielne [założenia](../zalozenia-funkcji-Serwer.md), [plan faz](../plan-wdrozenia-Serwer.md) i [procedurę infrastruktury](server/wdrozenie.md). Poniższa instrukcja dotyczy wyłącznie landingu; przyszły `build:service` i produkcyjne API są planem, nie istniejącą konfiguracją tego deployu. Wsparcie lokalnego CLI zespołu pozostaje.
+
 ## Ustawienia na ekranie New Project
 
 Po przesłaniu sprawdzonych zmian kodu do repo GitHub, w imporcie `DKWGroup/MontageFrames` ustaw:

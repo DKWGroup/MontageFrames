@@ -4,6 +4,25 @@ import { createHash } from "node:crypto";
 import { safePath, writeMediaJson } from "../scripts/quickcontent-ingest.mjs";
 const hash = (data) =>
   createHash("sha256").update(JSON.stringify(data)).digest("hex");
+export async function quickContentDescriptionReady(root, candidate) {
+  // Renderer updates do not change speech in an already verified MP4.
+  for (const render of candidate?.renders ?? []) {
+    if (
+      render.verified !== true ||
+      render.renderRevision !== candidate.editRevision ||
+      !render.filePath
+    )
+      continue;
+    const output = await fs
+      .stat(await safePath(root, render.filePath))
+      .catch((e) => {
+        if (e.code === "ENOENT") return null;
+        throw e;
+      });
+    if (output?.isFile() && output.size > 0) return true;
+  }
+  return false;
+}
 export async function recordPublicationRender(
   root,
   name,

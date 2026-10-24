@@ -52,6 +52,65 @@ test("snapshot rejects missing font and strips private knowledge", async (t) => 
   await store.save("acme", defaultBranding("acme", "Acme"), 0);
   await assert.rejects(snapshotBranding(root, "acme", 1), /font/i);
 });
+test("new branding versions freeze contracts while old snapshots stay editable without migration", async (t) => {
+  const root = await fixture(t);
+  const store = createBrandingStore(root);
+  const p = defaultBranding("acme", "Acme");
+  await fs.mkdir(path.join(root, "klienci/acme/branding/versions"), {
+    recursive: true,
+  });
+  const legacy = { ...p, revision: 1 };
+  await fs.writeFile(
+    path.join(root, "klienci/acme/branding/profile.json"),
+    JSON.stringify(legacy),
+  );
+  await fs.writeFile(
+    path.join(root, "klienci/acme/branding/versions/v001.json"),
+    JSON.stringify(legacy),
+  );
+  assert.equal((await store.version("acme", 1)).qualityContract, undefined);
+  await fs.writeFile(path.join(root, "PREFERENCJE.md"), "general rules");
+  await fs.writeFile(
+    path.join(root, "klienci/acme/PREFERENCJE.md"),
+    "client rules",
+  );
+  const next = await store.save(
+    "acme",
+    { ...legacy, qualityContract: undefined },
+    1,
+  );
+  assert.match(next.qualityContract?.hash ?? "", /^[a-f0-9]{64}$/);
+  const frozen = JSON.stringify(next.qualityContract);
+  await fs.writeFile(
+    path.join(root, "klienci/acme/PREFERENCJE.md"),
+    "changed client rules",
+  );
+  const third = await store.save("acme", { ...next, name: "New" }, 2);
+  assert.notEqual(third.qualityContract.hash, next.qualityContract.hash);
+  assert.equal(
+    JSON.stringify((await store.version("acme", 2)).qualityContract),
+    frozen,
+  );
+  assert.equal((await store.version("acme", 1)).qualityContract, undefined);
+});
+test("valid unknown client constructor can save its own preferences and branding", async (t) => {
+  const root = await fixture(t);
+  await fs.mkdir(path.join(root, "klienci/constructor"));
+  await fs.writeFile(
+    path.join(root, "klienci/constructor/PREFERENCJE.md"),
+    "My own preferences",
+  );
+  const store = createBrandingStore(root);
+  const saved = await store.save(
+    "constructor",
+    defaultBranding("constructor", "Own brand"),
+    0,
+  );
+  assert.equal(saved.revision, 1);
+  assert.equal(saved.qualityContract.clientId, "constructor");
+  assert.equal(saved.qualityContract.coverage, "partial");
+  assert.equal((await store.version("constructor", 1)).name, "Own brand");
+});
 test("rejects foreign assets and symlinked directories", async (t) => {
   const root = await fixture(t);
   const store = createBrandingStore(root);

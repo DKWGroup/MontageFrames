@@ -20,6 +20,12 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
 - **Akcent bordo (`hl`) cięższy i z popem:** słowo na bordo ma wagę o 200 wyższą od małych słów (Poppins 800 zamiast 600), a zakreślacz nie przejeżdża od lewej, tylko wyskakuje (pop out: blok rośnie sprężyście z lekkim przestrzeleniem i przechyłem). Złoty klucz zostaje bez zmian. *(2026-10-08)*
 - **Wyliczanki po amerykańsku, typograficznie:** listy (np. specyfikacja auta, etapy, koszty) nie stoją na zwykłej ciemnej karcie. Każdy punkt to pas jak pas flagi USA (na przemian czerń i bordo) wjeżdżający od lewej, ze złotą gwiazdką, która wyskakuje z obrotem, numerem `01` w złocie i treścią WERSALIKAMI Poppins 900 w kremie. Nad listą rząd złotych gwiazdek, które zapalają się po kolei, opcjonalnie z etykietą `title`. Kontrast: krem na czerni 18,7:1, krem na bordo 10,8:1. *(2026-10-08)*
 
+- **Auto z przebitek przy wzmiance, cła z researchem *(2026-10-19, rolka „import tesla z usa”)*:** gdy w wypowiedzi pada model auta, którego zdjęcie leży w `klienci/swieza-bryka-ameryka/przebitki/`, pokazuję je w chwili wzmianki (przezroczysty PNG → `media` z `fit: "overlay"`: czarna karta ze złotą krawędzią, auto wjeżdża z prawej i hamuje, metka z modelem). Gdy mowa o cłach, akcyzie lub VAT przy imporcie, szukam źródła (rozporządzenie UE, ustawa) i pokazuję animację wyjaśniającą jako tabelę stawek z podpisem „Źródło: …”, a linki zapisuję w `sources.md` rolki. Zamiast „zero cła” bez kontekstu podaję warunek, np. auto wyprodukowane w USA, od 1.07.2026, i to, co zostaje (VAT).
+
+- **SFX przy cenach i popupach, dolary, napisy wyżej *(2026-10-20, poprawka rolki „import tesla z usa”)*:** przy kwotach dźwięk kasy (cash register) i subtelny wysyp dolarów wokół napisu z ceną (złote „$” i małe banknoty w kremie ze złotą ramką, krótko, bez zasłaniania twarzy i liczby); przy wejściach grafik, kart i tytułu krótki pop. Kasa najmocniej przy kluczowych cenach, przy powtórzeniach lżej albo bez dźwięku. Wszystkie SFX ok. 10 dB pod mową (pomiar względem fragmentu). **Napisy wyżej:** środek bloku y = 0,62 zamiast 0,73 — poprzednia pozycja była za nisko.
+
+- **Odprawa w Holandii, VAT 21% *(2026-10-20, poprawka rolki „import tesla z usa”)*:** auta z USA odprawiamy w Holandii, więc w grafikach i opisach VAT przy imporcie to **21%** (stawka holenderska), a nie polskie 23%. Przy rozpisce opłat piszę „odprawa w Holandii”.
+
 ## Marka *(rozeznanie strony i skilli `swiezabryka-ameryka`, `swiezabryka-ameryka-social`, 2026-10-07)*
 
 - Import aut z USA na zamówienie (Copart, IAAI, Manheim): wybór i weryfikacja, umowa i zwrotna kaucja, licytacja, płatność w 48 h, transport do portu, rejs do Europy, odprawa, naprawa i przygotowanie do rejestracji. Siostrzana marka Świeżej Bryki (auta z Europy). Twarze: Krzysiek (frontman) i Dawid.
@@ -74,7 +80,7 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
   - `effect: "stamp"`: złoty blok pojawia się od razu i wskakuje z przechyłem (puenta, najwyżej raz na ~5 s).
 - **Małe słowa:** Poppins 600, krem `#F6F3EE`, cień z `#020203`.
 - Pole `color` grupy nie działa w tym stylu: kolory zakreślaczy są stałe, żeby kontrast zawsze się zgadzał.
-- **Pozycja:** środek bloku y = 0,73, przy karcie na dole dolna krawędź y = 0,63 (jak SkyClass). Jeśli napisy zasłonią twarz, przesuwam je i dopisuję poprawkę tutaj.
+- **Pozycja:** środek bloku y = 0,62 *(od 2026-10-20; wcześniej 0,73 — za nisko)*, przy karcie na dole dolna krawędź y = 0,63, a z `face.bottom` napis startuje tuż pod twarzą. Jeśli napisy zasłonią twarz, przesuwam je i dopisuję poprawkę tutaj.
 - **Cięcie ciszy:** jak w stylach ogólnych (włączone).
 
 ## Grafiki (`AmerykaOverlay`)
@@ -82,6 +88,8 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
 | type | wygląd |
 |---|---|
 | `counter` | czarna karta ze złotą krawędzią, `title` jako złota etykieta Poppins 400, duża złota liczba Poppins 900, `label` w kremie |
+| `list` z `value` | tabela stawek na pasach flagi: `was` (np. „10%”) się przekreśla, `value` wyskakuje na złotym, `sub` = podpis pod punktem, `source` = źródło pod listą; np. cło / akcyza / VAT |
+| `media` (fit `overlay`, PNG) | auto z przebitki w czarnej karcie ze złotą krawędzią: wjazd z prawej z rozmyciem ruchu, hamowanie, złota linia drogi, metka `text`; `aspect` (wys./szer. PNG) dopasowuje kartę do auta, `y` = środek |
 | `list` | pasy flagi USA (czerń/bordo) bez karty, złota gwiazdka z popem, numer `01` w złocie, punkt WERSALIKAMI Poppins 900 w kremie, wchodzą przy `at`; pasuje do rozpiski kosztów (cena aukcji, transport w USA, fracht, cło, akcyza, VAT, transport do Polski, naprawa, prowizja) |
 | `title` | hak u góry: WERSALIKI Poppins 900 w kremie, fragment `hl` na złotym zakreślaczu z czarnym tekstem |
 | `cta` | etykieta + złoty przycisk z czarnym tekstem (jak „Porozmawiajmy” na stronie), np. „Napisz model i budżet” |
@@ -107,3 +115,9 @@ Najpierw własny materiał klienta (marka nagrywa każdy etap telefonem), potem 
 ## Opisy do rolek *(2026-10-08)*
 
 - W stałej końcówce opisu zawsze dodawaj numer telefonu. Numer marki potwierdzony na swiezabrykaameryka.pl: **797 978 478**. Nie pomijaj go przy stronie i CTA.
+
+## Karuzele i posty pisane *(2026-10-20, korekta użytkowniczki)*
+
+- Zdjęcia aut do karuzel wyszukuj na **Pexels** i wykorzystuj jako tła lub elementy kompozycji. Zapisuj stronę zdjęcia, autora i licencję; stock jest ilustracją, nie dokumentacją auta klienta ani warsztatu firmy.
+- Seria ma mieć **10 osobnych karuzel w Canvie**, z jednoznacznymi nazwami, bezpośrednimi linkami i wspólnym folderem, aby cały komplet był łatwy do znalezienia. Nie uznawaj jednego otwartego projektu za widoczność całej serii.
+- Kierunek: estetyczny magazyn motoryzacyjny i storytelling inspirowany energią Top Gear: konkretna sytuacja, napięcie, wyjaśnienie i puenta, bez kopiowania ich tekstów, identyfikacji czy wymyślania historii klientów. Korzystaj z Impeccable, GPT Taste, Brand i mechaniki Copy na stronę. Zachowaj paletę i Poppins marki; więcej zdjęć, zróżnicowana kompozycja i krótsze bloki tekstu.

@@ -20,9 +20,19 @@ export type AssetRef = {
 };
 export type BrandingSnapshot = {
   schemaVersion: 1;
-  styleId?: "brand" | "persona" | "skyclass" | "herod" | "bisanz" | "ameryka" | "glowup" | "vital" | "happynews";
+  styleId?:
+    | "brand"
+    | "persona"
+    | "skyclass"
+    | "herod"
+    | "bisanz"
+    | "ameryka"
+    | "glowup"
+    | "vital"
+    | "happynews";
   clientId: string;
   revision: number;
+  qualityContract?: ClientContract;
   palette: {
     maxColors: 4 | 5 | 6;
     colors: {
@@ -52,6 +62,36 @@ export type BrandingSnapshot = {
     size: number;
   };
   assets: AssetRef[];
+};
+export type ClientContract = {
+  version: 1;
+  hash: string;
+  clientId: string | null;
+  brandingRevision: number;
+  styleId: NonNullable<BrandingSnapshot["styleId"]>;
+  coverage: "partial";
+  rules: {
+    id: string;
+    scope:
+      | "reel"
+      | "captions"
+      | "camera"
+      | "graphics"
+      | "audio"
+      | "publication";
+    value: unknown;
+    checkKind: "data" | "geometry" | "semantic" | "human";
+    severity: "critical" | "advisory";
+    source: {
+      path: string;
+      section: string;
+      date: string;
+      order: number;
+      level: "default" | "general" | "branding" | "client";
+      clientId?: string;
+      sha256?: string;
+    };
+  }[];
 };
 export type BrandingProfile = BrandingSnapshot & {
   name: string;

@@ -14,7 +14,16 @@ import { tokensFor } from "./reel-timing";
 // Grafiki nakładane na rolkę. Wpis w reel.json -> "overlays": [{ "type": "...", "start", "end", ... }].
 // Czasy start/end (i "at" w elementach list) w sekundach ŹRÓDŁA, jak słowa w transkrypcji.
 // Język wizualny: frame.md — karty liquid glass, jeden pomarańczowy akcent, żywe ale czyste animacje.
-type Item = string | { text: string; at?: number; sub?: string; badge?: string }; // sub/badge: styl glowup
+type Item =
+  | string
+  | {
+      text: string;
+      at?: number;
+      sub?: string; // glowup, ameryka: podpis pod punktem
+      badge?: string; // glowup
+      value?: string; // ameryka: wartość po prawej na złotym zakreślaczu (np. „0%”)
+      was?: string; // ameryka: poprzednia wartość, przekreślana przed `value` (np. „10%”)
+    };
 type Col = { title: string; items: Item[] };
 export type Overlay = {
   type:
@@ -24,6 +33,7 @@ export type Overlay = {
     | "travel"
     | "title"
     | "counter"
+    | "calc" // styl bisanz: karta obliczenia — rows[{text, value, at}] + wynik `to` odliczany od `resultAt`
     | "bars"
     | "ring"
     | "line"
@@ -37,6 +47,7 @@ export type Overlay = {
     | "labs" // styl vital: karta badań, wiersze items[{text, sub, at}]
     | "steps" // styl vital: kroki z numerami i rysowaną linią
     | "mythfact" // styl vital: items[0] = mit (przekreślany), items[1] = fakt
+    | "dollars" // styl ameryka: subtelny wysyp banknotów i monet przy cenie (x, y = start, size = liczba sztuk)
     | "quote" // styl vital: cytat kursywą (text, label = podpis)
     | "typography" // LongForm: hasło/teza (role: "hook" = hak otwarcia)
     | "chapter-card" // LongForm: plansza rozdziału (n, title)
@@ -83,6 +94,8 @@ export type Overlay = {
   points?: number[]; // line
   labels?: string[]; // line: podpisy osi X (np. ["Tydzień 1", "Tydzień 8"])
   items?: Item[]; // list
+  rows?: { text: string; value: string; at?: number }[]; // calc: kroki obliczenia (at = czas słowa)
+  resultAt?: number; // calc: czas źródła, od którego wynik się odlicza
   mark?: "num" | "check" | "x" | "dot" | "flow"; // list; flow = łańcuch A → B → C (glowup)
   left?: Col; // compare: "było" (przygaszone, przekreślane)
   right?: Col; // compare: "jest" (akcent)
@@ -150,6 +163,7 @@ const GROW = { damping: 18, stiffness: 110, mass: 0.9 }; // paski
 const DEFAULT_Y: Partial<Record<Overlay["type"], number>> = {
   title: 0.17,
   emoji: 0.3,
+  dollars: 0.62, // leci zza napisu z ceną, nie podnosi napisów
 };
 
 // Grafika na dole kadru -> napisy w tym czasie podnoszą się nad nią (src/Reel.tsx)
@@ -928,7 +942,12 @@ export const OverlayView: React.FC<P> = (props) => {
         style={{
           position: "absolute",
           left: (col?.x ?? o.x ?? 0.5) * width,
-          top: (col ? col.top : bottom ? tk.bottom : (o.y ?? DEFAULT_Y[o.type] ?? 0.5)) * height,
+          top:
+            (col
+              ? col.top
+              : bottom
+                ? tk.bottom
+                : (o.y ?? DEFAULT_Y[o.type] ?? 0.5)) * height,
           width:
             o.type === "emoji"
               ? undefined

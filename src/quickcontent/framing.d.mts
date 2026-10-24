@@ -1,4 +1,5 @@
 export type TrackingPoint = {
+  shotId?: string; // identity within this source revision; legacy points may omit it
   time: number;
   centerX: number;
   centerY: number;

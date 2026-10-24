@@ -940,6 +940,50 @@ test("a rebranded reel uses its actual client preferences for later AI correctio
   assert.match(prompt, /BISANZ BLUE #066FED/);
 });
 
+test("explicit caption scope uses compact contract without ASR, render or graphics changes", async (t) => {
+  const calls = [];
+  let useLegacy = false;
+  const { service, root, counts } = await fixture(t, {
+    editReel: null,
+    requestAI: async (r) => {
+      calls.push(r);
+      return r.schema.properties.version && !useLegacy
+        ? { version: 2, summary: "Literówka", wordEdits: [{ wordId: "w0", text: "Test!" }], groups: null }
+        : { summary: "OK", data: { captions: null, segments: null }, overlaysToAdd: [], overlaysToRemove: [] };
+    },
+  });
+  const p = await created(service);
+  const processing = (await request(service, "POST", `/api/quickcontent/projects/${p.id}/process`, {})).body;
+  await until(async () => (await service.store.getJob(processing.jobId)).status === "completed");
+  const current = await service.project(p.id);
+  const batch = await service.startBatch(p.id, {
+    candidateIds: ["c-one"], expectedRevision: current.revision, idempotencyKey: "compact-edit",
+  });
+  await until(async () => (await service.store.getJob(batch.jobIds[0])).status === "completed");
+  const file = path.join(root, "public/reels/qc-c-one/reel.json");
+  const before = JSON.parse(await fs.readFile(file));
+  const chat = await service.bridgeReelJob({ method: "POST", reelName: "qc-c-one", body: {
+    kind: "chat", message: "Popraw literówkę", editScope: "captions", render: false,
+  } });
+  await until(async () => terminalStatus((await service.store.getJob(chat.jobId)).status));
+  assert.equal((await service.store.getJob(chat.jobId)).status, "completed");
+  assert.equal(calls.at(-1).schema.properties.version?.const, 2);
+  const after = JSON.parse(await fs.readFile(file));
+  assert.equal(after.captions[0].words[0].text, "Test!");
+  assert.equal(after.captions[0].words[0].start, before.captions[0].words[0].start);
+  assert.deepEqual(after.segments, before.segments);
+  assert.deepEqual(after.overlays, before.overlays);
+  assert.deepEqual(counts(), { ingestCount: 1, asrCount: 1, renderCount: 1 });
+  useLegacy = true;
+  const rejected = await service.bridgeReelJob({ method: "POST", reelName: "qc-c-one", body: {
+    kind: "chat", message: "Popraw napis", editScope: "captions", render: false,
+  } });
+  await until(async () => terminalStatus((await service.store.getJob(rejected.jobId)).status));
+  assert.equal((await service.store.getJob(rejected.jobId)).status, "failed");
+  assert.deepEqual(JSON.parse(await fs.readFile(file)), after);
+});
+const terminalStatus = (status) => ["completed", "failed", "cancelled", "interrupted"].includes(status);
+
 test("publication copy runs after verified video and its failure does not discard the film", async (t) => {
   let copyCalls = 0;
   const { service } = await fixture(t, {
@@ -1024,4 +1068,48 @@ test("editing speech during render skips paid description for the older MP4", as
   );
   assert.equal(copyCalls, 0);
   assert.equal((await service.project(p.id)).candidates[0].isCurrent, false);
+});
+
+test("v3 small edit guards concurrent saves and reuses ASR and render", async (t) => {
+  let conflict = false, file, lastContext;
+  const {service,root,counts}=await fixture(t,{editReel:null,requestAI:async r=>{
+    if(!r.prompt.includes("Kontekst operacji: "))return {summary:"OK",data:{captions:null,segments:null},overlaysToAdd:[],overlaysToRemove:[]};
+    const c=JSON.parse(r.prompt.split("Kontekst operacji: ")[1]);lastContext=c;
+    if(conflict){const latest=JSON.parse(await fs.readFile(file));latest.captions[0].words[0].text="Nowsza ręczna wersja";await fs.writeFile(file,JSON.stringify(latest));}
+    return {version:3,baseRevision:c.baseRevision,summary:"Literówka",operations:[{type:"replaceWordText",wordId:c.words[0].id,text:"Test!"}]};
+  }});
+  const p=await created(service);
+  const job=(await request(service,"POST",`/api/quickcontent/projects/${p.id}/process`,{})).body;
+  await until(async()=>(await service.store.getJob(job.jobId)).status==="completed");
+  const batch=await service.startBatch(p.id,{candidateIds:["c-one"],expectedRevision:(await service.project(p.id)).revision,idempotencyKey:"v3-small"});
+  await until(async()=>(await service.store.getJob(batch.jobIds[0])).status==="completed");
+  file=path.join(root,"public/reels/qc-c-one/reel.json");const before=JSON.parse(await fs.readFile(file));
+  const chat=()=>service.bridgeReelJob({method:"POST",reelName:"qc-c-one",body:{kind:"chat",message:"Popraw tekst",editScope:"operations",render:false}});
+  const first=await chat();await until(async()=>terminalStatus((await service.store.getJob(first.jobId)).status));
+  assert.equal((await service.store.getJob(first.jobId)).status,"completed");
+  const after=JSON.parse(await fs.readFile(file));assert.equal(after.captions[0].words[0].text,"Test!");assert.deepEqual(after.segments,before.segments);
+  assert.equal(typeof lastContext.baseRevision,"number");
+  assert.deepEqual(counts(),{ingestCount:1,asrCount:1,renderCount:1});
+  conflict=true;const second=await chat();await until(async()=>terminalStatus((await service.store.getJob(second.jobId)).status));
+  assert.equal((await service.store.getJob(second.jobId)).status,"failed");
+  assert.equal(JSON.parse(await fs.readFile(file)).captions[0].words[0].text,"Nowsza ręczna wersja");
+});
+
+test("manual v3 HTTP edit uses revision guard with zero AI jobs and no render",async t=>{
+ const {service,root,counts}=await fixture(t);const p=await created(service);
+ const process=(await request(service,"POST",`/api/quickcontent/projects/${p.id}/process`,{})).body;
+ await until(async()=>(await service.store.getJob(process.jobId)).status==="completed");
+ const batch=await service.startBatch(p.id,{candidateIds:["c-one"],expectedRevision:(await service.project(p.id)).revision,idempotencyKey:"manual-v3"});
+ await until(async()=>(await service.store.getJob(batch.jobIds[0])).status==="completed");
+ const url="/api/quickcontent/reels/qc-c-one/operations";
+ const context=(await request(service,"GET",url)).body;
+ assert.ok(context.words?.[0]?.id);
+ const jobs=(await service.store.listJobs()).length;
+ const edit={version:3,baseRevision:context.baseRevision,summary:"Korekta ręczna",operations:[{type:"replaceWordText",wordId:context.words[0].id,text:"Ręczna poprawka"}]};
+ const result=(await request(service,"POST",url,edit)).body;
+ assert.equal(result.editRevision,context.baseRevision+1);
+ assert.deepEqual(counts(),{ingestCount:1,asrCount:1,renderCount:1});
+ assert.equal((await service.store.listJobs()).length,jobs);
+ await assert.rejects(request(service,"POST",url,edit),{status:409});
+ assert.equal(JSON.parse(await fs.readFile(path.join(root,"public/reels/qc-c-one/reel.json"))).captions[0].words[0].text,"Ręczna poprawka");
 });

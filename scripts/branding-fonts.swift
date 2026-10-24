@@ -10,7 +10,15 @@ func descriptor(_ font: CTFont) -> [String: Any] {
 }
 func output(_ item:Any){let data=try! JSONSerialization.data(withJSONObject:item,options:[.sortedKeys]);print(String(data:data,encoding:.utf8)!)}
 let args=CommandLine.arguments
-if args.count > 2 && args[1] == "inspect" {
+if args.count > 2 && args[1] == "coverage" {
+ let url=URL(fileURLWithPath:args[2]);guard let descs=CTFontManagerCreateFontDescriptorsFromURL(url as CFURL) as? [CTFontDescriptor], !descs.isEmpty else {fputs("Nie można odczytać fontu.\n",stderr);exit(2)}
+ let chars=Array("ĄĆĘŁŃÓŚŹŻąćęłńóśźż".utf16)
+ for desc in descs {
+  let font=CTFontCreateWithFontDescriptor(desc,32,nil);var glyphs=[CGGlyph](repeating:0,count:chars.count)
+  if !CTFontGetGlyphsForCharacters(font,chars,&glyphs,chars.count) || glyphs.contains(0) { output(["status":"fail","reason":"Font nie zawiera wszystkich polskich znaków."]);exit(0) }
+ }
+ output(["status":"pass"])
+} else if args.count > 2 && args[1] == "inspect" {
  let url=URL(fileURLWithPath:args[2]);guard let descs=CTFontManagerCreateFontDescriptorsFromURL(url as CFURL) as? [CTFontDescriptor],descs.count==1 else {fputs("Kolekcje TTC i pliki bez jednej odmiany nie są obsługiwane.\n",stderr);exit(2)}
  let font=CTFontCreateWithFontDescriptor(descs[0],32,nil)
  let chars=Array("ĄĆĘŁŃÓŚŹŻąćęłńóśźż".utf16);var glyphs=[CGGlyph](repeating:0,count:chars.count)

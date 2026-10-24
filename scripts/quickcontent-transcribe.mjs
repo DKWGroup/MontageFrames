@@ -33,6 +33,9 @@ export function normalizeWhisper(raw, duration) {
     end >= start &&
     end <= duration;
   for (const s of raw.segments) {
+    // Whisper may append empty tail segments whose timestamps move backward.
+    if (!String(s.text ?? "").trim() && Array.isArray(s.words) && !s.words.length)
+      continue;
     if (!validRange(s.start, s.end) || s.start < previousSegment)
       throw new Error("Nieprawidłowy zakres segmentu Whisper.");
     previousSegment = s.start;

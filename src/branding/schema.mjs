@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { clientContractSchema } from "./contracts.mjs";
 export const clientIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,79}$/);
 const id = z.string().regex(/^[a-zA-Z0-9_-]{1,120}$/);
 const file = z
@@ -57,9 +58,22 @@ export const assetRefSchema = z
 export const brandingProfileSchema = z
   .object({
     schemaVersion: z.literal(1),
-    styleId: z.enum(["brand", "persona", "skyclass", "herod", "bisanz", "ameryka", "glowup", "vital", "happynews"]).optional(),
+    styleId: z
+      .enum([
+        "brand",
+        "persona",
+        "skyclass",
+        "herod",
+        "bisanz",
+        "ameryka",
+        "glowup",
+        "vital",
+        "happynews",
+      ])
+      .optional(),
     clientId: clientIdSchema,
     revision: z.number().int().nonnegative(),
+    qualityContract: clientContractSchema.optional(),
     name: z.string().min(1).max(120),
     websiteUrl: z.union([
       z.literal(""),

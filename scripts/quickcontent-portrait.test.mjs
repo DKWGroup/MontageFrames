@@ -130,3 +130,9 @@ test("Bisanz camera ignores editorial and adaptive zoom while other styles retai
     ) < 1e-8,
   );
 });
+
+test("vertical Happy News keeps its source framing without running camera analysis",async()=>{
+ const {detectPortraitFraming}=await import("./quickcontent-portrait.mjs");let calls=0;
+ const r=await detectPortraitFraming("source.mp4","/tmp",2,720,1280,{runTool:async()=>{calls++;throw Error("must not run");}},[],"happynews");
+ assert.equal(calls,0);assert.equal(r.framing.tracking,undefined);assert.equal(r.framing.mode,"fit");assert.equal(r.observations.status,"not-applicable");
+});

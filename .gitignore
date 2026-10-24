@@ -70,3 +70,6 @@ public/Brandings/*/fonts/
 dist-site/
 klienci/branding-test-2026/
 klienci/branding-render-check/
+
+# CutRaw: stan projektów (miks, transkrypcja, cache Whispera)
+public/cutraw/

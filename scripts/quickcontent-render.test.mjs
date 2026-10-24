@@ -17,20 +17,65 @@ const data = {
   captions: [{ words: [{ text: "tekst", start: 0.2, end: 0.5 }] }],
   overlays: [],
 };
-test('brand signature isolates immutable assets from other clients and unused files', async t => {
-  const root=await fs.mkdtemp(path.join(tmpdir(),'brand-signature-'));
-  t.after(()=>fs.rm(root,{recursive:true,force:true}));
-  await fs.mkdir(path.join(root,'public/reels/clip'),{recursive:true});
-  await fs.mkdir(path.join(root,'public/Brandings/test/fonts'),{recursive:true});
-  await fs.writeFile(path.join(root,'public/reels/clip/source.mp4'),'source');
-  await fs.writeFile(path.join(root,'public/Brandings/test/fonts/font.ttf'),'font');
-  const branded={...data,style:'brand',branding:{fonts:{primary:{file:'Brandings/test/fonts/font.ttf'}},logo:{enabled:false},assets:[]}};
-  const initial=await renderInputSignature(root,'clip',branded);
-  await fs.mkdir(path.join(root,'public/Brandings/other/assets'),{recursive:true});
-  await fs.writeFile(path.join(root,'public/Brandings/other/assets/other.png'),'unrelated');
-  assert.equal(await renderInputSignature(root,'clip',branded),initial);
-  await fs.writeFile(path.join(root,'public/Brandings/test/fonts/font.ttf'),'changed');
-  assert.notEqual(await renderInputSignature(root,'clip',branded),initial);
+test("render preflight blocks a missing native font before starting the renderer", async (t) => {
+  const { renderReelSnapshot } = await import("./quickcontent-render.mjs");
+  const root = await fs.mkdtemp(path.join(tmpdir(), "qc-font-required-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(root + "/public/reels/clip", { recursive: true });
+  await fs.writeFile(root + "/public/reels/clip/source.mp4", "source");
+  let runs = 0;
+  await assert.rejects(
+    renderReelSnapshot(
+      { reelName: "clip", data, editRevision: 1 },
+      {
+        root,
+        report: async () => {},
+        checkpoint: async () => {},
+        runTool: async () => {
+          runs++;
+          throw Error("renderer was started");
+        },
+      },
+    ),
+    /font|Nunito/i,
+  );
+  assert.equal(runs, 0);
+});
+test("brand signature isolates immutable assets from other clients and unused files", async (t) => {
+  const root = await fs.mkdtemp(path.join(tmpdir(), "brand-signature-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(path.join(root, "public/reels/clip"), { recursive: true });
+  await fs.mkdir(path.join(root, "public/Brandings/test/fonts"), {
+    recursive: true,
+  });
+  await fs.writeFile(path.join(root, "public/reels/clip/source.mp4"), "source");
+  await fs.writeFile(
+    path.join(root, "public/Brandings/test/fonts/font.ttf"),
+    "font",
+  );
+  const branded = {
+    ...data,
+    style: "brand",
+    branding: {
+      fonts: { primary: { file: "Brandings/test/fonts/font.ttf" } },
+      logo: { enabled: false },
+      assets: [],
+    },
+  };
+  const initial = await renderInputSignature(root, "clip", branded);
+  await fs.mkdir(path.join(root, "public/Brandings/other/assets"), {
+    recursive: true,
+  });
+  await fs.writeFile(
+    path.join(root, "public/Brandings/other/assets/other.png"),
+    "unrelated",
+  );
+  assert.equal(await renderInputSignature(root, "clip", branded), initial);
+  await fs.writeFile(
+    path.join(root, "public/Brandings/test/fonts/font.ttf"),
+    "changed",
+  );
+  assert.notEqual(await renderInputSignature(root, "clip", branded), initial);
 });
 test("signature follows input data, source, fonts and style changes, but not editor session logs", async (t) => {
   const root = await fs.mkdtemp(path.join(tmpdir(), "qc-signature-"));
@@ -298,4 +343,14 @@ test("cancel during snapshot copying never starts renderer or publishes a film",
   } finally {
     fs.copyFile = copy;
   }
+});
+
+test("native style with saved branding still signs its required native font",async t=>{
+ const root=await fs.mkdtemp(path.join(tmpdir(),"qc-native-brand-font-"));t.after(()=>fs.rm(root,{recursive:true,force:true}));
+ await fs.mkdir(path.join(root,"public/fonts"),{recursive:true});
+ const file=path.join(root,"public/fonts/Nunito.ttf");await fs.writeFile(file,"native-font");
+ const native={...data,branding:{styleId:"persona",fonts:{},assets:[],logo:{enabled:false}}};
+ const first=await renderInputSignature(root,"clip",native);
+ await fs.writeFile(file,"changed-native-font");
+ assert.notEqual(await renderInputSignature(root,"clip",native),first);
 });

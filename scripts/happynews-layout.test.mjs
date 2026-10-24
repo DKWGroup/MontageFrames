@@ -565,3 +565,14 @@ test("six-decimal source cut timestamps switch on the matching video frame", () 
   assert.equal(layoutAt(split, 13 / 30).kind, "speaker");
   assert.equal(layoutAt(split, 14 / 30).kind, "duo");
 });
+
+test("a short wide shot starts on its exact source cut rather than the next detector sample",()=>{
+ const frames=[[right],[right],[left,right],[right]];
+ const cameraCuts=[0.4,0.7];
+ const layouts=buildHappyLayouts({samples:frames,panels:[],fps:4,duration:1,cuts:cameraCuts});
+ const framing={mode:"crop",cameraCuts,layouts};
+ assert.equal(layoutAt(framing,0.39).kind,"speaker");
+ assert.equal(layoutAt(framing,0.4).kind,"duo");
+ assert.equal(layoutAt(framing,0.69).kind,"duo");
+ assert.equal(layoutAt(framing,0.7).kind,"speaker");
+});

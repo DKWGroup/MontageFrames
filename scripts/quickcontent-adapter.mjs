@@ -314,9 +314,7 @@ export async function materializeCandidate(
     catalog,
   });
   data.outputResolution = project.outputResolution ?? 1080;
-  Object.assign(
-    data,
-    await detectPortraitFraming(
+  const {observations,...framingResult}=await detectPortraitFraming(
       clip,
       work,
       duration,
@@ -325,8 +323,10 @@ export async function materializeCandidate(
       ctx,
       rebased.words,
       styleId,
-    ),
-  );
+    );
+  Object.assign(data,framingResult);
+  await writeMediaJson(path.join(work,"framing.observations.json"),{...observations,sourceSha256:origin.clipHash});
+
   for (const overlay of data.overlays) {
     const product = catalog.find(
       (p) => path.basename(p.file ?? "") === overlay.src,
@@ -351,6 +351,7 @@ export async function materializeCandidate(
     "source.mp4",
     "origin.json",
     "transcript.json",
+    "framing.observations.json",
     ...(project.clientId && !project.templateSnapshot?.branding ? ["preferences.snapshot.md"] : []),
   ])
     await rename(

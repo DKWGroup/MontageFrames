@@ -128,3 +128,49 @@ W **Nowej rolce** pole „Wygląd rolki” pozwala wybrać zapisany branding zam
 Analiza strony działa na publicznym URL, bez logowania. Najpierw otrzymujesz propozycje i źródła; dopiero **Zastosuj wybrane dane** zmienia draft. Gdy konto AI nie może uporządkować wiedzy, odczytane treści i style pozostają dostępne, z ograniczeniem w panelu. Nie wszystkie strony oparte na XHR/workerach można odczytać. [Dowody i ograniczenia](docs/branding/acceptance.md).
 
 Publikacja publicznej strony: [ustawienia Vercela](docs/vercel.md). Użyj `npm run build:site` i `dist-site`; pełny lokalny silnik nie jest automatycznie przenoszony na Vercela.
+
+## CutRaw — cięcie podcastu i multicam (2026-10-24)
+
+Wybierz **CutRaw** w menu (`/panel#cr`). Nagrania kamer i mikrofonów (MP4/MOV/WAV/MP3…) **przeciągnij z dysku** na pole „Nowy projekt” (albo „Wybierz z dysku”) — trafią do `inbox/cutraw/` i od razu będą zaznaczone. Możesz też zaznaczyć pliki, które już leżą w `inbox/` albo w folderze klienta (tych CutRaw nie kopiuje). Wskaż kamerę główną. Oryginałów CutRaw nie zmienia.
+
+**Przetwarzaj** synchronizuje źródła po dźwięku, rozpoznaje mowę (Whisper lokalnie) i proponuje cięcia, które sprawdza GPT‑6 Luna (do API idzie tylko tekst; w „Ustawieniach cięć” można wybrać konto Claude Code/Codex albo pracę bez AI). Potem przeglądasz cięcia w transkrypcie i na osi źródeł, odsłuchujesz „oryginał / po cięciu”, przywracasz albo wycinasz, poprawiasz synchronizację o klatkę. Przy 2+ kamerach i osobnych mikrofonach w tabeli synchronizacji wybierasz, kogo pokazuje każda kamera („Pokazuje”: osoba, plan ogólny albo bez przełączania) — eksport ułoży wtedy na V1 montaż kamer na mówiącego. **Eksportuj do Premiere** tworzy paczkę `…-cutraw-vNNN` (XML + audio mowy z cenzurą) w `klienci/<klient>/Render/` albo `out/`. W Premiere: Plik → Importuj → plik `.xml`. Szczegóły i ograniczenia: [odbiór CutRaw](docs/cutraw/acceptance.md).
+
+## Kontrola jakości i lekka korekta napisów (2026-10-18)
+
+Nowe zapisy brandingu otrzymują również wersjonowany kontrakt reguł ze źródłami. Poprzednie wersje i filmy pozostają bez zmian. Gdy zmieni się skodyfikowany akapit preferencji, zapis nowego kontraktu wymaga sprawdzenia mapowania; sam kontrakt nie jest potwierdzeniem obejrzenia filmu. [Stan F1 i ograniczenia](docs/quality/f1-acceptance.md).
+
+**CLI i konta pozostają obsługiwane**, również dla zespołu wewnętrznego firmy. Zmiany jakości nie wymuszają API i nie dodają płatnego fallbacku. Własne brandingi, fonty, kolory i materiały nadal tworzysz w panelu. Wyższe pakiety dla własnego brandingu dotyczą planowanej oferty usługi; obecny lokalny panel nie dostał paywalla.
+
+W edytorze rolki QuickContent → **Asystent → Zakres poprawki** wybierz:
+
+- **Cały montaż** (domyślnie): dotychczasowa pełna poprawka przez operatora projektu.
+- **Tylko tekst napisów**: model zwraca wyłącznie zmienione słowa i ewentualne grupowanie/klucze, bez przepisywania czasów, trackingu, grafik i reszty montażu. Wybierz ten zakres dla literówek i redakcji napisów; do zmiany kadru/hooka/grafik wróć do „Cały montaż”. Działa z Codexem, Claude Code i API według ustawień projektu.
+
+Ręczna edycja napisu nadal nie wywołuje LLM. Tryb AI wymaga działającego konta/API; mniejszy zakres danych nie jest gwarancją konkretnej liczby tokenów. Wytyczne klienta nadal są przekazywane, dopóki nie mają pełnego odpowiednika w regułach kodu.
+
+Zwykłe rolki i QuickContent korzystają ze wspólnego walidatora danych. Zapis odrzuca przesunięte czasy, powielone słowa, niewłaściwe zakresy i zmianę przypiętej tożsamości/brandingu. SkyClass zachowuje pełną wypowiedź; Bisanz nie może otrzymać nowego zoomu. Historyczne nieużywane zoomy Bisanza nie blokują korekty tekstu; renderer nadal wymusza skalę 1. Operator zwykłych rolek uruchamiany z panelu ma ochronę szkicu: nieudana lub niepoprawna operacja przywraca poprzedni JSON. Nie jest to izolacja całego repozytorium przed ręcznymi zmianami terminalowymi.
+
+Bez wywoływania AI i bez zmiany plików możesz sprawdzić dane z Terminala:
+
+```sh
+npm run reel:check -- nazwa-rolki
+npm run reel:check -- nazwa-rolki --before public/reels/nazwa-rolki/historia/poprzedni.json
+```
+
+Drugie polecenie porównuje z konkretnym wcześniejszym JSON w repo. Sama kontrola bieżącego pliku sprawdza jego strukturę; nie dowodzi, że słowa/czasy pozostały zgodne z dawną wersją. Żadne z poleceń nie ocenia obrazu, dźwięku, sensu wypowiedzi ani pełnej zgodności z Markdown. Nadal potrzebne są klatki, odsłuch i odbiór klienta. [Dowody etapu](docs/quality/acceptance.md).
+
+## Zakres korekty QC — 2026-10-18
+
+W czacie istniejącej rolki QuickContent można wybrać „Tekst i istniejący hook — mały zakres AI”. Poprawia tekst, grupowanie i istniejący hook, zachowując czasy, kadr i grafiki. Brak hooka wymaga pełnego montażu. Zmiana rolki w czasie pracy AI zatrzymuje zapis odpowiedzi i zachowuje nowszy plik. Pozostałe zakresy i operatorzy kont pozostają dostępni. [Stan i ograniczenia](docs/quality/f3-acceptance.md).
+
+## Małe poprawki i kontrola — 2026-10-19
+
+Zakres „Tylko tekst napisów” oraz „Tekst i istniejący hook” działa też w zwykłych rolkach na koncie Claude Code; pełny montaż nadal obsługuje pozostałe polecenia. Przy ustawionym API wybierz pełny zakres albo jawnie konto — nie przełączamy rozliczania automatycznie. Zakładka Grafiki pozwala ręcznie zmienić tekst hooka bez AI.
+
+Kadr → **Sprawdź kadr i źródło** czyta zapisany draft i plik filmu bez AI/renderu. Wynik pokazuje problemy lub brakujące dowody. Nie certyfikuje całej animacji i nie zastępuje odsłuchu. Terminal: `npm run reel:check -- <rolka> --quality`. [Dowody F3](docs/quality/f3-local-2026-10-19.md), [F4](docs/quality/f4-acceptance.md).
+
+### Lokalny skan geometrii — 2026-10-20
+
+`npm run reel:geometry -- <nazwa> --frames 0,12,40` sprawdza wybrane klatki w rzeczywistym rendererze i zapisuje PNG do przeglądu. `--all` mierzy wszystkie klatki bez zapisu całej sekwencji obrazów. Bez AI i zmiany rolki; zużywa CPU oraz miejsce na osobny snapshot. To jeszcze pomiar układu, nie pełny obrys pikseli ani potwierdzenie ominięcia twarzy. Szybki test w panelu pozostaje osobny. [Odbiór i ograniczenia](docs/quality/f4-geometry-2026-10-20.md).
+
+Tryb `--pixels` (np. `npm run reel:geometry -- <nazwa> --frames 40 --pixels`) dodaje maski malowanych liter, cieni i emotek, zamiast samego prostokąta układu. Osobne kontrolne rendery zużywają więcej CPU; brak opłat AI. Pełne ominięcie twarzy nadal nie jest potwierdzone. [Odbiór rastra](docs/quality/f4-pixels-2026-10-20.md).

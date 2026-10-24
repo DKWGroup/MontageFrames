@@ -11,6 +11,7 @@ import {
   type RenderFile,
   type Settings,
   type QuickContentReelInfo,
+  type ReelQuality,
 } from "./api";
 import { PublicationDescription } from "./PublicationDescription";
 import { publicationRefreshKey } from "./quickcontent-api";
@@ -25,7 +26,7 @@ export type JobView = {
   pct: number | null;
   result: string | null;
 };
-export type StartBody = { kind: JobKind; message?: string };
+export type StartBody = { kind: JobKind; message?: string; editScope?: "full" | "captions" | "operations" };
 type Focus = { lane: Lane; index: number } | null;
 type Edit = (fn: (d: ReelData) => ReelData) => void;
 
@@ -121,7 +122,7 @@ export function Inspector(p: Props) {
           ))}
         {p.tab === "kadr" &&
           (p.data ? (
-            <Framing data={p.data} edit={p.edit} readOnly={p.readOnly} />
+            <Framing data={p.data} edit={p.edit} readOnly={p.readOnly} name={p.name} pendingSave={p.pendingSave} />
           ) : (
             <Waiting />
           ))}
@@ -139,14 +140,40 @@ const Waiting = () => (
   </p>
 );
 
+function QualityCheck({name,revisionKey,disabled}:{name:string;revisionKey:string;disabled:boolean}){
+  const [loading,setLoading]=useState(false);
+  const [saved,setSaved]=useState<{key:string;report?:ReelQuality;error?:string}|null>(null);
+  const key=name+":"+revisionKey;
+  const current=saved?.key===key?saved:null;
+  const report=current?.report;
+  return <section className="stack">
+    <button type="button" className="btn" disabled={disabled||loading} onClick={async()=>{
+      setLoading(true);setSaved(null);
+      try{setSaved({key,report:await api.quality(name)});}
+      catch(error){setSaved({key,error:(error as Error).message});}
+      finally{setLoading(false);}
+    }}>{loading?"Sprawdzam źródło…":"Sprawdź kadr i źródło"}</button>
+    <small>Bez AI. Najpierw zapisz zmiany. Kontrola danych nie zastępuje obejrzenia filmu i odsłuchu.</small>
+    {current?.error&&<p role="alert">{current.error}</p>}
+    {report&&<div role="status">
+      <strong>{report.status==="fail"?"Wykryto problem do poprawy":report.status==="unknown"?"Wymaga sprawdzenia w podglądzie":"Dostępne pomiary poprawne"}</strong>
+      <details><summary>Szczegóły kontroli</summary><ul>{[...report.geometry.findings,...report.media.findings].map((f,i)=><li key={i}>{f.evidence}</li>)}</ul></details>
+    </div>}
+  </section>;
+}
+
 function Framing({
   data,
   edit,
   readOnly,
+  name,
+  pendingSave,
 }: {
   data: ReelData;
   edit: Edit;
   readOnly: boolean;
+  name?:string;
+  pendingSave?:boolean;
 }) {
   const framing = data.framing ?? {
     mode: "crop" as const,
@@ -167,6 +194,7 @@ function Framing({
   return (
     <div className="stack qc-framing">
       {data.framingNote && <p className="note">{data.framingNote}</p>}
+      {name&&<QualityCheck name={name} revisionKey={JSON.stringify(data)} disabled={readOnly||Boolean(pendingSave)} />}
       <p className="note">
         Dopasuj źródło do pionowego kadru. Zmiana zapisuje się i jest widoczna w
         podglądzie.
@@ -450,6 +478,23 @@ function WordEditor({
   );
 }
 
+function replaceHookText(data:ReelData,index:number,text:string):ReelData{
+  if(!text.trim())return data;
+  return {...data,overlays:(data.overlays??[]).map((o,i)=>{
+    if(i!==index||o.type!=="title"||o.start>0.1)return o;
+    const updated={...o,text:text.trim()};
+    if(updated.hl&&!updated.text.includes(updated.hl))delete updated.hl;
+    return updated;
+  })};
+}
+function HookEditor({value,disabled,onSave}:{value:string;disabled:boolean;onSave:(text:string)=>void}){
+  const [text,setText]=useState(value);
+  return <form className="stack" onSubmit={e=>{e.preventDefault();if(text.trim())onSave(text);}}>
+    <label className="field"><span>Tekst hooka — bez AI</span><textarea value={text} disabled={disabled} onChange={e=>setText(e.target.value)} rows={2}/></label>
+    <button type="submit" className="btn sm" disabled={disabled||!text.trim()||text.trim()===value}>Zapisz tekst hooka</button>
+  </form>;
+}
+
 function Overlays({ data, lanes, edit, seek, focus, readOnly }: ListProps) {
   useScrollTo(focus, "overlays", "ov-");
   const list = data.overlays ?? [];
@@ -508,6 +553,7 @@ function Overlays({ data, lanes, edit, seek, focus, readOnly }: ListProps) {
                   {clip ? `${fmt(clip.start)}–${fmt(clip.end)}` : ""}
                 </small>
               </button>
+              {o.type==="title"&&o.start<=0.1&&<HookEditor key={`${i}:${o.text}`} value={o.text??""} disabled={readOnly} onSave={text=>edit(d=>replaceHookText(d,i,text))} />}
               <div className="acts">
                 <button
                   type="button"
@@ -605,10 +651,12 @@ export function OperatorNote({
 
 function Assistant(p: Props & { hasReel: boolean }) {
   const [msg, setMsg] = useState("");
+  const [editScope, setEditScope] = useState<"full" | "captions" | "operations">("full");
+  const qcMode = Boolean(p.isQuickContent || p.quickContent);
   const running = p.job.status === "running";
   const send = () => {
     if (!msg.trim()) return;
-    p.onStart({ kind: "chat", message: msg.trim() });
+    p.onStart({ kind: "chat", message: msg.trim(), editScope });
     setMsg("");
   };
   return (
@@ -638,6 +686,21 @@ function Assistant(p: Props & { hasReel: boolean }) {
           send();
         }}
       >
+        {(
+          <label className="field">
+            <span>Zakres poprawki</span>
+            <select value={editScope} disabled={running}
+              onChange={(e) => setEditScope(e.target.value as "full" | "captions" | "operations")}>
+              <option value="full">Cały montaż</option>
+              <option value="captions">Tylko tekst napisów — mniejszy zakres AI</option>
+              <option value="operations">Tekst i istniejący hook — mały zakres AI</option>
+            </select>
+            {editScope === "operations" && <small>Zmienia tekst, grupowanie i istniejący hook. Zachowuje czasy, kadr i grafiki.</small>}
+            {editScope === "captions" && <small>
+              Zmienia tekst, grupowanie i słowa kluczowe. Zachowuje hook, grafiki, kadr i czasy.
+            </small>}
+          </label>
+        )}
         <label className="field">
           <span>Poprawka dla operatora</span>
           <textarea
@@ -647,7 +710,10 @@ function Assistant(p: Props & { hasReel: boolean }) {
             onKeyDown={(e) => {
               if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) send();
             }}
-            placeholder="Np. „napisy o 10% niżej”, „przy 0:12 dodaj logo Żabki”, „wytnij powtórzone zdanie na początku”."
+            placeholder={editScope === "captions"
+              ? "Np. „popraw literówkę w drugim zdaniu”, „połącz te trzy słowa w jeden napis”."
+              : editScope === "operations" ? "Np. „popraw literówkę” lub „zmień tekst istniejącego hooka”."
+              : "Np. „napisy o 10% niżej”, „przy 0:12 dodaj logo Żabki”, „wytnij powtórzone zdanie na początku”."}
           />
         </label>
         <div className="row">
@@ -681,8 +747,9 @@ function Assistant(p: Props & { hasReel: boolean }) {
         <JobPanel job={p.job} onStop={p.onStop} />
       ) : (
         <p className="note">
-          Operator pamięta rozmowę o tej rolce, więc kolejne poprawki możesz
-          pisać krótko.
+          {qcMode
+            ? "Każda poprawka korzysta z aktualnego montażu i wytycznych klienta."
+            : editScope === "full" ? "Operator pamięta rozmowę o tej rolce, więc kolejne poprawki możesz pisać krótko." : "Mały zakres korzysta z konta Claude Code. Zmienia wyłącznie wskazany tekst, bez ponownej analizy i renderu."}
         </p>
       )}
     </div>

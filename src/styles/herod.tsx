@@ -201,7 +201,7 @@ export const Herod: React.FC<StyleProps> = ({ group, words, durationInFrames: du
                         }}
                       >
                         {j > 0 ? "\u00a0" : ""}
-                        {w.text.replace(/[.,;:]+$/u, "")}<WordEmoji emoji={w.emoji}/>
+                        {w.text.replace(/[.,;:]+$/u, "")}<WordEmoji qualityId={w.qualityId} emoji={w.emoji}/>
                       </span>
                     ))}
                   </span>

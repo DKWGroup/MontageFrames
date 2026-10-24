@@ -33,6 +33,7 @@ import {
 } from "./quickcontent-view.mjs";
 import type { QCRoute } from "./quickcontent-view.mjs";
 import "./quickcontent.css";
+import { SocialCheckbox } from "./SocialUsed";
 import {
   PublicationDescription,
   DescriptionInstructions,
@@ -1066,6 +1067,13 @@ export function FinishedCard({
           ? "Zmontowane"
           : "Wersja wcześniejsza · są poprawki do wyrenderowania"}
       </p>
+      {candidate.reelName && (
+        <SocialCheckbox
+          key={candidate.reelName}
+          name={candidate.reelName}
+          title={candidate.title}
+        />
+      )}
       <div className="qc-actions">
         {candidate.reelName && (
           <button className="btn primary" onClick={onEditor}>
@@ -1082,7 +1090,8 @@ export function FinishedCard({
       {candidate.reelName && (
         <PublicationDescription
           reelName={candidate.reelName}
-          canGenerate={Boolean(url)}
+          // Opis wymaga renderu aktualnej rewizji — starszy MP4 tylko blokowałby przycisk błędem 409.
+          canGenerate={current}
           refreshKey={publicationRefreshKey(candidate)}
         />
       )}
@@ -1151,6 +1160,13 @@ function CandidateCard({
         {candidate.kind ? ` · ${candidate.kind}` : ""}
       </p>
       <p className="qc-candidate-summary">{candidate.summary}</p>
+      {candidate.reelName && (
+        <SocialCheckbox
+          key={candidate.reelName}
+          name={candidate.reelName}
+          title={candidate.title}
+        />
+      )}
       <details>
         <summary>Szczegóły i ocena fragmentu</summary>
         <Score candidate={candidate} />
@@ -1173,7 +1189,7 @@ function CandidateCard({
           key={candidate.reelName}
           compact
           reelName={candidate.reelName}
-          canGenerate={Boolean(availableFilmRender(candidate))}
+          canGenerate={currentCandidate(candidate)}
           refreshKey={publicationRefreshKey(candidate)}
         />
       )}

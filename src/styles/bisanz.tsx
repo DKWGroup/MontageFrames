@@ -8,6 +8,7 @@ import {
   Img,
   interpolate,
   OffthreadVideo,
+  Sequence,
   spring,
   useCurrentFrame,
   useVideoConfig,
@@ -132,7 +133,10 @@ const VEC: Record<Dir, [number, number]> = {
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const PAD = 0.2; // zakreślacz wystaje poza litery o tyle em z każdej strony
 
-export const kineticCaptions = (base: Theme, wide?: Theme): React.FC<StyleProps> => {
+export const kineticCaptions = (
+  base: Theme,
+  wide?: Theme,
+): React.FC<StyleProps> => {
   const Captions: React.FC<StyleProps> = ({
     group,
     words,
@@ -390,7 +394,7 @@ export const kineticCaptions = (base: Theme, wide?: Theme): React.FC<StyleProps>
                 </span>
               )}
             </span>
-            <WordEmoji emoji={w.emoji} frame={wf} />
+            <WordEmoji qualityId={w.qualityId} emoji={w.emoji} frame={wf} src={w.emojiSrc} />
           </span>
         );
       }
@@ -434,7 +438,7 @@ export const kineticCaptions = (base: Theme, wide?: Theme): React.FC<StyleProps>
               />
             )}
           </span>
-          <WordEmoji emoji={w.emoji} frame={wf} />
+          <WordEmoji qualityId={w.qualityId} emoji={w.emoji} frame={wf} src={w.emojiSrc} />
         </span>
       );
     };
@@ -552,7 +556,10 @@ const fmt = (v: number, d = 0) =>
   }).format(v);
 const isVideo = (file: string) => /\.(mp4|mov|webm|m4v)$/i.test(file);
 
-export const kineticOverlay = (base: Theme, wide?: Theme): React.FC<OverlayProps> => {
+export const kineticOverlay = (
+  base: Theme,
+  wide?: Theme,
+): React.FC<OverlayProps> => {
   const Tag: React.FC<{
     children: React.ReactNode;
     color?: string;
@@ -744,10 +751,18 @@ export const kineticOverlay = (base: Theme, wide?: Theme): React.FC<OverlayProps
             textShadow: T.shadow,
           }}
         >
-          <span style={T.instantTitle ? {
-            background: "rgba(11,11,15,.96)", padding: "2px 7px",
-            boxDecorationBreak: "clone", WebkitBoxDecorationBreak: "clone",
-          } : undefined}>
+          <span
+            style={
+              T.instantTitle
+                ? {
+                    background: "rgba(11,11,15,.96)",
+                    padding: "2px 7px",
+                    boxDecorationBreak: "clone",
+                    WebkitBoxDecorationBreak: "clone",
+                  }
+                : undefined
+            }
+          >
             {before}
             {highlight && <span style={hl}>{highlight}</span>}
             {rest.join(highlight ?? "")}
@@ -885,6 +900,97 @@ export const kineticOverlay = (base: Theme, wide?: Theme): React.FC<OverlayProps
               </div>
             );
           })}
+        </>,
+      );
+    }
+
+    // Obliczenie: kroki wchodzą, gdy padają (`at`), wynik w akcencie odlicza się od `resultAt`.
+    if (o.type === "calc") {
+      const r0 = o.resultAt != null ? at(o.resultAt) : 0.3 + (o.rows?.length ?? 0) * 0.5;
+      const rs = spring({
+        frame: f - Math.round(r0 * fps),
+        fps,
+        config: { damping: 16, stiffness: 170 },
+      });
+      const v = interpolate(f / fps - r0, [0, 1], [0, o.to ?? 0], {
+        ...clamp,
+        easing: Easing.bezier(0.25, 1, 0.5, 1),
+      });
+      return card(
+        <>
+          {o.sfx && (
+            <Sequence from={Math.round(r0 * fps)} layout="none">
+              <Audio src={src(o.sfx)} volume={o.sfxVolume ?? 0.3} />
+            </Sequence>
+          )}
+          {o.title && <Tag>{o.title}</Tag>}
+          {(o.rows ?? []).map((row, i) => {
+            const t0 = row.at != null ? at(row.at) : 0.3 + i * 0.5;
+            const s = spring({
+              frame: f - Math.round(t0 * fps),
+              fps,
+              config: { damping: 16, stiffness: 180 },
+            });
+            return (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  gap: 24,
+                  padding: "16px 0",
+                  borderTop: i ? `2px solid ${T.cardLine}` : undefined,
+                  marginTop: i ? 0 : 12,
+                  opacity: s,
+                  transform: `translateX(${(1 - s) * 40}px)`,
+                }}
+              >
+                <span style={{ fontWeight: T.smallWeight, fontSize: 38, opacity: 0.6 }}>
+                  {row.text}
+                </span>
+                <span
+                  style={{
+                    fontWeight: T.keyWeight,
+                    fontSize: 48,
+                    letterSpacing: "-0.02em",
+                    fontVariantNumeric: "tabular-nums",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {row.value}
+                </span>
+              </div>
+            );
+          })}
+          <div
+            style={{
+              marginTop: 18,
+              paddingTop: 22,
+              borderTop: `3px solid ${T.accent}`,
+              opacity: rs,
+              transform: `translateY(${(1 - rs) * 30}px) scale(${0.92 + 0.08 * rs})`,
+              transformOrigin: "left center",
+            }}
+          >
+            {o.label && <Tag>{o.label}</Tag>}
+            <div
+              style={{
+                fontWeight: T.keyWeight,
+                fontSize: 120,
+                lineHeight: 1,
+                letterSpacing: "-0.04em",
+                color: T.accent,
+                fontVariantNumeric: "tabular-nums",
+                marginTop: 10,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {o.prefix}
+              {fmt(v, o.decimals)}
+              {o.suffix}
+            </div>
+          </div>
         </>,
       );
     }

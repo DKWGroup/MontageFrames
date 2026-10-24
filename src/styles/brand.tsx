@@ -132,7 +132,15 @@ export const Brand: React.FC<StyleProps> = ({
           >
             {word.text}
             <WordEmoji
-              emoji={visible ? brandingEmoji(word.text, branding) : null}
+              qualityId={word.qualityId}
+              emoji={
+                visible
+                  ? word.emoji !== undefined
+                    ? word.emoji
+                    : brandingEmoji(word.text, branding)
+                  : null
+              }
+              src={word.emojiSrc}
               frame={local}
             />
           </span>

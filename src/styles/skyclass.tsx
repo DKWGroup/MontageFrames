@@ -194,7 +194,7 @@ export const SkyClass: React.FC<StyleProps> = ({
           letterSpacing: w.key ? "-0.01em" : undefined,
         }}
       >
-        {clean(w.text)}<WordEmoji emoji={w.emoji}/>
+        {clean(w.text)}<WordEmoji qualityId={w.qualityId} emoji={w.emoji}/>
       </span>
     );
   };

@@ -11,6 +11,7 @@ const KINDS: Record<string, string> = {
   emoji: "Emoji",
   media: "Przebitka",
   money: "Kwota",
+  dollars: "Dolary",
   ticket: "Bilet",
   cta: "Wezwanie do akcji",
   travel: "Podróż",

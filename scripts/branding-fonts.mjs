@@ -182,6 +182,11 @@ async function validateFont(file) {
     throw brandingError(400, "Times New Roman nie jest dostępny");
   return info;
 }
+export async function inspectFontCoverage(file) {
+  if (process.platform !== "darwin") return { status: "unknown", reason: "CoreText wymaga macOS" };
+  try { return await coretext("coverage",file); }
+  catch (error) { return { status: /polskich znaków|poprawny plik fontu|Kolekcja TTC/.test(error.message) ? "fail" : "unknown", reason: error.message }; }
+}
 export async function importUploadedFont(
   root,
   clientId,

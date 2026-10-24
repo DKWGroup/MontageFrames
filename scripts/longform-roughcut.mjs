@@ -90,16 +90,58 @@ export function fillerCuts(words, { sure, ambiguous }, voicedGaps = []) {
   return cuts.sort((a, b) => a.start - b.start);
 }
 
-export function censorMutes(words, profanity, { muteRatio = 0.8, tail = 0.03, ramp = 0.005 } = {}) {
+// LongForm: wyciszone `muteRatio` słowa + kruk. CutRaw: `keepHead` liter słychać na początku, `keepTail` (0/1) na końcu,
+// czas słowa dzielony proporcjonalnie na litery; zawsze zostaje wyciszona co najmniej jedna litera.
+export function censorMutes(words, profanity, { muteRatio = 0.8, tail = 0.03, ramp = 0.005, keepHead = null, keepTail = 0, sfx = "kruk" } = {}) {
   return words
     .filter((w) => profanity.extra?.has(w.id) || isProfane(w.text, profanity))
-    .map((w) => ({
-      wordId: w.id,
-      start: ms(w.start + (1 - muteRatio) * (w.end - w.start)),
-      end: ms(w.end + tail),
-      ramp,
-      sfx: "kruk",
-    }));
+    .map((w) => {
+      const dur = w.end - w.start;
+      if (keepHead == null) return { wordId: w.id, start: ms(w.start + (1 - muteRatio) * dur), end: ms(w.end + tail), ramp, sfx };
+      const letters = Math.max(1, [...bare(w.text)].length);
+      const t = letters > 2 ? Math.min(keepTail, 1) : 0;
+      const h = Math.max(0, Math.min(keepHead, letters - 1 - t));
+      const head = h ? Math.min(Math.max((h / letters) * dur, 0.06), 0.45 * dur) : 0;
+      return { wordId: w.id, start: ms(w.start + head), end: ms(t ? w.end - (t / letters) * dur : w.end + tail), ramp, sfx };
+    });
+}
+
+// Tempo cięcia ciszy (CutRaw): od jakiej pauzy tniemy i ile oddechu zostaje na krawędziach.
+export const PACE = {
+  spokojne: { minGap: 0.6, breath: 0.2 },
+  standard: { minGap: 0.4, breath: 0.12 },
+  "gęste": { minGap: 0.28, breath: 0.08 },
+};
+
+// Krawędź cięcia → granica klatki z najmniejszą energią (suma mikrofonów, ramki 1/rate s) w ±tolerance.
+// W sąsiednie słowo wolno wejść najwyżej o `slack` (pół klatki, w granicach niedokładności czasów Whispera) —
+// inaczej wtrącenie między stykającymi się słowami nie miałoby żadnej klatki. Cięcie krótsze niż klatka = „do decyzji”.
+export function snapQuietest(cuts, words, energy, { fps, rate = 100, tolerance = 0.06, slack = 0.5 / fps }) {
+  const end = energy.length / rate;
+  const level = (t) => {
+    const i = Math.round(t * rate);
+    const near = [energy[i - 1], energy[i]].filter((x) => x != null);
+    return near.length ? near.reduce((a, b) => a + b, 0) / near.length : Infinity;
+  };
+  const pick = (lo, hi, t) => {
+    let best = null;
+    for (let k = Math.ceil(lo * fps - 1e-9); k / fps <= Math.min(hi, end) + 1e-9; k++) {
+      const x = k / fps;
+      const e = level(x);
+      if (!best || e < best.e - 1e-12 || (Math.abs(e - best.e) <= 1e-12 && Math.abs(x - t) < Math.abs(best.x - t))) best = { x, e };
+    }
+    return best?.x ?? null;
+  };
+  return cuts.map((c) => {
+    const inner = words.filter((w) => w.start >= c.start - 1e-6 && w.end <= c.end + 1e-6);
+    const before = words.filter((w) => w.end <= c.start + 1e-6 && !inner.includes(w)).at(-1)?.end ?? 0;
+    const after = words.find((w) => w.start >= c.end - 1e-6 && !inner.includes(w))?.start ?? Infinity;
+    const s = pick(Math.max(before - slack, c.start - tolerance), Math.min((inner[0]?.start ?? c.end) + slack, c.start + tolerance), c.start);
+    const e = pick(Math.max((inner.at(-1)?.end ?? c.start) - slack, c.end - tolerance), Math.min(after + slack, c.end + tolerance), c.end);
+    if (c.end - c.start < 1 / fps - 1e-9 || s == null || e == null || e - s < 1 / fps - 1e-9)
+      return { ...c, decision: c.decision === "cut" ? "undecided" : c.decision, auto: false, reason: `${c.reason} · za mało miejsca na cięcie na klatce` };
+    return { ...c, start: ms(s), end: ms(e) };
+  });
 }
 
 // Średni poziom wypowiedzi (dB RMS) w 1 s przed i po wyciszeniu; ramki ciszy (< −50 dB) pomijane.

@@ -1,4 +1,5 @@
 import keywords from "./emoji-data/pl-keywords.mjs";
+import { brandingEmoji } from "./branding/appearance.mjs";
 const icons = [
   [/^polsk(?:a|ę|ą|i|ie|iej|ich|im|imi|iego|iemu)?$/u, "🇵🇱"],
   [/^(?:niemcy|niemiec|niemczech|niemcom|niemcami|niemieck[\p{L}]*)$/u, "🇩🇪"],
@@ -68,7 +69,8 @@ const stop = new Set(
   ),
 );
 // Enclosed CJK/letter buttons are dictionary annotations, not topic illustrations.
-const safeEmoji = (emoji) => typeof emoji === "string" &&
+const safeEmoji = (emoji) =>
+  typeof emoji === "string" &&
   /(?:\p{Extended_Pictographic}|\p{Regional_Indicator}{2})/u.test(emoji) &&
   !/[\p{L}\p{N}\u{1F100}-\u{1F1E5}\u{1F200}-\u{1F2FF}]/u.test(emoji);
 export function emojiForWord(text) {
@@ -76,7 +78,8 @@ export function emojiForWord(text) {
     .toLocaleLowerCase("pl")
     .replace(/^[^\p{L}]+|[^\p{L}]+$/gu, "");
   if (stop.has(word)) return null;
-  const emoji = icons.find(([pattern]) => pattern.test(word))?.[1] ?? keywords[word];
+  const emoji =
+    icons.find(([pattern]) => pattern.test(word))?.[1] ?? keywords[word];
   // No fuzzy stems: e.g. a financial term must not inherit an unrelated icon.
   return safeEmoji(emoji) ? emoji : null;
 }
@@ -113,4 +116,44 @@ export function captionEmojis(words, overlays = []) {
     count++;
     return emoji;
   });
+}
+export function freezeCaptionDecorations(data) {
+  const result = [];
+  for (const [groupIndex, group] of data.captions.entries()) {
+    const selected =
+      data.style === "happynews"
+        ? captionEmojis(group.words, data.overlays)
+        : group.words.map((w) =>
+            data.style === "brand"
+              ? brandingEmoji(w.text, data.branding)
+              : null,
+          );
+    group.words.forEach((word, index) => {
+      const anchored = (data.overlays ?? []).filter(
+        (o) =>
+          o.type === "emoji" &&
+          o.label === "word" &&
+          Math.abs(o.start - word.start) < 0.001,
+      );
+      if (anchored.length > 1)
+        throw new Error("Powtórzona dekoracja tego samego słowa");
+      const src = anchored[0]?.src;
+      if (
+        src &&
+        (typeof src !== "string" ||
+          src.startsWith("/") ||
+          /^[a-z]+:/i.test(src) ||
+          src.includes("\\") ||
+          src.split("/").includes(".."))
+      )
+        throw new Error("Nieprawidłowa ścieżka pliku emotki");
+      if (selected[index])
+        result.push({
+          wordId: `c${groupIndex}w${index}`,
+          emoji: selected[index],
+          ...(src ? { src } : {}),
+        });
+    });
+  }
+  return result;
 }

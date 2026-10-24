@@ -69,7 +69,22 @@ export function keepRanges(silences, duration, pad = PAD) {
   return keep.map((k) => ({ start: +k.start.toFixed(3), end: +k.end.toFixed(3) }));
 }
 
+// ASR rozbija kwoty na tokeny („1” „200” „000,”, „2” „,4”) — każdy dostawał osobny znacznik i łamał linię.
+// Sklejamy je w jedno słowo ze spacją nierozdzielającą; start pierwszego, koniec ostatniego tokenu.
+// ponytail: zakłada, że 3 cyfry po liczbie to grupa tysięcy; „w 2020 300 osób” też by się skleiło.
+export function mergeNumberGroups(words) {
+  const out = [];
+  for (const w of words) {
+    const p = out.at(-1);
+    if (p && /\d$/.test(p.text) && /^(\d{3}|,\d+)[.,;:!?]?$/.test(w.text))
+      out[out.length - 1] = { ...p, text: p.text + (w.text.startsWith(",") ? "" : "\u00A0") + w.text, end: w.end };
+    else out.push(w);
+  }
+  return out;
+}
+
 export function buildReel({ source, words, silences, duration, style = "persona", client = null, branding }) {
+  words = mergeNumberGroups(words);
   if (branding) style = branding.styleId ?? "brand";
   const ranges = style === "skyclass" || client === "skyclass" ? [{ start: 0, end: duration }] : keepRanges(silences, duration);
   const segments = ranges.map((s, i) => ({ ...s, zoom: client === "kacper-bisanz" ? 1 : i % 2 ? 1.1 : 1, ...(client === "kacper-bisanz" ? {zoomTo:1} : {}) }));

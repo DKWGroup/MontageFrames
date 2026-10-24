@@ -1,3 +1,5 @@
+import {inspectReelQuality} from "../scripts/quality/reel-quality.mjs";
+import {editOrdinaryReel} from "../scripts/reel-edit-service.mjs";
 import { stripVTControlCharacters } from "node:util";
 import { brandingRoute } from "./branding-server.mjs";
 import { createBrandingStore, snapshotBranding } from "../scripts/branding-store.mjs";
@@ -14,6 +16,7 @@ import {
   recordPublicationRender,
   publicationRenderCurrent,
   publicationOutput,
+  quickContentDescriptionReady,
 } from "./reel-publication-state.mjs";
 import {
   generateReelDescription,
@@ -24,6 +27,7 @@ import {
 // API panelu — plugin Vite w tym samym procesie co serwer. Kontrakt: docs/superpowers/plans/2026-10-07-panel-etap-1-2.md
 import { motionRoute } from "./motion-server.mjs";
 import { createLongFormService } from "./longform-server.mjs";
+import { createCutRawService } from "./cutraw-server.mjs";
 import {
   createQuickContentService,
   installQuickContentLifecycle,
@@ -67,6 +71,7 @@ const quickcontent = createQuickContentService(ROOT, {
   isBusy: () => [...jobs.values()].some((j) => j.status === "running"),
 });
 const longform = createLongFormService(ROOT);
+const cutraw = createCutRawService(ROOT);
 const updates = createUpdateService(ROOT);
 let restartPanel = null;
 
@@ -223,13 +228,13 @@ function run(
   job,
   cmd,
   args,
-  { env = process.env, onLine = (l) => job.lines.push(l) } = {},
+  { env = process.env, cwd = ROOT, maxOutputBytes = 32 << 20, onLine = (l) => job.lines.push(l) } = {},
 ) {
   job.controller.signal.throwIfAborted();
   return new Promise((resolve, reject) => {
     // detached = własna grupa procesów, żeby „Zatrzymaj” zabił też dzieci npx
     const child = spawn(cmd, args, {
-      cwd: ROOT,
+      cwd,
       env,
       detached: true,
       stdio: ["ignore", "pipe", "pipe"],
@@ -237,7 +242,8 @@ function run(
     job.child = child;
     let buf = "",
       stdout = "",
-      stderr = "";
+      stderr = "",
+      outputTruncated = false;
     const feed = (chunk) => {
       if (job.status !== "running") return; // po „Zatrzymaj” proces jeszcze sypie błędami — pomijamy
       buf += chunk;
@@ -248,11 +254,13 @@ function run(
     child.stdout.setEncoding("utf8");
     child.stderr.setEncoding("utf8");
     child.stdout.on("data", (chunk) => {
-      stdout = (stdout + chunk).slice(-(32 << 20));
+      if (Buffer.byteLength(stdout + chunk) > maxOutputBytes) outputTruncated = true;
+      stdout = (stdout + chunk).slice(-maxOutputBytes);
       feed(chunk);
     });
     child.stderr.on("data", (chunk) => {
-      stderr = (stderr + chunk).slice(-(32 << 20));
+      if (Buffer.byteLength(stderr + chunk) > maxOutputBytes) outputTruncated = true;
+      stderr = (stderr + chunk).slice(-maxOutputBytes);
       feed(chunk);
     });
     child.on("error", (e) =>
@@ -269,7 +277,7 @@ function run(
       job.child = null;
       if (job.controller.signal.aborted)
         return reject(job.controller.signal.reason);
-      if (code === 0) resolve({ exitCode: code, stdout, stderr });
+      if (code === 0) resolve({ exitCode: code, stdout, stderr, outputTruncated });
       else
         reject(
           new Error(
@@ -424,7 +432,7 @@ const prepStep = (name, input, brandingRevision) => async (job) => {
 
 const operatorStep =
   (name, prompt, { resume = false } = {}) =>
-  async (job) => {
+  async (job) => reelStore.guard(name, async () => {
     const s = await settings();
     if (s.operator === "claude-api-key" && !s.apiKey)
       throw new Error("Brak klucza API — dodaj go w Ustawieniach panelu.");
@@ -457,10 +465,21 @@ const operatorStep =
     });
     if (failed)
       throw new Error("Operator nie dokończył pracy (szczegóły wyżej).");
-  };
+  });
+
+const limitedEditStep=(name,message,scope)=>async job=>{
+  const configured=await settings();
+  const result=await editOrdinaryReel({root:ROOT,reelName:name,message,scope},{
+    aiProvider:"claude",settings:configured,signal:job.controller.signal,
+    report:async r=>{if(r.progressDetail)job.lines.push(r.progressDetail);},
+    runTool:(cmd,args,options={})=>run(job,cmd,args,{...options,env:{...process.env,...options.env},onLine:()=>{}}),
+  },{store:reelStore});
+  job.lines.push(result.summary || "Poprawka zapisana");
+};
 
 async function startTask(name, b) {
   if (!isName(name)) throw fail(400, "Zła nazwa rolki");
+  if(b.editScope!==undefined&&(b.kind!=="chat"||!["full","captions","operations"].includes(b.editScope)))throw fail(400,"Nieprawidłowy zakres poprawki");
   if (jobs.get(name)?.status === "running")
     throw fail(409, "Ta rolka ma już trwające zadanie");
   const existing = await readJson(path.join(REELS, name, "reel.json"), null);
@@ -522,9 +541,9 @@ async function startTask(name, b) {
     if (!message) throw fail(400, "Napisz, co poprawić");
     const job = startJob(name, { kind: "chat", client }, [
       () => snapshot(name),
-      operatorStep(name, chatPrompt({ reel: name, client, message }), {
-        resume: true,
-      }),
+      b.editScope && b.editScope!=="full"
+        ? limitedEditStep(name,message,b.editScope)
+        : operatorStep(name, chatPrompt({ reel: name, client, message }), {resume:true}),
       ...(b.render ? [renderStep(name, client)] : []),
     ]);
     job.lines.unshift(`› ${message}`);
@@ -698,6 +717,7 @@ async function route(req, res) {
   if (what === "branding") return brandingRoute(ROOT, req, res, url);
   if (what === "motion") return motionRoute(req, res, url);
   if (what === "lf") return longform.route(req, res, url);
+  if (what === "cutraw") return cutraw.route(req, res, url);
 
   if (what === "description" && ["GET", "POST", "PUT"].includes(m)) {
     if (!isName(name)) throw fail(400, "Nieprawidłowa nazwa rolki");
@@ -725,8 +745,9 @@ async function route(req, res) {
     if (origin) {
       const p = await quickcontent.project(origin.projectId);
       descriptionInstructions = p.descriptionInstructions;
-      current = Boolean(
-        p.candidates.find((c) => c.id === origin.candidateId)?.isCurrent,
+      current = await quickContentDescriptionReady(
+        ROOT,
+        p.candidates.find((c) => c.id === origin.candidateId),
       );
     } else {
       current =
@@ -786,7 +807,27 @@ async function route(req, res) {
       }),
     );
   }
+  if (what === "social" && ["GET", "PUT"].includes(m)) {
+    // Znacznik „wrzucona na social media” — osobny plik, żeby nie ruszać rewizji montażu ani renderu.
+    const file = path.join(path.dirname(reelFile(name)), "social.json");
+    if (!fs.existsSync(reelFile(name))) throw fail(404, "Nie ma takiej rolki");
+    if (m === "GET") return send(res, 200, await readJson(file, { used: false }));
+    const { used } = await body(req);
+    if (typeof used !== "boolean") throw fail(400, "Pole used musi być true albo false");
+    const next = { used, at: new Date().toISOString() };
+    await writeJson(file, next);
+    return send(res, 200, next);
+  }
   if (m === "GET" && what === "library") return send(res, 200, await library());
+  if(what==="reel-quality"&&m==="POST"){
+    if(!isName(name))throw fail(400,"Zła nazwa rolki");
+    const release=tryAcquireHeavy(`Kontrola kadru ${name}`);
+    if(!release)throw fail(409,"Trwa inne zadanie. Ponów kontrolę po jego zakończeniu.");
+    try{
+      const state=await quickcontent.readEditedReel(name)??await reelStore.read(name);
+      return send(res,200,await inspectReelQuality(ROOT,name,state.data));
+    }finally{release();}
+  }
   if (what === "reel" && m === "GET") {
     const state = await quickcontent.readEditedReel(name);
     if (state) {
@@ -882,6 +923,8 @@ export function panelApi() {
   return {
     name: "montage-panel-api",
     configureServer(server) {
+      // Upload wielogigabajtowych nagrań (CutRaw, QuickContent) trwa dłużej niż domyślne 5 min Node; panel działa tylko lokalnie.
+      if (server.httpServer) server.httpServer.requestTimeout = 0;
       const ready = recoverInstaller(ROOT).then(() => {
         installQuickContentLifecycle(server, quickcontent);
         return updates.get();

@@ -40,7 +40,7 @@ function loadTS(file) {
     "require",
     code +
       (file.endsWith("Inspector.tsx")
-        ? "\nexports.Assistant = Assistant; exports.Framing = Framing; exports.RenderTab = RenderTab; exports.updateWord = updateWord;"
+        ? "\nexports.Assistant = Assistant; exports.Framing = Framing; exports.RenderTab = RenderTab; exports.updateWord = updateWord; exports.replaceHookText = replaceHookText;"
         : ""),
   )(output, require);
   return output;
@@ -307,6 +307,19 @@ test("QuickContent editor identifies its own provider instead of claiming unlogg
   );
   assert.match(html, /Codex/);
   assert.doesNotMatch(html, /Operator nie jest zalogowany/);
+  assert.doesNotMatch(html, /Operator pamięta rozmowę/);
+});
+
+test("QuickContent exposes optional text-only corrections while full editing remains default", () => {
+  const { Assistant } = inspector();
+  const html = renderToStaticMarkup(createElement(Assistant, {
+    hasReel: true, isQuickContent: true, quickContent: { aiProvider: "codex" },
+    job: { kind: null, status: "idle", lines: [], pct: null, result: null },
+    onRecheck() {}, onSettings() {}, onStart() {},
+  }));
+  assert.match(html, /Zakres poprawki/);
+  assert.match(html, /Tylko tekst napisów/);
+  assert.match(html, /<option value="full" selected="">Cały montaż/);
 });
 
 test("manual adjustment disables tracking without losing its reusable path", () => {
@@ -390,4 +403,25 @@ test("instructions before render and manual text edits use free description PUT 
   } finally {
     globalThis.fetch = previous;
   }
+});
+
+test("ordinary reel exposes limited correction scopes alongside its full montage",()=>{
+ const {Assistant}=inspector();const html=renderToStaticMarkup(createElement(Assistant,{
+  hasReel:true,isQuickContent:false,job:{kind:null,status:"idle",lines:[],pct:null,result:null},
+  onRecheck(){},onSettings(){},onStart(){},
+ }));
+ assert.match(html,/Zakres poprawki/);assert.match(html,/Tekst i istniejący hook/);assert.match(html,/<option value="full" selected="">Cały montaż/);
+});
+
+test("framing offers an explicit local quality check before a result is claimed",()=>{
+ const {Framing}=inspector();const html=renderToStaticMarkup(createElement(Framing,{data,name:"clip",edit(){},readOnly:false,pendingSave:false}));
+ assert.match(html,/Sprawdź kadr i źródło/);assert.match(html,/Bez AI/);
+});
+
+
+test("manual hook text preserves timing and layout without any AI request",()=>{
+ const {replaceHookText}=inspector();
+ const before={...data,overlays:[{type:"title",text:"Stary hook",hl:"Stary",start:0,end:3,y:0.72,size:58}]};
+ const out=replaceHookText(before,0,"Nowy hook");
+ assert.deepEqual(out.overlays[0],{type:"title",text:"Nowy hook",start:0,end:3,y:0.72,size:58});assert.deepEqual(out.captions,before.captions);assert.deepEqual(out.framing,before.framing);assert.equal(before.overlays[0].text,"Stary hook");
 });

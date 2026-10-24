@@ -1,3 +1,4 @@
+import { shotIntervals } from "./shots.mjs";
 const clamp = (v, max = 1) => Math.max(0, Math.min(max, v));
 export const validRect = (r) =>
   r &&
@@ -100,22 +101,26 @@ export function buildHappyLayouts({
       ]),
     );
   });
-  for (let i = 0; i < samples.length; i++) {
-    const start = i / fps,
-      end = Math.min(duration, (i + 1) / fps);
-    if (start >= end) break;
-    const faces = faceSamples[i];
-    if (!faces.length) continue;
-    // A background screen is only extracted from a wide shot showing both hosts.
-    const media = faces.length === 2 ? stable[i] : null;
-    layouts.push({
-      start,
-      end,
-      kind: faces.length === 2 ? (media ? "duo-media" : "duo") : "speaker",
-      people: faces.map(box),
-      ...(media ? { media: box(media) } : {}),
-      cut: cuts.some((t) => t >= start && t < end),
-    });
+  for (const shot of shotIntervals(cuts, duration)) {
+    const from = Math.ceil(shot.start * fps - 1e-9),
+      to = Math.min(samples.length, Math.ceil(shot.end * fps - 1e-9));
+    for (let i = from; i < to; i++) {
+      const start = i === from ? shot.start : i / fps,
+        end = Math.min(shot.end, (i + 1) / fps);
+      if (start >= end) continue;
+      const faces = faceSamples[i];
+      if (!faces.length) continue;
+      const media = faces.length === 2 ? stable[i] : null;
+      layouts.push({
+        start,
+        end,
+        shotId: shot.shotId,
+        kind: faces.length === 2 ? (media ? "duo-media" : "duo") : "speaker",
+        people: faces.map(box),
+        ...(media ? { media: box(media) } : {}),
+        cut: i === from && shot.start > 0,
+      });
+    }
   }
   return layouts;
 }
@@ -187,7 +192,7 @@ function stableLayouts(framing) {
       // Layout bins may start before the actual cut. Keep the old camera until
       // that exact source frame; tracking cuts also include speaker switches.
       const bin = entries.findIndex(
-        (l) => l.cut && l.start <= time && time <= l.end + 0.001,
+        (l) => l.cut && l.start <= time + 0.000001 && time < l.end - 0.000001,
       );
       if (bin > 0 && time > entries[bin].start) {
         const start = entries[bin].start;
