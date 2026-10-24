@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { chatPrompt, describeEvent, fileName, inside, isName, maskKey, montagePrompt, operatorCommand, prepLine, renderProgress } from "./lib.mjs";
+import { chatPrompt, describeEvent, errorLine, fileName, inside, isName, maskKey, montagePrompt, operatorCommand, prepLine, renderProgress } from "./lib.mjs";
 
 test("nazwy rolek i klientów: tylko slug", () => {
   assert.ok(isName("lot-na-cypr"));
@@ -77,4 +77,10 @@ test("wyjście prepa po ludzku: bez surowego JSON i podpowiedzi z terminala", ()
 test("klucz API nigdy nie wraca w całości", () => {
   assert.equal(maskKey("sk-ant-1234abcd"), "••••abcd");
   assert.equal(maskKey(""), "");
+});
+
+test("błąd zadania: ZodError jako ścieżka i powód zamiast „[”, zwykły błąd — pierwsza linia", () => {
+  const zod = Object.assign(new Error('[\n  {"code":"custom"}]'), { issues: [{ path: ["cuts", 149], message: "start musi być < end" }, { path: ["cuts", 160], message: "start musi być < end" }] });
+  assert.equal(errorLine(zod), "Nieprawidłowe dane: cuts.149 — start musi być < end; cuts.160 — start musi być < end");
+  assert.equal(errorLine(new Error("FFmpeg padł\nszczegóły")), "FFmpeg padł");
 });

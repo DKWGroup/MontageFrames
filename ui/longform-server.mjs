@@ -9,7 +9,7 @@ import fsp from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { parseEnv, promisify } from "node:util";
-import { applyDecisions, buildRoughCut, hasSfx, loadLexicons, parseRms, rmsArgs, speechRms } from "../scripts/longform-roughcut.mjs";
+import { applyDecisions, buildRoughCut, hasSfx, loadLexicons, parseRms, rmsArgs, speechRms, timedWords } from "../scripts/longform-roughcut.mjs";
 import { editRoughCut, lfProvider, requestPlan } from "../scripts/longform-ai.mjs";
 import { fetchBroll, logoFor } from "../scripts/longform-assets.mjs";
 import { buildMask } from "../scripts/longform-mask.mjs";
@@ -21,7 +21,7 @@ import { buildReel, clientOf, MIN_SILENCE, NOISE_DB, styleOf } from "../scripts/
 import { hashFile, runMediaTool } from "../scripts/quickcontent-ingest.mjs";
 import { transcribeSource } from "../scripts/quickcontent-transcribe.mjs";
 import { RoughCut } from "../src/longform/schema.mjs";
-import { inside, isName } from "./lib.mjs";
+import { errorLine, inside, isName } from "./lib.mjs";
 import { tryAcquireHeavy } from "./process-resource.mjs";
 
 const run = promisify(execFile);
@@ -203,7 +203,7 @@ export function createLongFormService(root, { providers = {}, acquire = () => tr
     (async () => {
       try {
         const src = path.join(dir(p.id), p.source);
-        const words = (await tools.transcribe(p, ctx)).map((w, i) => ({ ...w, id: w.id ?? `w${i}` }));
+        const words = timedWords((await tools.transcribe(p, ctx)).map((w, i) => ({ ...w, id: w.id ?? `w${i}` })));
         await writeJson(path.join(dir(p.id), "transcript.json"), words);
         const reelFile = path.join(dir(p.id), "reel.json");
         const reel = await readJson(reelFile, null);
@@ -280,7 +280,7 @@ export function createLongFormService(root, { providers = {}, acquire = () => tr
         const patch = await work(ctx, () => p);
         p = { ...p, ...patch, state: done, job: { ...p.job, progress: 1, detail: "Gotowe", finishedAt: new Date().toISOString() } };
       } catch (e) {
-        p = { ...p, state: "failed", failedFrom: before, job: { ...p.job, error: String(e.message).split("\n")[0].slice(0, 400), finishedAt: new Date().toISOString() } };
+        p = { ...p, state: "failed", failedFrom: before, job: { ...p.job, error: errorLine(e), finishedAt: new Date().toISOString() } };
       } finally {
         await save(p).catch(() => {});
         running.delete(p.id);

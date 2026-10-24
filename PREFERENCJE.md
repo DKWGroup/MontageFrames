@@ -1,3 +1,7 @@
+## CutRaw: błąd „Przetwarzanie nie powiodło się: [” — 2026-10-24
+
+- Naprawić kompleksowo błąd przetwarzania nagrania z dwóch kamer. Przyczyna: Whisper zwraca czasem słowa o zerowej długości, z których powstawały puste cięcia „yyy” i wyciszenia, a walidacja odrzucała cały projekt. Takie słowa dostają krótki czas z wolnego miejsca obok (CutRaw i LongForm), puste cięcia i wyciszenia nie powstają, a panel pokazuje czytelny powód błędu zamiast „[”.
+
 ## CutRaw: projekt z plików przeciągniętych z dysku — 2026-10-24
 
 - W panelu CutRaw nowy projekt można założyć, przeciągając nagrania z dysku (albo „Wybierz z dysku”), bez ręcznego kopiowania do `inbox/`. Pliki trafiają do `inbox/cutraw/`, od razu są zaznaczone i gotowe do synchronizacji. Oryginały na dysku zostają nietknięte.

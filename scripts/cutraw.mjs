@@ -14,7 +14,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseArgs } from "node:util";
 import { z } from "zod";
 import { clientOf, NOISE_DB } from "./prep.mjs";
-import { applyDecisions, censorMutes, fillerCuts, loadLexicons, PACE, silenceCuts, snapQuietest, validateCuts, voicedGaps } from "./longform-roughcut.mjs";
+import { applyDecisions, censorMutes, fillerCuts, loadLexicons, PACE, silenceCuts, snapQuietest, timedWords, validateCuts, voicedGaps } from "./longform-roughcut.mjs";
 import { hashFile, runMediaTool } from "./quickcontent-ingest.mjs";
 import { transcribeSource } from "./quickcontent-transcribe.mjs";
 import { probe, syncFiles } from "./cutraw-sync.mjs";
@@ -320,7 +320,7 @@ export async function processProject(name, opt = {}, { report = () => {}, panel 
     },
   );
   const labels = speech.map((s) => (s.role === "mic" ? s.label : null)).filter(Boolean);
-  const words = t.words.map((w, i) => ({ id: `w${i}`, text: w.text, start: w.start, end: w.end, speaker: speakerOf(w, levels, labels) }));
+  const words = timedWords(t.words.map((w, i) => ({ id: `w${i}`, text: w.text, start: w.start, end: w.end }))).map((w) => ({ ...w, speaker: speakerOf(w, levels, labels) }));
   if (!words.length) throw new Error("Whisper nie znalazł mowy w nagraniu.");
   writeFileSync(path.join(dir, "transcript.json"), JSON.stringify(words) + "\n");
 

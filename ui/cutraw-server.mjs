@@ -10,7 +10,7 @@ import path from "node:path";
 import process from "node:process";
 import { pipeline } from "node:stream/promises";
 import * as engine from "../scripts/cutraw.mjs";
-import { fileName, inside, isName } from "./lib.mjs";
+import { errorLine, fileName, inside, isName } from "./lib.mjs";
 import { serveMedia } from "./media-response.mjs";
 import { tryAcquireHeavy } from "./process-resource.mjs";
 
@@ -59,7 +59,7 @@ export function createCutRawService(root, { tools = engine, acquire = () => tryA
         job.result = await work((r) => Object.assign(job, { stage: r.stage ?? job.stage, detail: r.detail ?? job.detail, progress: r.progress ?? null }));
         job.state = "done";
       } catch (e) {
-        Object.assign(job, { state: "failed", error: String(e.message).split("\n")[0].slice(0, 400) });
+        Object.assign(job, { state: "failed", error: errorLine(e) });
       } finally {
         job.finishedAt = new Date().toISOString();
         release();

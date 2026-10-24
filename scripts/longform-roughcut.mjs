@@ -61,11 +61,24 @@ export function silenceCuts(silences, words, { minGap = 0.45, breath = 0.15 } = 
 export const voicedGaps = (silences, words, duration) =>
   freeIntervals(0, duration, [...words, ...silences]).map(([start, end]) => ({ start, end }));
 
+// Whisper zwraca czasem słowo o zerowej długości (start == end). Bez czasu nie da się go wyciąć ani wyciszyć
+// (przekleństwo zostałoby słyszalne), a puste cięcie psuje walidację projektu — dajemy mu `min` s z wolnego
+// miejsca obok (najpierw po słowie, potem przed). Słowo ściśnięte z obu stron zostaje bez czasu; budowniczy cięć je pomijają.
+export function timedWords(words, min = 0.06) {
+  return words.map((w, i) => {
+    if (w.end > w.start) return w;
+    const end = Math.max(w.start, Math.min(w.start + min, words[i + 1]?.start ?? Infinity));
+    const start = Math.min(w.start, Math.max(end - min, words[i - 1]?.end ?? 0));
+    return end > start ? { ...w, start: ms(start), end: ms(end) } : w;
+  });
+}
+
 export function fillerCuts(words, { sure, ambiguous }, voicedGaps = []) {
   const cuts = [];
   const multi = ambiguous.map((p) => p.split(" "));
   for (let i = 0; i < words.length; i++) {
     const w = words[i];
+    if (!(w.end > w.start)) continue;
     if (sure.includes(bare(w.text))) {
       cuts.push(cutOf("filler", w.start, w.end, { wordIds: [w.id], reason: w.text, confidence: 0.95 }));
       continue;
@@ -73,6 +86,7 @@ export function fillerCuts(words, { sure, ambiguous }, voicedGaps = []) {
     const hit = multi.find((p) => p.every((x, j) => words[i + j] && bare(words[i + j].text) === x));
     if (!hit) continue;
     const span = words.slice(i, i + hit.length);
+    if (!(span.at(-1).end > w.start)) continue;
     cuts.push(
       cutOf("filler", w.start, span.at(-1).end, {
         wordIds: span.map((x) => x.id),
@@ -94,7 +108,7 @@ export function fillerCuts(words, { sure, ambiguous }, voicedGaps = []) {
 // czas słowa dzielony proporcjonalnie na litery; zawsze zostaje wyciszona co najmniej jedna litera.
 export function censorMutes(words, profanity, { muteRatio = 0.8, tail = 0.03, ramp = 0.005, keepHead = null, keepTail = 0, sfx = "kruk" } = {}) {
   return words
-    .filter((w) => profanity.extra?.has(w.id) || isProfane(w.text, profanity))
+    .filter((w) => w.end > w.start && (profanity.extra?.has(w.id) || isProfane(w.text, profanity)))
     .map((w) => {
       const dur = w.end - w.start;
       if (keepHead == null) return { wordId: w.id, start: ms(w.start + (1 - muteRatio) * dur), end: ms(w.end + tail), ramp, sfx };
@@ -279,7 +293,7 @@ function propose(name) {
   const reel = readJson(path.join(dir, "reel.json"));
   const src = path.join(dir, reel.source);
   const t = readJson(path.join(dir, "transcript.json"));
-  const words = (Array.isArray(t) ? t : t.words).map((w, i) => ({ ...w, id: w.id ?? `w${i}` }));
+  const words = timedWords((Array.isArray(t) ? t : t.words).map((w, i) => ({ ...w, id: w.id ?? `w${i}` })));
   const duration = probeDuration(src);
   const file = path.join(dir, "roughcut.json");
   const { doc, report } = buildRoughCut({

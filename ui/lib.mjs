@@ -18,6 +18,13 @@ export const fileName = (raw) => {
 
 export const maskKey = (k) => (k ? `••••${k.slice(-4)}` : "");
 
+// Błąd zadania w jednej linii dla panelu. ZodError ma w `message` JSON zaczynający się od „[” — zamiast tego ścieżka i powód.
+export const errorLine = (e, max = 400) =>
+  (e?.issues?.length
+    ? `Nieprawidłowe dane: ${e.issues.slice(0, 3).map((i) => `${i.path.join(".") || "całość"} — ${i.message}`).join("; ")}${e.issues.length > 3 ? ` (i ${e.issues.length - 3} więcej)` : ""}`
+    : String(e?.message ?? e).split("\n")[0]
+  ).slice(0, max);
+
 export const LOGIN_HINT = "Zaloguj operatora: w Terminalu wpisz `claude auth login` (albo podaj klucz API w Ustawieniach panelu).";
 const AUTH = /authenticat|log ?in|oauth|api key|401/i;
 

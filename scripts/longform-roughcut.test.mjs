@@ -26,7 +26,7 @@ test("leksykon wtrąceń: pewne i wieloznaczne", () => {
   assert.ok(fillers.ambiguous.includes("w sensie"));
 });
 
-import { applyDecisions, censorMutes, fillerCuts, isProfane, silenceCuts, snapQuietest, speechRms, validateCuts, voicedGaps } from "./longform-roughcut.mjs";
+import { applyDecisions, censorMutes, fillerCuts, isProfane, silenceCuts, snapQuietest, speechRms, timedWords, validateCuts, voicedGaps } from "./longform-roughcut.mjs";
 
 const POS = ["kurwa", "Kurwa!", "kurwy", "skurwysyn", "wkurwiony", "chuj", "chujowy", "huj", "jebać", "zajebisty", "wyjebane", "pojebany", "jeb...", "pierdolę", "spierdalaj", "zapierdala", "rozpierdol", "pizda", "kutasie", "cipka"];
 const NEG = ["kurek", "kurs", "kurtka", "kurczak", "kurde", "kurczę", "kurier", "cholera", "Kurtyka", "chustka", "huta", "hulajnoga", "jeden", "jedzenie", "pierwszy", "pierogi", "dziwny", "kutia", "Cypr", "Cipriani"];
@@ -191,4 +191,24 @@ test("CutRaw: wtrącenie między stykającymi się słowami — krawędzie na na
   const c = { id: "filler-w6", start: 5.52, end: 5.94, wordIds: ["w6"], kind: "filler", reason: "znaczy", confidence: 0.5, auto: false, decision: "cut" };
   const [s] = snapQuietest([c], words, energy, { fps: 25 });
   assert.deepEqual([s.start, s.end, s.decision], [5.52, 5.92, "cut"]);
+});
+
+test("słowa bez czasu z Whispera (start == end): dostają czas z wolnego miejsca, nie dają pustych cięć ani wyciszeń", () => {
+  const raw = [
+    { id: "w0", text: "Dzień", start: 0.5, end: 0.9 },
+    { id: "w1", text: "no", start: 1.2, end: 1.2 }, // miejsce po słowie
+    { id: "w2", text: "dobry", start: 1.5, end: 1.9 },
+    { id: "w3", text: "kurwa", start: 2.3, end: 2.3 }, // przekleństwo bez czasu, miejsce przed
+    { id: "w4", text: "tak", start: 2.3, end: 2.6 },
+    { id: "w5", text: "no", start: 2.6, end: 2.6 }, // ściśnięte z obu stron
+    { id: "w6", text: "dalej", start: 2.6, end: 3 },
+  ];
+  const words = timedWords(raw);
+  assert.deepEqual(words.map((w) => [w.start, w.end]), [[0.5, 0.9], [1.2, 1.26], [1.5, 1.9], [2.24, 2.3], [2.3, 2.6], [2.6, 2.6], [2.6, 3]]);
+  assert.equal(words[0], raw[0]);
+  const cuts = fillerCuts(words, { sure: [], ambiguous: ["no"] });
+  assert.deepEqual(cuts.map((c) => [c.wordIds[0], c.start, c.end]), [["w1", 1.2, 1.26]]);
+  const mutes = censorMutes(words, { ...lex, extra: new Set(["w5"]) }, { keepHead: 2, sfx: null });
+  assert.deepEqual(mutes.map((m) => m.wordId), ["w3"]);
+  assert.ok(mutes.every((m) => m.start < m.end));
 });

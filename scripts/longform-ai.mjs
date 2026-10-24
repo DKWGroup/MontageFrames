@@ -103,7 +103,9 @@ export function cutsFromAI(answer, words) {
         ? "wordIds spoza bloku"
         : idx.some((i, k) => k && i !== idx[k - 1] + 1)
           ? "nieciągłe wordIds"
-          : null;
+          : !(words[idx.at(-1)].end > words[idx[0]].start)
+            ? "słowa bez czasu"
+            : null;
     if (why) {
       rejected.push({ cut: c, why });
       continue;
