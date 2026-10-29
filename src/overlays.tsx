@@ -23,6 +23,8 @@ type Item =
       badge?: string; // glowup
       value?: string; // ameryka: wartość po prawej na złotym zakreślaczu (np. „0%”)
       was?: string; // ameryka: poprzednia wartość, przekreślana przed `value` (np. „10%”)
+      icon?: string; // vital VSL: ikona punktu (bolt, moon, heart, leaf, dumbbell, spark, flame, plus, drop, focus, chart)
+      src?: string; // vital VSL: przebitka w panelu `media` (zmienia się przy `at`)
     };
 type Col = { title: string; items: Item[] };
 export type Overlay = {
@@ -48,6 +50,7 @@ export type Overlay = {
     | "steps" // styl vital: kroki z numerami i rysowaną linią
     | "mythfact" // styl vital: items[0] = mit (przekreślany), items[1] = fakt
     | "dollars" // styl ameryka: subtelny wysyp banknotów i monet przy cenie (x, y = start, size = liczba sztuk)
+    | "flag" // styl ameryka: falująca flaga USA (x, y = środek, size = szerokość w px)
     | "quote" // styl vital: cytat kursywą (text, label = podpis)
     | "typography" // LongForm: hasło/teza (role: "hook" = hak otwarcia)
     | "chapter-card" // LongForm: plansza rozdziału (n, title)
@@ -55,7 +58,13 @@ export type Overlay = {
     | "cutout" // LongForm L4 (warstwy w SourceShot, src/longform/mask.tsx): osoba na rozmytym tle z obrysem
     | "text-behind" // LongForm L4: duże słowo za głową
     | "background-swap" // LongForm L4: tło blur | color | broll (src)
-    | "vertigo"; // LongForm L4: dolly zoom (noMask = najazd + winieta)
+    | "vertigo" // LongForm L4: dolly zoom (noMask = najazd + winieta)
+    | "panel" // vital VSL 16:9: panel na połowie kadru nad osobą, która nie mówi (`side`, `kind`)
+    | "statement" // vital VSL: hasło na pełnym kadrze, fragment `hl` na limonce
+    | "broll" // vital VSL: przebitka na pełnym kadrze z przejściem (src, text = metka, trim)
+    | "endcard" // vital VSL: plansza końcowa z CTA
+    | "scrim" // vital VSL: cień pod napisami na dole kadru
+    | "board"; // styl fitnessiq: plansza CTA na cały ekran (items = linie, ostatnia na limonce; src = logo)
   lf?: boolean; // warstwa z planu LongForm (zastępowana przy ponownym montażu)
   effectId?: string; // id efektu w plan.json
   role?: "hook";
@@ -88,7 +97,7 @@ export type Overlay = {
   prefix?: string;
   suffix?: string; // np. " zł", "%", " s"
   decimals?: number;
-  data?: { label: string; value: number }[]; // bars
+  data?: { label: string; value: number; at?: number }[]; // bars; at = czas słowa (styl bisanz: pasek rośnie, gdy pada)
   highlight?: number; // bars: indeks wyróżnionego paska (reszta neutralna)
   max?: number; // bars: wartość = pełna szerokość
   points?: number[]; // line
@@ -112,6 +121,11 @@ export type Overlay = {
   sfx?: string; // efekt dźwiękowy przy wejściu (plik w folderze rolki; na razie styl bisanz)
   tone?: "light" | "dark"; // styl vital: karta jasna (domyślnie dla labs) albo ciemna
   sfxVolume?: number; // mnożnik amplitudy SFX, dobrany tak, by efekt był ≥10 dB pod głosem
+  side?: "left" | "right" | "full"; // vital VSL panel: strona kadru (przeciwna do mówiącego) albo pełny kadr
+  kind?: string; // vital VSL panel: media | wall | beforeafter | stat | checklist | chips | pillars | hub | process | updown | steps | cta | statement
+  images?: string[]; // vital VSL: zdjęcia przemian (pliki w folderze rolki)
+  over?: boolean; // vital VSL: panel wjeżdża wipe’em na poprzedni panel po tej samej stronie (ten trwa ≥0,5 s dłużej)
+  box?: [number, number, number, number]; // vital VSL: własny prostokąt panelu [x, y, w, h] (ułamki kadru)
 };
 type P = {
   o: Overlay;
@@ -164,6 +178,12 @@ const DEFAULT_Y: Partial<Record<Overlay["type"], number>> = {
   title: 0.17,
   emoji: 0.3,
   dollars: 0.62, // leci zza napisu z ceną, nie podnosi napisów
+  flag: 0.75, // pod napisem, nie podnosi napisów
+  panel: 0.5, // vital VSL: panele, hasła i przebitki nie podnoszą napisów z dołu kadru
+  statement: 0.5,
+  broll: 0.5,
+  endcard: 0.5,
+  scrim: 0.5,
 };
 
 // Grafika na dole kadru -> napisy w tym czasie podnoszą się nad nią (src/Reel.tsx)

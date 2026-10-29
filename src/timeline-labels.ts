@@ -25,6 +25,11 @@ const KINDS: Record<string, string> = {
   typography: "Typografia",
   "chapter-card": "Rozdział",
   "zoom-through": "Przejście",
+  panel: "Panel",
+  statement: "Hasło",
+  broll: "Przebitka",
+  endcard: "Plansza końcowa",
+  scrim: "Cień pod napisy",
 };
 
 export const overlayLabel = (o: Overlay) => ({

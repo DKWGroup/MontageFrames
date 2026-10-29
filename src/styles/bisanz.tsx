@@ -43,6 +43,7 @@ export type Theme = {
   keyCase?: "uppercase" | "none"; // Vital: klucz zapisem zdaniowym jak na stronie; domyślnie wersaliki
   markerRadius?: string; // zaokrąglenie zakreślacza, domyślnie 0.12em
   raisedScale?: number; // napis nad kartą pod twarzą: skala bloku (mniej miejsca między twarzą a kartą)
+  nameWhole?: boolean; // Vital: nazwa z twardą spacją („Vital Hormone”) dostaje zakreślacz w całości, bez przejazdu przez pół nazwy
   keyWeight: number;
   smallWeight: number;
   titleStyle: "italic" | "normal";
@@ -347,6 +348,7 @@ export const kineticCaptions = (
               config: { damping: 9, stiffness: 220 },
             })
           : 0;
+        const whole = !!(T.nameWhole && text.includes("\u00a0"));
         const sweep = !m ? 0 : pill ? 1 : popHl ? (wf >= 3 ? 1 : 0) : draw();
         return (
           <span key={`${w.start}-${w.text}`} style={outer}>
@@ -381,20 +383,30 @@ export const kineticCaptions = (
                     // blok zakreślacza zawsze pełny, bez konturu z wejścia color in
                     WebkitTextFillColor: m[1],
                     WebkitTextStroke: "0",
-                    clipPath: popHl
-                      ? undefined
-                      : `inset(0 ${(1 - sweep) * 100}% 0 0)`,
+                    clipPath:
+                      popHl || whole
+                        ? undefined
+                        : `inset(0 ${(1 - sweep) * 100}% 0 0)`,
                     transform: popHl
                       ? `scale(${0.35 + 0.65 * p}) rotate(${(1 - p) * -7}deg)`
                       : undefined,
-                    opacity: popHl ? Math.min(1, p * 2.5) : undefined,
+                    opacity: popHl
+                      ? Math.min(1, p * 2.5)
+                      : whole
+                        ? Math.min(1, sweep * 1.6)
+                        : undefined,
                   }}
                 >
                   {clean(w.text)}
                 </span>
               )}
             </span>
-            <WordEmoji qualityId={w.qualityId} emoji={w.emoji} frame={wf} src={w.emojiSrc} />
+            <WordEmoji
+              qualityId={w.qualityId}
+              emoji={w.emoji}
+              frame={wf}
+              src={w.emojiSrc}
+            />
           </span>
         );
       }
@@ -438,7 +450,12 @@ export const kineticCaptions = (
               />
             )}
           </span>
-          <WordEmoji qualityId={w.qualityId} emoji={w.emoji} frame={wf} src={w.emojiSrc} />
+          <WordEmoji
+            qualityId={w.qualityId}
+            emoji={w.emoji}
+            frame={wf}
+            src={w.emojiSrc}
+          />
         </span>
       );
     };
@@ -906,7 +923,8 @@ export const kineticOverlay = (
 
     // Obliczenie: kroki wchodzą, gdy padają (`at`), wynik w akcencie odlicza się od `resultAt`.
     if (o.type === "calc") {
-      const r0 = o.resultAt != null ? at(o.resultAt) : 0.3 + (o.rows?.length ?? 0) * 0.5;
+      const r0 =
+        o.resultAt != null ? at(o.resultAt) : 0.3 + (o.rows?.length ?? 0) * 0.5;
       const rs = spring({
         frame: f - Math.round(r0 * fps),
         fps,
@@ -946,7 +964,13 @@ export const kineticOverlay = (
                   transform: `translateX(${(1 - s) * 40}px)`,
                 }}
               >
-                <span style={{ fontWeight: T.smallWeight, fontSize: 38, opacity: 0.6 }}>
+                <span
+                  style={{
+                    fontWeight: T.smallWeight,
+                    fontSize: 38,
+                    opacity: 0.6,
+                  }}
+                >
                   {row.text}
                 </span>
                 <span
@@ -991,6 +1015,94 @@ export const kineticOverlay = (
               {o.suffix}
             </div>
           </div>
+        </>,
+      );
+    }
+
+    // Paski: porównanie wartości; każdy rośnie, gdy pada (`data[].at`), wyróżniony w akcencie, reszta szara.
+    if (o.type === "bars") {
+      const data = o.data ?? [];
+      const max = o.max ?? Math.max(...data.map((d) => d.value));
+      return card(
+        <>
+          {o.title && <Tag>{o.title}</Tag>}
+          {data.map((d, i) => {
+            const t0 = d.at != null ? at(d.at) : 0.3 + i * 0.5;
+            const s = spring({
+              frame: f - Math.round(t0 * fps),
+              fps,
+              config: { damping: 16, stiffness: 180 },
+            });
+            const g = interpolate(f / fps - t0, [0, 0.9], [0, 1], {
+              ...clamp,
+              easing: Easing.bezier(0.25, 1, 0.5, 1),
+            });
+            const on = o.highlight == null || o.highlight === i;
+            return (
+              <div
+                key={i}
+                style={{
+                  marginTop: i ? 28 : 18,
+                  opacity: s,
+                  transform: `translateX(${(1 - s) * 40}px)`,
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                    marginBottom: 12,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontWeight: T.smallWeight,
+                      fontSize: 38,
+                      opacity: on ? 1 : 0.6,
+                    }}
+                  >
+                    {d.label}
+                  </span>
+                  <span
+                    style={{
+                      fontWeight: T.keyWeight,
+                      fontSize: 72,
+                      lineHeight: 1,
+                      letterSpacing: "-0.03em",
+                      fontVariantNumeric: "tabular-nums",
+                      color: on ? T.accent : T.cardText,
+                      opacity: on ? 1 : 0.6,
+                    }}
+                  >
+                    {o.prefix}
+                    {fmt(
+                      d.value * g,
+                      Number.isInteger(d.value) ? 0 : (o.decimals ?? 1),
+                    )}
+                    {o.suffix}
+                  </span>
+                </div>
+                <div
+                  style={{
+                    height: 22,
+                    borderRadius: 11,
+                    background: T.cardLine,
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "100%",
+                      width: `${(d.value / max) * 100 * g}%`,
+                      borderRadius: 11,
+                      background: on ? T.accent : T.cardText,
+                      opacity: on ? 1 : 0.35,
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </>,
       );
     }

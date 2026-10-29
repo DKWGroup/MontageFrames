@@ -90,6 +90,20 @@ export const establishedStyles = {
     size: 52,
     emojiEnabled: false,
   },
+  fitnessiq: {
+    description:
+      "FitnessIQ: Druk Wide Medium i Mulish; czerń, biel i IQ Lime. Oszczędne kinetic subtitles z limonkowym zakreślaczem.",
+    fonts: ["Mulish 500/300", "Druk Wide Medium 500"],
+    colors: ["#FFFFFF", "#BBE90B", "#0B0B0B"],
+    requiredFonts: [
+      "fonts/Mulish-Medium.ttf",
+      "fonts/Druk-Wide-Medium.ttf",
+      "fonts/Mulish-Light.ttf",
+    ],
+    position: 0.68,
+    size: 54,
+    emojiEnabled: false,
+  },
   happynews: {
     description:
       "Newsowy styl z różowym markerem, kluczem Bebas Neue i małymi słowami Poppins.",

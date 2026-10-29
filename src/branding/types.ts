@@ -29,7 +29,8 @@ export type BrandingSnapshot = {
     | "ameryka"
     | "glowup"
     | "vital"
-    | "happynews";
+    | "happynews"
+    | "fitnessiq";
   clientId: string;
   revision: number;
   qualityContract?: ClientContract;

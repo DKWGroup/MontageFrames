@@ -69,6 +69,7 @@ export const brandingProfileSchema = z
         "glowup",
         "vital",
         "happynews",
+        "fitnessiq",
       ])
       .optional(),
     clientId: clientIdSchema,

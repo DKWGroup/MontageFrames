@@ -10,16 +10,30 @@ import { brandAppearance, brandingEmoji } from "../branding/appearance.mjs";
 import { brandFontFamily } from "../branding/fonts";
 import { WordEmoji } from "../WordEmoji";
 import { measureText } from "@remotion/layout-utils";
+import { WalczakCaption } from "./walczak";
 
 export const Brand: React.FC<StyleProps> = ({
   branding,
   words,
   raised,
   minTop,
+  durationInFrames,
+  group,
 }) => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
   if (!branding) return null;
+  if (branding.clientId === "dominik-walczak")
+    return (
+      <WalczakCaption
+        branding={branding}
+        words={words}
+        raised={raised}
+        minTop={minTop}
+        durationInFrames={durationInFrames}
+        group={group}
+      />
+    );
   const a = brandAppearance(branding),
     scale = width / 1080;
   const entrance = a.animated

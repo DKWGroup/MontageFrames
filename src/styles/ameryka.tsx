@@ -499,7 +499,8 @@ const Coin: React.FC<{ flip: number }> = ({ flip }) => (
       height: 44,
       borderRadius: 22,
       background: GOLD,
-      boxShadow: "inset 0 0 0 3px rgba(2,2,3,0.22), 0 6px 14px rgba(2,2,3,0.45)",
+      boxShadow:
+        "inset 0 0 0 3px rgba(2,2,3,0.22), 0 6px 14px rgba(2,2,3,0.45)",
       color: BLACK,
       fontWeight: 900,
       fontSize: 26,
@@ -556,6 +557,98 @@ const Dollars: React.FC<OverlayProps> = ({ o, src }) => {
   );
 };
 
+// Flaga USA (barwy Old Glory) falująca na wietrze: jeden rysunek w <defs>, pocięty na pionowe
+// paski, każdy przesunięty po sinusie i przyciemniony na zboczu fali. Wjeżdża sprężyście, wychodzi szybciej.
+const FlagUSA: React.FC<OverlayProps> = ({ o, src }) => {
+  const f = useCurrentFrame();
+  const { fps, width, height, durationInFrames } = useVideoConfig();
+  const W = o.size ?? 400;
+  const H = (W * 10) / 19;
+  const id = `flag-${o.start}`;
+  const t = f / fps;
+  const s = spring({ frame: f, fps, config: { damping: 12, stiffness: 160 } });
+  const out = interpolate(
+    f,
+    [durationInFrames - 8, durationInFrames],
+    [1, 0],
+    clamp,
+  );
+  const N = 32;
+  const sw = W / N;
+  const amp = W * 0.035;
+  const phase = (x: number) => (x / W) * Math.PI * 2.2 - t * 7;
+  const stripe = H / 13;
+  const canton = { w: W * 0.4, h: stripe * 7 };
+  return (
+    <div style={{ position: "absolute", inset: 0 }}>
+      {o.sfx && <Audio src={src(o.sfx)} volume={o.sfxVolume ?? 0.3} />}
+      <svg
+        width={W}
+        height={H + amp * 4}
+        viewBox={`0 ${-amp * 2} ${W} ${H + amp * 4}`}
+        style={{
+          position: "absolute",
+          left: (o.x ?? 0.5) * width - W / 2,
+          top: (o.y ?? 0.75) * height - H / 2 - amp * 2,
+          opacity: out,
+          transform: `translateY(${(1 - s) * 80}px) rotate(${(1 - s) * -8}deg) scale(${0.7 + 0.3 * s})`,
+          filter: "drop-shadow(0 10px 24px rgba(2,2,3,0.55))",
+          overflow: "visible",
+        }}
+      >
+        <defs>
+          <g id={id}>
+            {Array.from({ length: 13 }, (_, i) => (
+              <rect
+                key={i}
+                y={i * stripe}
+                width={W}
+                height={stripe + 0.5}
+                fill={i % 2 ? "#FFFFFF" : "#B22234"}
+              />
+            ))}
+            <rect width={canton.w} height={canton.h} fill="#3C3B6E" />
+            {Array.from({ length: 9 }, (_, r) =>
+              Array.from({ length: r % 2 ? 5 : 6 }, (_, c) => (
+                <circle
+                  key={`${r}-${c}`}
+                  cx={(canton.w / 12) * (c * 2 + (r % 2 ? 2 : 1))}
+                  cy={(canton.h / 10) * (r + 1)}
+                  r={stripe * 0.28}
+                  fill="#FFFFFF"
+                />
+              )),
+            )}
+          </g>
+          {Array.from({ length: N }, (_, i) => (
+            <clipPath key={i} id={`${id}-${i}`}>
+              <rect x={i * sw - 0.5} width={sw + 1} height={H} />
+            </clipPath>
+          ))}
+        </defs>
+        {Array.from({ length: N }, (_, i) => {
+          const x = (i + 0.5) * sw;
+          // przy drzewcu (lewo) flaga stoi, fala rośnie ku wolnemu końcowi
+          const dy = Math.sin(phase(x)) * amp * (0.3 + (0.7 * x) / W);
+          const shade = Math.cos(phase(x));
+          return (
+            <g key={i} transform={`translate(0 ${dy})`}>
+              <use href={`#${id}`} clipPath={`url(#${id}-${i})`} />
+              <rect
+                x={i * sw - 0.5}
+                width={sw + 1}
+                height={H}
+                fill={shade > 0 ? "#FFFFFF" : "#020203"}
+                opacity={Math.abs(shade) * (shade > 0 ? 0.12 : 0.22)}
+              />
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+};
+
 // Pop/kasa przy tytule-haku i CTA (`sfx`); media `card` gra swój `sfx` w silniku Bisanza.
 const WithSfx: React.FC<OverlayProps> = (props) => (
   <>
@@ -571,6 +664,8 @@ export const AmerykaOverlay: React.FC<OverlayProps> = (props) =>
     <FlagList {...props} />
   ) : props.o.type === "dollars" ? (
     <Dollars {...props} />
+  ) : props.o.type === "flag" ? (
+    <FlagUSA {...props} />
   ) : props.o.type === "media" &&
     props.o.fit === "overlay" &&
     /\.(png|webp)$/i.test(props.o.src ?? "") ? (

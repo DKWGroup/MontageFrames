@@ -1,5 +1,20 @@
 # Magdalena Herod — profil klientki i preferencje montażu
 
+## Kreacje ebooka stylizowane na organiczne — 2026-10-27
+
+### Korekta całej serii — 2026-10-27
+
+- Napisy w pierwszej wersji nachodziły na twarz. Poprawić wszystkie cztery filmy: mierzyć dolną krawędź twarzy w całym nagraniu, zachować zapas również podczas animacji i zoomów. Nie podnosić napisów na twarz, aby zrobić miejsce grafice; przenieść lub przebudować grafikę. Sprawdzić przebieg całych filmów, nie tylko kilka nieruchomych klatek.
+- Wyszukać **nowe przebitki w Pexels**; zwiększyć różnorodność sytuacji, osób, planów i czynności. Nie opierać nowej serii na ponownie użytej bibliotece pięciu ujęć.
+- Więcej wyraźnie różnych rodzajów animacji i wstawek. Same podobne dolne karty, listy oraz schematy strzałkowe nie spełniają oczekiwań. Zaplanować odmienne sceny wyjaśniające treść, zróżnicowane kompozycje i przejścia, zachowując styl marki i czytelność.
+- Korekta dotyczy **wszystkich czterech rolek**, kompleksowo; wcześniejsze rendery traktować jako wersje robocze.
+- Wdrożenie (2026-10-27, Claude): dolną krawędź twarzy zmierzono detektorem Vision co 0,5 s w całym nagraniu (p95 0,55–0,57), stąd `face.bottom: 0.57`. Napis nad kartą zaczyna się od `minTop` (0,59), a dolna krawędź karty jest na 0,79. Napisy nie mają ręcznych `y`, bo to one wcześniej wchodziły na brodę. Wstawki są w `src/styles/herod-organic.tsx`: karty (proces, porównanie, pętla, chipsy) i sceny na cały kadr (waga, góra lodowa, pauza bodziec→odpowiedź, orbita, ścieżka, notes, równanie, „wiem / a jednak”, hasło, ebook 3D). Każda rolka ma własne przebitki z puli `public/reels/herod-paz-media-v2/` (Pexels, licencja w `manifest.json`).
+
+- Seria z folderu „herod paz”: montaż reklam ebooka w naturalnym, organicznym charakterze; priorytetem zaangażowanie i utrzymanie uwagi, bez obietnic konkretnych wyników watchtime.
+- Jeśli Magdalena mówi o ebooku, pokazuj prawdziwą okładkę tylko przy tych wzmiankach. Jeśli nie mówi o nim bezpośrednio, pokaż go dyskretnie około połowy oraz pod koniec filmu. To jawny wyjątek od wcześniejszej zasady prezentacji wyłącznie przy wzmiance.
+- Dodawaj animacje, wizualizacje mechanizmów, schematy, punkty i tematyczne przebitki do konkretnych zdań, aby wyjaśniały treść i podkreślały kompetencje. Wykresy wyłącznie na podstawie wypowiedzianych danych; procesy bez danych przedstawiaj jako schematy, bez fikcyjnych statystyk.
+- Można stosować oszczędne zoomy i ciche efekty dźwiękowe przy wybranych akcentach. Zachować paletę, typografię, odsłoniętą twarz i spokojny charakter marki; zwiększać różnorodność obrazu, nie agresywność efektów.
+
 Zapisano: **2026-10-03**. Strona: [magdalenaherod.pl](https://magdalenaherod.pl/). Ebook: [Zobacz siebie](https://magdalenaherod.pl/ebook). Styl w silniku: **`herod`**, wdrożony przy rolce nr 1 (2026-10-03).
 
 **Zaakceptowany wzorzec: rolka nr 1, wersja v2.** Użytkowniczka potwierdziła „Aktualna rolka jest super”; kolejne rolki montuj w tym samym kierunku: dwie linie napisów, tematyczne przebitki, ikony, przestronne karty oraz duży ebook z osobnymi kafelkami i adresem nad głową. *(2026-10-03)*
@@ -148,3 +163,9 @@ Na [stronie głównej](https://magdalenaherod.pl/) ebook jest pierwszym krokiem 
 5. **Doceń siebie** — wartość i obfitość; w przygotowaniu.
 
 Nie reklamuj czterech kolejnych tytułów jako dostępnych bez sprawdzenia aktualnego statusu. Przy wzmiance o ebooku dobieraj kartę, okładkę lub ikonę do rzeczywistej wypowiedzi; ceny, liczby modułów i CTA nie pojawiają się automatycznie w każdej rolce.
+
+## Okładka ebooka i lokowanie w środku rolki — 2026-10-27
+
+- W rolkach używać okładki od użytkowniczki: mockup 3D „Zobacz siebie · Świadomość” z motylem (wycięty bez tła: `public/Brandings/MagdalenaHerod/ebook-zobacz-siebie-3d.png`, oryginał `ebook-zobacz-siebie-mockup.webp`). Sprostowanie tego samego dnia: wcześniej podana okładka „Poczuj siebie · Emocje” była pomyłką — nie używać jej w tej serii. Okładki nie przerysowywać ani nie obracać w sztucznym 3D — sam mockup jest już przestrzenny; pod nim tylko złota pigułka, bez napisu z innym tytułem.
+- Ebook w środku rolki pokazywać tylko wtedy, gdy Magdalena w tym momencie o nim mówi. Plansze ebooka w środku bez wzmianki usunąć. Plansza na końcu rolki zostaje.
+- Poprzednie wersje renderów serii „paz” można usuwać po wyrenderowaniu nowych.

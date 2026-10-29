@@ -15,6 +15,7 @@ export const establishedStyles: Record<
   | "ameryka"
   | "glowup"
   | "vital"
-  | "happynews",
+  | "happynews"
+  | "fitnessiq",
   EstablishedStyleMetadata
 >;

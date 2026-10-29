@@ -2,6 +2,7 @@ import { WordEmoji } from "../WordEmoji";
 import { AbsoluteFill, Audio, Easing, Img, OffthreadVideo, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import type { StyleProps } from "../Reel";
 import type { Overlay } from "../overlays";
+import { HerodOrganicOverlay } from "./herod-organic";
 
 const C = { cream: "#FAF4EF", ink: "#271338", plum: "#55255F", gold: "#D7A160" };
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -23,7 +24,7 @@ const Icon: React.FC<{name: string; size?: number; color?: string}> = ({ name, s
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}}>{paths[name] ?? paths.check}</svg>;
 };
 
-export const Herod: React.FC<StyleProps> = ({ group, words, durationInFrames: dur, raised }) => {
+export const Herod: React.FC<StyleProps> = ({ group, words, durationInFrames: dur, raised, minTop }) => {
   const f = useCurrentFrame();
   const { fps, height } = useVideoConfig();
 
@@ -142,13 +143,14 @@ export const Herod: React.FC<StyleProps> = ({ group, words, durationInFrames: du
       <div
         style={{
           position: "absolute",
-          top: height * (raised ? 0.63 : 0.73),
-          left: "50%",
+          // z `face` (minTop): nad kartą napis zaczyna się pod twarzą, karta stoi pod nim
+          top: height * (group.y ?? (raised ? (minTop ?? 0.63) : 0.73)),
+          left: group.y != null && group.align === "right" ? "61%" : "50%",
           width: "100%",
-          maxWidth: SAFE_WIDTH,
+          maxWidth: group.y != null && group.align === "right" ? 520 : SAFE_WIDTH,
           boxSizing: "border-box",
           padding: "0 20px",
-          transform: `translate(-50%, ${raised ? "-100%" : "-50%"}) translateY(${16 * (1 - enter)}px)`,
+          transform: `translate(-50%, ${group.y != null ? "-50%" : raised ? (minTop != null ? "0%" : "-100%") : "-50%"}) translateY(${16 * (1 - enter)}px)`,
           opacity: Math.min(enter, exit),
           display: "flex",
           flexDirection: "column",
@@ -196,7 +198,7 @@ export const Herod: React.FC<StyleProps> = ({ group, words, durationInFrames: du
                         style={{
                           fontFamily: w.key ? '"Libre Baskerville"' : "Montserrat",
                           fontWeight: 400,
-                          fontSize: (w.key ? 84 : 60) * scale,
+                          fontSize: (w.key ? (group.y != null ? (group.align === "right" ? 62 : 74) : 84) : (group.y != null ? (group.align === "right" ? 46 : 54) : 60)) * scale,
                           color: C.cream,
                         }}
                       >
@@ -222,6 +224,7 @@ export const HerodOverlay: React.FC<OverlayProps> = ({ o, dur, src, at }) => {
   const enter = interpolate(f, [0, fps * 0.6], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
   const exit = interpolate(f, [dur - 12, dur], [1, 0], clamp);
   const opacity = Math.min(enter, exit);
+  if (o.label?.startsWith("herod-paz-")) return <HerodOrganicOverlay o={o} dur={dur} src={src} at={at} />;
   if (o.type === "media" && o.fit === "full" && o.src)
     return (
       <AbsoluteFill style={{ opacity }}>

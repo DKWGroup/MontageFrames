@@ -26,6 +26,8 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
 
 - **Odprawa w Holandii, VAT 21% *(2026-10-20, poprawka rolki „import tesla z usa”)*:** auta z USA odprawiamy w Holandii, więc w grafikach i opisach VAT przy imporcie to **21%** (stawka holenderska), a nie polskie 23%. Przy rozpisce opłat piszę „odprawa w Holandii”.
 
+- **Rolka „kredyt-import” *(2026-10-24)*:** bez logo, zdjęć i przebitek, same napisy, animacje i wizualizacje. Użytkowniczka zatwierdziła w grafice „90 dni na znalezienie auta” i „oprocentowanie spada” (bez liczb kosztu kredytu). Gdy pada „ściąganie aut z Ameryki”, wchodzi animowana, falująca flaga USA (overlay `flag`). Opis do rolki od razu z montażem.
+
 ## Marka *(rozeznanie strony i skilli `swiezabryka-ameryka`, `swiezabryka-ameryka-social`, 2026-10-07)*
 
 - Import aut z USA na zamówienie (Copart, IAAI, Manheim): wybór i weryfikacja, umowa i zwrotna kaucja, licytacja, płatność w 48 h, transport do portu, rejs do Europy, odprawa, naprawa i przygotowanie do rejestracji. Siostrzana marka Świeżej Bryki (auta z Europy). Twarze: Krzysiek (frontman) i Dawid.
@@ -121,3 +123,11 @@ Najpierw własny materiał klienta (marka nagrywa każdy etap telefonem), potem 
 - Zdjęcia aut do karuzel wyszukuj na **Pexels** i wykorzystuj jako tła lub elementy kompozycji. Zapisuj stronę zdjęcia, autora i licencję; stock jest ilustracją, nie dokumentacją auta klienta ani warsztatu firmy.
 - Seria ma mieć **10 osobnych karuzel w Canvie**, z jednoznacznymi nazwami, bezpośrednimi linkami i wspólnym folderem, aby cały komplet był łatwy do znalezienia. Nie uznawaj jednego otwartego projektu za widoczność całej serii.
 - Kierunek: estetyczny magazyn motoryzacyjny i storytelling inspirowany energią Top Gear: konkretna sytuacja, napięcie, wyjaśnienie i puenta, bez kopiowania ich tekstów, identyfikacji czy wymyślania historii klientów. Korzystaj z Impeccable, GPT Taste, Brand i mechaniki Copy na stronę. Zachowaj paletę i Poppins marki; więcej zdjęć, zróżnicowana kompozycja i krótsze bloki tekstu.
+
+## Stories przypięte — finansowanie *(2026-10-24)*
+
+- Zestaw 9 stories w Canvie: hook → konkret → pytanie → konkret → hook → konkret → pytanie → konkret → CTA.
+- Cała treść merytoryczna wyłącznie z aktualnej strony `https://swiezabrykaameryka.pl/finansowanie`; nie uzupełniać warunków informacjami z historycznych materiałów.
+- Zachować identyfikację Świeża Bryka Ameryka; zdjęcia, proste diagramy i zestawienia mają ułatwiać zrozumienie.
+- CTA uzgodnione w czacie: telefon ze strony **797 978 478**.
+- **Wyjątek zaakceptowany w czacie 2026-10-24 dla tego zestawu:** uwzględnić parametry z aktualnej strony: maksymalna kwota 150 000 zł, maksymalny okres spłaty 120 miesięcy, minimum 75% kwoty na zakup auta. Nie dopisywać stawki oprocentowania, raty ani RRSO, których strona nie podaje.

@@ -39,7 +39,16 @@ export const fontCatalog = [
     weight: "200 800",
     style: "italic",
   },
-  // FitnessIQ: Roboto 700/800 (nagłówki, klucz) + Nunito Sans 300–800 (treść).
+  // FitnessIQ: brandbook 2026-10-28. Oryginalne pliki, bez sztucznego pogrubienia.
+  {
+    family: "Druk Wide Medium",
+    file: "fonts/Druk-Wide-Medium.ttf",
+    weight: "500",
+  },
+  { family: "Mulish", file: "fonts/Mulish-Medium.ttf", weight: "500" },
+  { family: "Mulish", file: "fonts/Mulish-Light.ttf", weight: "300" },
+  { family: "Mulish", file: "fonts/Mulish-Bold.ttf", weight: "700" },
+  // Przybliżenia historyczne zachowane dla wcześniejszych snapshotów.
   { family: "Roboto", file: "fonts/Roboto.ttf", weight: "100 900" },
   { family: "Nunito Sans", file: "fonts/NunitoSans.ttf", weight: "200 1000" },
   { family: "Nunito", file: "fonts/Nunito.ttf", weight: "200 1000" },

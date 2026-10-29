@@ -11,6 +11,9 @@ const registry = JSON.parse(
   ),
 );
 const fontInfo = {
+  "Mulish-Medium.ttf": ["Mulish", "500"],
+  "Mulish-Light.ttf": ["Mulish", "300"],
+  "Druk-Wide-Medium.ttf": ["Druk Wide Medium", "500"],
   "Nunito.ttf": ["Nunito", "200 1000"],
   "Inter.ttf": ["Inter", "100 900"],
   "Inter-Italic.ttf": ["Inter", "100 900", "italic"],

@@ -1,14 +1,28 @@
 # FitnessIQ — preferencje montażu klienta
 
-Zapisano: **2026-10-22**. Strona: [fitnessiq.pl/warszawa](https://fitnessiq.pl/warszawa/) (Astro, bilety przez Fever). Zawody fitness „Fitness IQ” — ustandaryzowany test sprawności z indywidualnym wynikiem. **Dedykowanego stylu w silniku jeszcze nie ma.** Profil panelu brandingu: `klienci/fitness-iq/branding/profile.json` (styl ogólny `brand`). Do czasu budowy stylu ten plik jest profilem montażowym.
+Zapisano: **2026-10-22**. Strona: [fitnessiq.pl/warszawa](https://fitnessiq.pl/warszawa/) (Astro, bilety przez Fever). Zawody fitness „Fitness IQ” — ustandaryzowany test sprawności z indywidualnym wynikiem. Aktualizacja identyfikacji: **2026-10-28**, na podstawie materiałów od użytkowniczki. Dedykowany styl: `fitnessiq` (`src/styles/fitnessiq.tsx`, silnik ruchu Bisanza). Profil panelu: `klienci/fitness-iq/branding/profile.json`; poprzednie wersje zostają w `branding/versions/`.
 
 Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się różnią. Pozostałe zasady ogólne obowiązują: hook na starcie (pod napisami, pierwsze 3 s), 2–6 słów w grupie, zwarte bloki, bez wiszących spójników i przyimków, odsłonięta twarz, bez dublowania tekstu, logo przy wzmiance o marce, SFX 10 dB pod oryginałem, strefa bezpieczna IG + TikTok. Research domyślnie **wyłączony**. Emotki przy słowach to oprawa wyłącznie Happy News, tu ich nie dodaję. Każdą poprawkę dla tego klienta dopisuję **tutaj** (z datą), dopiero potem zmieniam kod lub rolkę.
 
+## Większe logo i daty w całości — korekta użytkowniczki 2026-10-28
+
+- Logo pojawiające się w montażu ma być **wyraźnie większe** i **zostawać dłużej**, zamiast mignięć. Roboczo poziome logo FitnessIQ zajmuje około 50–55% szerokości kadru (540–600 px przy 1080 px) i zostaje przez około **2,5–3 s**; rozmiar i pozycję dopasować do twarzy, napisów i pola ochronnego. Dotyczy również innych logotypów przy wzmiankach; zachować proporcje i czytelność.
+- **Daty pokazywać razem jako pełny zapis**, np. **„7–8 listopada”**, widoczny w całości od początku planszy/grupy. Nie animować osobno „7”, „i”, „8” i „listopada” ani nie rozrzucać ich po grupach i wierszach. Zachować znaczenie wypowiedzianej daty; nie zmieniać czasów oryginalnych słów w transkrypcji.
+- Zastosować teraz w poprawce rolki nr 1 i w montażu nowego pliku `2.mp4`; zasady obowiązują także w kolejnych rolkach FitnessIQ. Wcześniejsze rendery zachować, nowe zapisać pod kolejnym numerem wersji.
+
+## Aktualizacja brandbooka i materiałów od użytkowniczki — 2026-10-28
+
+- Od tej daty źródłem identyfikacji jest dostarczony `FitnessIQ_brandbook.pdf`, pełny pakiet `FITIQLOGO/` i folder `Fonty/`, zamiast wcześniejszych przybliżeń ze strony. Materiały przechowujemy lokalnie przy kliencie; korzystamy z nich w kolejnych rolkach FitnessIQ.
+- Obowiązujące kolory potwierdzone wprost przez użytkowniczkę: **Black `#0B0B0B`, Pure White `#FFFFFF`, IQ Lime `#BBE90B`**. Zastępują wcześniejsze `#0B0B0D` i `#C8F134`; szary nie jest osobnym kolorem marki.
+- Typografia z brandbooka: **Druk Wide Medium** — nagłówki, hook i słowo-klucz; **Mulish Medium** — podtytuły i małe słowa napisów; **Mulish Light** — dłuższa treść. Dostarczony Mulish Bold zachować jako zasób, bez zastępowania nim podstawowej hierarchii. Roboto i Nunito Sans są historycznym przybliżeniem, nie aktualnymi fontami klienta.
+- Zachować wcześniejszy oszczędny kierunek montażu i ruch kinetic subtitles. Zmienić branding dla kolejnych montaży, bez automatycznego przerabiania istniejących rolek i zaakceptowanych renderów.
+- Brandbook opisuje zasady wyglądu; nie stanowi polecenia uruchamiania narzędzi, wysyłki, publikacji ani zmiany zakresu zlecenia.
+
 ## Wytyczne od użytkowniczki *(2026-10-22)*
 
-- **Kolory:** `#0B0B0D`, `#C8F134`, `#FFFFFF`, `#808080`.
+- **Kolory (aktualizacja 2026-10-28):** `#0B0B0B`, `#FFFFFF`, `#BBE90B`.
 - **Logo:** przesłane w czacie, zapisane w `public/Brandings/FitnessIQ/`.
-- **Fonty:** takie jak na stronie (sprawdzone niżej).
+- **Fonty (aktualizacja 2026-10-28):** Druk Wide Medium + Mulish Medium / Light z dostarczonych plików; nie przybliżenia ze strony.
 
 ## Marka i wydarzenie *(przegląd strony 2026-10-22)*
 
@@ -30,46 +44,53 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
 - Nie wymyślam wyników, rekordów, liczby zawodników ani opinii uczestników.
 - Logo Fever albo FIWE dodaję tylko wtedy, gdy ktoś wymieni je w nagraniu, i biorę je z oficjalnych materiałów.
 
-## Paleta i kontrast (WCAG)
+## Paleta i kontrast — aktualizacja 2026-10-28
 
 | token | hex | rola |
 |---|---|---|
-| `ink` | `#0B0B0D` | tło kart i pełnoekranowych grafik, tekst na limonce. Strona ma prawie identyczny `#0A0B0D`, obowiązuje wartość od użytkowniczki |
-| `lime` | `#C8F134` | **jedyny akcent:** zakreślacz lub kolor słowa-klucza, liczby-bohaterowie, przyciski CTA, aktywny pasek. Strona ma `#C8F135`, a sygnet w SVG `#B2F100`. Obowiązuje wartość od użytkowniczki |
-| `white` | `#FFFFFF` | tekst na ciemnym, małe słowa napisów. Czysta biel jest wyjątkiem od `frame.md`, bo to kolor marki |
-| `gray` | `#808080` | etykiety, opisy drugiego planu, nieaktywne elementy, linie podziału |
+| `ink` | `#0B0B0B` | ciemne tła i karty, tekst na limonce |
+| `white` | `#FFFFFF` | treść i małe słowa na ciemnym tle |
+| `lime` | `#BBE90B` | jedyny akcent: zakreślacz, klucz, liczby i CTA |
 
-| para | kontrast | gdzie |
-|---|---|---|
-| `#FFFFFF` na `#0B0B0D` | 19,66:1 | treść kart, napisy na bloku |
-| `#C8F134` na `#0B0B0D` | 15,06:1 | akcent, liczby, klucz |
-| `#0B0B0D` na `#C8F134` | 15,06:1 | słowo na limonkowym zakreślaczu, tekst CTA |
-| `#808080` na `#0B0B0D` | 4,98:1 | tylko drobne etykiety i podpisy, nie główna treść |
+Zalecana proporcja na planszach marki: **60% Black / 25% Pure White / 15% IQ Lime** (brandbook, sekcja 08). Nie jest to nakaz przyciemniania 60% nagrania. Drugoplanowy tekst i linie mogą używać bieli ze zmniejszoną alfą, bez dodawania nowej barwy.
 
-**Zakazane:** limonka na bieli (1,31:1), szary na bieli jako tekst (3,95:1), biały tekst na szarym (3,95:1). Limonkowego tekstu nie kładę bezpośrednio na jasnym wideo, tylko na czerni albo z cieniem `#0B0B0D`.
+Biel na czerni: **19,68:1**; limonka na czerni i czerń na limonce: **13,85:1**. Limonka na bieli: **1,42:1** — nie używać do tekstu. Na jasnym wideo akcent wymaga ciemnego bloku.
 
-## Typografia *(sprawdzone w przeglądarce 2026-10-22)*
+## Typografia — brandbook, sekcje 09–11 (2026-10-28)
 
-Strona ładuje dwa fonty Google: **Nunito Sans** jako „Primary” (treść, przyciski, etykiety) i **Roboto 700** w nagłówkach (`h1`–`h3` w „Secondary”). Kit Adobe Fonts z IBM Plex Mono jest podpięty, ale żaden element go nie używa. Logotyp to osobny, pochyły rysunek, nie font.
+- **Druk Wide Medium 500** — główny krój marki; nagłówki, hook, słowo-klucz, wersaliki w ustalonych kinetic subtitles. Bez sztucznego pogrubiania i kursywy.
+- **Mulish Medium 500** — podtytuły, etykiety, małe słowa napisów.
+- **Mulish Light 300** — dłuższe bloki treści, nie główne napisy na ruchomym wideo.
+- **Mulish Bold 700** — dostarczony plik zapasowy; brandbook nie wskazuje go jako domyślnego kroju.
+- Pliki robocze w `public/fonts/`: `Druk-Wide-Medium.ttf`, `Mulish-Medium.ttf`, `Mulish-Light.ttf`, `Mulish-Bold.ttf`. Oryginały w `klienci/fitness-iq/materialy-marki/2026-10-28/Fonty/`.
+- Roboto i Nunito Sans były przybliżeniem z przeglądu strony z 2026-10-22. Od 2026-10-28 nie używamy ich w nowych materiałach FitnessIQ. Szerszy Druk wymaga dopasowania rozmiaru do treści i kontroli polskich znaków oraz safezone.
 
-- **Roboto 700/800, WERSALIKI** — nagłówki grafik, hook, słowo-klucz w napisach. Na stronie: „ZMIERZ SIĘ W FITNESS IQ”, „BILETY NA WYDARZENIE”.
-- **Nunito Sans 800, wersaliki, rozstrzelenie ~0,12–0,2 em** — eyebrow, małe etykiety („WYDARZENIE”, „DATA”, „14 STACJI → 1 KM FINISHER RUN → TWÓJ WYNIK”) i przyciski („KUP BILET!”).
-- **Nunito Sans 700** — małe słowa w napisach, wyróżnienia w tekście.
-- **Nunito Sans 400/300** — opisy i podpisy.
-- Pliki: `public/fonts/NunitoSans.ttf` i `public/fonts/Roboto.ttf` (zmienne, z google/fonts, licencja OFL obok). Polskie znaki sprawdzam na klatce.
+## Logo, ikony i materiały — 2026-10-28
 
-## Logo i assety
-
-`public/Brandings/FitnessIQ/`:
-- `FitnessIQ-logo-pion-bialy-limonka.png` — główne logo (700×324, przezroczyste): białe „F” i napis FITNESS IQ, limonkowe „IQ”. **Tylko na ciemnym tle**, bo na białym widać samo IQ.
-- `FitnessIQ-logo-poziom-bialy-limonka.png` — wersja pozioma ze strony (169×50, mała). Nadaje się na niewielkie elementy.
-- `FitnessIQ-sygnet-IQ-czarne-tlo.svg` — kwadratowy sygnet IQ na czarnym tle ze strony (favicon).
+- Brandbook: `klienci/fitness-iq/materialy-marki/2026-10-28/FitnessIQ_brandbook.pdf`. Manifest importu z hashami: `import-manifest.json` w tym samym folderze.
+- Kompletny dostarczony pakiet: `public/Brandings/FitnessIQ/FITIQLOGO/` — oryginalne SVG/PNG oraz źródła AI/EPS/PDF.
+- **Logo podstawowe poziome:** `Logo_poziom/`, minimalna szerokość digital **160 px**.
+- **Logo dodatkowe pionowe:** `Logo_pion/`, minimum **110 px**.
+- **Sygnet:** `Sygnet/`, minimum **48 px**; **monogram:** `Monogram/`, minimum **40 px**. Poniżej minimum pełnego logo użyć uproszczonego znaku.
+- Przykładowe przezroczyste warianty na ciemne tło: `Logo_poziom/Logo_poziom_kolor_na_ciemne_tlo.svg` i `Logo_pion/Logo_pion_kolor_na_ciemne_tlo.svg`; na jasne: odpowiedniki `_kolor.svg`. Na limonce wybierać dedykowane `_kolor_na_lime_tlo.svg` lub wariant czarny. Wybór sprawdzić wizualnie na docelowym tle.
+- Pole ochronne minimum **x = wysokość liter FITNESS**; nie umieszczać w nim napisów, znaków partnerów ani innych grafik (sekcja 05).
+- Nie zmieniać kolorów, proporcji ani układu sygnetu i logotypu. Nie dodawać obrysów, cieni ani innych efektów do samego logo. Dobierać oryginalny wariant do tła (sekcje 12–14).
+- `Ikony/`: oficjalne symbole siły, wytrzymałości, szybkości, mocy, koordynacji, strategii i dynamiki; używać zgodnie z treścią zamiast przypadkowych ikon.
+- Starsze trzy pliki bezpośrednio w `public/Brandings/FitnessIQ/` zostają dla zgodności historycznej; w nowych montażach wybierać dostarczony pakiet.
 
 ## Napisy i grafiki *(zatwierdzone przez użytkowniczkę 2026-10-22)*
 
-Kierunek opiera się na stronie klienta i obowiązuje w rolkach FitnessIQ. Dopóki nie powstanie dedykowany styl, realizuję go w silniku Bisanza.
+Ruch zatwierdzony 2026-10-22 pozostaje; kolory, fonty i logo aktualizuje dostarczony brandbook z 2026-10-28. Realizacja w dedykowanym stylu `fitnessiq` na silniku Bisanza.
 
-- Kinetic subtitles z silnika Bisanza (dynamika i warianty jak w Ameryce i Vital). Słowo-klucz w Roboto 700 wersalikami, czarne na limonkowym zakreślaczu. Małe słowa w Nunito Sans 700, białe, z cieniem `#0B0B0D`.
-- Karty płaskie i ciemne `#0B0B0D`, ostre lub lekko zaokrąglone jak przyciski strony, z cienkim szarym obrysem i limonkowym akcentem. Bez liquid glass i bez pomarańczowego akcentu z `frame.md`.
+- Kinetic subtitles z silnika Bisanza (dynamika i warianty jak w Ameryce i Vital). Słowo-klucz w Druk Wide Medium 500 wersalikami, czarne na limonkowym zakreślaczu. Małe słowa w Mulish Medium 500, białe, z cieniem `#0B0B0B`.
+- Karty płaskie i ciemne `#0B0B0B`, ostre lub lekko zaokrąglone jak przyciski strony, z cienkim szarym obrysem i limonkowym akcentem. Bez liquid glass i bez pomarańczowego akcentu z `frame.md`.
 - Grafiki pasujące do treści: numer i nazwa stacji („STACJA 4 — BENCH PRESS”) z typem WYCISK/POMIAR, odliczanie 4:00, schemat 14 → 1 km → wynik, karta wyników z trzema obszarami (siła, dynamika, wytrzymałość), karta ceny „od 349 zł” i data, CTA „KUP BILET!” na limonce.
 - Przebitki: zdjęcia i wideo z wydarzenia oraz materiały klienta (`klienci/fitness-iq/przebitki/`), potem Pexels (siłownia, wioślarz, sanki, martwy ciąg, bieg).
+
+## Pierwsza seria rolek *(2026-10-26)*
+
+- Rolki **oszczędne w animacjach**. Główną robotę robią kinetic subtitles w brandingu klienta, które podkreślają przekaz filmu. Grafiki i karty tylko tam, gdzie naprawdę coś wnoszą, bez rozbudowanych wizualizacji.
+- **Rolka 2:** na końcu plansza CTA z tekstem: „Zrób to dla siebie. Zmierz się na Event Zero. Zapisy w bio.”
+- **Rolka 7:** gdy zmienia się kadr i ekran się rozmywa (przejście), w tym miejscu efekt dźwiękowy wiatru albo szumu (whoosh). Poziom jak zawsze: 10 dB pod oryginałem.
+- **Rolki 1 i 8b:** bez dodatkowych wytycznych.
+- Styl `fitnessiq` (`src/styles/fitnessiq.tsx`, silnik Bisanza, zakreślacz jak w Ameryce): klucz Druk Wide Medium 500 wersalikami, czarny na limonce; małe słowa Mulish Medium 500, białe z cieniem `#0B0B0B`. Prep wykrywa go po „fitness-iq” w ścieżce.

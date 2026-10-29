@@ -231,9 +231,14 @@ export async function analyzeTranscript(
       })),
       themes: themes.slice(),
     };
-    const found = await request({ ...base, stage: "discover" });
-    if (!Array.isArray(found.candidates))
-      throw new Error("Analiza nie zawiera listy fragmentów");
+    let found = await request({ ...base, stage: "discover" });
+    // Operator CLI sporadically answers without the list; one retry per window.
+    if (!Array.isArray(found?.candidates))
+      found = await request({ ...base, stage: "discover" });
+    if (!Array.isArray(found?.candidates))
+      throw new Error(
+        `Analiza nie zawiera listy fragmentów (${JSON.stringify(found).slice(0, 300)})`,
+      );
     themes.push(...(found.themes ?? []).filter((t) => typeof t === "string"));
     discoveries.push({ window, found });
   }
@@ -251,10 +256,11 @@ export async function analyzeTranscript(
       })),
       themes: [...new Set(themes)],
     };
-    const reviewed = found.candidates.length
-      ? await request({ ...base, stage: "review", proposals: found.candidates })
-      : { candidates: [] };
-    if (!Array.isArray(reviewed.candidates))
+    const review = () =>
+      request({ ...base, stage: "review", proposals: found.candidates });
+    let reviewed = found.candidates.length ? await review() : { candidates: [] };
+    if (!Array.isArray(reviewed?.candidates)) reviewed = await review();
+    if (!Array.isArray(reviewed?.candidates))
       throw new Error("Przegląd nie zawiera listy fragmentów");
     for (const raw of reviewed.candidates) {
       const checked = validateCandidate(raw, transcript, project);

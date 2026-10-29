@@ -1,3 +1,12 @@
+## Aktualizacja GitHub — 2026-10-29
+
+- Wysyłać aktualną wersję aplikacji bez filmów, surowych nagrań, renderów, prywatnych projektów, kreacji klientów i lokalnych plików roboczych. Zachować kod, style, profile i zasoby wymagane przez aplikację.
+
+## Jeden program, jawne pliki — 2026-10-28
+
+- Pracuję tylko w jednym repo MontageFrames (`/Users/wskopek/Documents/Github projekty/MontageFrames`). Nie rozrzucam pracy po kopiach, worktree, dodatkowych folderach ani ukrytych katalogach; nie przełączam gałęzi i nie chowam zmian w stash bez zgody użytkowniczki.
+- Po każdym zadaniu podaję linki do wszystkich plików, które utworzyłem lub zmieniłem (źródło, `reel.json`, render, opis, znaczniki). Pliki trafiają do standardowych miejsc: `klienci/<klient>/…`, `public/reels/<nazwa>/`, `klienci/<klient>/Render/`.
+
 ## CutRaw: błąd „Przetwarzanie nie powiodło się: [” — 2026-10-24
 
 - Naprawić kompleksowo błąd przetwarzania nagrania z dwóch kamer. Przyczyna: Whisper zwraca czasem słowa o zerowej długości, z których powstawały puste cięcia „yyy” i wyciszenia, a walidacja odrzucała cały projekt. Takie słowa dostają krótki czas z wolnego miejsca obok (CutRaw i LongForm), puste cięcia i wyciszenia nie powstają, a panel pokazuje czytelny powód błędu zamiast „[”.

@@ -7,6 +7,8 @@ import {
 import { happyCaptionY, happyHookY, layoutAt } from "./quickcontent/layout.mjs";
 import { captionEmojis } from "./caption-decoration.mjs";
 import { brandingEmoji } from "./branding/appearance.mjs";
+import { WalczakOverlay, WalczakBackdrop } from "./walczak-overlays";
+import { walczakFullRuns } from "./walczak-layout.mjs";
 import { trackingPosition, cameraScale } from "./quickcontent/framing.mjs";
 import type { Framing } from "./quickcontent/framing.mjs";
 import { useEffect, useState, type ReactElement } from "react";
@@ -14,6 +16,7 @@ import {
   AbsoluteFill,
   Audio,
   CalculateMetadataFunction,
+  Easing,
   interpolate,
   OffthreadVideo,
   Sequence,
@@ -62,6 +65,7 @@ import { Ameryka, AmerykaOverlay } from "./styles/ameryka";
 import { Glowup, GlowupOverlay } from "./styles/glowup";
 import { HappyNews, HappyNewsOverlay } from "./styles/happynews";
 import { Vital, VitalOverlay } from "./styles/vital";
+import { FitnessIQ, FitnessIQOverlay } from "./styles/fitnessiq";
 
 // Czasy w reel.json są w sekundach ŹRÓDŁA (surowego nagrania).
 export type Word = { text: string; start: number; end: number };
@@ -118,7 +122,9 @@ export type ReelData = {
   format?: { width: number; height: number }; // LongForm: np. 1920×1080; brak = pion 1080×1920
   mutes?: Mute[]; // LongForm: cenzura — wyciszenia w czasie źródła + SFX z public/sfx/index.json
   sfx?: { at: number; src: string; volume?: number }[]; // efekty dźwiękowe w czasie źródła (plik w folderze rolki); volume = mnożnik ≥10 dB pod głosem
+  push?: Push[]; // powolny najazd kamery do twarzy mówiącego (czasy źródła, x/y = środek skalowania)
 };
+export type Push = { start: number; end: number; x: number; y: number; to: number };
 
 // Wpis public/sfx/index.json; rmsDb = zmierzony poziom pliku (do miksu −10 dB względem wypowiedzi).
 type Sfx = {
@@ -156,10 +162,11 @@ export const STYLES: Record<string, React.FC<StyleProps>> = {
   glowup: Glowup,
   happynews: HappyNews,
   vital: Vital,
+  fitnessiq: FitnessIQ,
 };
 
 export type ReelProps = {
-  qualityMeasurement?: {manifestSignature:string;rasterTarget?:string};
+  qualityMeasurement?: { manifestSignature: string; rasterTarget?: string };
   reel: string;
   data?: ReelData;
   timeline?: Record<string, ReactElement<SequenceProps>>;
@@ -210,6 +217,7 @@ const SourceShot: React.FC<{
   mutes?: Mute[];
   zoomThrough?: { start: number }[];
   maskFx?: Overlay[];
+  push?: Push[];
 }> = ({
   reel,
   source,
@@ -222,6 +230,7 @@ const SourceShot: React.FC<{
   mutes,
   zoomThrough,
   maskFx,
+  push,
 }) => {
   const localFrame = useCurrentFrame();
   const zt = zoomThroughAt(s.start + localFrame / fps, zoomThrough);
@@ -243,19 +252,30 @@ const SourceShot: React.FC<{
         framing={framing}
       />
     );
-  const fit = framing?.mode === "fit" || position.fit;
+  // Bisanz: nigdy „newsowe” 16:9 z rozmytym tłem, także w starszych rolkach z punktami fit
+  const fit = framing?.mode === "fit" || (position.fit && styleId !== "bisanz");
   const adaptiveScale = styleId === "bisanz" ? 1 : (position.scale ?? 1);
+  // najazd do twarzy mówiącego w obrębie ujęcia kamery; na cięciu wraca do 1
+  const pz = push?.find((p) => t >= p.start && t < p.end);
+  const pk = pz
+    ? interpolate(t, [pz.start, pz.end], [1, pz.to], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+        easing: Easing.bezier(0.33, 0, 0.67, 1),
+      })
+    : 1;
   // geometria ujęcia — tę samą dostaje wycięta osoba (L4), żeby pokrywała się z oryginałem co do piksela
   const videoStyle: React.CSSProperties = {
     width: "100%",
     height: "100%",
     objectFit: fit ? "contain" : "cover",
     objectPosition: `${position.centerX * 100}% ${position.centerY * 100}%`,
-    transformOrigin:
-      styleId !== "bisanz" && position.scale !== undefined
+    transformOrigin: pz
+      ? `${pz.x * 100}% ${pz.y * 100}%`
+      : styleId !== "bisanz" && position.scale !== undefined
         ? "50% 25%"
         : undefined,
-    transform: `scale(${cameraScale(styleId, s, fit ? 1 : adaptiveScale, localFrame / dur) * zt.scale})`,
+    transform: `scale(${cameraScale(styleId, s, fit ? 1 : adaptiveScale, localFrame / dur) * zt.scale * pk})`,
   };
   return (
     <AbsoluteFill style={{ overflow: "hidden" }}>
@@ -318,7 +338,13 @@ const SourceShot: React.FC<{
   );
 };
 
-export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx, qualityMeasurement }) => {
+export const Reel: React.FC<ReelProps> = ({
+  reel,
+  data,
+  timeline,
+  sfx,
+  qualityMeasurement,
+}) => {
   const currentFrame = useCurrentFrame();
   const { delayRender, continueRender, cancelRender } = useDelayRender();
   const [ready, setReady] = useState(false);
@@ -386,10 +412,19 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx, qualityMe
                 ? VitalOverlay
                 : data.style === "happynews"
                   ? HappyNewsOverlay
-                  : OverlayView;
+                  : data.style === "fitnessiq"
+                    ? FitnessIQOverlay
+                    : OverlayView;
   const clips = captionClips(data);
-  const inventory = qualityMeasurement ? geometryInventory(data, clips, toOut) : [];
-  const expected = inventory.filter(i => currentFrame >= i.from && currentFrame < i.from + i.durationInFrames).map(({id,role}) => ({id,role}));
+  const inventory = qualityMeasurement
+    ? geometryInventory(data, clips, toOut)
+    : [];
+  const expected = inventory
+    .filter(
+      (i) =>
+        currentFrame >= i.from && currentFrame < i.from + i.durationInFrames,
+    )
+    .map(({ id, role }) => ({ id, role }));
   const bottom = (data.overlays ?? []).filter(
     (o) => atBottom(o) && !isLongFormEffect(o),
   );
@@ -399,8 +434,19 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx, qualityMe
   const maskFx = (data.overlays ?? []).filter(isMaskEffect);
 
   return (
-    <AbsoluteFill data-quality-root={qualityMeasurement ? "true" : undefined} showInTimeline={false} style={{ backgroundColor: "black" }}>
-      {qualityMeasurement && <GeometryCapture signature={qualityMeasurement.manifestSignature} expected={expected} ready={ready} rasterTarget={qualityMeasurement.rasterTarget} />}
+    <AbsoluteFill
+      data-quality-root={qualityMeasurement ? "true" : undefined}
+      showInTimeline={false}
+      style={{ backgroundColor: "black" }}
+    >
+      {qualityMeasurement && (
+        <GeometryCapture
+          signature={qualityMeasurement.manifestSignature}
+          expected={expected}
+          ready={ready}
+          rasterTarget={qualityMeasurement.rasterTarget}
+        />
+      )}
       {data.style === "skyclass" && (
         <Audio
           name="Dźwięk · pełne nagranie"
@@ -441,7 +487,10 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx, qualityMe
             durationInFrames={Math.round(3 * fps)}
             layout="none"
           >
-            <Audio src={staticFile(`reels/${reel}/${e.src}`)} volume={e.volume ?? 0.316} />
+            <Audio
+              src={staticFile(`reels/${reel}/${e.src}`)}
+              volume={e.volume ?? 0.316}
+            />
           </Sequence>
         ) : null,
       )}
@@ -473,12 +522,17 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx, qualityMe
               mutes={data.mutes}
               zoomThrough={zoomThrough}
               maskFx={maskFx}
+              push={data.push}
             />
           </TimelineSequence>
         );
       })}
       {data.style === "happynews" && <HappyNewsCredit />}
       {data.branding && ready && <BrandLogo branding={data.branding} />}
+      {data.client === "dominik-walczak" && ready && walczakFullRuns(data.overlays ?? []).map((run, i) => {
+        const from = frame(run.start), dur = frame(run.end) - from;
+        return dur > 0 ? <Sequence key={`walczak-surface-${i}`} name="Ciągłe tło wstawek" from={from} durationInFrames={dur} layout="none"><WalczakBackdrop dur={dur} /></Sequence> : null;
+      })}
       {(data.overlays ?? []).map((o, i) => {
         if (o.type === "emoji" && o.label === "word") return null;
         const from = frame(o.start);
@@ -502,18 +556,33 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx, qualityMe
                   src={(file) => staticFile(`reels/${reel}/${file}`)}
                   style={data.style}
                 />
-              ) : (
-                <GeometryScope enabled={!!qualityMeasurement && ["title","emoji"].includes(o.type)} id={`o${i}`} role={o.type === "title" ? "hook" : "emoji"}>
-                <OverlayComponent
-                  o={
-                    data.style === "happynews" && o.type === "title"
-                      ? { ...o, y: happyHookY(newsLayout?.kind, o.y) }
-                      : o
-                  }
+              ) : data.client === "dominik-walczak" && data.branding ? (
+                <WalczakOverlay
+                  o={o}
                   dur={clipDuration(`o${i}`, dur)}
                   src={(file) => staticFile(`reels/${reel}/${file}`)}
                   at={(t) => toOut(t, segments) - toOut(o.start, segments)}
+                  branding={data.branding}
+                  holdExit={(data.overlays ?? []).some(next => next !== o && next.side === "full" && next.type !== "logo" && next.start > o.start && next.start <= o.end)}
                 />
+              ) : (
+                <GeometryScope
+                  enabled={
+                    !!qualityMeasurement && ["title", "emoji"].includes(o.type)
+                  }
+                  id={`o${i}`}
+                  role={o.type === "title" ? "hook" : "emoji"}
+                >
+                  <OverlayComponent
+                    o={
+                      data.style === "happynews" && o.type === "title"
+                        ? { ...o, y: happyHookY(newsLayout?.kind, o.y) }
+                        : o
+                    }
+                    dur={clipDuration(`o${i}`, dur)}
+                    src={(file) => staticFile(`reels/${reel}/${file}`)}
+                    at={(t) => toOut(t, segments) - toOut(o.start, segments)}
+                  />
                 </GeometryScope>
               ))}
             {ready && o.lf && o.source && (
@@ -539,52 +608,59 @@ export const Reel: React.FC<ReelProps> = ({ reel, data, timeline, sfx, qualityMe
               layout="none"
             >
               {ready && (
-                <GeometryScope enabled={!!qualityMeasurement} id={`c${index}`} role="caption">
-                <Style
-                  branding={data.branding}
-                  group={
-                    data.style === "happynews"
-                      ? { ...g, y: happyCaptionY(newsLayout?.kind, g.y) }
-                      : g
-                  }
-                  words={words.map((w, wordIndex) => ({
-                    ...w,
-                    qualityId: qualityMeasurement ? `c${index}w${g.words.indexOf(w)}` : undefined,
-                    text: data.mutes?.some(
-                      (m) => m.start >= w.start && m.start < w.end,
-                    )
-                      ? censorWord(w.text)
-                      : w.text,
-                    emoji: data.renderAssets?.decorations
-                      ? (data.renderAssets.decorations.find(
+                <GeometryScope
+                  enabled={!!qualityMeasurement}
+                  id={`c${index}`}
+                  role="caption"
+                >
+                  <Style
+                    branding={data.branding}
+                    group={
+                      data.style === "happynews"
+                        ? { ...g, y: happyCaptionY(newsLayout?.kind, g.y) }
+                        : g
+                    }
+                    words={words.map((w, wordIndex) => ({
+                      ...w,
+                      qualityId: qualityMeasurement
+                        ? `c${index}w${g.words.indexOf(w)}`
+                        : undefined,
+                      text: data.mutes?.some(
+                        (m) => m.start >= w.start && m.start < w.end,
+                      )
+                        ? censorWord(w.text)
+                        : w.text,
+                      emoji: data.renderAssets?.decorations
+                        ? (data.renderAssets.decorations.find(
+                            (d) =>
+                              d.wordId === `c${index}w${g.words.indexOf(w)}`,
+                          )?.emoji ?? null)
+                        : data.style === "happynews"
+                          ? captionEmojis(words, data.overlays)[wordIndex]
+                          : data.style === "brand"
+                            ? brandingEmoji(w.text, data.branding)
+                            : null,
+                      emojiSrc: (() => {
+                        const d = data.renderAssets?.decorations?.find(
                           (d) => d.wordId === `c${index}w${g.words.indexOf(w)}`,
-                        )?.emoji ?? null)
-                      : data.style === "happynews"
-                        ? captionEmojis(words, data.overlays)[wordIndex]
-                        : data.style === "brand"
-                          ? brandingEmoji(w.text, data.branding)
-                          : null,
-                    emojiSrc: (() => {
-                      const d = data.renderAssets?.decorations?.find(
-                        (d) => d.wordId === `c${index}w${g.words.indexOf(w)}`,
-                      );
-                      return d?.src
-                        ? staticFile(`reels/${reel}/${d.src}`)
-                        : undefined;
-                    })(),
-                    at: toOut(w.start, segments) - start,
-                    key: w === g.words[g.key ?? 0],
-                    hl: g.hl?.includes(g.words.indexOf(w)) ?? false,
-                  }))}
-                  durationInFrames={clipDuration(`c${index}`, dur)}
-                  // twarz nad środkiem kadru: zoom ujęcia tylko ją podnosi, więc wystarczy jej dolna krawędź + zapas
-                  minTop={data.face && data.face.bottom + 0.02}
-                  raised={bottom.some(
-                    (o) =>
-                      toOut(o.start, segments) < end &&
-                      toOut(o.end, segments) > start,
-                  )}
-                />
+                        );
+                        return d?.src
+                          ? staticFile(`reels/${reel}/${d.src}`)
+                          : undefined;
+                      })(),
+                      at: toOut(w.start, segments) - start,
+                      key: w === g.words[g.key ?? 0],
+                      hl: g.hl?.includes(g.words.indexOf(w)) ?? false,
+                    }))}
+                    durationInFrames={clipDuration(`c${index}`, dur)}
+                    // twarz nad środkiem kadru: zoom ujęcia tylko ją podnosi, więc wystarczy jej dolna krawędź + zapas
+                    minTop={data.face && data.face.bottom + 0.02}
+                    raised={(data.client === "dominik-walczak" ? (data.overlays ?? []).filter(o => o.type === "logo") : bottom).some(
+                      (o) =>
+                        toOut(o.start, segments) < end &&
+                        toOut(o.end, segments) > start,
+                    )}
+                  />
                 </GeometryScope>
               )}
             </TimelineSequence>

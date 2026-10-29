@@ -1,5 +1,19 @@
 # Vital Hormone — preferencje montażu klienta
 
+## Przemiana podopiecznego · Artur, last.mp4 — 2026-10-26
+
+- Zmontować rolkę `~/Downloads/artur pazdziernik/last.mp4` z dołączonym zdjęciem `Przemiany/37.jpeg`. Użytkowniczka wyraźnie zamówiła pokazanie tej konkretnej przemiany przed/po — wyjątek od ogólnego zakazu takich zdjęć w profilu, dotyczący tego materiału.
+- Na obu wizerunkach na zdjęciu rozmyć twarz; zachować sylwetkę, proporcje i wygląd przemiany bez retuszu. Oryginał pozostaje nietknięty.
+- Pokazać liczby, porównania „było / jest” i osiągnięcia podopiecznego w animowanych kartach i wykresach, wyłącznie na podstawie danych podanych w nagraniu; nie dopisywać pomiarów ani przebiegu między znanymi punktami.
+- Przy zdjęciu i wynikach zachować dopisek: „Efekty są indywidualne i zależą m.in. od diety, treningu i stylu życia.” Wynik jednej osoby nie jest obietnicą efektu dla widza.
+- Pozostałe zasady rolek Vital Hormone pozostają: napisy omijają twarz, fiolet i limonka, końcowe CTA do `https://vital-hormone.pl/lp/` na darmową 15-minutową konsultację.
+
+## Rolki Węglarz, październik — 2026-10-26
+
+- Zmontować wszystkie 9 nagrań z folderu `~/Downloads/weglarz pazdziernik vital/`.
+- Końcowe CTA każdej rolki zaprasza na `https://vital-hormone.pl/lp/` i do umówienia darmowej 15-minutowej konsultacji.
+- Napisy nie mogą nachodzić na twarz. Dla każdej rolki dobrać przebitki, animowane napisy i wizualizacje, wykresy lub porównania do faktycznej treści, zgodnie z profilem klienta; liczby na wykresach wyłącznie ze źródłem.
+
 Zapisano: **2026-10-09**. Strona: [vital-hormone.pl](https://vital-hormone.pl) (WordPress + Tailwind). Centrum medyczne online: diagnostyka hormonalna i terapia testosteronem (TRT) dla mężczyzn. Styl w silniku: **`vital`** (`src/styles/vital.tsx`, zbudowany 2026-10-09 przy rolce 17: napisy + grafiki `title`, `labs`, `steps`, `process`, `mythfact`, `quote`, `cta`; `range`, `checklist`, `price` i ikony Material Symbols jeszcze czekają). Czwarty motyw silnika ruchu Bisanza (`kineticCaptions(T)` / `kineticOverlay(T)` z `src/styles/bisanz.tsx`, jak `AMERYKA` i `glowup`), własne grafiki `VitalOverlay`, wpis w `STYLES` (`src/Reel.tsx`) i wykrywanie po „vital-hormone” w ścieżce (`styleOf` w `scripts/prep.mjs`). Dopóki styl nie powstanie, ten plik służy jako profil montażowy.
 
 Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się różnią. Pozostałe zasady ogólne obowiązują: hook na starcie, 2–6 słów w grupie, zwarte bloki, bez wiszących spójników i przyimków, odsłonięta twarz, bez dublowania tekstu, logo przy wzmiance o marce, SFX 10 dB pod oryginałem, strefa bezpieczna IG + TikTok. Każdą poprawkę dla tego klienta dopisuję **tutaj** (z datą), dopiero potem zmieniam kod lub rolkę.
@@ -11,6 +25,17 @@ Ten plik ma pierwszeństwo przed `PREFERENCJE.md` i `frame.md` tam, gdzie się r
 - **Ten sam zakres co GlowUp Nutrition:** kinetic subtitles z silnika Bisanza i Ameryki oraz dużo przebitek i animacji procesów. Zjawiska, badania i statystyki opieram na researchu, pokazuję je na wykresach z podpisem źródła i mogę wypełnić nimi cały ekran.
 - **Logo** — użytkowniczka dorzuci później do `public/Brandings/VitalHormone/`. Do tego czasu nie wstawiam logo i nie piszę nazwy marki jako zastępczej grafiki.
 - **Wygląd bliski stronie** vital-hormone.pl. Strefy bezpieczne IG + TikTok.
+
+## VSL na landing page (vital-hormone.pl/lp/) *(2026-10-26)*
+
+- **Format poziomy 16:9** (źródło 4K, dwie osoby przy stole + zbliżenia). Dużo wizualizacji: przebitki z Pexels, typografia, animacje, badania z researchem i źródłem, **przemiany podopiecznych** z folderu „Przemiany” (min. połowa z 86), dynamicznie, z przejściami.
+- **Kadr z dwiema osobami:** twarz tego, kto mówi, zawsze widoczna; połowę kadru z drugą osobą zakrywa panel z animacjami, przebitkami albo przemianami.
+- **Napisy na dole kadru, 4–7 słów w jednej linii** (wyjątek od 2–5 słów i pozycji 0,73 dla tego formatu). Animacje słów i zakreślacze zostają.
+- **Przemiany przed/po dozwolone w VSL na polecenie użytkowniczki** (wyjątek od zakazu z sekcji Compliance; LP klienta sam pokazuje „86 metamorfoz” z dopiskiem). Zawsze z dopiskiem „Efekty są indywidualne i zależą m.in. od diety, treningu i stylu życia.”, bez obietnic efektu w tekście grafik. Granice potwierdzić z klientem przed publikacją.
+- **Poprawki do v1 *(2026-10-26)*:**
+  - **„Vital Hormone” zawsze jako nazwa własna:** wielkie litery V i H, w napisach jeden nierozdzielny blok i jedno wyróżnienie na całą nazwę (nigdy połowa nazwy na zakreślaczu, a połowa bez). Przyimek („w”) osobno, przed nazwą.
+  - **Bez mignięć osoby, która nie mówi:** przy zmianie kamery i końcu animacji nie może być widać jej nawet przez klatkę. Panel nad nią jest kryjący od pierwszej do ostatniej klatki ujęcia, wchodzi i schodzi na cięciu kamery. Panel po panelu przechodzi wipe’em na poprzednim, a przebitka i hasło na pełnym kadrze zaczynają i kończą się na cięciu (wejście najazdem z rozmyciem, bez przenikania przez odsłonięty kadr). Zmianę mówiącego w jednym ujęciu przykrywa przebitka.
+  - **Najazd na twarz mówiącego:** w każdym ujęciu powolny zoom do twarzy osoby, która mówi (środek skalowania na jej twarzy), subtelnie, ok. 5–8%.
 
 ## Marka *(przegląd strony 2026-10-09)*
 

@@ -184,6 +184,9 @@ export function parseOperatorJSON(stdout) {
   let parsed;
   try {
     parsed = JSON.parse(stdout.trim());
+    // `--verbose` makes `--output-format json` print the whole event array.
+    if (Array.isArray(parsed))
+      parsed = parsed.findLast((p) => p?.type === "result") ?? parsed;
   } catch {
     const lines = stdout.trim().split("\n");
     for (let i = lines.length - 1; i >= 0; i--) {

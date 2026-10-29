@@ -7,6 +7,9 @@ import {
   useVideoConfig,
 } from "remotion";
 import { AMERYKA } from "./ameryka";
+import { VitalReelChart } from "./vital-reel-chart";
+import { VitalCase } from "./vital-case";
+import { isVslOverlay, VslOverlay } from "./vital-vsl";
 import {
   kineticCaptions,
   kineticOverlay,
@@ -68,9 +71,23 @@ export const VITAL: Theme = {
     hlWeight: 700, // `hl` przejeżdża od lewej zamiast wyskakiwać (PREFERENCJE: mniej pop out)
   },
   raisedScale: 0.8, // napis nad kartą pod twarzą — mniejszy, żeby oba zmieściły się pod brodą
+  nameWhole: true, // „Vital Hormone” zawsze jednym wyróżnieniem (PREFERENCJE klienta, 2026-10-26)
 };
 
-export const Vital = kineticCaptions(VITAL);
+// Kadr poziomy (VSL na LP, 2026-10-26): napisy na dole kadru, jedna linia 4–7 słów (`layout: "inline"`).
+export const VITAL16: Theme = {
+  ...VITAL,
+  readable: true,
+  inlineKey: 64,
+  inlineSmall: 50,
+  maxWidth: 0.86,
+  y: 0.9,
+  yRaised: 0.9,
+  travel: 40,
+  shadow: "0 4px 18px rgba(26,28,29,0.75), 0 2px 4px rgba(26,28,29,0.8)",
+};
+
+export const Vital = kineticCaptions(VITAL, VITAL16);
 const Base = kineticOverlay(VITAL);
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const BOTTOM = 0.75;
@@ -714,6 +731,10 @@ const Cta: React.FC<OverlayProps> = ({ o, dur, src }) => {
 };
 
 export const VitalOverlay: React.FC<OverlayProps> = (props) => {
+  if (props.o.kind?.startsWith("reel-case-")) return <VitalCase {...props} />;
+  if (["bars", "counter"].includes(props.o.type) && props.o.source)
+    return <VitalReelChart {...props} />;
+  if (isVslOverlay(props.o.type)) return <VslOverlay {...props} />;
   switch (props.o.type) {
     case "title":
       return <Title {...props} />;

@@ -17,6 +17,34 @@ const data = {
   captions: [{ words: [{ text: "tekst", start: 0.2, end: 0.5 }] }],
   overlays: [],
 };
+test("Walczak caption dependency invalidates its brand render without affecting other brands", async (t) => {
+  const root = await fs.mkdtemp(path.join(tmpdir(), "walczak-signature-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(path.join(root, "src/styles"), { recursive: true });
+  await fs.writeFile(path.join(root, "src/styles/brand.tsx"), "brand");
+  await fs.writeFile(path.join(root, "src/styles/walczak.tsx"), "caption-v1");
+  const own = {
+    ...data,
+    style: "brand",
+    client: "dominik-walczak",
+    branding: {
+      clientId: "dominik-walczak",
+      fonts: {},
+      logo: { enabled: false },
+      assets: [],
+    },
+  };
+  const other = {
+    ...own,
+    client: "other",
+    branding: { ...own.branding, clientId: "other" },
+  };
+  const before = await renderInputSignature(root, "clip", own);
+  const otherBefore = await renderInputSignature(root, "clip", other);
+  await fs.writeFile(path.join(root, "src/styles/walczak.tsx"), "caption-v2");
+  assert.notEqual(await renderInputSignature(root, "clip", own), before);
+  assert.equal(await renderInputSignature(root, "clip", other), otherBefore);
+});
 test("render preflight blocks a missing native font before starting the renderer", async (t) => {
   const { renderReelSnapshot } = await import("./quickcontent-render.mjs");
   const root = await fs.mkdtemp(path.join(tmpdir(), "qc-font-required-"));
@@ -345,12 +373,22 @@ test("cancel during snapshot copying never starts renderer or publishes a film",
   }
 });
 
-test("native style with saved branding still signs its required native font",async t=>{
- const root=await fs.mkdtemp(path.join(tmpdir(),"qc-native-brand-font-"));t.after(()=>fs.rm(root,{recursive:true,force:true}));
- await fs.mkdir(path.join(root,"public/fonts"),{recursive:true});
- const file=path.join(root,"public/fonts/Nunito.ttf");await fs.writeFile(file,"native-font");
- const native={...data,branding:{styleId:"persona",fonts:{},assets:[],logo:{enabled:false}}};
- const first=await renderInputSignature(root,"clip",native);
- await fs.writeFile(file,"changed-native-font");
- assert.notEqual(await renderInputSignature(root,"clip",native),first);
+test("native style with saved branding still signs its required native font", async (t) => {
+  const root = await fs.mkdtemp(path.join(tmpdir(), "qc-native-brand-font-"));
+  t.after(() => fs.rm(root, { recursive: true, force: true }));
+  await fs.mkdir(path.join(root, "public/fonts"), { recursive: true });
+  const file = path.join(root, "public/fonts/Nunito.ttf");
+  await fs.writeFile(file, "native-font");
+  const native = {
+    ...data,
+    branding: {
+      styleId: "persona",
+      fonts: {},
+      assets: [],
+      logo: { enabled: false },
+    },
+  };
+  const first = await renderInputSignature(root, "clip", native);
+  await fs.writeFile(file, "changed-native-font");
+  assert.notEqual(await renderInputSignature(root, "clip", native), first);
 });

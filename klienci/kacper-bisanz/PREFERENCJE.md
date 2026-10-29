@@ -156,3 +156,41 @@ Przebitka trwa 2–4 s, bez znaków wodnych i obcych napisów, domyślnie bez w�
 - **Kwoty w jednym kawałku (2026-10-23):** „1 200 000”, „1 300 000”, „2,4 mln” nie mogą się łamać ani rozpadać na osobne znaczniki. Grupy cyfr rozbite przez ASR sklejam w jedno słowo ze spacją nierozdzielającą (`mergeNumberGroups` w `scripts/prep.mjs`, robi to też prep). Czasy: start pierwszej grupy, koniec ostatniej.
 - **SFX w rolkach Kacpra (2026-10-23):** krótki **pop** przy wejściu grafiki, przebitki, hooka i pieczątki; **cash register** przy kwotach (gdy pada kwota, wynik obliczenia, licznik dochodzi do wartości). Pop i kasa nie częściej niż co ~0,5 s, głośność ok. 10–13 dB pod szczytami głosu (mnożnik ~0,3). Zapis w `reel.json` → `sfx: [{ at, src, volume }]` (czas źródła, plik w folderze rolki).
 - **Opis do publikacji (2026-10-23):** opis generuje się dopiero z renderu aktualnej rewizji zrobionego przez pipeline QuickContent. Ręczny `npx remotion render` nie rejestruje wersji w panelu, więc po poprawkach rolki QuickContent renderuję przez panel/pipeline.
+
+## Wykresy procentów i kwot — 2026-10-24
+
+- Rolka „6,5% a 10%: ile zmienia stopa zwrotu?” (`qc-ae470d7074e8f8bc-8edaccf09597ff95`): dostosować do aktualnego profilu (jak rolka o 6000 zł z 2026-10-23), żeby była przyjemna w odbiorze i zrozumiała. Dodać przebitki, animacje, wizualizacje kwot i procentów, wykresy tam, gdzie pomagają, oraz SFX (pop, kasa). Poprzedni render zostaje.
+- Porównanie dwóch wartości (np. 6,5% vs 10%) pokazuje karta `bars` w silniku bisanz: biała karta, wartości rosną, gdy padają (`data[].at`), wyróżniony pasek w #066FED, drugi szary. Karty z danymi stoją na przebitce, żeby nie zasłaniać twarzy w bliskim kadrze.
+
+## Long form: osobne animacje do Premiere, bez napisów — 2026-10-25
+
+- Do poziomego long formu (np. „susbsykrypcje.mp4”, 4K 25 kl./s) **nie montuję filmu i nie robię napisów**. Odsłuchuję cały materiał i robię same elementy animowane: logotypy firm/subskrypcji w chwili, gdy padają, karty „co zawiera”, porównania, wyliczenia („ile zyskujesz”), wykresy, research ze źródłem, zdjęcia-przebitki. Średnio jedna animacja co 10–30 s, przez cały film.
+- **Każda animacja to osobny plik** MOV ProRes 4444 z kanałem alfa (przezroczyste tło), w rozdzielczości i klatkażu źródła, z wbudowanymi SFX (whoosh, pop, kasa, klik itp. — 10 dB pod głosem). Do tego **XML (FCP7) do Premiere** z animacjami na osobnych ścieżkach, dokładnie w czasie wypowiedzi, nad oryginalnym nagraniem.
+- Konkretne screeny ofert (np. „Gemini za 10 zł”) dodaje użytkowniczka; ja robię ogólne animacje. Styl: wytyczne Kacpra (biel, #066FED, Inter + Menlo), bez napisów wypowiedzi.
+- Kadr studia: Kacper na środku, tablica XTB po prawej — grafiki w lewej kolumnie i w prawym górnym rogu, bez zasłaniania twarzy i sponsora.
+
+## Rolka o emeryturze według aktualnego profilu — 2026-10-25
+
+- Rolkę „10 tysięcy pensji, 3 tysiące emerytury?” (`qc-ae470d7074e8f8bc-b0b22993e5fda310`) dostosować do aktualnych wytycznych, tak jak rolki o 6000 zł i stopie zwrotu: przebitki, karty z liczbami (stopa zastąpienia według OECD, emerytura wobec pensji, rachunek 10 000 zł → 3000 zł), pop i kasa jako SFX, hook nad głową, napisy pod brodą, kwoty w jednym kawałku. Poprzedni render zostaje.
+- **2026-10-25, poprawka:** w rolce o emeryturze zostały ujęcia 16:9 z rozmytym tłem (rolka sprzed blokady z 22.10). Usunąć je i więcej tak nie robić: silnik stylu `bisanz` ignoruje punkty `fit` także w starszych `reel.json`, a w miejscu takiego ujęcia kadr trzyma ostatnią pozycję Kacpra.
+
+## Long form „subskrypcje”: cena RingConn i reklama SkyClass w iPhonie — 2026-10-26
+
+- Animacja 51 (Oura kontra RingConn): dodać cenę **RingConn Gen 2: 500–600 zł**, tak jak mówi Kacper w odcinku (AliExpress/Allegro), w chwili, gdy pada kwota.
+- Nowa animacja **„reklama skyclass v1”**: nagranie ekranu iPhone'a (kanał SkyClass na WhatsAppie) w mockupie iPhone'a, kwoty w ofertach podświetlone i wyróżnione, żeby widz zwrócił na nie uwagę. Przezroczyste tło, SFX, osobny plik jak reszta paczki. Przy pracy: apple-design i motion-design.
+
+## Rolka „milioner na emeryturze” według aktualnego profilu — 2026-10-26
+
+- Źródło (master) zostało przypadkiem usunięte; montuję z zapisanego wycinka `public/reels/qc-ae470d7074e8f8bc-dc4f8f0520fc265e/source.mp4`, bez ponownego prepa/Whispera. Wybrana rolka niezaznaczona jako wrzucona na social media.
+- Dostosować jak rolkę o emeryturze z 2026-10-25: hook nad głową 0–3 s, napisy pod brodą (y≈0,73), kwoty w jednym kawałku („22,50 zł”), przebitki Pexels pod kartami z liczbami (cena kawy dziś i za 25 lat, ×3–4, 1 000 000 zł), pieczątka na puentach, SFX pop i kasa. Liczby tylko z wypowiedzi. Poprzedni render zostaje.
+- Poprawka reklamy SkyClass v1 (2026-10-26): etykiety bez liczby nocy (wyglądało na wycieczkę zorganizowaną). Loty: „Loty · <miasto>”; pakiety: „Cała wycieczka · Zanzibar/Madera”, rejs: „Rejs · Bahamy”. Ukryć pasek statusu (godzina, czerwona kropka) i dolny tekst WhatsAppa o administratorach.
+
+## Miganie początku rolki YouTube Premium — 2026-10-28
+
+- Naprawić miganie obrazu około pierwszej sekundy rolki „YouTube Premium: zabawiłem się w dobrego wujka” (`qc-2a29733b13f1ff96-770f306eae959293`). Sprawdzić kolejne klatki przy pierwszych cięciach i kadrowaniu; początek bez przypadkowych błysków/skoków. Zachować poprzedni MP4, wyeksportować poprawioną wersję i utrzymać aktualny opis.
+
+## Obowiązkowy środek twarzy i pełna oprawa rolek — 2026-10-28
+
+- Rolka „YouTube Premium: zabawiłem się w dobrego wujka” (`qc-2a29733b13f1ff96-770f306eae959293`): poprawić tracking/wyśrodkowanie tak, aby twarz Kacpra była na środku pionowego kadru także po cięciu na boczną kamerę. Samo istnienie punktów trackingu nie jest odbiorem; sprawdzić rzeczywisty środek twarzy w każdym ujęciu. Zachować brak zoomów kamery.
+- Rolki Kacpra mają otrzymywać rzeczywiste, tematyczne przebitki oraz animacje/wizualizacje treści, a nie tylko napisy i drobne logotypy. W tej rolce pokazać sens oglądania offline/podróży oraz abonamentu rodzinnego i kosztu za osobę. Grafiki tylko z informacji z wypowiedzi, bez zmyślonych ofert/cenników. Nie zasłaniać twarzy; po przebitce wracać do wyśrodkowanego Kacpra.
+- Zachować wcześniejsze MP4 i aktualny opis; dostarczyć nową wersję po kontroli kadru i oprawy.

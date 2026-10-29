@@ -52,7 +52,11 @@ export async function inputFiles(root, reelName, data) {
     /\.(mp4|mov|m4v|webm|mkv|png|jpg|jpeg|webp|svg|gif|wav|mp3|m4a|ogg|ttf|otf|woff2?)$/i;
   // Styles import each other for shared tokens; keep that explicit dependency closure.
   const styleDependencies = {
-    brand: ["brand"],
+    brand: [
+      "brand",
+      ...(data?.branding?.clientId === "dominik-walczak" ? ["walczak"] : []),
+    ],
+    fitnessiq: ["fitnessiq", "ameryka", "bisanz", "skyclass"],
     persona: ["persona"],
     skyclass: ["skyclass"],
     herod: ["herod"],
@@ -77,7 +81,11 @@ export async function inputFiles(root, reelName, data) {
     await Promise.all(
       [
         `public/reels/${reelName}`,
-        ...(data?.branding && data.style !== "persona" && !(data.overlays??[]).length ? [] : ["public/fonts"]),
+        ...(data?.branding &&
+        data.style !== "persona" &&
+        !(data.overlays ?? []).length
+          ? []
+          : ["public/fonts"]),
         "public/sfx",
         ...(data?.branding &&
         (!data.branding.styleId || data.branding.styleId === "brand")
@@ -89,7 +97,8 @@ export async function inputFiles(root, reelName, data) {
     .flat()
     .filter(
       (f) =>
-        (media.test(f)||f===`public/reels/${reelName}/framing.observations.json`) &&
+        (media.test(f) ||
+          f === `public/reels/${reelName}/framing.observations.json`) &&
         !/^review-.*\.png$/i.test(path.basename(f)) &&
         // New immutable branding assets cannot affect unrelated legacy styles.
         !/^public\/Brandings\/[^/]+\/(?:fonts|assets)\/[a-f0-9]{64}\./.test(f),
@@ -402,7 +411,12 @@ async function renderSnapshot(file) {
     const expected = manifest.assets.find((a) => a.path === relative);
     if (
       expected &&
-      (await hashFile(await safePath(path.resolve(path.dirname(fileURLToPath(import.meta.url)),".."), relative))) !== expected.sha256
+      (await hashFile(
+        await safePath(
+          path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."),
+          relative,
+        ),
+      )) !== expected.sha256
     )
       throw new Error("Runtime zmienił się od zamrożenia renderu");
   }

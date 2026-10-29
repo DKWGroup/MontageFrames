@@ -811,6 +811,96 @@
       "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
       "mediaRef": null,
       "review": "pending"
+    },
+    {
+      "id": "fitnessiq-01-baseline",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "prompt",
+      "expected": "Druk Wide Medium 500 i Mulish 500; Black #0B0B0B, Pure White #FFFFFF, IQ Lime #BBE90B; oryginalne logo z polem ochronnym, bez cienia i deformacji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-02-long-caption",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "prompt",
+      "expected": "Szeroki Druk: pełne polskie słowa, dopasowany rozmiar klucza i hooka, bez obcięcia i wyjścia poza safezone.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-03-landscape",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "prompt",
+      "expected": "Poziome źródło: czytelny pion i odsłonięta twarz.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-04-silence",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "tuning",
+      "expected": "Cięcia zgodne z kontraktem, brak zmiany sensu i kolejności.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-05-broll",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "tuning",
+      "expected": "Przebitki zgodne z wypowiedzią i regułami tego klienta.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-06-number",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "tuning",
+      "expected": "Liczby tylko ze źródła; brak zmyślonych cen lub twierdzeń.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-07-hook",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "holdout",
+      "expected": "Zaakceptowany hook zachowany przy korekcie, czytelny i bez kolizji.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-08-emoji",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "holdout",
+      "expected": "Bez automatycznych emotek; oficjalne ikony FitnessIQ tylko zgodnie z treścią.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-09-correction",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "fitnessiq-10-legacy",
+      "profile": "fitnessiq",
+      "clientId": "fitness-iq",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
     }
   ]
 }

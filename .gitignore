@@ -73,3 +73,14 @@ klienci/branding-render-check/
 
 # CutRaw: stan projektów (miks, transkrypcja, cache Whispera)
 public/cutraw/
+
+# Lokalne kreacje klientów, importy i podglądy — bez publikacji na GitHub
+.taste-skill/
+.impeccable/surfaces/
+klienci/*/Kreacje/
+klienci/*/Karuzele/
+klienci/*/Stories/
+klienci/*/materialy-marki/
+klienci/dominik-walczak/przebitki/
+public/longform-pack/
+public/Brandings/FitnessIQ/FITIQLOGO/
