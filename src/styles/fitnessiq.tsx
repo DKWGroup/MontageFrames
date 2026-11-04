@@ -261,7 +261,31 @@ const Logo: React.FC<OverlayProps> = ({ o, dur, src }) => {
   );
 };
 
+const Traits: React.FC<OverlayProps> = ({ dur, src }) => {
+  const { f, fps, enter, exit } = useMotion(dur);
+  const traits = [
+    { text: "WYTRZYMAŁOŚĆ", icon: "wytrzymalosc", at: 0.03 },
+    { text: "DYNAMIKA", icon: "dynamika", at: 0.83 },
+    { text: "SIŁA", icon: "sila", at: 1.47 },
+  ];
+  return <div style={{ position: "absolute", left: "10%", top: "53%", width: "76%", padding: "22px 30px", background: INK, border: `2px solid ${LIME}`, borderRadius: 8, opacity: Math.min(enter * 2, 1 - exit), transform: `translateY(${(1-enter)*30}px)` }}>
+    {traits.map((t, i) => {
+      const p = Math.max(0, Math.min(1, (f / fps - t.at) / 0.22));
+      return <div key={t.icon} style={{ height: 108, display: "flex", alignItems: "center", gap: 24, borderBottom: i < 2 ? "1px solid rgba(255,255,255,.15)" : undefined, opacity: 0.23 + p * 0.77 }}>
+        <div style={{ width: 82, height: 82, position: "relative", flexShrink: 0, transform: `scale(${0.86 + p * 0.14})` }}>
+          <svg width="82" height="82" style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}><circle cx="41" cy="41" r="38" fill="none" stroke={LIME} strokeWidth="3" strokeDasharray="239" strokeDashoffset={239 * (1-p)} /></svg>
+          <Img src={src(`trait-${t.icon}.png`)} style={{ width: 54, height: 54, objectFit: "contain", margin: 14, transform: `translateX(${t.icon === "dynamika" ? Math.sin(p * Math.PI) * 9 : 0}px)` }} />
+        </div>
+        <span style={{ fontFamily: DRUK, fontWeight: 500, fontSize: 34, color: p > 0 ? LIME : WHITE, letterSpacing: "-.02em" }}>{t.text}</span>
+      </div>;
+    })}
+  </div>;
+};
+
 export const FitnessIQOverlay: React.FC<OverlayProps> = (props) =>
+  props.o.type === "list" && props.o.title === "fitnessiq-three-traits" ? (
+    <Traits {...props} />
+  ) :
   props.o.type === "logo" ? (
     <Logo {...props} />
   ) : props.o.type === "title" ? (

@@ -901,6 +901,96 @@
       "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
       "mediaRef": null,
       "review": "pending"
+    },
+    {
+      "id": "oskar-01-baseline",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "prompt",
+      "expected": "Cabinet Grotesk 800 i Satoshi 400; krem #EFEDE5, bordo #6D1E32, granat #193548, atrament #24343B, róż #EFCBD3 jako jedyny akcent; róż nigdy na kremie.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-02-long-caption",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "prompt",
+      "expected": "VSL 16:9: napis na dole w jednej linii 5–7 słów, pełne polskie słowa, bez samosiek, w strefie bezpiecznej.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-03-landscape",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "prompt",
+      "expected": "Grafiki i przebitki po prawej części kadru; twarz Oskara zawsze odsłonięta.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-04-silence",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "tuning",
+      "expected": "Cięcia ciszy i dubli bez zmiany sensu i kolejności wypowiedzi.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-05-broll",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "tuning",
+      "expected": "Przebitki Pexels i przemiany podopiecznych zgodne z wypowiedzią; przed/po zawsze z dopiskiem o indywidualnych efektach.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-06-number",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "tuning",
+      "expected": "Ceny tylko ze strony w dniu renderu, dane naukowe tylko ze źródłem; bez obietnic kilogramów i terminów.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-07-hook",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "holdout",
+      "expected": "Hook VSL w pierwszych sekundach zachowany przy korekcie, czytelny i bez kolizji z twarzą.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-08-emoji",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "holdout",
+      "expected": "Bez automatycznych emotek.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-09-correction",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "holdout",
+      "expected": "Korekta słowa nie przesuwa czasu ani nie zmienia przypiętego wyglądu.",
+      "mediaRef": null,
+      "review": "pending"
+    },
+    {
+      "id": "oskar-10-legacy",
+      "profile": "oskar",
+      "clientId": "oskar-stuglik",
+      "split": "holdout",
+      "expected": "Wcześniejszy snapshot i MP4 pozostają dostępne po zapisaniu nowego profilu.",
+      "mediaRef": null,
+      "review": "pending"
     }
   ]
 }

@@ -1,5 +1,44 @@
 # Kacper Bisanz — preferencje montażu klienta
 
+## 10 rolek z „skyclass poziom.mp4” w brandingu Bisanza — 2026-11-04
+
+- Rolki z long formu Kacpra zawsze w brandingu **Kacper Bisanz** (styl `bisanz`, ten profil), nigdy w generycznym stylu poza silnikiem MontageFrames. Pierwsza wersja bez brandingu została odrzucona.
+- Gdy Kacper udostępnia ekran (kamerka w kółku z lewej): pion dzielony na pół — Kacper u góry, ekran komputera na dole jako przybliżona, czytelna karta. Gdy Kacper jest w studiu na całym ekranie: zwykły kadr na Kacpra. Bez dodanych animacji spoza stylu; przebitki Pexels, napisy, wyróżnienia i animacje z oryginału mają być dobrze widoczne.
+- Poprawka 2026-11-04: w układzie z ekranem Kacper w górnym kadrze stoi **na środku** rolki (poziomo), nie przesunięty w lewo.
+- Poprawka 2026-11-04: liczby wypowiadane słownie zapisywać w napisach **cyframi** („trzysta dziesięć złotych” → „310 złotych”, „czternasta” → „14”). Czasy słów bez zmian (start pierwszego, koniec ostatniego).
+- Do każdej rolki opis przez GPT‑6 Luna według standardów. Gotowe rolki i pliki robocze na dysku zewnętrznym (`/Volumes/t7 blck bad/MontageFrames/skyclass-poziom-rolki-2026-11-04/`, kopie do `/Volumes/t7 blck bad/Skyclass rolki 04.11.2026/`).
+
+## Paddingi w animacjach i przeskoki dwóch kamer — 2026-11-03
+
+- Karty w animacjach mają mieć zachowane, równe paddingi i odstępy (treść nie klei się do krawędzi, elementy nie nachodzą na siebie): układ kolumnowy, stały margines wewnętrzny 48 px, jednakowy odstęp między blokami.
+- Źródło ma dwie kamery: kamera nie może przeskakiwać przy przebitkach i animacjach. Przebitki i plansze zaczynać i kończyć na cięciach kamer, krótkie ujęcia drugiej kamery (< ok. 1 s, także pojedyncze klatki na początku i końcu) przykrywać przebitką/animacją albo wyciąć poza wypowiedzią. Przy cięciach twarde przejście zamiast przenikania, które odsłania drugą kamerę. Ostatnia scena trwa do końca rolki bez wyjścia.
+
+## Kolejna rolka z „suby.mp4” — 2026-11-03
+
+- Zmontować na gotowo jeszcze jedną niezmontowaną propozycję (wybrano „Pięć transakcji kartą za dziesięć złotych na myjni”) i podać do niej opis (GPT‑6 Luna według standardów). Oprawa jak w poprzednich: przebitki Pexels, animacje, wizualizacje. Zastosować zasadę z 2026-11-02: stałe uniesienie Kacpra w scenie z kartą, przebitki i sceny dociągnięte do cięć bez mikro-luk.
+
+## Następna rolka z „suby.mp4” — 2026-11-02
+
+- Zmontować kolejną niezmontowaną propozycję z tego samego projektu (wybrano „Salonik na lotnisku bez płacenia za Priority Pass”): przebitki Pexels, animacje, wizualizacje; oznaczyć jako „Wrzucona na social media”; od razu opis przez GPT‑6 Luna według standardów (zasada globalna 2026-10-15).
+
+## Kolejna rolka z „suby.mp4” (subskrypcje) — 2026-11-01
+
+- Zmontować kolejną, niezmontowaną propozycję z najnowszego projektu QuickContent (`suby.mp4`) o subskrypcjach: przebitki z Pexels, animacje i wizualizacje wynikające z wypowiedzi. Wybrano „Spotify można jutro wyłączyć — i jak płacić mniej za chmurę”.
+- Nową rolkę oznaczyć w bibliotece jako „Wrzucona na social media”.
+
+## Dwie nowe propozycje z „suby.mp4” — 2026-10-31
+
+- Wybrać dwie propozycje z ostatniego filmu `/Volumes/t7 blck bad/suby.mp4`, które nie były wcześniej montowane; sprawdzić istniejące projekty i rendery.
+- Wybrana rolka ma otrzymać od razu pełną oprawę: animacje, wizualizacje, przykłady, research i tematyczne przebitki zgodne z wypowiedzią i profilem Bisanza.
+- Pliki tymczasowe oraz gotowe rolki z tego zlecenia zapisywać na dysku zewnętrznym, w `/Volumes/t7 blck bad/MontageFrames/suby-2026-10-31/`. Nie kopiować mastera na dysk wewnętrzny. Zachować poprzednie montaże.
+
+
+## Rolka „Chyba najgłupszy abonament, jaki płacę” — 2026-10-29
+
+- Zmontować wybraną propozycję z projektu `qc-b7fcb417-c9be-40fa-8575-62d040161cc2` w pełnym stylu Bisanza: tematyczne przebitki, estetyczne animacje i wizualizacje wynikające z wypowiedzi.
+- Twarz Kacpra utrzymywać w poziomym centrum pionowego kadru we wszystkich ujęciach, także z bocznej kamery. Bez odsłaniania szerokiego kadru obok, skoków okien/kadru, błysków, szarpnięć i zacięć. Tracking bez zoomów; sprawdzić kolejne klatki przy cięciach.
+- Gdy pokazywana jest dodatkowa animacja/wizualizacja, umieścić ją w dolnej części ekranu, a Kacpra w górnej. Zastosować starannie skomponowane kadrowanie i wykończone przejście/maskę oddzielenia; unikać surowego, przypadkowego prostokątnego wycięcia. Twarz i napisy czytelne, bez kolizji, w safezone.
+
 Zapisano: **2026-10-05**. Strona: [bisanz.pl](https://bisanz.pl/). Styl w silniku: **`bisanz`** (`src/styles/bisanz.tsx`; napisy `Bisanz` i grafiki `BisanzOverlay`).
 
 **To osobny klient, nie SkyClass.** Kacper jest współtwórcą SkyClass, więc styl jest „podobny, ale osobny”: ta sama logika układu (zwarte bloki, klucz i małe słowa, bez samosiek, karty pod napisami), ale **inna typografia, paleta i ruch**. Nie używaj tu różu, granatu, Poppinsa, zielonego neonu ani biletów SkyClass, chyba że rolka wprost dotyczy SkyClass i użytkowniczka o to poprosi.
@@ -194,3 +233,94 @@ Przebitka trwa 2–4 s, bez znaków wodnych i obcych napisów, domyślnie bez w�
 - Rolka „YouTube Premium: zabawiłem się w dobrego wujka” (`qc-2a29733b13f1ff96-770f306eae959293`): poprawić tracking/wyśrodkowanie tak, aby twarz Kacpra była na środku pionowego kadru także po cięciu na boczną kamerę. Samo istnienie punktów trackingu nie jest odbiorem; sprawdzić rzeczywisty środek twarzy w każdym ujęciu. Zachować brak zoomów kamery.
 - Rolki Kacpra mają otrzymywać rzeczywiste, tematyczne przebitki oraz animacje/wizualizacje treści, a nie tylko napisy i drobne logotypy. W tej rolce pokazać sens oglądania offline/podróży oraz abonamentu rodzinnego i kosztu za osobę. Grafiki tylko z informacji z wypowiedzi, bez zmyślonych ofert/cenników. Nie zasłaniać twarzy; po przebitce wracać do wyśrodkowanego Kacpra.
 - Zachować wcześniejsze MP4 i aktualny opis; dostarczyć nową wersję po kontroli kadru i oprawy.
+
+
+## Long form „skyclass poziom_1”: paczka animacji — 2026-10-30
+
+- Źródło: `/Volumes/t7 blck bad/skyclass poziom_1.mp4`. Przejrzeć cały materiał; bez cięcia oryginału i bez napisów całej wypowiedzi. Osobne animacje, zdjęcia, logo, porównania, wyliczenia i research, średnio co 10–30 s.
+- Każdy element osobno w MOV ProRes 4444 z alfą i dopasowanymi SFX; XML Premiere z niezmienioną osią źródła. Konkretne screeny ofert dodaje użytkowniczka.
+- Gotowe rendery oraz ciężkie pliki robocze zapisywać bezpośrednio na dysku zewnętrznym `/Volumes/t7 blck bad/MontageFrames/skyclass-poziom-1/`. Nie kopiować źródła ani renderów na MacBooka.
+- Nie zasłaniać Kacpra, szczególnie twarzy, ani istotnych danych ekranu. Ceny i omawiane elementy monitora wyróżniać ramką/strzałką śledzącą ich rzeczywiste położenie. Tracking weryfikować na klatkach, nie deklarować na podstawie samego kodu.
+- Wykorzystać Apple Design, Design Taste Frontend, UI/UX Pro Max, Impeccable oraz wskazany Motion Design howseen-ai; profil Bisanza ma pierwszeństwo przed ogólnymi preferencjami skilli.
+
+## Usunięcie dopisku z animacji SkyClass — 2026-10-30
+
+- Nie wyświetlać dopisku „według Kacpra w nagraniu”. Usunąć go wyłącznie z animacji, które go zawierają; pozostałych animacji nie zmieniać.
+
+- Dalsza poprawka 2026-10-30: usunąć również zbędne dopiski redakcyjne typu „przykład z nagrania”, „kwoty z nagrania”, „rachunek z wypowiedzi” i podobne komentarze o pochodzeniu treści. Zostawić konkretne informacje i wyliczenia; uwagi o źródłach w dokumentacji paczki. Renderować tylko dotknięte animacje.
+
+- Transfer, doprecyzowanie 2026-10-30: tytuł animacji ma brzmieć wyłącznie „Transfer”, bez „szacunek autora” ani „szacunek”.
+
+## Przejście reklamowe z samolotem Happy — 2026-10-30
+
+- Przygotować osobne, płynne przejście z dostarczonym samolotem `happy-plane-D-Gc4Z6i.png`, z niebiesko-białymi kształtami i wyglądem 3D, do przerw między częściami long formu. Bez dopisków redakcyjnych i bez dodatkowych napisów.
+- Najnowsza korekta: **całość 2,5 sekundy**, zamiast wcześniejszego wariantu 4,5 s. Wejście nachodzi na film, krótko zakrywa obraz, potem wyjście odsłania film. Zachować prawidłowe, nieodwrócone logo samolotu.
+- MOV ProRes 4444 z alfą na początku i końcu oraz dopasowanym whooshem. Gotowy render i ciężkie pliki robocze wyłącznie na dysk zewnętrzny; nie zmieniać dotychczasowych 45 animacji ani filmu.
+- Zastosować Apple Design, Motion Design i GPT Taste w zakresie kompozycji i ruchu. Reguły stron internetowych nie dodają nawigacji, tekstów ani interakcji do eksportowanego przejścia.
+
+## Przejście Kacper Bisanz — mocniejsza typografia, 2026-10-30
+
+- Poprzednie przejście jest zbyt nudne i zbyt ubogie. Przygotować nową, mocniejszą wersję 2,5 s: duża typografia **KACPER BISANZ**, wjeżdżające kształty/bryły, kilka skoordynowanych zmian i samolot jako część sekwencji. Aktualne polecenie typografii zastępuje wcześniejsze „bez dodatkowych napisów” wyłącznie dla tego przejścia.
+- Ruch ciągły, płynne krzywe Béziera: szybko na początku, potem łagodne wyhamowanie; bez mechanicznych postojów i bez jednolitego tempa. Wyraźny, estetyczny motion design, z przesunięciem, skalą i perspektywą. Apple Design, Motion Design i GPT Taste.
+- Zachować biel i #066FED oraz markową typografię Inter. Nazwa osoby zgodnie z profilem: Kacper Bisanz. Zachować poprzedni MOV, nową wersję zapisać osobno na dysku zewnętrznym, z alfą i SFX. Nie zmieniać poprzednich 45 animacji ani filmu.
+
+## Przejścia — dwa czyste kierunki i celowy przelot, 2026-10-30
+
+- V2 jest odrzucone: zbyt przerysowane fonty i przestrzenne bryły, losowy przelot samolotu. Przygotować **dwie różne propozycje**, zachowując branding Kacpra: markowe fonty w naturalnych proporcjach, czysta biel, #066FED, proste kształty. Bez rozciągania glifów, masywnej ekstrudowanej typografii i przypadkowych dekoracji.
+- Obie propozycje nadal 2,5 s. Samolot od razu na wejściu odsłania nazwę Kacper Bisanz; drugi przelot **z lewej na prawą przecina cały ekran** i odsłania film. Samolot ma pełnić funkcję przejścia, nie losowej naklejki. Przy kierunku w prawo nie odwracać lustrzanie logotypów.
+- Ruch szybki na starcie, miękko wyhamowany, ciągły na krzywych Béziera. Apple Design, Motion Design, GPT Taste i Superpowers. Pokazać dwa gotowe, odrębne warianty do porównania.
+- Zachować wcześniejsze wersje, nie zmieniać 45 animacji ani filmu. Eksporty MOV z alfą i SFX, podglądy i ciężkie pliki robocze bezpośrednio na dysku zewnętrznym.
+
+## Przejścia — połączenie mocnego wejścia i czystej oprawy, 2026-10-30
+
+- Przygotować kolejne dwie propozycje po 2,5 s: połączyć lepsze wejście/zamykanie wcześniejszej wersji z lubianym wylotem samolotu z niebieskiej propozycji. Poprzednich wersji nie nadpisywać.
+- Duża **biała** markowa typografia Inter 700, **Kacper** w pierwszym wierszu, **Bisanz** w drugim, designerska kompozycja, animowane podkreślenie. Zachować prawidłowe nazwisko z brandingu mimo błędów transkrypcji polecenia.
+- Zastąpić białe bryły i prosty trójkąt płynnymi, estetycznymi formami przestrzennymi z niebieskimi gradientami i połyskiem; unikać przypadkowych dekoracji. Samolot jest częścią wejścia i wyjścia, drugi przelot lewa–prawa odsłania film.
+- Użytkowniczka dopuszcza wymyślony krótki tekst uzupełniający. Traktować go jako proponowany slogan, nie potwierdzone motto kanału. Dwa różne kierunki z zachowaniem brandingu, alfa, SFX i gotowe pliki na dysku zewnętrznym. Apple Design, Motion Design, GPT Taste i Superpowers.
+
+## Przejście B — akceptacja kierunku, krajobraz zamiast wstęgi, 2026-10-30
+
+- Użytkowniczka akceptuje kierunek Fusion B (typografia, układ i ruch). Zmienić tylko motyw satynowej wstęgi: zastąpić ją estetycznym elementem podróżniczym, np. zdjęciem krajobrazu/gór z Pexels, wyciętym tłem albo widokiem w oknie samolotu. Inspiracja: https://bisanz.pl, motywy lotnicze i podróże.
+- Zachować 2,5 s, dwuwierszowy biały Inter, podkreślenie, hasło i lot samolotu; dopasować zdjęcie do niebieskiej oprawy. Nowa wersja osobno, poprzednie eksporty zachowane; render i ciężkie pliki robocze na dysk zewnętrzny.
+
+## Rolka nr 8: napisy pod brodą, hook nad głową — 2026-10-30
+
+- W rolce nr 8 („Spłacone mieszkanie a wydatki na emeryturze”, `qc-ae470d7074e8f8bc-15eec091583112ee`) w pierwszych sekundach filmu napisy wypowiedzi nie mogą nachodzić na twarz Kacpra.
+- Hook otwarcia („Co zmienia spłacony kredyt na emeryturze?”) przenieść nad głowę (y ≈ 0.16), a napisy wypowiedzi pierwszych sekund umieścić pod brodą (y ≈ 0.71, dolna krawędź w safezone ≤ 0.75), bez kolizji z twarzą w bliskim kadrze. Poprawić wyłącznie tę rolkę.
+
+## Rolka 2: Revoluta nie polecam – napisy pod brodą, hook nad głową — 2026-10-30
+
+- W rolce nr 2 („Revoluta nie polecam – ale do tego tak (Tinder Gold i NordVPN za darmo)”, kandydat `c-53bdb91f-b5c5-4f80-a88e-67c8f5c76f62`, reel `qc-2a29733b13f1ff96-eb4e976b235c53be`) napisy w pierwszych sekundach filmu (0–3.66 s, słowa „Więc Revoluta nie polecam, ale polecam do innych rzeczy”) nie mogą nachodzić na twarz Kacpra.
+- Usunąć błędną pozycję y=0.49 (środek kadru na ustach/nosie) i przenieść napisy pod brodę na klatkę piersiową (y ≈ 0.72, spójnie z dalszą częścią filmu).
+- Hook otwarcia („VPN i Tinder Gold w pakiecie?”) przenieść wyżej nad głowę Kacpra (y ≈ 0.13), tak aby nie nachodził na czoło ani włosy.
+- Poprawić wyłącznie tę rolkę i wyrenderować zaktualizowaną wersję do `klienci/kacper-bisanz/Render/`.
+
+
+
+## Wybór dwóch rolek z suby.mp4 — 2026-10-31
+
+- Użytkowniczka wybrała rolkę o Netflixie oraz zleciła od razu dodatkową, wcześniej niemontowaną rolkę. Druga: helikopter za 120 zamiast 250 USD (nowy fragment z tego samego źródła). Wykonać obie z pełną oprawą, bez kolejnego pytania o wybór. Wszystkie pliki robocze i filmy na wskazanym dysku zewnętrznym.
+
+## Gotowe rolki z suby.mp4 — 2026-10-31, historia wykorzystania
+
+- Zmontowano „Netflix tylko na miesiąc”: źródło 407,49–439,55 s (06:47,49–07:19,55). Aktualny MP4: `/Volumes/t7 blck bad/MontageFrames/suby-2026-10-31/Render/suby-netflix-v002.mp4`.
+- Zmontowano dodatkowo „Helikopter za 120 USD?”: źródło 1237,90–1275,05 s (20:37,90–21:15,05), ze skróconą pauzą bez przecinania słów. Aktualny MP4: `/Volumes/t7 blck bad/MontageFrames/suby-2026-10-31/Render/suby-helikopter-v002.mp4`.
+- Oba fragmenty są odtąd wykorzystane, także jeśli panel QuickContent nadal pokazuje wcześniejszy status propozycji. To ręczne eksporty na dysk zewnętrzny, z pełnymi plikami montażu i origin w `public/reels/` wewnątrz powyższego folderu na dysku. Nie proponować ich ponownie jako nowych. Wersje v001 są robocze; do przekazania są v002.
+
+## Netflix na miesiąc — bez gradientu, plakat i płynne napisy — 2026-10-31
+
+- Poprawić wyłącznie rolkę „Netflix tylko na miesiąc” (`suby-netflix`); rolki o helikopterze nie zmieniać ani nie renderować ponownie.
+- Usunąć gradient od dołu. Zachować naturalny obraz, bez niebieskiego przyciemnienia i dodatkowej dolnej poświaty.
+- Przy wypowiadaniu tytułu „Strefa gangsterów” dodać prawdziwy plakat serialu (MobLand), znaleźć i zapisać jego źródło; źródło dostępne w paczce i przy plakacie.
+- Napisy nie mogą nachodzić na twarz w żadnym ujęciu. Jeśli zmieniają położenie góra/dół, przejście ma być płynnie animowane, bez nagłego przeskoku. Zachować odstęp od twarzy i grafik także w klatkach przejściowych.
+- Zachować poprzedni MP4; nowa wersja i pliki robocze nadal na dysku zewnętrznym.
+
+- Gotowa poprawiona wersja wyłącznie Netflixa: `/Volumes/t7 blck bad/MontageFrames/suby-2026-10-31/Render/suby-netflix-v003.mp4`. Dźwięk i treść zachowane. Pomiary tekstu w 962 klatkach bez wykrytych kolizji z projekcją twarzy, źródło plakatu w filmie i `sources.md`. Rolka o helikopterze pozostaje v002, bez zmian.
+
+## Płynne kadrowanie i ujednolicenie przeskoków (Priority Pass) — 2026-11-02
+
+- Rolka „Salonik na lotnisku bez płacenia za Priority Pass” (`qc-2a29733b13f1ff96-cf365d71ce23de07`, render v002 → v003):
+- Kadrowanie na twarz ma być całkowicie płynne, stabilne i ujednolicone — bez poszarpanego śledzenia, bez skakania kadru w lewo i prawo (stabilne wyśrodkowanie `centerX ≈ 0.478`, brak gwałtownych cięć cropa) oraz bez skoków pionowych przy scenach z kartami (stabilne, wygładzone uniesienie `lift` per scena).
+- Ujednolicenie przeskoków ujęć: zlikwidować szarpane przeskoki kamer w materiale źródłowym. W miejscach cięć dociągnąć przebitki B-roll oraz plansze animowane, tak aby nie było widać przeskoków ani mikro-luk (eliminacja 1-klatkowych przerw i 1-sekundowych urywków mówcy między grafikami).
+- Całość montażu ma być smooth, spójna i estetyczna.
+

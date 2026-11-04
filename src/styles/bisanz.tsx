@@ -147,7 +147,13 @@ export const kineticCaptions = (
   }) => {
     const f = useCurrentFrame();
     const { fps, width, height } = useVideoConfig();
-    const T = tokensFor({ T: base, T16: wide }, { width, height });
+    const kineticPhrase = group.reveal === "kinetic-phrase";
+    const phrase = group.reveal === "phrase" || kineticPhrase;
+    const theme = tokensFor({ T: base, T16: wide }, { width, height });
+    const T = phrase
+      ? { ...theme, readable: true, travel: 16, maxWidth: 0.72,
+          smallSize: 64, inlineSmall: 64, keySize: 88, inlineKey: 80 }
+      : theme;
     const k = words.findIndex((w) => w.key);
     const box = width * T.maxWidth;
     const align: Align =
@@ -199,7 +205,8 @@ export const kineticCaptions = (
       const lead = T.readable
         ? Math.max(0, reveal - 0.25, words[Math.max(0, index - 1)].at)
         : reveal;
-      const revealFrame = Math.min(
+      const stagger = Math.min(5, atoms(words).findIndex((ws) => ws.includes(w)));
+      const revealFrame = phrase ? (kineticPhrase ? stagger : 0) : Math.min(
         Math.round(lead * fps),
         T.readable ? Math.max(0, D - 8) : Infinity,
       );
@@ -210,7 +217,7 @@ export const kineticCaptions = (
         : 0;
       const mo = group.motion ?? "rise";
       const s =
-        wf < 0
+        phrase && (!kineticPhrase || wf >= 12) ? 1 : wf < 0
           ? 0
           : Math.max(
               complete,
@@ -268,7 +275,7 @@ export const kineticCaptions = (
           : text;
       // kreska pod kluczem / zakreślacz rysuje się od lewej chwilę po wejściu słowa
       const draw = () =>
-        spring({
+        phrase ? 1 : spring({
           frame: Math.max(
             0,
             wf - 4 - (mo === "letters" ? text.length * STEP : 0),
@@ -295,12 +302,20 @@ export const kineticCaptions = (
               ? `inset(-60% ${(1 - s) * 100}% -60% -20%)` // kontur odsłania się od lewej
               : undefined,
         filter:
-          mo === "slide" && s < 0.99
+          !kineticPhrase && mo === "slide" && s < 0.99
             ? `blur(${(1 - s) * (T.readable ? 8.5 : 10)}px)`
             : undefined,
       };
       const lift =
-        mo === "drop"
+        kineticPhrase
+          ? wf >= 12 ? "none"
+            : mo === "pop" ? `scale(${0.76 + 0.24 * s})`
+            : mo === "bounce" ? `translateY(${-(1 - s) * 34}px)`
+            : mo === "glitch" ? (wf >= 0 && wf < 6
+                ? `translateX(${[7, -5, 3, -2, 1, 0][Math.floor(wf)]}px) skewX(${wf % 2 ? -3 : 3}deg)`
+                : "none")
+            : `translateX(${(dx || 1) * (1 - s) * 48}px)`
+          : phrase ? "none" : mo === "drop"
           ? `translateY(${-(1 - s) * (T.readable ? 94 : 110)}%)`
           : mo === "slide"
             ? `translate(${dx * (1 - s) * (T.readable ? 1.19 : 1.4)}em, ${dy * (1 - s) * (T.readable ? 1.19 : 1.4)}em)`
@@ -320,6 +335,9 @@ export const kineticCaptions = (
         fontWeight: w.key ? T.keyWeight : T.smallWeight,
         textTransform: w.key ? (T.keyCase ?? "uppercase") : undefined,
         letterSpacing: w.key ? (T.keySpacing ?? "-0.03em") : "-0.01em",
+        ...(kineticPhrase && mo === "glitch" && wf >= 0 && wf < 6
+          ? { textShadow: `3px 0 ${T.accent}, -3px 0 rgba(101,30,30,0.9)` }
+          : {}),
         // color in: najpierw sam kontur, potem litery zalewają się kolorem
         ...(mo === "color" && fill < 1
           ? {
@@ -617,7 +635,8 @@ export const kineticOverlay = (
 
     // Przebitka: pełny kadr, powolny najazd, opcjonalna metka (np. „BALI · INDONEZJA”).
     if (o.type === "media" && o.fit !== "card" && o.src) {
-      const fade = Math.min(
+      const overlay = o.fit === "overlay";
+      const fade = overlay ? 1 : Math.min(
         interpolate(f, [0, 8], [0, 1], clamp),
         interpolate(f, [dur - 8, dur], [1, 0], clamp),
       );
@@ -625,7 +644,7 @@ export const kineticOverlay = (
         width: "100%",
         height: "100%",
         objectFit: "cover",
-        transform: `scale(${interpolate(f, [0, dur], [1.08, 1])})`,
+        transform: overlay ? undefined : `scale(${interpolate(f, [0, dur], [1.08, 1])})`,
       };
       return (
         <AbsoluteFill style={{ opacity: fade }}>
@@ -640,11 +659,11 @@ export const kineticOverlay = (
           ) : (
             <Img src={src(o.src)} style={media} />
           )}
-          <AbsoluteFill
+          {!overlay && <AbsoluteFill
             style={{
               background: `linear-gradient(180deg, rgba(${T.shade},0.3) 0%, transparent 22%, transparent 52%, rgba(${T.shade},0.55) 100%)`,
             }}
-          />
+          />}
           {o.text && (
             <div
               style={{

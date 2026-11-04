@@ -64,6 +64,7 @@ export async function inputFiles(root, reelName, data) {
     ameryka: ["ameryka", "bisanz", "skyclass"],
     glowup: ["glowup", "ameryka", "bisanz", "skyclass"],
     vital: ["vital", "ameryka", "bisanz", "skyclass"],
+    oskar: ["oskar", "vital", "ameryka", "bisanz", "skyclass"],
     happynews: ["happynews", "glowup", "ameryka", "bisanz", "skyclass"],
   };
   const styles = styleDependencies[data?.style ?? "persona"];

@@ -1,3 +1,7 @@
+## Nowy klient Oskar Stuglik — 2026-11-02
+
+- Folder `klienci/oskar-stuglik/`, profil `klienci/oskar-stuglik/PREFERENCJE.md`, styl `oskar`. Fonty Cabinet 800 i Satoshi 400; kolory `#EFEDE5`, `#6D1E32`, `#193548`, `#24343B`, `#EFCBD3`. Na razie VSL zachęcający do 15-minutowej konsultacji: napisy na dole po 5–7 słów, podkreślenia ważnych słów, animacje po prawej, przebitki Pexels, wykresy i porównania z researchem, wszystkie przemiany podopiecznych. Do tego subtelne efekty dźwiękowe.
+
 ## Aktualizacja GitHub — 2026-10-29
 
 - Wysyłać aktualną wersję aplikacji bez filmów, surowych nagrań, renderów, prywatnych projektów, kreacji klientów i lokalnych plików roboczych. Zachować kod, style, profile i zasoby wymagane przez aplikację.
@@ -317,3 +321,9 @@ Kadr 1080×1920. Napisy, grafiki, logo i CTA trzymam tam, gdzie nie zasłoni ich
 ## QuickContent: opis do istniejącego renderu — 2026-10-20
 
 - Naprawić blokadę generowania opisu przy wyrenderowanych filmach. Zmiana kodu silnika lub wskazówek opisu nie może wymuszać ponownego renderu dla samego opisu. Zachować kontrolę zgodności rewizji montażu i istnienia sprawdzonego MP4; opis nie uruchamia montażu ani renderowania.
+
+## Płynne kadrowanie i ujednolicenie przeskoków (Kacper Bisanz: Priority Pass) — 2026-11-02
+
+- Rolka „Salonik na lotnisku bez płacenia za Priority Pass” (`qc-2a29733b13f1ff96-cf365d71ce23de07`): kadrowanie na twarz ma być płynne i stabilne (stabilny, wyśrodkowany kadr bez poszarpanego śledzenia i bez nagłych skoków w lewo/prawo) oraz bez skoków pionowych przy scenach z kartą (stałe, spokojne uniesienie `lift` per scena).
+- Ujednolicenie przeskoków ujęć: wyeliminować szarpane przeskoki kamer w materiale źródłowym. W miejscach cięć dociągnąć przebitki B-roll oraz sceny animowane, eliminując mikro-luki i nagłe przeskoki między planszami a mówcą. Montaż ma być smooth i estetyczny.
+

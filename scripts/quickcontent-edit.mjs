@@ -79,6 +79,50 @@ const clean = (v) =>
             .map(([k, x]) => [k, clean(x)]),
         )
       : v;
+function alignWordsWithOriginal(beforeCaptions, proposedCaptions) {
+  if (!proposedCaptions || !beforeCaptions) return proposedCaptions;
+  const originalWords = beforeCaptions.flatMap((g) => g.words ?? []);
+  let cursor = 0;
+  for (const group of proposedCaptions) {
+    if (!group?.words) continue;
+    for (const w of group.words) {
+      if (!w) continue;
+      let foundIndex = originalWords.findIndex(
+        (o, idx) => idx >= cursor && o.start === w.start && o.end === w.end,
+      );
+      if (foundIndex < 0) {
+        foundIndex = originalWords.findIndex(
+          (o, idx) =>
+            idx >= cursor &&
+            Math.abs(o.start - w.start) <= 0.6 &&
+            Math.abs(o.end - w.end) <= 0.6,
+        );
+      }
+      if (foundIndex < 0) {
+        const cleanT = (s) =>
+          String(s || "")
+            .toLowerCase()
+            .replace(/[^\p{L}\p{N}]/gu, "");
+        const targetT = cleanT(w.text);
+        if (targetT) {
+          foundIndex = originalWords.findIndex(
+            (o, idx) =>
+              idx >= cursor &&
+              idx < cursor + 20 &&
+              cleanT(o.text) === targetT,
+          );
+        }
+      }
+      if (foundIndex >= cursor) {
+        const orig = originalWords[foundIndex];
+        w.start = orig.start;
+        w.end = orig.end;
+        cursor = foundIndex + 1;
+      }
+    }
+  }
+  return proposedCaptions;
+}
 export function applyEditResult(before, result, context = {}) {
   if (result?.version === 3) {
     const parsed = (
@@ -108,12 +152,15 @@ export function applyEditResult(before, result, context = {}) {
   const r = resultSchema.parse(result);
   if (r.overlaysToRemove.some((i) => i >= (before.overlays?.length ?? 0)))
     throw new Error("Operator wskazał nieistniejącą grafikę do usunięcia.");
+  const alignedCaptions = r.data.captions
+    ? alignWordsWithOriginal(before.captions, r.data.captions)
+    : null;
   const applied = {
     summary: r.summary,
     data: {
       ...before,
-      captions: r.data.captions
-        ? r.data.captions.map((group) =>
+      captions: alignedCaptions
+        ? alignedCaptions.map((group) =>
             retainCaptionMetadata(before.captions, group),
           )
         : before.captions,

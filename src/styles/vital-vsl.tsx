@@ -14,17 +14,36 @@ import type { OverlayProps } from "./bisanz";
 // Vital Hormone — VSL poziomy (1920×1080) na vital-hormone.pl/lp/. Panel zakrywa połowę kadru z osobą,
 // która nie mówi; hasła, przebitki i plansza końcowa na pełnym kadrze. Zasady: klienci/vital-hormone/PREFERENCJE.md
 // (sekcja „VSL na landing page”). Ruch: jedna krzywa (0.2, 0, 0, 1), wejście 0,5 s, wyjście 8 klatek.
-const VIOLET = "#230C4A";
-const VIOLET2 = "#2C1651";
-const PAPER = "#F8F9FA";
-const INK = "#1A1C1D";
-const LIME = "#D9F99D";
-const MUTED = "#B9B3C9";
-const LINE = "rgba(217,249,157,0.18)";
-const MONT = "Montserrat, sans-serif";
-const JAKARTA = "'Plus Jakarta Sans', sans-serif";
-const DISCLAIMER =
-  "Efekty są indywidualne i zależą m.in. od diety, treningu i stylu życia.";
+// Paleta VSL. Domyślnie Vital Hormone; inny klient podmienia ją przez `setVslPalette` (np. styl `oskar`).
+// ponytail: paleta modułowa, ustawiana w VslOverlay przed renderem dzieci — jedna kompozycja = jeden styl;
+// gdyby dwa style VSL renderowały się w jednym drzewie, przejść na React context.
+export type VslPalette = {
+  bg: string; bg2: string; paper: string; ink: string; accent: string; muted: string;
+  line: string; head: string; body: string; disclaimer: string;
+  bgRgb: string; accentRgb: string; inkRgb: string;
+};
+export const VITAL_VSL: VslPalette = {
+  bg: "#230C4A",
+  bg2: "#2C1651",
+  paper: "#F8F9FA",
+  ink: "#1A1C1D",
+  accent: "#D9F99D",
+  muted: "#B9B3C9",
+  line: "rgba(217,249,157,0.18)",
+  head: "Montserrat, sans-serif",
+  body: "'Plus Jakarta Sans', sans-serif",
+  disclaimer: "Efekty są indywidualne i zależą m.in. od diety, treningu i stylu życia.",
+  bgRgb: "35,12,74",
+  accentRgb: "217,249,157",
+  inkRgb: "26,28,29",
+};
+let VIOLET = "", VIOLET2 = "", PAPER = "", INK = "", LIME = "", MUTED = "", LINE = "";
+let MONT = "", JAKARTA = "", DISCLAIMER = "", BG_RGB = "", ACC_RGB = "", INK_RGB = "";
+export const setVslPalette = (p: VslPalette) => {
+  ({ bg: VIOLET, bg2: VIOLET2, paper: PAPER, ink: INK, accent: LIME, muted: MUTED, line: LINE,
+    head: MONT, body: JAKARTA, disclaimer: DISCLAIMER, bgRgb: BG_RGB, accentRgb: ACC_RGB, inkRgb: INK_RGB } = p);
+};
+setVslPalette(VITAL_VSL);
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const CURVE = Easing.bezier(0.2, 0, 0, 1);
@@ -228,7 +247,7 @@ const Shell: React.FC<{
           overflow: "hidden",
           background: bg,
           clipPath: clip,
-          boxShadow: full ? undefined : "0 30px 80px rgba(26,28,29,0.45)",
+          boxShadow: full ? undefined : `0 30px 80px rgba(${INK_RGB},0.45)`,
           outline: full ? undefined : `1px solid ${LINE}`,
           outlineOffset: -1,
           color: PAPER,
@@ -256,7 +275,7 @@ const Shell: React.FC<{
             width: 6,
             borderRadius: 3,
             background: LIME,
-            boxShadow: "0 0 24px rgba(217,249,157,0.7)",
+            boxShadow: `0 0 24px rgba(${ACC_RGB},0.7)`,
           }}
         />
       )}
@@ -309,7 +328,7 @@ const Glow: React.FC<{ f: number; x?: string; y?: string }> = ({
     style={{
       position: "absolute",
       inset: 0,
-      background: `radial-gradient(circle at ${x} ${y}, rgba(217,249,157,${0.1 + 0.04 * Math.sin(f / 22)}) 0%, transparent 55%)`,
+      background: `radial-gradient(circle at ${x} ${y}, rgba(${ACC_RGB},${0.1 + 0.04 * Math.sin(f / 22)}) 0%, transparent 55%)`,
     }}
   />
 );
@@ -355,14 +374,14 @@ const Tag: React.FC<{ text: string; p: number; light?: boolean }> = ({
       gap: 14,
       padding: "12px 22px",
       borderRadius: 100,
-      background: light ? LIME : "rgba(35,12,74,0.88)",
+      background: light ? LIME : `rgba(${BG_RGB},0.88)`,
       color: light ? VIOLET : PAPER,
       fontFamily: JAKARTA,
       fontWeight: 700,
       fontSize: 26,
       opacity: p,
       transform: `translateY(${(1 - p) * 20}px)`,
-      boxShadow: "0 10px 30px rgba(26,28,29,0.35)",
+      boxShadow: `0 10px 30px rgba(${INK_RGB},0.35)`,
     }}
   >
     {!light && (
@@ -428,7 +447,7 @@ const PanelMedia: React.FC<OverlayProps> = ({ o, dur, src, at }) => {
               position: "absolute",
               inset: 0,
               background:
-                "linear-gradient(180deg, rgba(35,12,74,0.15) 0%, transparent 35%, rgba(35,12,74,0.65) 100%)",
+                `linear-gradient(180deg, rgba(${BG_RGB},0.15) 0%, transparent 35%, rgba(${BG_RGB},0.65) 100%)`,
             }}
           />
           {clips[idx]?.text && (
@@ -590,7 +609,7 @@ const FullWall: React.FC<OverlayProps> = ({ o, src }) => {
           <AbsoluteFill
             style={{
               background:
-                "radial-gradient(ellipse at 50% 50%, rgba(35,12,74,0.82) 0%, rgba(35,12,74,0.55) 45%, rgba(26,28,29,0.25) 100%)",
+                `radial-gradient(ellipse at 50% 50%, rgba(${BG_RGB},0.82) 0%, rgba(${BG_RGB},0.55) 45%, rgba(${INK_RGB},0.25) 100%)`,
             }}
           />
           <div
@@ -613,7 +632,7 @@ const FullWall: React.FC<OverlayProps> = ({ o, src }) => {
                 lineHeight: 1.05,
                 letterSpacing: "-0.02em",
                 marginTop: 14,
-                textShadow: "0 8px 40px rgba(26,28,29,0.6)",
+                textShadow: `0 8px 40px rgba(${INK_RGB},0.6)`,
               }}
             >
               <Marked
@@ -695,7 +714,7 @@ const BeforeAfter: React.FC<OverlayProps> = ({ o, dur, src }) => {
                       overflow: "hidden",
                       transform: `translateX(${(1 - p) * 60}%) scale(${0.92 + 0.08 * p})`,
                       opacity: Math.min(1, p * 2),
-                      boxShadow: "0 20px 50px rgba(26,28,29,0.5)",
+                      boxShadow: `0 20px 50px rgba(${INK_RGB},0.5)`,
                     }}
                   >
                     <Img
@@ -715,7 +734,7 @@ const BeforeAfter: React.FC<OverlayProps> = ({ o, dur, src }) => {
                         marginLeft: -2,
                         height: `${ez(f, fps, i * slot + 0.3, 0.5) * 100}%`,
                         background: LIME,
-                        boxShadow: "0 0 18px rgba(217,249,157,0.8)",
+                        boxShadow: `0 0 18px rgba(${ACC_RGB},0.8)`,
                       }}
                     />
                     {["Przed", "Po"].map((label, k) => (
@@ -727,7 +746,7 @@ const BeforeAfter: React.FC<OverlayProps> = ({ o, dur, src }) => {
                           [k ? "right" : "left"]: 18,
                           padding: "8px 18px",
                           borderRadius: 100,
-                          background: k ? LIME : "rgba(35,12,74,0.88)",
+                          background: k ? LIME : `rgba(${BG_RGB},0.88)`,
                           color: k ? VIOLET : PAPER,
                           fontWeight: 700,
                           fontSize: 22,
@@ -784,7 +803,7 @@ const Stat: React.FC<OverlayProps> = ({ o, src }) => {
                 transform: `scale(${0.85 + 0.15 * p})`,
                 transformOrigin: "left center",
                 opacity: Math.min(1, p * 2),
-                textShadow: "0 0 60px rgba(217,249,157,0.25)",
+                textShadow: `0 0 60px rgba(${ACC_RGB},0.25)`,
                 whiteSpace: "nowrap",
               }}
             >
@@ -1174,7 +1193,7 @@ const Hub: React.FC<OverlayProps> = ({ o, src, at }) => {
                 textAlign: "center",
                 transform: `scale(${core * (1 + 0.02 * Math.sin(f / 15))})`,
                 boxShadow:
-                  "0 0 0 14px rgba(217,249,157,0.12), 0 0 70px rgba(217,249,157,0.3)",
+                  `0 0 0 14px rgba(${ACC_RGB},0.12), 0 0 70px rgba(${ACC_RGB},0.3)`,
               }}
             >
               <div
@@ -1454,7 +1473,7 @@ const Button: React.FC<{
       transform: `scale(${0.7 + 0.3 * p})`,
       opacity: Math.min(1, p * 2),
       boxShadow:
-        "0 0 0 12px rgba(217,249,157,0.12), 0 18px 44px rgba(26,28,29,0.45)",
+        `0 0 0 12px rgba(${ACC_RGB},0.12), 0 18px 44px rgba(${INK_RGB},0.45)`,
       whiteSpace: "nowrap",
     }}
   >
@@ -1650,7 +1669,7 @@ const Statement: React.FC<OverlayProps> = ({ o, src }) => {
     <Shell
       o={full ? { ...o, side: "full" } : o}
       src={src}
-      bg={full ? "rgba(35,12,74,0.96)" : VIOLET}
+      bg={full ? `rgba(${BG_RGB},0.96)` : VIOLET}
     >
       {() => (
         <>
@@ -1761,7 +1780,7 @@ const Broll: React.FC<OverlayProps> = ({ o, dur, src }) => {
       <AbsoluteFill
         style={{
           background:
-            "linear-gradient(180deg, rgba(35,12,74,0.2) 0%, transparent 30%, transparent 55%, rgba(35,12,74,0.7) 100%)",
+            `linear-gradient(180deg, rgba(${BG_RGB},0.2) 0%, transparent 30%, transparent 55%, rgba(${BG_RGB},0.7) 100%)`,
         }}
       />
       {o.text && (
@@ -1783,7 +1802,7 @@ const Endcard: React.FC<OverlayProps> = ({ o, src }) => {
         <>
           <AbsoluteFill
             style={{
-              background: `radial-gradient(circle at 50% ${45 + 3 * Math.sin(f / 30)}%, rgba(217,249,157,0.14) 0%, transparent 55%)`,
+              background: `radial-gradient(circle at 50% ${45 + 3 * Math.sin(f / 30)}%, rgba(${ACC_RGB},0.14) 0%, transparent 55%)`,
             }}
           />
           <div
@@ -1842,7 +1861,7 @@ const Scrim: React.FC = () => (
   <AbsoluteFill
     style={{
       background:
-        "linear-gradient(180deg, transparent 72%, rgba(26,28,29,0.42) 88%, rgba(26,28,29,0.6) 100%)",
+        `linear-gradient(180deg, transparent 72%, rgba(${INK_RGB},0.42) 88%, rgba(${INK_RGB},0.6) 100%)`,
     }}
   />
 );
@@ -1866,7 +1885,11 @@ const KINDS: Record<string, React.FC<OverlayProps>> = {
 export const isVslOverlay = (type: string) =>
   ["panel", "statement", "broll", "endcard", "scrim"].includes(type);
 
-export const VslOverlay: React.FC<OverlayProps> = (props) => {
+export const VslOverlay: React.FC<OverlayProps & { palette?: VslPalette }> = ({
+  palette = VITAL_VSL,
+  ...props
+}) => {
+  setVslPalette(palette);
   const { o } = props;
   if (o.type === "scrim") return <Scrim />;
   if (o.type === "statement") return <Statement {...props} />;

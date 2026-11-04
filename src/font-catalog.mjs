@@ -1,4 +1,12 @@
 export const fontCatalog = [
+  // Oskar Stuglik: Cabinet Grotesk 800 (nagłówki, klucz) + Satoshi 400/700 (Fontshare, ITF FFL).
+  {
+    family: "Cabinet Grotesk",
+    file: "fonts/CabinetGrotesk-Variable.woff2",
+    weight: "100 900",
+  },
+  { family: "Satoshi", file: "fonts/Satoshi-400.woff2", weight: "400" },
+  { family: "Satoshi", file: "fonts/Satoshi-700.woff2", weight: "700" },
   { family: "Montserrat", file: "fonts/Montserrat.ttf", weight: "100 900" },
   {
     family: "Libre Baskerville",

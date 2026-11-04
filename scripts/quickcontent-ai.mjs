@@ -151,7 +151,14 @@ export async function requestQuickContentAI(
     "--mcp-config",
     JSON.stringify({ mcpServers: {} }),
   );
-  if (schema) args.push("--json-schema", JSON.stringify(schema));
+  if (schema) {
+    const cleanSchema = JSON.parse(
+      JSON.stringify(schema, (key, value) =>
+        key === "$schema" ? undefined : value,
+      ),
+    );
+    args.push("--json-schema", JSON.stringify(cleanSchema));
+  }
   const result = await ctx.runTool(
     await (ctx.resolveCLI ?? resolveCLI)(command.cmd),
     args,

@@ -630,12 +630,10 @@ export function createQuickContentService(
         p = await get(id);
         const current = p.candidates.find((v) => v.id === c.id);
         Object.assign(c, current);
-        const data = JSON.parse(
-          await fs.readFile(
-            await safePath(root, `public/reels/${c.reelName}/reel.json`),
-            "utf8",
-          ),
-        );
+        const reelFile = await safePath(root, `public/reels/${c.reelName}/reel.json`);
+        const dataRaw = await fs.readFile(reelFile, "utf8").catch(() => null);
+        if (!dataRaw) continue;
+        const data = JSON.parse(dataRaw);
         const sig = await signature(c.reelName, data);
         for (const r of c.renders) {
           if (

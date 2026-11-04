@@ -65,12 +65,14 @@ import { Ameryka, AmerykaOverlay } from "./styles/ameryka";
 import { Glowup, GlowupOverlay } from "./styles/glowup";
 import { HappyNews, HappyNewsOverlay } from "./styles/happynews";
 import { Vital, VitalOverlay } from "./styles/vital";
+import { Oskar, OskarOverlay } from "./styles/oskar";
 import { FitnessIQ, FitnessIQOverlay } from "./styles/fitnessiq";
 
 // Czasy w reel.json są w sekundach ŹRÓDŁA (surowego nagrania).
 export type Word = { text: string; start: number; end: number };
 export type Dir = "left" | "right" | "top" | "bottom";
 export type CaptionGroup = {
+  reveal?: "phrase" | "kinetic-phrase"; // cała fraza od początku grupy; oryginalne czasy słów pozostają bez zmian
   lineBreak?: number; // Liczba słów pierwszej linii w stylu Herod.
   end?: number;
   effect?: "stamp";
@@ -90,7 +92,8 @@ export type CaptionGroup = {
     | "letters"
     | "color"
     | "bounce"
-    | "wiggle"; // wejście słów (silnik bisanz), domyślnie rise
+    | "wiggle"
+    | "glitch"; // wejście słów (silnik bisanz), domyślnie rise
   y?: number; // środek bloku (ułamek wysokości), np. omijanie tekstu wypalonego w nagraniu
 };
 // zoom = skala kadru; zoomTo = powolny najazd do tej skali w trakcie ujęcia
@@ -163,6 +166,7 @@ export const STYLES: Record<string, React.FC<StyleProps>> = {
   happynews: HappyNews,
   vital: Vital,
   fitnessiq: FitnessIQ,
+  oskar: Oskar,
 };
 
 export type ReelProps = {
@@ -414,7 +418,9 @@ export const Reel: React.FC<ReelProps> = ({
                   ? HappyNewsOverlay
                   : data.style === "fitnessiq"
                     ? FitnessIQOverlay
-                    : OverlayView;
+                    : data.style === "oskar"
+                      ? OskarOverlay
+                      : OverlayView;
   const clips = captionClips(data);
   const inventory = qualityMeasurement
     ? geometryInventory(data, clips, toOut)

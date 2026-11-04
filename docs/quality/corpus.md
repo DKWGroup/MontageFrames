@@ -1,6 +1,6 @@
 # Korpus jakości — inwentaryzacja F1
 
-Data: 2026-10-18; aktualizacja rejestru FitnessIQ: 2026-10-28. **Stan: 100 opisanych przypadków do przypisania i odbioru; 0 przyjętych próbek w nowym korpusie.** [Lista maszynowa](corpus.json), [plan F1](../../plan-wdrozenia-Serwer.md). Nie jest to benchmark obrazu ani dowód naprawienia trackingu.
+Data: 2026-10-18; aktualizacja rejestru FitnessIQ: 2026-10-28, Oskar Stuglik: 2026-11-02. **Stan: 110 opisanych przypadków do przypisania i odbioru; 0 przyjętych próbek w nowym korpusie.** [Lista maszynowa](corpus.json), [plan F1](../../plan-wdrozenia-Serwer.md). Nie jest to benchmark obrazu ani dowód naprawienia trackingu.
 
 ## Zakres i podział
 
@@ -15,6 +15,7 @@ Data: 2026-10-18; aktualizacja rejestru FitnessIQ: 2026-10-28. **Stan: 100 opisa
 | vital | vital-hormone | 10 | 3 / 3 / 4 |
 | happynews | happy-news | 10 | 3 / 3 / 4 |
 | fitnessiq | fitness-iq | 10 | 3 / 3 / 4 |
+| oskar | oskar-stuglik | 10 | 3 / 3 / 4 |
 | brand | własny branding i nowe profile | 10 | 3 / 3 / 4 |
 
 Każdy profil ma niezależne ID i oczekiwanie dla: bazowego wyglądu, długich napisów, źródła poziomego, ciszy, przebitki, liczby, hooka, emotki, korekty i starej wersji. Oczekiwania klientów są doprecyzowane osobno, np. SkyClass z mastera >0, Bisanz bez zoomu, Happy News duo z ekranem i zbliżenie bez panelu. Profile lokalne spoza rejestru korzystają z checklisty własnego brandingu; nazwy prywatnych testowych klientów nie są publikowane w korpusie.

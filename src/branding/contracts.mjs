@@ -64,6 +64,7 @@ export const clientContractSchema = z
       "vital",
       "happynews",
       "fitnessiq",
+      "oskar",
     ]),
     coverage: z.literal("partial"),
     rules: z.array(contractRuleSchema).max(512),

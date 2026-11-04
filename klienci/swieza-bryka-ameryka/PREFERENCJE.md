@@ -131,3 +131,15 @@ Najpierw własny materiał klienta (marka nagrywa każdy etap telefonem), potem 
 - Zachować identyfikację Świeża Bryka Ameryka; zdjęcia, proste diagramy i zestawienia mają ułatwiać zrozumienie.
 - CTA uzgodnione w czacie: telefon ze strony **797 978 478**.
 - **Wyjątek zaakceptowany w czacie 2026-10-24 dla tego zestawu:** uwzględnić parametry z aktualnej strony: maksymalna kwota 150 000 zł, maksymalny okres spłaty 120 miesięcy, minimum 75% kwoty na zakup auta. Nie dopisywać stawki oprocentowania, raty ani RRSO, których strona nie podaje.
+
+## Rolka „Marzenia się spełniają” *(2026-10-29)*
+
+- Zmontować przekazane nagranie w stylu marki, z animacjami dopasowanymi do wypowiedzi i numerem telefonu **797 978 478** na ekranie.
+
+- **Wyjątek dla tej rolki (2026-10-29):** użytkowniczka poleciła „Po prostu zostaw” — zachować oryginalne zdanie o racie od 800 do 1500 zł w dźwięku i napisach. Zgoda dotyczy tego nagrania; bez dopisywania nowych warunków finansowania.
+
+- **Korekta rolki „Marzenia się spełniają” (2026-10-29):** użytkowniczka oceniła oprawę jako toporną i poleciła usunąć dodane logo z tej rolki. Usunąć oba wystąpienia logo oraz pop przypisany do jego wejścia; zachować telefon i pozostały montaż.
+
+- **Czytelność napisów — „Marzenia się spełniają” (2026-10-29):** napisy znikają za szybko i są nieczytelne. W tej rolce pokazywać od razu całe, sensowne frazy, z większą i równą typografią, krótkim spokojnym wejściem i dłuższym podtrzymaniem. Bez rozmywania liter, skakania słów i szybkiej zmiany lewo/prawo. Zachować kolory marki, telefon, brak logo i oryginalne czasy słów.
+
+- **Animacje kinetic — „Marzenia się spełniają” (2026-10-29):** po poprawie czytelności przywrócić wyraźne animacje napisów: pop out, slide, bounce i krótkie glitch. Zachować większe litery, dłuższe grupy i czas na czytanie; animować krótko na wejściu, potem zostawić frazę stabilną. Nie wracać do znikania ostatnich słów podczas ich wejścia.

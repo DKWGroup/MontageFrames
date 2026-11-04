@@ -70,6 +70,7 @@ export const brandingProfileSchema = z
         "vital",
         "happynews",
         "fitnessiq",
+        "oskar",
       ])
       .optional(),
     clientId: clientIdSchema,

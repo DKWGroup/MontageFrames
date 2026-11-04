@@ -94,3 +94,36 @@ Ruch zatwierdzony 2026-10-22 pozostaje; kolory, fonty i logo aktualizuje dostarc
 - **Rolka 7:** gdy zmienia się kadr i ekran się rozmywa (przejście), w tym miejscu efekt dźwiękowy wiatru albo szumu (whoosh). Poziom jak zawsze: 10 dB pod oryginałem.
 - **Rolki 1 i 8b:** bez dodatkowych wytycznych.
 - Styl `fitnessiq` (`src/styles/fitnessiq.tsx`, silnik Bisanza, zakreślacz jak w Ameryce): klucz Druk Wide Medium 500 wersalikami, czarny na limonce; małe słowa Mulish Medium 500, białe z cieniem `#0B0B0B`. Prep wykrywa go po „fitness-iq” w ścieżce.
+
+## Rolka 7 — niskie cinematic SFX, 2026-10-31
+
+- Priorytet: dopracowane napisy w brandingu Fitness IQ; daty jako jeden pełny zapis. Ważne logotypy przy wzmiankach, czytelne i większe.
+- Rozmyte zmiany kadru/ruchy kamery podkreślać niskimi, dynamicznymi, kinowymi whooshami, dopasowanymi do ruchu; głośność względem lokalnej wypowiedzi co najmniej 10 dB ciszej.
+- Finalny render tej rolki zapisać na podłączonym dysku zewnętrznym.
+
+## Korekta rolki 7 — 2026-10-31
+
+- W wypowiedzi jest „półmaraton”, nie „ultramaraton”. Napisy sprawdzać dokładniej z nagraniem; nie kopiować błędnej korekty z poprzedniej transkrypcji.
+- Dotychczasowe syntetyczne whooshe zostały odrzucone: brzmią jak piasek/szorstki szum. Zastąpić je efektami wyszukanymi w internecie, lepiej pasującymi do ruchów kamery: krótkie, gładkie, niskie, kinowe; unikać ziarnistego szurania.
+- Poprawioną wersję zapisać na dysku zewnętrznym, zachowując wcześniejszy eksport.
+
+## Korekta rolki 7 — szybki niski wiatr i wizualizacja, 2026-10-31
+
+- SFX mają brzmieć jak krótki podmuch wiatru w niskich tonach, bez wysokiego pisku, szurania i efektu Dopplera silnika. Odrzucone próbki v003 nie odpowiadają tej intencji.
+- „Wytrzymałości, dynamice i sile” zastąpić animacją/wizualizacją trzech obszarów zamiast napisów. Użyć oficjalnych ikon marki i synchronizacji z wypowiedzią; bez fikcyjnych wyników liczbowych.
+
+## Korekta rolki 7 — miejsca SFX i twarz, 2026-10-31
+
+- Dźwięk wyłącznie przy zmianach ujęć, nigdy w trakcie ujęcia. Dodać dwa inne krótkie niskie warianty i przeplatać trzy efekty, bez wysokich tonów.
+- Napisy przy „scorecard” nie mogą nachodzić na twarz; dopasować pozycję do tego konkretnego ujęcia.
+
+## Seria 2026-11-02 — rolki 3, 4, 6, 8b, sonda1, sonda2
+
+- Zlecenie użytkowniczki: zmontować wszystkie sześć rolek na gotowo. Najważniejsze są napisy w brandingu klienta, do tego ewentualnie subtelne animacje lub wizualizacje podkreślające słowa. Bez rozbudowanych grafik.
+- Materiał jest już wstępnie zmontowany i ma wypalone plansze końcowe (data, Event Zero) oraz pytania u góry kadru. Zachowuję całą długość, bez cięcia ciszy. Na planszach końcowych nie ma napisów, a gdy hak jest już wypalony w nagraniu, nie dokładam drugiego.
+- Źródła: `klienci/fitness-iq/surowe pliki/2026-11-02/`. Wcześniejszy render `fitnessiq-8b.mp4` zostaje bez zmian, a nowy 8b dostaje osobną nazwę.
+- Gotowe rendery tej serii kopiuję też na dysk zewnętrzny: `/Volumes/T7 4TB blck/FitnessIQ/Render/` (polecenie użytkowniczki z 2026-11-02). Rendery w `klienci/fitness-iq/Render/` zostają.
+
+## Nazwa marki = logo zamiast napisu — korekta użytkowniczki 2026-11-03
+
+- Gdy w nagraniu pada „Fitness IQ”, nie piszę nazwy w napisach. W tym momencie pokazuję logo FitnessIQ (poziome, białe, ok. 560 px, ~2,5 s) tuż nad blokiem napisów, pod twarzą. Napis wypowiedzi idzie dalej bez nazwy, a przyimek przed nazwą („na”, „do”, „w”) odpada razem z nią, żeby nie wisiał. Dotyczy wszystkich rolek FitnessIQ, także poprawek serii z 2026-11-02 (stare rendery zostają).

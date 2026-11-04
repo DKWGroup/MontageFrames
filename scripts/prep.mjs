@@ -91,7 +91,7 @@ export function buildReel({ source, words, silences, duration, style = "persona"
   let dir = 0;
   const pauses = silences.map((s) => s.start);
   // glowup: 2–5 słów, przecinek/pauza tnie dopiero od 3 słów — napisy dłużej na ekranie (klienci/glowup-nutrition)
-  const opts = style === "bisanz" ? { maxWords: 6, maxChars: 42, minSoft: 4 } : style === "glowup" || style === "vital" || style === "fitnessiq" ? { maxWords: 5, minSoft: 3 } : {};
+  const opts = style === "bisanz" ? { maxWords: 6, maxChars: 42, minSoft: 4 } : style === "glowup" || style === "vital" || style === "fitnessiq" || style === "oskar" ? { maxWords: 5, minSoft: 3 } : {};
   const captions = groupWords(words, { pauses, ...opts }).map((g, i) => {
     const group = {
       words: g.map(({ text, start, end }) => ({ text, start, end })),
@@ -102,7 +102,7 @@ export function buildReel({ source, words, silences, duration, style = "persona"
     if (/[.!?]$/.test(g.at(-1).text)) dir++; // nowe zdanie = nowy kierunek wjazdu
     return group;
   });
-  return { source, style, ...(branding && { branding }), ...(client && { client }), fps: 30, ...((style === "glowup" || style === "vital" || style === "fitnessiq") && { hold: 0.7 }), segments, captions, overlays: [] };
+  return { source, style, ...(branding && { branding }), ...(client && { client }), fps: 30, ...((style === "glowup" || style === "vital" || style === "fitnessiq" || style === "oskar") && { hold: 0.7 }), segments, captions, overlays: [] };
 }
 
 // Katalog produktów klienta (klienci/<klient>/produkty/produkty.json): ASR myli nazwy („szild” zamiast SHIELD),
@@ -167,7 +167,9 @@ export const styleOf = (input) =>
                 ? "happynews"
                 : /fitness-?iq/i.test(input)
                   ? "fitnessiq"
-                  : "persona";
+                  : /oskar-?stuglik/i.test(input)
+                    ? "oskar"
+                    : "persona";
 
 // Nazwa rolki/klienta: małe litery, bez polskich znaków, myślniki zamiast reszty.
 export const slug = (s) =>

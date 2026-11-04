@@ -84,3 +84,8 @@ klienci/*/materialy-marki/
 klienci/dominik-walczak/przebitki/
 public/longform-pack/
 public/Brandings/FitnessIQ/FITIQLOGO/
+
+# Publikacja 2026-11-04: cache zewnętrznych API, zdjęcia przemian klientów i robocze foldery animacji klientów — nie na GitHuba
+.cache/
+klienci/*/przemiany/
+klienci/*/Animacje/

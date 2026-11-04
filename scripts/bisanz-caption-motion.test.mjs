@@ -215,3 +215,72 @@ test("emoji is a sibling after the word marker and hook backgrounds follow wrapp
     elements(hook).some((e) => e.props.style?.boxDecorationBreak === "clone"),
   );
 });
+
+test("composited media overlays keep their crop, exposure and baked transitions", () => {
+  const View = kineticOverlay(BISANZ);
+  for (const atFrame of [0, 30, 89]) {
+    frame = atFrame;
+    const tree = View({
+      o: { type: "media", fit: "overlay", src: "split.mp4", start: 0, end: 3 },
+      dur: 90,
+      src: (x) => x,
+      at: (x) => x,
+    });
+    assert.equal(tree.props.style.opacity, 1);
+    const video = elements(tree).find((e) => e.props.src === "split.mp4");
+    assert.ok(video);
+    assert.equal(video.props.style.transform, undefined);
+    assert.ok(!elements(tree).some((e) => e.props.style?.background));
+  }
+  frame = 30;
+  const broll = View({
+    o: { type: "media", fit: "full", src: "broll.mp4", start: 0, end: 3 },
+    dur: 90,
+    src: (x) => x,
+    at: (x) => x,
+  });
+  assert.match(elements(broll).find((e) => e.props.src === "broll.mp4").props.style.transform, /scale/);
+  assert.ok(elements(broll).some((e) => e.props.style?.background));
+});
+
+test("phrase reveal shows late words immediately while default word timing stays intact", () => {
+  frame = 4;
+  const Captions = kineticCaptions(BISANZ);
+  const words = [
+    { text: "Zadzwoń", start: 0, end: 0.4, at: 0, key: false, hl: false },
+    { text: "teraz", start: 1.8, end: 2, at: 1.8, key: true, hl: false },
+  ];
+  const render = (reveal) => Captions({
+    group: { words, key: 1, motion: "slide", layout: "inline", ...(reveal ? { reveal } : {}) },
+    words, durationInFrames: 75, raised: false,
+  });
+  const wordOpacity = (tree) => elements(tree)
+    .filter((e) => e.props.style?.display === "inline-block" && e.props.style.opacity !== undefined)
+    .map((e) => e.props.style.opacity);
+  assert.deepEqual(wordOpacity(render("phrase")), [1, 1]);
+  assert.deepEqual(wordOpacity(render()), [1, 0]);
+  const phrase = elements(render("phrase"));
+  assert.ok(phrase.filter((e) => e.props.style?.transform === "none").length >= words.length);
+  assert.ok(!phrase.some((e) => e.props.style?.filter?.startsWith("blur(")));
+});
+
+test("kinetic phrases have distinct short entrances and fully settle before reading time ends", () => {
+  const Captions = kineticCaptions(BISANZ);
+  const words = [
+    { text: "Wymarzone", start: 0, end: .4, at: 0, key: false, hl: false },
+    { text: "auto", start: 1.8, end: 2, at: 1.8, key: true, hl: false },
+  ];
+  for (const [motion, expected] of [["pop", "scale("], ["slide", "translateX("], ["bounce", "translateY("], ["glitch", "skewX("]]) {
+    const render = () => Captions({
+      group: { words, key: 1, motion, layout: "inline", reveal: "kinetic-phrase", from: "left" },
+      words, durationInFrames: 36, raised: false,
+    });
+    frame = 4;
+    assert.ok(elements(render()).some(e => e.props.style?.transform?.includes(expected)), motion);
+    frame = 24;
+    const settled = elements(render());
+    assert.ok(settled.filter(e => e.props.style?.transform === "none").length >= words.length, motion);
+    assert.ok(!settled.some(e => e.props.style?.filter?.startsWith("blur(")), motion);
+    assert.ok(!settled.some(e => e.props.style?.opacity === 0), motion);
+  }
+});

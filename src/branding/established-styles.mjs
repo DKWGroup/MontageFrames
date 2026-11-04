@@ -104,6 +104,20 @@ export const establishedStyles = {
     size: 54,
     emojiEnabled: false,
   },
+  oskar: {
+    description:
+      "Oskar Stuglik: Cabinet Grotesk 800 i Satoshi 400; krem, bordo, granat i róż. Kinetic subtitles z różową kreską pod kluczem, bordowe karty VSL.",
+    fonts: ["Cabinet Grotesk 800", "Satoshi 400/700"],
+    colors: ["#EFEDE5", "#6D1E32", "#193548", "#24343B", "#EFCBD3"],
+    requiredFonts: [
+      "fonts/CabinetGrotesk-Variable.woff2",
+      "fonts/Satoshi-400.woff2",
+      "fonts/Satoshi-700.woff2",
+    ],
+    position: 0.88,
+    size: 46,
+    emojiEnabled: false,
+  },
   happynews: {
     description:
       "Newsowy styl z różowym markerem, kluczem Bebas Neue i małymi słowami Poppins.",
